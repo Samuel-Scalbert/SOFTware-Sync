@@ -1,0 +1,13 @@
+<root>
+    <person>
+        <name>John Doe</name>
+        <age>30</age>
+        <city>New <important> York </important></city>
+    </person>
+    <p>Bonjour je m'appelle Samuel</p>
+    <person>
+        <name>Jane Smith</name>
+        <age>25</age>
+        <city>London</city>
+    </person>
+</root>

@@ -19,4 +19,4 @@ if __name__ == "__main__":
 
     if sys.argv[1] == "--dif":
         xml_enhance_json(xml_path, json_path)
-        print("// DIF_CHECKER ====> info logged in dif_checker.log")
+        #print("// DIF_CHECKER ====> info logged in dif_checker.log")
