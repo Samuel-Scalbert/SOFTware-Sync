@@ -1,89 +1,133 @@
 import xml.etree.ElementTree as ET
-def wizzard_xml_json(context, offsetStart,offsetEnd,software, p):
+import copy
+import difflib
+
+def dif_checker(str1, str2):
+    modification = 0
+    for i, s in enumerate(difflib.ndiff(str1, str2)):
+        if s[0] == ' ':
+            continue
+        elif s[0] == '-':
+            modification += 1
+            print(u'Delete "{}" from position {}'.format(s[-1], i))
+        elif s[0] == '+':
+            modification += 1
+            print(u'Add "{}" to position {}'.format(s[-1], i))
+    if modification > 1:
+        print(str1)
+        print(str2)
+
+def wizzard_xml_json2(p, software_mentions):
     p_string = "".join(p.itertext())
+    saved_p_string = p_string
     sub_tags_list = []
+    original_sub_tags_list = []
     ET.register_namespace('', "http://www.tei-c.org/ns/1.0")
 
-    index_context = p_string.find(context)
-    if index_context != -1:
-        offsetStart_full_str = index_context + offsetStart
-        offsetEnd_full_str = index_context + offsetEnd
-        p_string_alt = p_string[:offsetStart_full_str] + "@" + software
-        p_string_alt += p_string[offsetEnd_full_str:]
-        str_alt_index = p_string_alt.find("@" + software)
-        #print(p_string_alt)
-        list_p = list(p)
-        for elm in list_p:
+    for elm in list(p):
+        if elm.tail != None:
+            index = p_string.find(elm.text, p_string.find(elm.tail) - len(elm.text), len(p_string) )
+        else:
             index = p_string.find(elm.text)
-            if index != -1:
-                if elm.tag == "software":
-                    sub_tags_list.append([elm.tag, elm.text, elm.tail, index, "software"])
-                else:
-                    sub_tags_list.append([elm.tag, elm.text, elm.tail, index, "sub-element"])
-            p.remove(elm)
-
-        sub_tags_list = sorted(sub_tags_list, key=lambda x: x[3])
-        nb = 0
-        for tag_name, tag_content, tail, index, type in sub_tags_list:
-            if str_alt_index != -1 and nb == 0:
-                if str_alt_index < sub_tags_list[nb][3]:
-                    p.text = p_string_alt[:str_alt_index]
-                    tail_software = p_string_alt[str_alt_index + 1 + len(software):sub_tags_list[nb][3]]
-                    software_list = ['software', software, tail_software, str_alt_index, 'software']
-                    sub_tags_list = sub_tags_list[:nb] + [software_list] + sub_tags_list[nb:]
-            nb += 1
-            if str_alt_index != -1:
-                try:
-                    if str_alt_index > index and str_alt_index < sub_tags_list[nb][3]:
-                        sub_tags_list[nb-1][2] = p_string_alt[index-1:str_alt_index]
-                        tail_software = p_string_alt[str_alt_index + 1 + len(software):sub_tags_list[nb][3]]
-                        software_list = ['software', software, tail_software,str_alt_index,'software']
-                        sub_tags_list = sub_tags_list[:nb] + [software_list] + sub_tags_list[nb:]
-                except IndexError:
-                    if str_alt_index > sub_tags_list[len(sub_tags_list)-1][3]:
-                        sub_tags_list[nb - 1][2] = p_string_alt[index - 1:str_alt_index]
-                        tail_software = p_string_alt[str_alt_index + 1 + len(software):]
-                        software_list = ['software', software, tail_software, str_alt_index, 'software']
-                        sub_tags_list = sub_tags_list[:nb] + [software_list] + sub_tags_list[nb:]
-
-        for tag_name, tag_content, tail, index, type in sub_tags_list:
-            tag = ET.Element(tag_name)
-            tag.tail = tail
-            if type == "software":
-                print("found one !", index, tag_content)
-                if tag_content == software:
-                    tag.text = tag_content
-                else :
-                    print("problem with :", software)
+        if index != -1:
+            if elm.attrib:
+                attributes_dict = elm.attrib
+                original_sub_tags_list.append([elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict])
             else:
-                tag.text = tag_content
-            p.append(tag)
+                attributes_dict = None
+                original_sub_tags_list.append([elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict])
 
-        return p
+    full_list_software = []
+    for software_mention in software_mentions:
+        if software_mention["software-type"] == "software":
+            software = software_mention["software-name"]["rawForm"]
+            context = software_mention["context"]
+            if software.find('\n') != -1:
+                software = software.replace("\n", "")
+                offsetStart = software_mention["software-name"]["offsetStart"] - 1
+                offsetEnd = software_mention["software-name"]["offsetEnd"] - 1
+            else:
+                offsetStart = software_mention["software-name"]["offsetStart"]
+                offsetEnd = software_mention["software-name"]["offsetEnd"]
+        index_context = p_string.find(context)
+        if index_context != -1:
+            offsetStart_full_str = index_context + offsetStart
+            offsetEnd_full_str = index_context + offsetEnd
+            software_list = ['software', software, None, offsetStart_full_str, 'software', None]
+            full_list_software.append(software_list)
+    if not full_list_software:
+        return False
+    list_len = len(full_list_software) + len(original_sub_tags_list)
+    full_list_software = sorted(full_list_software, key=lambda x: x[3])
+    for tags in full_list_software:
+        str_alt_index = tags[3]
+        software = tags[1]
+        nb = 0
+        for elm in range(len(original_sub_tags_list)):
+            if str_alt_index < original_sub_tags_list[nb][3] and nb == 0:
+                old_string = p.text
+                new_p_text = p_string[:str_alt_index]
+                tail_software = p_string[str_alt_index + len(software):original_sub_tags_list[nb][3]]
+                if len(tail_software) == 0:
+                    tail_software = ' '
+                if new_p_text + software + tail_software == old_string:
+                    p.text = new_p_text
+                    software_list = ['software', software, tail_software, str_alt_index, 'software', None]
+                    original_sub_tags_list.append(software_list)
+                    print(f'{software} was added to the list')
+                    original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+                    break
+                else:
+                    #print(f'old_p_string : "{old_string}"\n new_p_text : "{new_p_text}"\n new_software_tail : "{tail_software}"')
+                    print(f'\nCRITICAL : {software}(start) : CRITICAL\n')
+            try:
+                if str_alt_index > original_sub_tags_list[nb][3] and str_alt_index < original_sub_tags_list[nb+1][3]:
+
+                    old_string = original_sub_tags_list[nb][2]
+                    new_tail_prior_tag = p_string[original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1]): str_alt_index]
+                    tail_software =p_string[str_alt_index + len(software):original_sub_tags_list[nb+1][3]]
+
+                    if len(tail_software) == 0:
+                        tail_software = ' '
+                    if new_tail_prior_tag + software +tail_software == old_string:
+                        software_list = ['software', software, tail_software, str_alt_index, 'software', None]
+                        original_sub_tags_list[nb][2] = new_tail_prior_tag
+                        original_sub_tags_list.append(software_list)
+                        print(f'{software} was added to the list')
+                        original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+                        break
+                    else:
+                        print(f'\nCRITICAL : {software}(middle) : CRITICAL\n')
+            except IndexError:
+                if str_alt_index > original_sub_tags_list[len(original_sub_tags_list)-1][3]:
+                    old_string = original_sub_tags_list[len(original_sub_tags_list)-1][2]
+                    new_tail_prior_tag = p_string[original_sub_tags_list[len(original_sub_tags_list)-1][3] + len(original_sub_tags_list[len(original_sub_tags_list)-1][1]):str_alt_index]
+                    tail_software = p_string[str_alt_index + len(software):]
+                    if len(tail_software) == 0:
+                        tail_software = ' '
+                    if new_tail_prior_tag + software + tail_software == old_string:
+                        software_list = ['software', software, tail_software, str_alt_index, 'software', None]
+                        original_sub_tags_list[len(original_sub_tags_list) - 1][2] = new_tail_prior_tag
+                        original_sub_tags_list.append(software_list)
+                        print(f'{software} was added to the list')
+                        original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+                        break
+                    else:
+                        #print(f'old_p_string : "{old_string}"\n new_ref_tail : "{original_sub_tags_list[len(original_sub_tags_list)-1][2]}"\n new_software_tail : "{tail_software}"')
+                        print(f'\nCRITICAL : {software}(end) : CRITICAL\n')
+            original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+            nb += 1
+    if len(original_sub_tags_list) == list_len:
+        print(f'THE JOB IS DONE {len(original_sub_tags_list)}/{list_len}\n')
     else:
-        return p
-    #print(modified_xml)
+        print(f'CRITICAL: all the elements are not in the <p>')
 
-
-'''
-xml = ('<root><p>The importance of allele-specific PCR systems for reliable SNP typing has been demonstrated several times in previous studies <ref type="bibr" target="#b55">(Wu et al., 1989;</ref><ref type="bibr" target="#b53">Wei et al., 2006)</ref>. Introduction of additional mismatch bases has improved the specificity of this technique <ref type="bibr" target="#b11">(Drenkard et al., 2000)</ref>. Its application is especially important for an accurate discrimination of different alleles in MAS. In the present study, only one pair of ASPs was used to amplify the specific products from the dehydration-tolerant and sensitive accessions. Therefore, the ASM can be effectively used to type SNPs as well as to avoid unambiguous false scoring. The functional differences in trait performance mainly caused by SNPs has also been reported in previous studies on several cloned genes <ref type="bibr" target="#b38">(Peng et al., 1999;</ref><ref type="bibr" target="#b50">Takahashi et al., 2001;</ref><ref type="bibr" target="#b29">Liu et al., 2002;</ref><ref type="bibr" target="#b22">Jin et al., 2003;</ref><ref type="bibr" target="#b52">Toshiyuki et al., 2003;</ref><ref type="bibr" target="#b24">Kim et al., 2005;</ref><ref type="bibr" target="#b17">Garce ´s-Claver et al., 2007;</ref><ref type="bibr" target="#b15">Fan et al., 2009)</ref>. Molecular markerassisted breeding technology is a rapid and accurate method for any candidate gene, providing a very effective tool for backcross breeding <ref type="bibr" target="#b8">(Collard and Mackill, 2008)</ref>. MAS efficiency is influenced by several complex factors such as recombination between the marker and the candidate gene, a low level of polymorphism between the parents with contrasting traits, and lower resolution of quantitative trait loci (QTLs) due to environmental interactions. In the present study, the ASM is part of the candidate gene, thus eliminating the main disadvantage of MAS. However, the ASM developed in this study is a dominant marker, and therefore it cannot distinguish the heterozygotes. The marker has high reliability and efficiency, and the desired PCR product can be identified easily on a simple agarose gel. With the help of this marker, dehydration-tolerant accessions can be selected at a variety of life stages. This is particularly true when the target is the dehydration-tolerant allele in backcross breeding and thus the foxtail millet breeding process can be accelerated. Further, the ASM identified would facilitate allele mining of foxtail millet germplasm resources, thereby leading to identification and utilization of newer alleles in crop improvement.</p></root>')
-root = ET.fromstring(xml)
-
-context = "The reliability of the model structure was tested using the ENERGY commands of MODELLER (Sali and Blundell, 1993)."
-offsetStart = 79
-offsetEnd = 87
-software = "MODELLER"
-
-context = "The modelled structures were also validated using the program PROSA (Wiederstein and Sippl, 2007)."
-offsetStart = 62
-offsetEnd = 67
-software = "PROSA"
-
-
-context = "MAS efficiency is influenced by several complex factors such as recombination between the marker and the candidate gene, a low level of polymorphism between the parents with contrasting traits, and lower resolution of quantitative trait loci (QTLs) due to environmental interactions."
-offsetStart = 0
-offsetEnd = 3
-software = "MAS"
-
-p = root.find('p')
-'''
+    final_p_string = p.text
+    for elm in original_sub_tags_list:
+        if elm[2] == None:
+            final_p_string += " "
+        if elm[1]:
+            final_p_string += elm[1]
+        if elm[2]:
+            final_p_string += elm[2]
+    dif_checker(final_p_string, saved_p_string)
