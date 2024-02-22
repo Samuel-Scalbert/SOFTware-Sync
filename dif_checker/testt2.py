@@ -120,7 +120,9 @@ def wizzard_xml_json2(p, software_mentions):
     if len(original_sub_tags_list) == list_len:
         print(f'THE JOB IS DONE {len(original_sub_tags_list)}/{list_len}\n')
     else:
-        print(f'CRITICAL: all the elements are not in the <p>')
+        if len(software_list) >= 1:
+            print(software_list)
+            print(f'CRITICAL: all the elements are not in the <p>')
 
     final_p_string = p.text
     for elm in original_sub_tags_list:
