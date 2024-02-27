@@ -2,14 +2,24 @@ import xml.etree.ElementTree as ET
 import copy
 import difflib
 
-def dif_checker(str1, str2):
+def contains_special_characters(text):
+    for char in text:
+        if ord(char) < 32 or ord(char) > 126:
+            return True  # Special character found
+    return False
+
+def dif_string_checker(str1, str2):
     modification = 0
+    list_modification = []
     for i, s in enumerate(difflib.ndiff(str1, str2)):
         if s[0] == ' ':
             continue
         elif s[0] == '-':
-            modification += 1
-            print(u'Delete "{}" from position {}'.format(s[-1], i))
+            if s[-1] == ' ':
+                pass
+            else:
+                modification += 1
+                print(u'Delete "{}" from position {}'.format(s[-1], i))
         elif s[0] == '+':
             modification += 1
             print(u'Add "{}" to position {}'.format(s[-1], i))
@@ -26,7 +36,9 @@ def wizzard_xml_json2(p, software_mentions):
 
     for elm in list(p):
         if elm.tail != None:
-            index = p_string.find(elm.text, p_string.find(elm.tail) - len(elm.text), len(p_string) )
+            index = p_string.find(elm.text, p_string.find(elm.tail) - len(elm.text), len(p_string))
+            if index == -1:
+                index = p_string.find(elm.text)
         else:
             index = p_string.find(elm.text)
         if index != -1:
@@ -36,7 +48,6 @@ def wizzard_xml_json2(p, software_mentions):
             else:
                 attributes_dict = None
                 original_sub_tags_list.append([elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict])
-
     full_list_software = []
     for software_mention in software_mentions:
         if software_mention["software-type"] == "software":
@@ -57,8 +68,10 @@ def wizzard_xml_json2(p, software_mentions):
             full_list_software.append(software_list)
     if not full_list_software:
         return False
+
     list_len = len(full_list_software) + len(original_sub_tags_list)
     full_list_software = sorted(full_list_software, key=lambda x: x[3])
+    print(full_list_software)
     for tags in full_list_software:
         str_alt_index = tags[3]
         software = tags[1]
@@ -74,30 +87,30 @@ def wizzard_xml_json2(p, software_mentions):
                     p.text = new_p_text
                     software_list = ['software', software, tail_software, str_alt_index, 'software', None]
                     original_sub_tags_list.append(software_list)
-                    print(f'{software} was added to the list')
+                    print(f'{software} was added to the list (start)')
                     original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                     break
                 else:
                     #print(f'old_p_string : "{old_string}"\n new_p_text : "{new_p_text}"\n new_software_tail : "{tail_software}"')
-                    print(f'\nCRITICAL : {software}(start) : CRITICAL\n')
+                    print(f'CRITICAL : {software}(start) : CRITICAL')
             try:
                 if str_alt_index > original_sub_tags_list[nb][3] and str_alt_index < original_sub_tags_list[nb+1][3]:
-
                     old_string = original_sub_tags_list[nb][2]
                     new_tail_prior_tag = p_string[original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1]): str_alt_index]
                     tail_software =p_string[str_alt_index + len(software):original_sub_tags_list[nb+1][3]]
-
                     if len(tail_software) == 0:
                         tail_software = ' '
-                    if new_tail_prior_tag + software +tail_software == old_string:
+                    if new_tail_prior_tag + software + tail_software == old_string:
                         software_list = ['software', software, tail_software, str_alt_index, 'software', None]
                         original_sub_tags_list[nb][2] = new_tail_prior_tag
                         original_sub_tags_list.append(software_list)
-                        print(f'{software} was added to the list')
+                        print(f'{software} was added to the list (middle)')
                         original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                         break
                     else:
-                        print(f'\nCRITICAL : {software}(middle) : CRITICAL\n')
+                        #dif_string_checker(old_string,new_tail_prior_tag + software + tail_software)
+                        #print(f'old_p_string : "{old_string}"\n new_ref_tail : "{new_tail_prior_tag}"\n new_software_tail : "{tail_software}"')
+                        print(f'CRITICAL : {software}(middle) {context[:20]} : CRITICAL')
             except IndexError:
                 if str_alt_index > original_sub_tags_list[len(original_sub_tags_list)-1][3]:
                     old_string = original_sub_tags_list[len(original_sub_tags_list)-1][2]
@@ -109,20 +122,24 @@ def wizzard_xml_json2(p, software_mentions):
                         software_list = ['software', software, tail_software, str_alt_index, 'software', None]
                         original_sub_tags_list[len(original_sub_tags_list) - 1][2] = new_tail_prior_tag
                         original_sub_tags_list.append(software_list)
-                        print(f'{software} was added to the list')
+                        print(f'{software} was added to the list (end)')
                         original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                         break
                     else:
                         #print(f'old_p_string : "{old_string}"\n new_ref_tail : "{original_sub_tags_list[len(original_sub_tags_list)-1][2]}"\n new_software_tail : "{tail_software}"')
-                        print(f'\nCRITICAL : {software}(end) : CRITICAL\n')
+                        print(f'CRITICAL : {software}(end) : CRITICAL')
             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
             nb += 1
     if len(original_sub_tags_list) == list_len:
         print(f'THE JOB IS DONE {len(original_sub_tags_list)}/{list_len}\n')
     else:
+        for elm in original_sub_tags_list:
+            print(elm)
+        print('nop')
+    '''else:
         if len(software_list) >= 1:
             print(software_list)
-            print(f'CRITICAL: all the elements are not in the <p>')
+            print(f'CRITICAL: all the elements are not in the <p>')'''
 
     final_p_string = p.text
     for elm in original_sub_tags_list:
@@ -132,4 +149,4 @@ def wizzard_xml_json2(p, software_mentions):
             final_p_string += elm[1]
         if elm[2]:
             final_p_string += elm[2]
-    dif_checker(final_p_string, saved_p_string)
+    #dif_string_checker(final_p_string, saved_p_string)
