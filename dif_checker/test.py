@@ -1,78 +1,78 @@
-import json
+import difflib
 import re
-import re
-import xml.etree.ElementTree as ET
 
-tree = ET.parse('test.xml')
-root = tree.getroot()
+'''while double_space == True:
+    if context.find("  ") != -1:
+        if context.find("  ") != -1 and context.find("  ") < offsetStart:
+            offsetStart -= 1
+            context = context.replace('  ', ' ', 1)
+        if context.find("  ") > offsetStart:
+            context = context.replace('  ', ' ', 1)
+    else:
+        double_space = False
+offsetStart_full_str = p_string.find(context) + offsetStart'''
 
+def find_occurrences(word, text):
+    occurrences = []
+    word_lower = word.lower()
+    text_lower = text.lower()
+    # Remove punctuation from text
+    text_without_punctuation = re.sub(r"[';:,.!?]", ' ', text_lower)
+    #print(text,'\n')
+    #print(text_without_punctuation)
+    index = -1
+    while True:
+        index = text_without_punctuation.find(word_lower, index + 1)
+        if index == -1:
+            break
+        occurrences.append(index)
+    return occurrences
 
-
-with open('test.json') as json_file:
-    data = json.load(json_file)
-
-context = data["context"]
-mention = data["mention"]
-
-p = root.find("p")
-
-p_text = p.text
-
-mention_offset = p_text.lower().find(mention)
-
-mention_field = ET.Element("mention")
-mention_field.text = mention
-
-p.insert(mention_offset, mention_field)
-
-xml_string = ET.tostring(root, encoding='utf-8').decode('utf-8')
-#print(xml_string)
-
-
-##################
-
-# <root>
-#     <person>
-#         <name>John Doe</name>
-#         <age>30</age>
-#         <city>New <important> York </important></city>
-#     </person>
-#     <p>Bonjour je m'appelle Samuel</p>
-#     <person>
-#         <name>Jane Smith</name>
-#         <age>25</age>
-#         <city>London</city>
-#     </person>
-# </root>
-
-tree = ET.parse('test.xml')
-root = tree.getroot()
-
-city = root.find("person/city")
-
-xml_string = ET.tostring(city, encoding='utf-8').decode('utf-8')
+def contains_special_characters(text):
+    for char in text:
+        if ord(char) < 32 or ord(char) > 126:
+            return True  # Special character found
+    return False
 
 
-def convert_offset_wo_tag(xml_string, previous_string, offset_start, offset_end):
-    wo_offset = re.sub('<[^>]*>', '', xml_string)
-    new_offset_start = wo_offset.find(previous_string) + offset_start
-    new_offset_end = new_offset_start + (offset_end - offset_start)
-    return new_offset_start, new_offset_end
+def find_closest_number(number, number_list):
+    closest = None
+    min_difference = float('inf')  # Initialize with infinity
 
-xml_string = "<tag>New York</tag>"
-previous_string = "New York"
+    for num in number_list:
+        difference = abs(number - num)
+        if difference < min_difference:
+            min_difference = difference
+            closest = num
 
-offset_start = xml_string.find("New")
-offset_end = offset_start + len("New York")
+    return closest
 
-print(xml_string[offset_start:offset_end])
-
-new_offset_start, new_offset_end = convert_offset_wo_tag(xml_string, previous_string, offset_start, offset_end)
-
-print(new_offset_start, new_offset_end)
-print(previous_string[new_offset_start:new_offset_end])
-
-print("previous_offset_start: ", offset_start)
-print("previous_offset_end: ", offset_end)
-print("new_offset_start: ", new_offset_start)
-print("new_offset_end: ", new_offset_end)
+def longest_common_substrings(full_string, sub_string):
+    matches = []
+    max_length = 0
+    less_word = len(sub_string)
+    founded = False
+    while not founded:
+        if full_string.find(sub_string[:less_word]) != -1:
+            return full_string.find(sub_string[:less_word])
+        else:
+            founded = False
+            less_word -= 1
+def dif_string_checker(str1, str2):
+    modification = 0
+    list_modification = []
+    for i, s in enumerate(difflib.ndiff(str1, str2)):
+        if s[0] == ' ':
+            continue
+        elif s[0] == '-':
+            if s[-1] == ' ':
+                pass
+            else:
+                modification += 1
+                print(u'Delete "{}" from position {}'.format(s[-1], i))
+        elif s[0] == '+':
+            modification += 1
+            print(u'Add "{}" to position {}'.format(s[-1], i))
+    if modification > 1:
+        print(str1)
+        print(str2)
