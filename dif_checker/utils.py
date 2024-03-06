@@ -1,16 +1,32 @@
 import difflib
 import re
+import os
+import logging
 
-'''while double_space == True:
-    if context.find("  ") != -1:
-        if context.find("  ") != -1 and context.find("  ") < offsetStart:
-            offsetStart -= 1
-            context = context.replace('  ', ' ', 1)
-        if context.find("  ") > offsetStart:
-            context = context.replace('  ', ' ', 1)
-    else:
-        double_space = False
-offsetStart_full_str = p_string.find(context) + offsetStart'''
+
+def setup_logger(name, log_file, level=logging.INFO):
+    handler = logging.FileHandler(log_file, mode='w')
+    handler.setFormatter(logging.Formatter('%(levelname)s : %(message)s'))
+
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+
+    return logger
+
+def common_file(dir_xml_path,dir_json_path):
+    list_xml = os.listdir(dir_xml_path)
+    for xml in list_xml:
+        if xml.endswith('.xml.log'):
+            list_xml.remove(xml)
+    list_xml = [file_name.replace('.grobid.tei.xml', '') for file_name in list_xml]
+    list_json = os.listdir(dir_json_path)
+    list_json = [file_name.replace('.software.json', '') for file_name in list_json]
+    list_common_file = []
+    for xml in list_xml:
+        if xml in list_json:
+            list_common_file.append(xml)
+    return list_common_file
 
 def find_occurrences(word, text):
     occurrences = []

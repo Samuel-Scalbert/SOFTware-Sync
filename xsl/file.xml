@@ -1,4 +1,0 @@
-<div>
-    <p>Bonjour, test je suis <ref type="persname" target="tab_0">Samuel</ref> et je test <ref>xsl</ref></p>
-    <p>Bonjour, je suis toujours <ref type="persname" target="tab_0">Samuel</ref></p>
-</div>

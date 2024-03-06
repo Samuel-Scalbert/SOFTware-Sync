@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main"></title>
+				<funder ref="#_UtHkrG7">
+					<orgName type="full">Guangdong-Hong Kong-Macao Joint Laboratory for Intelligent Micro-Nano Optoelectronic Technology</orgName>
+				</funder>
+				<funder ref="#_abeaHW8">
+					<orgName type="full">Agence Nationale de la Recherche</orgName>
+					<orgName type="abbreviated">ANR</orgName>
+				</funder>
+				<funder ref="#_QtXJNFH">
+					<orgName type="full">National Natural Science Foundation of China</orgName>
+				</funder>
+				<funder ref="#_Y7nV59g">
+					<orgName type="full">unknown</orgName>
+				</funder>
+				<funder ref="#_C2h4jKT">
+					<orgName type="full">Project of Department of Education of Guangdong Province</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Gang</forename><surname>Zheng</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Inria</orgName>
+								<orgName type="institution" key="instit1">University of Lille</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">UMR 9189 CRIStAL</orgName>
+								<orgName type="institution">Centrale Lille</orgName>
+								<address>
+									<postCode>F-59000</postCode>
+									<settlement>Lille</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">30943994660E1E6D6B65D6F8DB8108E4</idno>
+					<idno type="DOI">10.1115/1.4053047</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-06T15:32+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Theoretical Analysis on Nonlinear Buckling, Post-buckling of Slender Beams and Bi-stable Mechanisms</head><p>Ke Wu Univ. Lille, Inria, CNRS Centrale Lille, UMR 9189 CRIStAL F-59000 Lille, France Email: ke.wu@inria.fr Gang Zheng * Univ. Lille, Inria, CNRS Centrale Lille, UMR 9189 CRIStAL F-59000 Lille, France Email: gang.zheng@inria.fr Compliant Mechanisms (CMs) are used to transfer motion, force and energy, taking advantages of the elastic deformation of the involved compliant members. A branch of special type of elastic phenomenon called (post) buckling has been widely considered in CMs: avoiding buckling for better payload-bearing capacity and utilizing post-buckling to produce multi-stable states. This paper digs into the essence of beam's buckling and post-buckling behaviors where we start from the famous Euler-Bernoulli beam theory and then extend the mentioned linear theory into geometrically nonlinear one to handle multi-mode buckling problems via introducing the concept of bifurcation theory. Five representative beam buckling cases are studied in this paper, followed by detailed theoretical investigations of their post-buckling behaviors where the multi-state property has been proved. We finally propose a novel type of bi-stable mechanisms termed as Pre-buckled Bi-stable Mechanisms (PBMs) that integrate the features of both rigid and compliant mechanisms. The theoretical insights of PBMs are presented in detail. To the best of our knowledge, this paper is the first study on the theoretical derivation of the kinematic models of PBMs, which could be an important contribution to this field.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction 1.Compliant mechanisms</head><p>Compliant Mechanisms (CMs) have gradually turned into a hot research spot over the last few years <ref type="bibr" target="#b0">[1]</ref>. Conventional rigid mechanisms are designed to transfer motion, force and energy through the cooperative state of all the involved rigid links and kinematic pairs. Likewise, CMs are capable of realizing the same functions only through the elastic deformation of the built-in elementary flexible members. This unique concept offers several desired characteristics in terms of low cost and high performance <ref type="bibr" target="#b0">[1]</ref> [2]: energysaving operation <ref type="bibr" target="#b0">[1]</ref>; more simplified manufacturing process <ref type="bibr" target="#b2">[3]</ref>; less mechanical maintenance needed <ref type="bibr" target="#b1">[2]</ref> and better motion precision achieved <ref type="bibr" target="#b3">[4]</ref>. Due to these mentioned merits, CMs have been utilized in many mechanical applications, such as multi-stable mechanisms <ref type="bibr" target="#b4">[5]</ref>, constant-force-control mechanisms <ref type="bibr" target="#b5">[6]</ref>, compliant robotic actuation <ref type="bibr" target="#b7">[8]</ref>, energyharvesting applications <ref type="bibr" target="#b8">[9]</ref> and force sensors <ref type="bibr" target="#b9">[10]</ref> serving as a promising type of alternative to conventional rigid mechanisms <ref type="bibr" target="#b0">[1]</ref>  <ref type="bibr" target="#b2">[3]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.2">Buckling and post-buckling of slender beams 1.2.1 From an engineering perspective</head><p>Flexible slender beams will present more diverse mechanical responses if buckling or post-buckling behavior occurs. Essentially, a slender beam tends to buckle into an unstable state if the axial loading reaches its critical value or equivalently its buckling limit, which is mainly due to imperfect geometry and off-axial loading or some external factors <ref type="bibr" target="#b10">[11]</ref>. In all the mentioned scenarios, the lateral deformation will immediately occur and then sharply increase if the axial force is beyond the buckling limit. From an engineering point of view, the 'instability' nature of buckling would lie in the following three aspects: the sharply decreasing axial stiffness, the rapidly increasing lateral displacement and the unpredictable situations after the axial load reaches the critical load as it normally has three potential choices: one bucked state, another buckled state with symmetric geometry and even the unbuckled equilibrium state. For more theoretical details about buckling and post-buckling, the mentioned Fig. <ref type="figure">1</ref>: General (post)-buckling of a slender straight beam references here <ref type="bibr" target="#b11">[12]</ref> are recommended.</p><p>However, this 'instability' nature would also present benefits if dialectically treating and making most of it. For example, slender structures used in civil engineering, marine engineering and aircraft engineering have therefore drawn a huge concern regarding elastic instability that may cause structural failure <ref type="bibr" target="#b12">[13]</ref>, which has to be avoided. On the other hand, the unique characteristics of buckling and postbuckling can also be utilized in some mechanical applications, such as bi-stable or multi-stable compliant mechanisms <ref type="bibr" target="#b13">[14]</ref>. In the scope of this paper, we would like to characterize and take advantages of these phenomena rather than simply avoid them as the diverse mechanical response of buckling and post-buckling states would surely enrich some unexpectedly positive possibilities of current CMs.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.2.2">The essence</head><p>The buckling theory has been intensively investigated since linear buckling theory (Euler buckling) was derived by Euler in 1744 <ref type="bibr" target="#b14">[15]</ref> and further refined for higher modes by Lagrange in 1770 <ref type="bibr" target="#b15">[16]</ref>. It's worth noting that the mentioned two authors both concluded their findings based on the famous beam equation by Bernoulli <ref type="bibr" target="#b16">[17]</ref>:</p><formula xml:id="formula_0">EI dθ ds = M(s), s ∈ [0, L]<label>(1)</label></formula><p>which assumes the linear relationship between the beam curvature dθ ds and the exerted moment M at (x, y) or equivalently s along the beam axis (see Fig. <ref type="figure">1</ref>). θ(s) represents the orientation of the beam at s. E is the Young's modulus and I denotes the second moment of inertia of the cross section area; L denotes the beam length; F x (L), F y (L) and M o (L) are the constant forces and moment exerted at the beam end L (for simplicity we drop the dependency of L in the sequel). Therefore, the model regarding nonlinear buckling and postbuckling behavior (see Fig. <ref type="figure">1</ref>) can be characterized by the following form:</p><formula xml:id="formula_1">EI dθ ds = F x (b -y(s)) -F y (a -x(s)) -M o for s ∈ [0, L]</formula><p>where F y and M o are involved only when analyzing post-buckling. Then, conducting differentiation of the above equation with respect to s results in the following equation: </p><formula xml:id="formula_2">EI d 2 θ ds 2 = -F x sin θ + F y cos θ, s ∈ [0, L]<label>(2)</label></formula><formula xml:id="formula_3">D.E. EI d 2 θ ds 2 = -F x sin θ, s ∈ [0, L] B.C. g θ(0), θ (0), θ(L), θ (L) = 0 (3)</formula><p>where g ∈ R 2 represents different independent boundary conditions defined at s = 0 and s = L.</p><p>Unlike buckling problem where only the X-axis force F x exists, post-buckling problems might contain external F y and M o , and this can be formulated as follows:</p><formula xml:id="formula_4">D.E. EI d 2 θ ds 2 = -F x sin θ + F y cos θ B.C. g θ(0), θ (0), θ(L), θ (L) = 0 (4)</formula><p>We would like to emphasize that BVPs (3) and (4) may have different solutions under the same boundary conditions although it looks so much like the simple single-solution beam-deflection problem, which in this case corresponds to the different geometries of the slender beam subjected to an axial load F x above some buckling limit (see Fig. <ref type="figure">3</ref>). Essentially speaking, this is because BVP (3) has gone through a bifurcation phenomenon, and we would like to briefly recall the definition of bifurcation <ref type="bibr" target="#b17">[18]</ref> here: Definition 1. In dynamical system described by an ODE as dx dt = f (x, p) with x ∈ R n x and p ∈ R n p , a bifurcation solution of x occurs when a small smooth change of p causes a sudden "qualitative" or topological change of x in its behavior.</p><p>In our case, BVP (3) can be regarded as the dynamical system as we can always consider BVP (3) as a dynamical system with respect to s. In such an ODE, bifurcation parameter refer to the axial loading F x which may trigger the sudden "qualitative" or topological change of θ. This definition theoretically explains the possible sudden and rapid geometry change of slender structures when the axial load reaches the critical limit, which in the scope of this paper is buckling. Fig. <ref type="figure">3</ref>: Schematic geometries of (post)-buckling of beams Therefore, BVP (3) can describe the buckling phenomenon as shown in Fig. <ref type="figure">3a</ref>: the buckled beam will always have two potential geometries (see Geometry 1 and Geometry 3) and more importantly it is also possible for the beam to stay axially equilibrium (Geometry 2). Note we don't consider any imperfections of the studied beam in this paper, but if we do (for instance, a small initial curvature of the beam) logically the beam will result in one buckled state (where Fig. <ref type="figure">3a</ref> does not apply) <ref type="bibr" target="#b18">[19]</ref>.</p><p>Supposing the beam has buckled and presented the potential Geometry 1 or Geometry 3 as displayed in Fig. <ref type="figure">3a</ref>, the beam will go through post-buckling phenomenon under some extra beam-end loading (F y and M o ) and eventually reached Geometry A or Geometry B respectively as shown in Fig. <ref type="figure">3b</ref>. Obviously, BVP (4) can be utilized to describe this post-buckling behavior. A bifurcation diagram (Fig. <ref type="figure" target="#fig_1">4</ref>) is used to explain the process of buckling and post-buckling where in particular Path 1 is due to the continuous increase of F x whereas Path 2 and Path 3 are possibly the combined results of F x , F y and M o . Note that there always exists a point s * ∈ [0, L] such that the lateral displacement of this point y(s * ) will go through a bifurcation phenomenon as shown in Fig. <ref type="figure" target="#fig_1">4</ref> and Fig. <ref type="figure" target="#fig_2">6</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">State of the art</head><p>As we have explained in the above that buckling and post-buckling problems can be modeled as BVPs under different B.C. Therefore, two main methodologies have been reported in the literature. The first method is to solve BVPs analytically, relying on Euler buckling theory to find the critical loads <ref type="bibr" target="#b19">[20]</ref>. Due to the fact that those BVPs are normally nonlinear when large deformation occurs, therefore elliptic integral approach has been applied in the above mentioned ref-Fig. <ref type="figure">5</ref>: Schematic operation of a bi-stable mechanism erences to handle non-linearity, which make those methods not really analytic. Besides, another methodology is to solve BVPs purely via an approximate manner. In such a branch, one brilliant work <ref type="bibr" target="#b20">[21]</ref> completed in 1997 has turned out to be the first comprehensive contribution of solving buckling and post-buckling problems under different beam-end conditions (which are essentially different BVPs) via a numerical scheme: shooting method. <ref type="bibr" target="#b21">[22]</ref> utilized 3-order Taylor series to simplify the original 'buckling' ODE to a linear one (see Eq. ( <ref type="formula">35</ref>) and Eq. (40) in <ref type="bibr" target="#b21">[22]</ref>) and then derived a closed-form solution to the nonlinear post-buckling problem which is accurate enough up to a rise-to-span ratio of about 0.3 compared to elliptic-integral solutions. Logically, the higher the order of the polynomials is, the closer the results are to analytical results (see Fig. <ref type="figure" target="#fig_5">9</ref> in <ref type="bibr" target="#b21">[22]</ref>). The contributors of <ref type="bibr" target="#b22">[23]</ref> proposed a differential quadrature based iterative numerical integration method to solve post-buckling nonlinear ODE where six representative cases have been studied. In this paper, we aim to offer a more straightforward, easy-to-follow and efficient method to characterize the exact buckling and post-buckling behavior of slender beams without adopting elliptic-integral-based solutions to BVPs (3) and (4).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.3">Compliant bi-stable mechanisms</head><p>Compliant bi-stable mechanisms are a special branch of CMs which has two stable equilibrium states <ref type="bibr" target="#b13">[14]</ref> (see State 1 and State 3 in Fig. <ref type="figure">5</ref>). This special type of mechanisms is potential alternative for a wide variety of mechanical applications: sensors <ref type="bibr" target="#b23">[24]</ref>; state switches <ref type="bibr" target="#b24">[25]</ref>, relays <ref type="bibr" target="#b25">[26]</ref>, reconfigurable robotic system <ref type="bibr" target="#b26">[27]</ref>, landing gear mechanisms <ref type="bibr" target="#b27">[28]</ref>, and devices for vibration energy harvesting <ref type="bibr" target="#b28">[29]</ref>.</p><p>The transition between these two stable equilibrium states is essentially the operational process of these mechanisms, and they can stay stable without any power input in these states. Note that during the transition, the mechanisms often need to go through an unstable equilibrium state which is State 2 in Fig. <ref type="figure">5</ref>. At this unstable position, the system would jump into either of the mentioned stable equilibrium states if any disturbance occurs, which again triggers the concept of bifurcation phenomenon presented in Section 1.2.2.</p><p>Similar to BVPs (3) and ( <ref type="formula">4</ref>), a typical bi-stable mechanism as shown in Fig. <ref type="figure">5</ref> can be theoretically described as the following two BVPs ( <ref type="formula">5</ref>) and <ref type="bibr" target="#b5">(6)</ref>. The equilibrium states of and the entire in-equilibrium transition process between State 1 and State 3 are described below:</p><formula xml:id="formula_5">D.E. d 2 θ ds 2 = f ( dθ ds (s), θ(s), F o , F x , F y , M o , E, I(s), L, T ) B.C. g θ(0), θ (0), θ(L), θ (L) = 0<label>(6)</label></formula><p>where F o denotes the actuation force which drives the system from one equilibrium state to another; I(s) implies that BVPs ( <ref type="formula">5</ref>) and ( <ref type="formula" target="#formula_5">6</ref>) can define bi-stable systems with beams of uniformly varying cross section (in other words, I(s) needs to be continuous and derivable); T stands for the horizontal distance between the two fixed bases. Now we are ready to start our analysis on the basis of BVP (5): at State 1, F x and M o both equal 0 as they are in the undeformed shape; State 2 is the unstable one and may jump to State 1 or State 3 if any random disturbance occurs, which means the whole system is at the buckling initiation, and more importantly, F x would possibly reach its maximum. With the conclusion reached from the above analysis, we have already found out that bi-stable mechanisms are heavily concerned with buckling and post-buckling phenomena. Therefore, this paper essentially investigates the buckling and post-buckling problems of via digging into BVPs (3) and ( <ref type="formula">4</ref>). Mathematically, to solve this problem, we can normally have two types of strategies: analytical solutions and numerical solutions. However for general nonlinear BVPs, it is difficult to find analytical solutions. Therefore, this paper adopts collocation technique as a numerical method to solve this nonlinear BVP.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.4">Collocation method</head><p>In this paper, we employ collocation method to solve the mentioned problems in previous paragraphs. As reported in the literature of applied mathematics, collocation method has already been a widely accepted option of solving twopoint BVPs, and it essentially conducts collocation with several continuous polynomial functions to approximate the target unknown function under given boundary conditions <ref type="bibr" target="#b29">[30]</ref> [31]. To recall it, we would like to briefly explain how BVPs (3) and ( <ref type="formula">4</ref>) are handled using collocation method.</p><p>Firstly, we rearrange BVPs ( <ref type="formula">3</ref>) and ( <ref type="formula">4</ref>) into the following general form for simplicity:</p><formula xml:id="formula_6">D.E. d 2 θ ds 2 = f (s, dθ ds , θ...) B.C. g θ(0), θ (0), θ(L), θ (L) = 0<label>(7)</label></formula><p>Then we can solve the above BVPs via collocation method through a local manner.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.4.1">Basic idea of approximation</head><p>Generally speaking, by dividing the interval [0, L] into i + 1 points 0 = s 0 &lt; s 1 &lt; • • • &lt; s i = L (named as collocation points), collocation method approximates the solution of the BVP via linear combination of well-chosen basis functions by satisfying D.E. and B.C. at all collocation points.</p><p>Precisely, denote by Θ(s) the approximate solution of (7), and suppose that a cubic polynomial p k (s) is chosen to approximate the solution θ of <ref type="bibr" target="#b6">(7)</ref> </p><formula xml:id="formula_7">on each sub-interval [s k-1 , s k ], i.e., Θ(s) = ∑ i k=1 p k (s) where p k (s) = b k0 + b k1 s + b k2 s 2 + b k3 s 3 , ∀s ∈ [s k-1 , s k ] 0, otherwise<label>(8)</label></formula><p>with b k j for 0 ≤ j ≤ 3 being the 4 unknown polynomial coefficients on the kth interval. In total, we have 4i unknown parameters to be identified. Clearly, Θ(s) should satisfy the D.E. in <ref type="bibr" target="#b6">(7)</ref> for all collocations points, and this yields the following 3i algebraic equations to be fulfilled:</p><formula xml:id="formula_8">d 2 Θ ds 2 (s k-1 ) = f (s k-1 , dΘ ds (s k-1 ), Θ(s k-1 )) d 2 Θ ds 2 ( sk k-1 ) = f ( sk k-1 , dΘ ds ( sk k-1 ), Θ( sk k-1 )) d 2 Θ ds 2 (s k ) = f (s k , dΘ ds (s k ), Θ(s k ))<label>(9)</label></formula><p>4</p><p>Copyright © by ASME where sk</p><formula xml:id="formula_9">k-1 = s k-1 + s k 2 .</formula><p>Note that the approximated solution Θ(s) is a combination of a series of local polynomials, therefore additional equation should be imposed to guarantee the continuity at all collocation points, i.e., p k-1 (s k-1 ) = p k (s k-1 ), ∀k ∈ [2, i]. Hence we have the above i -1 algebraic equations due to the continuity conditions. Together with the 2-dimensional B.C. in <ref type="bibr" target="#b6">(7)</ref>, we finally obtain a set of algebraic equations with dimension 3i + i -1 + 2 = 4i + 1, which will be used to compute those 4i unknowns parameter b k j defined in <ref type="bibr" target="#b7">(8)</ref>.</p><p>Furthermore, we can take one step further to ensure the differentiability, i.e. Θ(s) ∈ C 1 , by imposing the following derivative continuity conditions at all collocation points:</p><formula xml:id="formula_10">dp k-1 ds (s k-1 ) = dp k ds (s k-1 ), ∀k ∈ [2, i].</formula><p>which gives another i-1 equations, yielding altogether 4i + 1 + i -1 = 5i algebraic equations available.</p><p>In summary, collocation method enables us to solve the 4i unknowns b k j based on the 4i + 1 or 5i equations which can be numerically solved via Newton-Raphson method.</p><p>It is worth noting that numerical tools would always need an initial guess to start its iterative computation which might play an important role in the convergence and local minima. In our context, we can have two different ways to set the initial values of b k j :</p><p>1. Direct way: We randomly initialize the values of b k j , which yields a random shape of Θ(s). 2. Indirect way: We choose a globally initial guess for Θ(s), which yields the corresponding b k j for every cubic polynomial p k (s).</p><p>The direct way is suitable for the scenario where the problem tends to have only one single solution, i.e., global minima. The indirect way goes for the scenario where we reasonably initialize the initial guess (possibly near the final solution) for the final solution via using the existing information, and it is suitable to treat local minima case which is exactly the buckling topic discussed in this paper. We would like to remark that the discretization idea of this proposed collocation method looks similar to that of classic FEA, but they are essentially two different strategies to solve beam-deflection problems. In fact, FEA does not have a global governing equation to describe the deformation, therefore it has to use quite a lot finer mesh elements to handle large deformation. Conversely, this paper proposes a global governing equation to describe the large beam-deflection problems for which collocation method is used to approximate its solution. Consequently, it is possible to have a precise approximation of the solution by even using a low-order polynomial.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.4.2">Final geometry</head><p>Finally, as long as θ(s) is obtained, the deformed beam shape x(s) and y(s) can be obtained using: x(s) = s 0 cos(θ(ξ))dξ and y(s) = s 0 sin(θ(ξ))dξ.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.5">Newton-Raphson method</head><p>As reported in the literature of applied mathematics, there are several methods to handle nonlinear equations or system of equations. In this paper, we would like to proceed with a commonly used method called Newton-Raphson method for these problems. Here, a brief recap is presented to solve a general nonlinear equation or a system of nonlinear equations f (x) = 0:</p><formula xml:id="formula_11">x i = x i-1 - f (x i-1 ) f (x i-1 )</formula><p>, where x i in the ith can be calculated from the i -1th trial x i-1 and f (x i-1 ) can be numerically solved using Newton's divided difference formula. After the convergence (in practice the convergence criteria is set as ||x i+1x i || ≤ ε where ε is a predefined threshold), we can finally obtain the solution x to f (x) = 0. Note that x can be a vector in this method.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.6">Structure of the paper</head><p>We first present a straightforward numerical strategy to solve buckling and post-buckling problems of slender beams where several basic Euler-buckling and its extended cases are studied and reliable FEA results are shown to compare and verify our method. Then, based on the theoretical analysis, we therefore systematically propose a new type of bi-stable mechanisms, Pre-buckled Bi-stable Mechanisms (PBMs) with the theoretical insights provided regarding PBM design and optimization.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Characterization of nonlinear buckling phenomenon</head><p>In this section, we are going to study five cases (Case 1 to Case 5) of non-linear buckling phenomena. They are actually five different cases of Eq. 3 under different boundary conditions. In these five cases, the initial axis of the beam is required to coincide with x-axis for buckling study, which means the beam does not have initial curvature. Note that the nonlinear buckling behavior studied in the following paper refers to the first-order nonlinear buckling if without being specified. Briefly speaking, the buckling behavior of slender structures contains many (theoretically infinite if not considering the maximum stress limit of these structures) modes of shapes and buckling loads. The first-order buckling refers to the buckling phenomenon with simplest shape which is most likely to occur and triggered by the least buckling load <ref type="bibr" target="#b14">[15]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1">Case 1: classic buckling problem</head><p>This case aims to study a slender beam with one end fixed to the base and the other end only subjected to an axial force F x without any other constraints, which is graphically displayed in Fig. <ref type="figure" target="#fig_4">7</ref>. Starting from Eq. ( <ref type="formula" target="#formula_0">1</ref>), we can obtain </p><p>Rearranging ( <ref type="formula" target="#formula_12">10</ref>), we will have 1 2 EI( dθ ds ) 2 -F x cos θ(s) = C, where C is an unknown constant which can be determined by the boundary conditions. Precisely,</p><formula xml:id="formula_13">C = 1 2 EI( dθ ds (L)) 2 -F x cos θ(L) = -F x cos α (<label>11</label></formula><formula xml:id="formula_14">)</formula><p>where EI dθ ds (L) = 0 and θ(L) = α, and α is an unknown parameter to be determined. Similarly,</p><formula xml:id="formula_15">C = 1 2 EI( dθ ds (0)) 2 -F x cos θ(0) = F 2 x 2EI y(L) 2 -F x (<label>12</label></formula><formula xml:id="formula_16">)</formula><p>where EI dθ ds (0) = F x y(L) and θ(0) = 0. Rearranging the above equations drives us to have dθ ds = ± 2F x EI (cos θ(s)cos α), which actually results in three possibilities.</p><p>If θ(s) = 0, then we can easily obtain α = θ(s) = 0 and dθ ds (s) = 0, which leads to Scenario 2 as shown in Fig. <ref type="figure" target="#fig_4">7</ref>.</p><p>Otherwise, we will have dθ ds = + 2F x EI (cos θ(s)cos α) if α &gt; 0 and dθ ds = -2F x EI (cos θ(s)cos α) if α &lt; 0, which clearly corresponds to Scenarios 1 and 3 as shown in Fig. <ref type="figure" target="#fig_4">7</ref>. Here, we only take the case α &gt; 0 as an example to finish the rest deduction and logically solving the case α &lt; 0 follows the same procedure. Assume f (α) as:</p><formula xml:id="formula_17">f (α) = α - 0 1 2F x EI (cos θ(s) -cos α) dθ - L - 0 + ds (<label>13</label></formula><formula xml:id="formula_18">)</formula><p>then we can obtain the value of α by solving f (α) = 0 under Newton-Raphson method. If we consider ( <ref type="formula" target="#formula_13">11</ref>) and ( <ref type="formula" target="#formula_15">12</ref>) together, we can easily derive the expression for y(L):</p><formula xml:id="formula_19">y(L) = (1 -cos α) 2EI F x .</formula><p>So far, we have got all the information needed of the boundary conditions: θ(0) = 0, dθ ds (0) = F x y(L) EI , θ(L) = α and dθ ds (L) = 0. Differentiating <ref type="bibr" target="#b9">(10)</ref> twice ends up with a fourthorder ODE: EI d 4 θ ds 4 + F x (sin θ(s)( dθ ds ) 2 + cos θ(s) d 2 θ ds 2 ) = 0. Logically, we can have the final solution of θ(s) via solving the obtained ODE using collocation method.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Case 2: classic buckling problem considering gravity</head><p>In this case, we take gravity into account when dealing with the classic buckling problem. Based on the load-ing condition as shown in Fig. <ref type="figure">8</ref>, we can have the fundamental first-order ODE that comes from Eq. ( <ref type="formula" target="#formula_0">1</ref>): EI dθ ds = F x (y(L)y(s)) + L s q x (s)(y(r)y(s))dr.</p><p>Fig. <ref type="figure">8</ref>: The schematic beam deformation of Case 2</p><p>Differentiating this equation, we then reach:</p><formula xml:id="formula_20">EI d 2 θ ds 2 = -F x sin θ(s) + q x sin θ(s)(s -L)<label>(14)</label></formula><p>with the boundary conditions: θ(0) = 0 and dθ ds (L) = 0. Obviously, we are not able to manipulate ( <ref type="formula" target="#formula_20">14</ref>) like what we do for Case 1, which means α and y(L) are unknown and therefore can not be used for setting up the above boundary conditions.</p><p>When applying numerical method, the numerical trial always starts from an initial guess and then reaches the final numerical solution by satisfying some given boundary conditions <ref type="bibr" target="#b31">[32]</ref>  <ref type="bibr" target="#b32">[33]</ref>. Therefore, we need to choose a good initial guess to guide the numerical process especially when solving multi-solution problems.</p><p>As for Case 2, θ(s) = 0 can be easily found as one of the solutions that corresponds to Scenario 2 as displayed in Fig. <ref type="figure">8</ref>. Similar to Case 1, Scenarios 1 and 3 here are symmetric to each other so we just go through the deduction of the former as an example. If we take a closer look at the above deduced fundamental first-order ODE, we may have an intuition of the form of θ(s) which therefore can be utilized as its initial guess θ(s) ig = a(s -L) 2 + α ig , where a is an undetermined parameter and α ig denotes the initial guess of α. They could be both set as a relatively small number for the first trial. Logically, dθ ds (s) follows the form below: dθ ds (s) ig = -2a(s -L). By slightly tuning the values of a and α ig for the initial guesses, we can easily find the solution of θ(s) via collocation method.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3">Case 3: classic buckling problem considering uniformly varying cross section</head><p>In this case, we aim to consider the buckling phenomenon of a slender beam with uniformly varying cross section as displayed in Fig. <ref type="figure" target="#fig_4">7</ref>. Likewise, we are not able to find the values of α and y(L) beforehand so we need to follow the procedure proposed in Case 2. First, we need to be ready with the definition of Case 3: EI(s) dθ ds = M(s) = F x (y(L)y(s)), where I(s) is the function of s. This implies 6</p><p>Copyright © by ASME the cross section of the beam varies respect to s, and if I(s) is continuous and deliverable (uniformly varying cross section), we can arrive at the differentiation result of the above equation: EI (s) dθ ds + EI(s) d 2 θ ds 2 = -F x sin θ(s), with the following boundary conditions: θ(0) = 0, dθ ds (L) = 0. Similarly, we set up the same initial guesses of the same formulation in Section 2.2 for the obtained BVP and we can then reach the final solution of θ(s) using collocation method.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4">Case 4: classic buckling problem about moving revolute joints at the both ends</head><p>In this case, we study the beam buckling phenomenon with revolute joints at the both ends. Note that this case can be considered as a simple combined one of rigid and flexible mechanisms. We first start with its fundamental equation: EI dθ ds = M(s) = -F x y(s). Then, differentiating it results in:</p><formula xml:id="formula_21">EI d 2 θ ds 2 = -F x sin θ(s)<label>(15)</label></formula><p>Rearranging ( <ref type="formula" target="#formula_21">15</ref>), we will obtain: 1  2 EI( dθ ds ) 2 -F x cos θ(s) = C, where C is an unknown parameter which can be determined by the boundary conditions. Precisely,</p><formula xml:id="formula_22">C = 1 2 EI( dθ ds (0)) 2 -F x cos θ(0) = -F x cos α<label>(16)</label></formula><p>where EI dθ ds (0) = 0 and θ(0) = α, and α is an unknown parameter to be determined. Similarly, x EI (cos θ(s)cos α) if α &lt; 0, which clearly corresponds to Scenarios 1 and 3 as shown in Fig. <ref type="figure" target="#fig_5">9</ref>. For idea demonstration, we just take the case of α &gt; 0 as an example, and solving the case of α &lt; 0 has the same procedure.</p><formula xml:id="formula_23">C = 1 2 EI( dθ ds (L)) 2 - F x cos θ(L) = -F x cos α,</formula><p>Assuming f (α) as:</p><formula xml:id="formula_24">f (α) = -α + α - - 1 2F x EI (cos θ(s) -cos α) dθ - L - 0 +</formula><p>ds (17) Therefore, f (α) = 0 can be logically solved via Newton-Raphson method to obtain the value of α. Then, we can start to handle the four-order system of (15):</p><formula xml:id="formula_25">EI d 4 θ ds 4 + F x (-sin θ(s)( dθ ds ) 2 + cos θ(s) d 2 θ ds 2 ) = 0 (<label>18</label></formula><formula xml:id="formula_26">)</formula><p>as all the boundary conditions are known at this point: θ(0) = α, dθ ds (0) = 0, θ(L) = -α and dθ ds (L) = 0. Using collocation method to reach the solution of (18) yields our final target θ(s).</p><p>For the Nth (N = 1, 2, 3...) mode of the buckling behaviors <ref type="bibr" target="#b14">[15]</ref> that is displayed in Fig. <ref type="figure">10</ref>, we just need to follow the strategy:</p><formula xml:id="formula_27">f (α) = -α + α -- 1 2Fx EI (cos θ(s)-cos α) dθ - L N - 0 + ds.</formula><p>As long as α is obtained, revisiting (18) will provide the corresponding Nth-mode solution of θ(s).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.5">Case 5: classic buckling problem about moving fixed constraints at the both ends</head><p>In this case, we aim to investigate the classic buckling problem about moving fixed constraints at the both ends. Note that similar to Case 4, this case can also be considered as a simple combined one of rigid and flexible mechanisms as well. We need to start with its fundamental equation for explaining the three scenarios shown in Fig. <ref type="figure">11</ref> ds 2 = -F x sin θ(s), with the boundary conditions: θ(0) = 0, θ(L/2) = 0. Likewise, θ(s) = 0 can be easily found as one of the solutions that corresponds to Scenario 2 as displayed in Fig. <ref type="figure">11</ref>. To handle Scenario 1, we set up appropriate initial guesses for the above deduced BVP:</p><formula xml:id="formula_28">θ(s) ig = -16a L 2 (s -L 4 ) 2 + a and dθ ds (s) ig = -32a L 2 (s -L 4 )</formula><p>, where a is an unknown parameter to be determined, we then can obtain the solution of θ(s) via tuning a from a small value. Scenario 3 can be explained in the same manner as well. In the last section, we have covered five common cases of classic buckling problems so we will move forward to characterize their post-buckling behaviors where three representative cases (Case 6 to Case 8) are studied. Essentially, these three different cases are derived from Eq. 4 with different boundary conditions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Case 6: post-buckling behavior of a fixed constraint at one end</head><p>This case actually is a further study of Case 1, which deals with its post-buckling behavior as shown in Fig. <ref type="figure" target="#fig_0">12</ref>. Suppose the post-buckling behavior starts from point A through point B, and ends at point C. We first need to manipulate its governing equation ( <ref type="formula" target="#formula_0">1</ref>) into a handy state:</p><formula xml:id="formula_29">EI dθ ds = M(s) = F x (y(L) -y(s)) -F y (x(L) -x(s)). Differentiating this equation results in: EI d 2 θ ds 2 = -F x sin θ(s) + F y cos θ(s)<label>(19)</label></formula><p>Rearranging <ref type="bibr" target="#b18">(19)</ref> leads to the following:</p><formula xml:id="formula_30">1 2 EI( dθ ds ) 2 -F x cos θ(s) -F y sin θ(s) = C (<label>20</label></formula><formula xml:id="formula_31">)</formula><p>where C is to be determined by the boundary conditions. Precisely, we have the following relation:</p><formula xml:id="formula_32">C= 1 2 EI( dθ ds (0)) 2 -F x cos θ(0)-F y sin θ(0)= 1 2 EI( dθ ds (0)) 2 -F x (<label>21</label></formula><formula xml:id="formula_33">)</formula><p>where θ(0) = 0, and dθ ds (L) stays unknown for this moment.</p><p>Similarly we get C= </p><formula xml:id="formula_34">dθ ds = ± 2F x EI (cos θ(s) -cos α) + 2F y EI (sin θ(s) -sin α)<label>(22)</label></formula><p>Obviously, θ(s) = 0 and F y = 0 is one unique solution (that is point B in Fig. <ref type="figure" target="#fig_0">12</ref>) of ( <ref type="formula" target="#formula_34">22</ref>) as well as <ref type="bibr" target="#b18">(19)</ref>. If α &gt; 0, we will have:</p><formula xml:id="formula_35">f (α, F y ) = α - 0 1 2F x EI (cos θ(s)-cos α)+ 2F y EI (sin θ(s)-sin α) dθ - L - 0 ds (23)</formula><p>Given α or F y , it can be directly solved using Newton-Raphson method.</p><p>Similarly, if α &lt; 0, we will arrive at:</p><formula xml:id="formula_36">f (α, F y ) = α + 0 -1 2Fx EI (cos θ(s)-cos α)+ 2Fy EI (sin θ(s)-sin α)</formula><p>dθ -L - 0 ds. Obviously, it can be solved in the same manner using Newton-Raphson method. As long as α and F y are known, we can logically find out the expression and its value of dθ ds (0) by rearranging ( <ref type="formula" target="#formula_32">21</ref>): dθ ds (0) = ± 2 EI (F x -F x cos α -F y sin α). So far, the essential information of the boundary conditions can be summarized as: Therefore, we can easily reach the final solution of θ(s) via solving ODE <ref type="bibr" target="#b23">(24)</ref> constrained by the obtained boundary conditions under collocation method. If we consider the practical design that involves this post-buckling behavior, the mechanism would follow the layout as shown in Fig. <ref type="figure">13</ref>.</p><formula xml:id="formula_37">θ(0) = 0, dθ ds (0) = ± 2 EI (F x -F x cos α -F y sin α), θ<label>(</label></formula><p>Case 7: post-buckling behavior of moving revolute joints at both ends This case actually is the post-buckling study of Case 4 as displayed in Fig. <ref type="figure" target="#fig_1">14</ref>. Likewise, we would like to analyze the post-buckling behavior from point A through B finally to point C. The governing equation is first derived and needs to be arranged in a clear way: EI dθ ds = M(s) = -F x y(s)+ F y 2 x(s). Differentiating this equation, we will obtain:</p><formula xml:id="formula_38">EI d 2 θ ds 2 = -F x sin θ(s) + F y 2 cos θ(s)<label>(25)</label></formula><p>Slightly manipulating <ref type="bibr" target="#b24">(25)</ref>, we then can reach:</p><formula xml:id="formula_39">1 2 EI( dθ ds ) 2 -F x cos θ(s) - F y 2 sin θ(s) = C (<label>26</label></formula><formula xml:id="formula_40">)</formula><p>Substituting the boundary conditions θ(0) = α and dθ ds (0) = 0 into <ref type="bibr" target="#b25">(26)</ref> gives us:</p><formula xml:id="formula_41">C = -(F x cos α + F y 2 sin α)<label>(27)</label></formula><p>Similarly, substituting the boundary conditions θ(</p><formula xml:id="formula_42">L 2 ) = 0 and dθ ds ( L<label>2</label></formula><p>) into <ref type="bibr" target="#b25">(26)</ref> gives us:</p><formula xml:id="formula_43">C = 1 2 EI( dθ ds ( L<label>2</label></formula><formula xml:id="formula_44">)) 2 -F x<label>(28)</label></formula><p>Then, rearranging ( <ref type="formula" target="#formula_39">26</ref>) and ( <ref type="formula" target="#formula_41">27</ref>) yields:</p><formula xml:id="formula_45">dθ ds = ± 2F x EI (cos θ(s) -cos α) + F y EI (sin θ(s) -sin α)<label>(29</label></formula><p>) Clearly, we will have one unique solution (θ(s) = 0 and F y = 0) to ( <ref type="formula" target="#formula_45">29</ref>) and <ref type="bibr" target="#b24">(25)</ref>. Besides, if α &gt; 0, we will have: 0 + ds. Similarly, if α or F y is known, it can be solved using Newton-Raphson method as well. Then, we will be able to obtain the value of dθ ds</p><formula xml:id="formula_46">f (α, F y ) = 0 α - -1 2F x EI (cos θ(s)-cos α)+</formula><formula xml:id="formula_47">( L<label>2</label></formula><p>) via dealing with ( <ref type="formula" target="#formula_41">27</ref>) and ( <ref type="formula" target="#formula_44">28</ref>) together:</p><formula xml:id="formula_48">dθ ds ( L 2 ) = ∓ 1 EI (2F x -2F x cos α -F y sin α)<label>(31)</label></formula><p>Logically, the boundary conditions are all available:</p><formula xml:id="formula_49">θ(0) = α, dθ ds (0) = 0, θ( L 2 ) = 0 and dθ ds ( L 2 ) = ∓ 1 EI (2F x -2F x cos α -F y sin α).</formula><p>Then, differentiating (25) twice gives us the final governing fourth-order ODE:</p><formula xml:id="formula_50">EI d 4 θ ds 4 +F x (-sin θ(s)( dθ ds ) 2 +cos θ(s) d 2 θ ds 2 ) + F y 2 (cos θ(s)( dθ ds ) 2 + sin θ(s) d 2 θ ds 2 ) = 0<label>(32)</label></formula><p>Finally, we are able to get the solution of θ(s) via solving ODE <ref type="bibr" target="#b31">(32)</ref> constrained by the obtained boundary conditions under collocation method. The practical design of the mechanism follows the basic structure displayed in Fig. <ref type="figure" target="#fig_1">14</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Case 8: post-buckling behavior of moving fixed joints at both ends</head><p>This case aims to characterize the post-buckling behavior of Case 5, which is shown in Fig. <ref type="figure">15</ref>. Here, we also consider its post-buckling process from point A through point B to point C as well. The governing equation is presented below:</p><formula xml:id="formula_51">EI dθ ds = M(s) = -F x y(s) + F y 2 x(s) + M o .</formula><p>Then, we can logically reach its corresponding second-order ODE:</p><formula xml:id="formula_52">EI d 2 θ ds 2 = -F x sin θ + F y</formula><p>2 cos θ, with the following boundary conditions: θ(0) = 0, θ(L/2) = 0. To solve this ODE constrained by the obtained boundary conditions, setting up appropriate initial guesses.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Results and discussions</head><p>In this section, the numerical results from our proposed methods are compared with FEA results for verification of both high accuracy and efficiency. First of all, the material and geometry of the studied slender beam are defined 9</p><p>Copyright © by ASME (see Fig. <ref type="figure" target="#fig_3">16</ref>): E = 200 10 9 Pa and Poisson's ratio ν = 0.3 (structural steel); the beam length is fixed to L = 0.1 m; the initial parameters of the rectangular cross section are set as w(0) = 0.006 m and h(0) = 0.001 m respectively. Besides, Fig. <ref type="figure" target="#fig_3">16</ref>: The geometry of studied beam the cross section parameters at any random point along s axis (beam axis) are noted as functions of s: w(s) and h(s), so the second moment inertia of the cross section area at s can be expressed as</p><formula xml:id="formula_53">I(s) = h(s) 3 w(s)<label>12</label></formula><p>. Note that in Case 3 (the varying cross section case), w(s) = (1 -5s)w(0) and h(s) =</p><p>(1 -5s)h(0), so</p><formula xml:id="formula_54">I(s) = h(s) 3 w(s) 12 = h(0) 3 w(0)<label>12</label></formula><p>(1 -5s) 4 . In the rest cases,</p><formula xml:id="formula_55">I(s) = h(s) 3 w(s) 12 = h(0) 3 w(0) 12 .</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Buckling behavior 4.1.1 Case 1: classic buckling problem</head><p>The corresponding results of F x against x(L), F x against y(L) and F x against α are displayed in Fig. <ref type="figure">18</ref> (the bifurcation diagrams). The mesh information is presented below: 150 cuboid mesh elements; 216 edge elements; 408 mesh vertices. In terms of computational expense, t CM and t FEA refer to the time cost by collocation method and FEA respectively: t CM = 60 s; t FEA = 5289 s; t FEA t CM = 5289 60 = 88.15.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.2">Case 2: classic buckling problem with gravity</head><p>The gravity in this case can be considered as a uniformly distributed load along the beam, so q x (s) = G L = mg L = Lw(s)h(s)ρg L = w(0)h(0)ρg = 0.46 N/m, where G denotes the gravity on the beam; m denotes the mass of the beam; g denotes the acceleration of gravity; ρ = 7850 kg/m 3 is density of the beam. The bifurcation diagrams of F x against x(L), F x against y(L) and F x against α are displayed in Fig. <ref type="figure" target="#fig_5">19</ref>. The mesh information is presented below: 150 cuboid mesh elements; 216 edge elements; 408 mesh vertices. The following presents the time cost of collocation method and FEA respectively: t CM = 24 s; t FEA = 7524 s; t FEA t CM = 7524 24 = 313.50.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.3">Case 3: classic buckling problem considering uniformly varying cross section</head><p>In this case, a slender beam of uniformly varying cross section is studied (see Fig. <ref type="figure" target="#fig_4">17</ref>). As mentioned before, the second moment of inertia of the cross section area is formulated as: I(s) = h(s) 3 w(s) 12 = h(0) 3 w(0)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>12</head><p>(1 -5s) 4 . The bifurcation diagrams of F x against x(L), F x against y(L) and F x against α are displayed in Fig. <ref type="figure" target="#fig_0">20</ref>. The mesh information is presented below: 150 Hexahedron mesh elements; 236 edge elements; 416 mesh vertices. The following presents the time cost of collocation method and FEA respectively: t CM = 20 s; t FEA = 4020 s; t FEA t CM = 4020 20 = 201.</p><p>4.1.4 Case 4: classic buckling problem about moving revolute joints at the both ends Here, the results of the first-order and second-order buckling behaviors are presented. The mesh information is presented below: 150 cuboid mesh elements; 216 edge elements; 408 mesh vertices. * First-order buckling: the bifurcation diagrams of F x against x(L/2), F x against y(L/2) and F x against α are displayed in Fig. <ref type="figure" target="#fig_0">21</ref>. The following presents the time cost of collocation method and FEA respectively: t CM = 13 s; t FEA = 4320 s; t FEA t CM = 4320 20 = 332.31. * Second-order buckling: the bifurcation diagrams of F x against x(L/4), F x against y(L/4) and F x against α are displayed in Fig. <ref type="figure" target="#fig_0">22</ref>. The following presents the time cost of collocation method and FEA respectively: t CM = 40 s; t FEA = 69s; t FEA t CM = 69 40 = 1.73.</p><p>4.1.5 Case 5: classic buckling problem about moving fixed constraints at the both ends The bifurcation diagrams of F x against x(L/2), F x against y(L/2) and F x against α are displayed in Fig. <ref type="figure" target="#fig_0">23</ref>. The mesh information is presented below: 150 cuboid mesh elements; 216 edge elements; 408 mesh vertices. The following presents the time cost of collocation method and FEA respectively: t CM = 7 s; t FEA = 62 s; t FEA t CM = 62 7 = 8.85.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.6">Discussions</head><p>Obviously, the results displayed in Figs. <ref type="bibr" target="#b17">18</ref> to 23 prove that our numerical method can effectively catch the characteristics of buckling behaviors in different cases. Besides, the computational cost is shown to be much less than FEA. Therefore, both in terms of accuracy and efficiency, our proposed method have demonstrated dominant advantages in characterizing the buckling behavior of slender beams. As we can notice, buckling behaviors of slender flexible structures provide unpredictably promising possibilities for designing CMs due to their nonlinear/large deformation and complex mechanical responses. Several CM designs noted in the literature (such as multi-stable mechanisms) have intuitively included the buckling phenomenon to some extent. However, to the best of our knowledge, nearly no contributions to theoretically modeling buckling behaviors directly based on geometrically nonlinear Euler-Bernoulli beam theory have ever been made in the field of CMs. In other words, our proposed method can serve as a universal and effective Fig. <ref type="figure" target="#fig_4">17</ref> Copyright © by ASME  </p><formula xml:id="formula_56">F x =400 N F x =401 N F x =402 N F x =403 N F x =404 N F x =405 N Stable equilibrium Stable equilibrium Unstable equilibrium O Stroke</formula><p>Fig. <ref type="figure" target="#fig_1">24</ref>: Insight study on Case 8: y(L/2) -F y relationship tool to solve the mentioned problems as well as assisting buckling-involved CM designs.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Post-buckling behavior</head><p>In Chapter. 1.3, we have proved that the operational process of bi-stable mechanisms are essentially post-buckling behaviors. Therefore, it is worth discovering if the postbuckling behaviors of the studied cases (Case 6 to Case 8) have anything in common with the traditional bi-stable mechanisms. To do that, the force-displacement plots are a graphically straightforward tool <ref type="bibr" target="#b13">[14]</ref>, which can intuitively present the mechanical responses of studied bi-stable mechanisms. The results are also displayed in a similar manner as follows. Here in this section, an insight study on Case 8 is presented.  4.2.2 Case 7: post-buckling behavior of moving revolute joints at both ends In this section, the force-displacement plot of first-order post-buckling behavior of the studied slender beam is presented. Fig. <ref type="figure" target="#fig_3">26</ref> demonstrates the relationship between y(L/2) and F y under a fixed axial force F x = 100 N where the results obtained from FEA and the proposed collocation method are compared. The mesh information is presented below: 150 cuboid mesh elements; 216 edge elements; 408 mesh vertices. The computational expenses of the mentioned methods are presented respectively: t CM = 7 s; t FEA = 206 s; t FEA t CM = 206 7 = 29.42.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.3">Discussions</head><p>According to the results shown above (Fig. <ref type="figure" target="#fig_0">25</ref> and Fig. <ref type="figure" target="#fig_3">26</ref>), our proposed method can effectively catch the characteristics of post-buckling behavior in different cases, and the computational expense is much less than FEA as well. As shown in Fig. <ref type="figure" target="#fig_0">25</ref>, the mechanical responses of the studied mechanism are dependent of the axial force F x . Besides, Fig. <ref type="figure" target="#fig_0">25</ref> and Fig. <ref type="figure" target="#fig_3">26</ref> have also clearly demonstrated the stable and unstable equilibrium (buckling initiation) states of the studied mechanisms. These mentioned interesting characteristics have triggered our next-step theoretical exploration where Case 8 is studied as an example.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>12</head><p>Copyright © by ASME </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Theoretical insights</head><p>This section aims to theoretically analyze the mechanical properties of the mechanisms (Cases 6-8) proposed in this paper where Case 8 is taken as a representative case here, providing design insights for future work. Let's take a look at the following characteristics (obtained by collocation method) of the studied mechanism as demonstrated in Fig. <ref type="figure" target="#fig_1">24:</ref> 1 The force-displacement plot (Fig. <ref type="figure" target="#fig_1">24</ref>) is totally symmetric with respect to the unstable equilibrium point O, which is similar to odd functions. Obviously, O also refers to the buckling initiation state of the mechanism. 2 The stiffness K of this post-buckling process is defined as K = -∆F y ∆y(L/2) so it's obvious that the mechanism has two stable equilibrium points shown in Fig. <ref type="figure" target="#fig_1">24</ref>. 3 Here, we define the distance between the unstable equilibrium point and one stable equilibrium point as the Stroke (S) of the mechanism. <ref type="bibr" target="#b3">4</ref> The mechanical properties of the mechanism depends on the axial force F x , which can be controlled by users.</p><p>As F x gets smaller, the stable equilibrium points gradually come to approach the unstable equilibrium point O. When F x decreases below the critical load (first-order buckling load), the system will just have one equilibrium point, which is stable and located at O. In this situation, the slender beam does not experience buckling initiation at all, demonstrated in Fig. <ref type="bibr">27 5</ref> As shown in Fig. <ref type="figure" target="#fig_15">27</ref>, the mechanism follows the path A-B-C driven by the vertical load F y to fulfill state jumping, which is perfectly symmetric compared to Fig. <ref type="figure" target="#fig_2">6</ref>.</p><p>Concluded from the mentioned above, we would like to term the mechanism proposed in Case 8 (also valid in Case 6 and Case 7) as Pre-buckled Bi-stable Mechanisms (PBMs).</p><p>Compared with the classic bi-stable mechanisms, the advantages of PBMs lie in:</p><p>1 To the best of our knowledge, PBMs take the lead to combine the use of rigid and compliant mechanisms, which provides the chance for users to make most of merits of the mentioned two types of mechanisms. 2 PBMs gracefully remain the intrinsic beauty of CMs: symmetry <ref type="bibr" target="#b3">[4]</ref>, which enables themselves to be more reconfigurable and maneuverable in certain applications. 3 PBMs are easily adjustable to re-set its mechanical responses simply by tuning the axial force F x whereas the classic ones need to be pre-fabricated and are always fixed to one single setting. 4 Also, the stiffness K the stroke S can be straightforwardly optimized via setting up objective functions where F x could be the optimized variables (or the geometric parameters of the PBM). 5 PBMs are open to be reconstructed through simple ways. For example, the operational path A-B-C of Case 7 is curved (see Fig. <ref type="figure" target="#fig_1">14</ref>), which is not convenient for practical implementation. To solve this inconvenience, two springs with same stiffness are added in a simple manner to straighten the path, demonstrated in Fig. <ref type="figure" target="#fig_16">28</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">Conclusions</head><p>Compliant Mechanisms have been attracting talented researchers in recent years, presenting many desired mechanical properties. In this paper, we characterize eight cases of nonlinear buckling and post-buckling behaviors via numerically approximating the geometrically nonlinear solution of the famous Euler-Bernoulli beam theory. We then propose a novel type of bi-stable mechanisms termed as Pre-buckled Bi-stable Mechanisms (PBMs) that integrate the features of both rigid and compliant mechanisms, followed by detailed theoretical insights. The work of this paper provides theoretical and numerical results, which can be used to conduct mechanism optimization. Our future work will include practical designs of PBMs for some certain applications based on the theoretical contributions achieved in this paper.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 2 :</head><label>2</label><figDesc>Fig. 2: Different types of beam ends</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 4 :</head><label>4</label><figDesc>Fig. 4: Schematic bifurcation diagram of (post)-buckling</figDesc><graphic coords="4,127.30,477.71,95.62,82.37" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 6 :</head><label>6</label><figDesc>Fig. 6: Schematic bifurcation of bi-stable mechanisms</figDesc><graphic coords="5,55.96,38.04,238.27,110.30" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 6</head><label>6</label><figDesc>explains the essence of how bi-stable mechanisms work by introducing the bifurcation diagram. As shown in Fig. 6, State 2 actually refers to buckling initiation state, and it can switch to State 1 or State 3 through Path 1 or Path 2 under a corresponding disturbance, which is termed as Initiation. In practice, bi-stable mechanisms would normally start to operate from State 1 (Scenario 1) or State 3 (Scenario 2) rather than Initiation stage (State 2) where it can be clearly noticed that the starting points of Scenario 1 and Scenario 2 are actually the buckling consequences of Initiation stage. Logically, Scenario 1 is a post-buckling process from State 1 to State 3 through Path 3. Similarly, Scenario 2 is also a postbuckling process from State 3 to State 1 through Path 4. To sum up, we can conclude that the operational processes of bistable mechanisms are essentially post-buckling behaviors of the bi-stable systems.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 7 :</head><label>7</label><figDesc>Fig. 7: The schematic beam deformation of Cases 1 and 3</figDesc><graphic coords="6,380.17,621.01,95.40,87.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Fig. 9 :</head><label>9</label><figDesc>Fig. 9: The schematic beam deformation of Case 4</figDesc><graphic coords="8,98.50,37.95,153.30,71.30" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head></head><label></label><figDesc>where EI dθ ds (L) = 0 and θ(L) = 0. Rearranging this equation with (16) drives us to have: dθ ds = ± 2F x EI (cos θ(s)cos α) It is obvious that the obtained differential system has three solutions: if θ(s) = 0, then we can easily obtain α = θ(s) = 0 and dθ ds (s) = 0, which leads to Scenario 2 as shown in Fig. 9. Otherwise, we will have: dθ ds = -2F x EI (cos θ(s)cos α) if α &gt; 0 and dθ ds = + 2F</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head></head><label></label><figDesc>: EI dθ ds = M(s) = -F x y(s) + M o , where M o logically equals 0 only if the slender beam is axially equilibrium under the condition of Scenario 2. Differentiating this equation, we have: EI d 2 θ</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Fig. 10 :Fig. 11 :3</head><label>1011</label><figDesc>Fig. 10: The schematic beam deformation of Case 5</figDesc><graphic coords="8,362.68,598.21,130.56,109.92" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>1 2Fig. 12 :Fig. 13 :</head><label>11213</label><figDesc>Fig. 12: Case 6: post-buckling behavior of Case 1</figDesc><graphic coords="9,127.45,621.01,95.40,87.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head></head><label></label><figDesc>L) = α and dθ ds (L) = 0. Differentiating (19) twice ends up with the fourth-order ODE: EI d 4 θ ds 4 +F x (sin θ(s)(</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head>Fig. 14 :Fig. 15 : 1 2Fx</head><label>14151</label><figDesc>Fig. 14: Case 7: post-buckling behavior of Case 4</figDesc><graphic coords="10,109.96,638.53,130.27,69.60" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head></head><label></label><figDesc>Fig. 17: The geometry of studied beam in Case 3</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>Fig. 19 :Fig. 20 :Fig. 21 : 2 ( 3 ( 3 (Fig. 22 :Fig. 23 :-</head><label>1920212332223</label><figDesc>Fig. 19: Bifurcation diagrams of Case 2</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_14"><head>4. 2 . 1 Fig. 25 :</head><label>2125</label><figDesc>Fig. 25: y(L) -F y relationship in Case 6</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_15"><head>Fig. 27 :</head><label>27</label><figDesc>Fig. 27: State transformation of the studied mechanism in Case 8 (also valid for Cases 6 and 7)</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_16"><head>Fig. 28 :</head><label>28</label><figDesc>Fig. 28: Optimized concept design of Case 7</figDesc><graphic coords="14,346.88,37.90,162.14,70.85" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgment</head><p>This work is partially supported by the <rs type="funder">National Natural Science Foundation of China</rs> (Grant No. <rs type="grantNumber">62073081</rs>), by the <rs type="funder">Project of Department of Education of Guangdong Province</rs> (Grant No. <rs type="grantNumber">2019KZDXM037</rs>), by the fund of <rs type="funder">Guangdong-Hong Kong-Macao Joint Laboratory for Intelligent Micro-Nano Optoelectronic Technology</rs> (No. <rs type="grantNumber">2020B1212030010</rs>), by the project <rs type="projectName">ROBOCOP</rs> [<rs type="grantNumber">ANR-19-CE19</rs>], by the project <rs type="projectName">COSSEROOTS</rs> [<rs type="grantNumber">ANR-20-CE33</rs>], by the project <rs type="projectName">Inventor</rs> (<rs type="programName">I-SITE ULNE, le programme d'Investissements d</rs><rs type="funder">'Avenir, Métropole Européenne de Lille), France</rs> .</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_QtXJNFH">
+					<idno type="grant-number">62073081</idno>
+				</org>
+				<org type="funding" xml:id="_C2h4jKT">
+					<idno type="grant-number">2019KZDXM037</idno>
+				</org>
+				<org type="funded-project" xml:id="_UtHkrG7">
+					<idno type="grant-number">2020B1212030010</idno>
+					<orgName type="project" subtype="full">ROBOCOP</orgName>
+				</org>
+				<org type="funded-project" xml:id="_Y7nV59g">
+					<idno type="grant-number">ANR-19-CE19</idno>
+					<orgName type="project" subtype="full">COSSEROOTS</orgName>
+				</org>
+				<org type="funded-project" xml:id="_abeaHW8">
+					<idno type="grant-number">ANR-20-CE33</idno>
+					<orgName type="project" subtype="full">Inventor</orgName>
+					<orgName type="program" subtype="full">I-SITE ULNE, le programme d&apos;Investissements d</orgName>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<author>
+			<persName><forename type="first">L</forename><surname>Larry</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Howell</surname></persName>
+		</author>
+		<title level="m">Compliant mechanisms. In 21st century kinematics</title>
+		<meeting><address><addrLine>London</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Compliant mechanisms: design of flexure hinges</title>
+		<author>
+			<persName><forename type="first">Nicolae</forename><surname>Lobontiu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+			<publisher>CRC press</publisher>
+			<pubPlace>Boca Raton</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">A review on compliant joints and rigid-body constant velocity universal joints toward the design of compliant homokinetic couplings</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Farhadi Machekposhti</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Tolou</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Herder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mechanical Design</title>
+		<imprint>
+			<biblScope unit="volume">137</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Synthesis and analysis of parallel kinematic XY flexure mechanisms</title>
+		<author>
+			<persName><forename type="first">Shorya</forename><surname>Awtar</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2003">2003</date>
+		</imprint>
+		<respStmt>
+			<orgName>Massachusetts Institute of Technology</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">PhD thesis</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Synthesis of multistable equilibrium compliant mechanisms using combinations of bistable mechanisms</title>
+		<author>
+			<persName><forename type="first">Young</forename><surname>Seok</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Oh</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sridhar</forename><surname>Kota</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mechanical Design</title>
+		<imprint>
+			<biblScope unit="volume">131</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Design and modeling of constant-force mechanisms: A survey</title>
+		<author>
+			<persName><forename type="first">Piyu</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Qingsong</forename><surname>Xu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mechanism and Machine Theory</title>
+		<imprint>
+			<biblScope unit="volume">119</biblScope>
+			<biblScope unit="page" from="1" to="21" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Design of compliant mechanisms: applications to mems</title>
+		<author>
+			<persName><forename type="first">Jinyong</forename><surname>Sridhar Kota</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zhe</forename><surname>Joo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><forename type="middle">M</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeff</forename><surname>Rodgers</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Sniegowski</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Analog integrated circuits and signal processing</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="7" to="15" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">The smooth curvature model: An efficient representation of eulerbernoulli flexures as robot joints</title>
+		<author>
+			<persName><forename type="first">U</forename><surname>Lael</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Aaron</forename><forename type="middle">M</forename><surname>Odhner</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Dollar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Robotics</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="761" to="772" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Energy harvesting from a backpack instrumented with piezoelectric shoulder straps</title>
+		<author>
+			<persName><forename type="first">Jonathan</forename><surname>Granstrom</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joel</forename><surname>Feenstra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Henry</forename><forename type="middle">A</forename><surname>Sodano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kevin</forename><surname>Farinholt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Smart Materials and Structures</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page">1810</biblScope>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Fiber bragg grating-based triaxial force sensor with parallel flexure hinges</title>
+		<author>
+			<persName><forename type="first">Anzhu</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yuanyuan</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lei</forename><surname>Cao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zhidong</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hao</forename><surname>Liu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Industrial Electronics</title>
+		<imprint>
+			<biblScope unit="volume">65</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="8215" to="8223" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title level="m" type="main">Buckling of bars, plates, and shells</title>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Millard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jones</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2006">2006</date>
+			<publisher>Bull Ridge Corporation</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<title level="m" type="main">Buckling of bars, plates, and shells</title>
+		<author>
+			<persName><forename type="first">Don</forename><forename type="middle">O</forename><surname>Brush</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bo</forename><forename type="middle">O</forename><surname>Almroth</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Hutchinson</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1975">1975</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Theory of elastic stability</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Stephen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">James</forename><forename type="middle">M</forename><surname>Timoshenko</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gere</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+			<publisher>Courier Corporation</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Kinetostatic modeling of fully compliant bistable mechanisms using timoshenko beam constraint model</title>
+		<author>
+			<persName><forename type="first">Guimin</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fulei</forename><surname>Ma</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mechanical Design</title>
+		<imprint>
+			<biblScope unit="volume">137</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<author>
+			<persName><forename type="first">Leonhard</forename><surname>Euler</surname></persName>
+		</author>
+		<title level="m">Methodus inveniendi lineas curvas maximi minimive proprietate gaudentes</title>
+		<editor>
+			<persName><forename type="first">Marcum-Michaelem</forename><surname>Bousquet</surname></persName>
+		</editor>
+		<imprint>
+			<date type="published" when="1744">1744</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Sur la figure des colonnes</title>
+		<author>
+			<persName><forename type="first">Joseph-Louis</forename><surname>Lagrange</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Miscellanea Taurinensia</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="123" to="166" />
+			<date type="published" when="1770">1770</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">A History of the Theory of Elasticity and of the Strength of Materials: pts</title>
+		<author>
+			<persName><forename type="first">Isaac</forename><surname>Todhunter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Saint-Venant to Lord Kelvin</title>
+		<imprint>
+			<publisher>University Press</publisher>
+			<date type="published" when="1893">1893</date>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="1" to="2" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<title level="m" type="main">Methods of bifurcation theory</title>
+		<author>
+			<persName><forename type="first">S-N</forename><surname>Chow</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jack</forename><forename type="middle">K</forename><surname>Hale</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2012">2012</date>
+			<publisher>Springer Science &amp; Business Media</publisher>
+			<biblScope unit="volume">251</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title level="m" type="main">Nonlinear Problems of Elasticity</title>
+		<author>
+			<persName><forename type="first">Stuart</forename><surname>Antman</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1996">1996</date>
+			<publisher>Springer</publisher>
+			<pubPlace>Dordrecht</pubPlace>
+		</imprint>
+	</monogr>
+	<note>2nd ed</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Buckling and post-buckling of non-uniform non-linearly elastic rods</title>
+		<author>
+			<persName><forename type="first">Walter</forename><surname>Lacarbonara</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Mechanical Sciences</title>
+		<imprint>
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1316" to="1325" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Constrained euler buckling</title>
+		<author>
+			<persName><surname>Domokos</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Holmes</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Royce</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Mechanics: From Theory to Computation</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2000">2000</date>
+			<biblScope unit="page" from="413" to="446" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Buckling and postbuckling of extensible, shear-deformable beams: Some exact solutions and new insights</title>
+		<author>
+			<persName><forename type="first">Samir</forename><surname>Emam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Walter</forename><surname>Lacarbonara</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Non-Linear Mechanics</title>
+		<imprint>
+			<biblScope unit="volume">129</biblScope>
+			<biblScope unit="page">103667</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Buckling and post-buckling analysis of extensible beam-columns by using the differential quadrature method</title>
+		<author>
+			<persName><forename type="first">Zhangxian</forename><surname>Yuan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xinwei</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computers &amp; Mathematics with Applications</title>
+		<imprint>
+			<biblScope unit="volume">62</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="4499" to="4513" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Plastic latching accelerometer based on bistable compliant mechanisms</title>
+		<author>
+			<persName><surname>Bj Hansen</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Carron</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Jensen</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Hawkins</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Schultz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Smart Materials and Structures</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page">1967</biblScope>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Modeling and measurement of a bistable beam in a microelectromechanical system</title>
+		<author>
+			<persName><surname>Matthew R Brake</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Michael</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nathan</forename><forename type="middle">W</forename><surname>Baker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Douglas</forename><forename type="middle">A</forename><surname>Moore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John</forename><forename type="middle">A</forename><surname>Crowson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jack</forename><forename type="middle">E</forename><surname>Mitchell</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Houston</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of microelectromechanical systems</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1503" to="1514" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">In-plane linear displacement bistable microrelay</title>
+		<author>
+			<persName><forename type="first">Troy</forename><surname>Gomm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Larry</forename><forename type="middle">L</forename><surname>Howell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Richard</forename><forename type="middle">H</forename><surname>Selfridge</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Micromechanics and Microengineering</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">257</biblScope>
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Optimized binary modular reconfigurable robotic devices</title>
+		<author>
+			<persName><forename type="first">Moustapha</forename><surname>Hafez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthew</forename><forename type="middle">D</forename><surname>Lichter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><surname>Dubowsky</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE/ASME transactions on mechatronics</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="18" to="25" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Design of bistable compliant mechanisms using precisionposition and rigid-body replacement methods</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Martín</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alberto</forename><surname>Pucheta</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Cardona</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mechanism and Machine Theory</title>
+		<imprint>
+			<biblScope unit="volume">45</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="304" to="326" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Investigation on mechanically bistable mems devices for energy harvesting from vibrations</title>
+		<author>
+			<persName><forename type="first">Bruno</forename><surname>Ando</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Salvatore</forename><surname>Baglio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L'</forename><surname>Gaetano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carlo</forename><surname>Episcopo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Trigona</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Microelectromechanical Systems</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="779" to="790" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">A collocation method for boundary value problems</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Russell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lawerence</forename><forename type="middle">F</forename><surname>Shampine</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Numerische Mathematik</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="28" />
+			<date type="published" when="1972">1972</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Solving boundary value problems for ordinary differential equations in matlab with bvp4c</title>
+		<author>
+			<persName><forename type="first">Jacek</forename><surname>Lawrence F Shampine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mark</forename><forename type="middle">W</forename><surname>Kierzenka</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Reichelt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Tutorial notes</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="27" />
+			<date type="published" when="2000">2000. 2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<title level="m" type="main">Iterative methods for the solution of equations</title>
+		<author>
+			<persName><forename type="first">Joseph</forename><surname>Frederick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Traub</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1982">1982</date>
+			<publisher>American Mathematical Soc</publisher>
+			<biblScope unit="volume">312</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<monogr>
+		<title level="m" type="main">Iterative methods for solving linear systems</title>
+		<author>
+			<persName><forename type="first">Anne</forename><surname>Greenbaum</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1997">1997</date>
+			<publisher>SIAM</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

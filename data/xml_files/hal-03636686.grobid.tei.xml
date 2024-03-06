@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Prophecy Made Simple</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Leslie</forename><surname>Lamport</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">S</forename><surname>Merz</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution">Microsoft Research</orgName>
+								<address>
+									<country key="US">USA</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution" key="instit1">University of Lorraine</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<address>
+									<settlement>Inria</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Prophecy Made Simple</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">8EDF3B218C8205CC26057DEC0E35F7B1</idno>
+					<idno type="DOI">10.1145/3492545</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-06T15:32+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>CCS Concepts:</term>
+					<term>Software and its engineering → Formal software verification</term>
+					<term>• Theory of computation → Modal and temporal logics</term>
+					<term>Logic and verification</term>
+					<term>Program verification</term>
+					<term>Formal specification, state machine, refinement, auxiliary variable</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Prophecy variables were introduced in the article "The Existence of Refinement Mappings" by Abadi and Lamport. They were difficult to use in practice. We describe a new kind of prophecy variable that we find much easier to use. We also reformulate ideas from that article in a more mathematical way.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>reasoning forward from the present. It makes simple examples simple and realistic examples not too hard.</p><p>We were motivated to take a fresh look at prophecy variables by a paper of Abadi <ref type="bibr" target="#b0">[1]</ref>. It describes techniques to make ER's prophecy variables easier to use, but we found those techniques hard to understand and prophecy variables still too hard to use. Soon after ER was written, TLA was developed. It allowed us to express the concepts developed in ER mathematically, so a specification is a formula and implementation is implication. It also gave us a new way to think about prophecy.</p><p>TLA is a linear-time temporal logic. A formula in such a logic is a predicate on sequences of states. In other temporal logics, formulas are built from predicates on states. TLA formulas are built from actions, which are predicates on pairs of states. This makes it easy to write as TLA formulas the state-machine specifications on which ER is based. Earlier temporal logics could also express actions, but not as conveniently as TLA. They therefore did not lead one to think in terms of actions.</p><p>Thinking in terms of actions led us quickly to the simple idea of letting the value of a prophecy variable predict which one of a set of actions will be the next one satisfied by a pair of successive states. For example, if each of the actions describes the sending of a different message, the value of the prophecy variable predicts which message is the next one to be sent. It was easy to generalize this idea to a prophecy variable that makes multiple predictions-even infinitely many.</p><p>In addition to explaining our new prophecy variables, we recast the concepts from ER in terms of temporal logic formulas. TLA is an obvious logic to use since it was devised for representing state machines, but the concepts should be applicable to any state-based formalism. We assume no prior knowledge of TLA or of ER. For readers who are familiar with ER, we point out the correspondence between our definitions and those of ER.</p><p>Sections 2, 3, and 4.1 explain how specifications are written, what it means for one specification to implement another, refinement mappings, and history variables. They correspond to Sections 2, 3, and 5.1 of ER. The rest of Section 4 explains prophecy variables and stuttering variables, which provide part of the functionality of ER's prophecy variables. Section 5 sketches how a prophecy variable can be used to verify that a concurrent algorithm implements the specification of a linearizable object <ref type="bibr" target="#b9">[10]</ref>. Our method should be useful for verifying linearizable specifications of other systems.</p><p>Section 6 shows that existential quantification over constants, an operation present in TLA and some other temporal logics, can be used to predict the future. When used in this way, we call it a prophecy constant. Section 7 presents completeness results stating that the refinement mapping required to verify an implementation can always, in theory, be obtained by adding history and stuttering variables and either prophecy constants or our prophecy variables-without assuming the conditions required by ER's prophecy variables. In practice, prophecy constants and prophecy variables complement each other. A concluding section compares our prophecy variables to others inspired by ER.</p><p>Our exposition is as informal as we can make it while trying to be rigorous. TLA + is a complete specification language based on TLA <ref type="bibr" target="#b16">[17]</ref>. Most of what we describe here has been explained in excruciating detail for TLA + users <ref type="bibr" target="#b17">[18]</ref>. It is easy to write our examples in TLA + , and their correctness has been checked with the TLA + tools. Since the examples are written somewhat informally here, we cannot be sure that they have no errors.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">PRELIMINARIES 2.1 States, Behaviors, and Specifications</head><p>Following Turing and ER, we model the execution of a discrete system as a sequence of states, which we call a behavior. For mathematical simplicity, we define a state to be an assignment of values to all possible variables. Think of a behavior as representing a history of the entire universe. We specify a system as a predicate on behaviors, which is satisfied by those behaviors that represent a history in which the system executes the way it should. Traditional verification methods consider only behaviors that represent possible executions of a system. We consider all behaviors, where a behavior is any sequence of states, and a state is any assignment of any values to variables.</p><p>Only a finite number of variables are relevant to a system; the system's specification allows behaviors in which other variables can have any values. For example, if we represent its display with the variable hr , a 12-hour clock that displays the hour is satisfied by behaviors of the form [hr <ref type="bibr">: 12]</ref>, [hr : 1], [hr : 2], . . . ,</p><p>where [hr : i ] can be any state that assigns the value i to hr . We call each pair of successive states in a behavior a step of the behavior. A state of ER corresponds to an assignment of values to only the variables of the specification.</p><p>Common sense dictates that a specification of an hour clock should not say that the clock has no alarm, or no radio, or no display showing minutes. However, between any two steps that change the value of hr , a behavior representing a universe in which our hour clock also displays minutes must contain 59 steps in which the minute display changes and the value of hr remains the same. Therefore, in addition to allowing behaviors of the form (1), a specification of an hour clock must allow steps in which the value of hr does not change.</p><p>We define a stuttering step of a specification to be one in which both states assign the same values to the specification's variables. Two behaviors are said to be stuttering equivalent for a specification iff (if and only if) they both have the same sequence of non-stuttering steps. We often don't mention the specification when it is clear from context. We write only specifications that are stuttering insensitive, meaning that if two behaviors are stuttering equivalent, then one satisfies the specification iff the other does. All behaviors are infinite. An execution in which a system stops is represented by a behavior ending in an infinite sequence of stuttering steps of its specification. (The rest of the universe needn't also stop.)</p><p>An event e in an event-based formalism corresponds to a step that satisfies some predicate E on pairs of states. If the events are generated by transitions in an underlying state machine, then transitions that produce no event correspond to stuttering steps. In a purely event-based formalism, special "nothing happened" events correspond to stuttering steps.</p><p>Writing stuttering-insensitive specifications allows a simple definition of implementation (also called refinement). We say that a specification S 1 implements a specification S 2 iff every behavior satisfying S 1 also satisfies S 2 . When predicates on behaviors are formulas in a temporal logic, S 1 implements S 2 means that the formula S 1 ⇒ S 2 is valid (satisfied by all behaviors).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">State Machines</head><p>Following Turing, ER, and common programming languages, we write our specifications in terms of state machines. A state machine is specified with two formulas: a predicate Init on states that describes the possible initial states and a predicate Next on pairs of states that describes how the state can change. We call a predicate A on pairs of states an action, and we call a step satisfying A an A step. For a function f on states, we define UC f to be the action satisfied by a step iff it leaves the value of f unchanged. We enclose tuples in angle brackets .</p><p>Let x be the list x 1 , . . . , x n of all variables of the specification. Then UC x is the action satisfied only by steps that leave all the variables x unchanged-that is, stuttering steps. The state machine specified by Init and Next is satisfied by a behavior s 1 , s 2 , . . . iff SM1. s 1 satisfies Init, and SM2. For all i , the step s i , s i+1 satisfies Next ∨ UC x .</p><p>The disjunct UC x in SM2 ensures that the specification is stuttering insensitive. The predicate on behaviors described by SM1 and SM2 is written in TLA as this formula:</p><formula xml:id="formula_1">Init ∧ [Next] x ,<label>(2)</label></formula><p>where is the temporal logic forever operator and <ref type="bibr">[Next]</ref> f is an abbreviation for Next ∨ (UC f ) .</p><p>In TLA, an action is written as an ordinary mathematical formula that may contain primed and unprimed variables. Unprimed variables refer to the values of the variables in the first state of a pair of states, and primed variables refer to their values in the second state. (An action with no primed variables is a predicate on states.) Thus, UC x equals x = x , which is equivalent to</p><formula xml:id="formula_2">(x 1 = x 1 ) ∧ . . . ∧ (x n = x n ) .</formula><p>(Priming an expression means priming all its variables.) Our hourclock specification can be written in TLA as</p><formula xml:id="formula_3">(hr = 12) ∧ [hr = if hr = 12 then 1 else hr + 1] hr .</formula><p>(The angle brackets in the subscript hr can be omitted.) A specification of the form (2) allows behaviors in which, at some point, the values of the variables x never again change-that is, in our example, behaviors in which the clock halts. Allowing halting is a feature, not a problem. Formula (2) expresses a safety property. If we want the system also to satisfy a liveness property<ref type="foot" target="#foot_1">1</ref> L, we specify it as</p><formula xml:id="formula_4">Init ∧ [Next] x ∧ L. (<label>3</label></formula><formula xml:id="formula_5">)</formula><p>Letting L be the TLA weak fairness formula WF x (Next ) makes Formula (3) assert that the state machine never halts in a state in which a non-stuttering step is possible. For the hour clock, this implies that the clock never stops. The precise meaning of WF is irrelevant. Safety and liveness properties are verified differently, so it is best to keep them separate in a specification. The liveness property L plays no part in defining our prophecy variables, so we don't care how L is written. We don't even require it to be a liveness property. Following ER, we call L a supplementary property.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3">Internal Variables</head><p>Specifying a system with a state machine often requires the use of variables that do not represent the actual state of the system but serve to describe how that state changes. We call the variables describing the system's state external variables, and we call the additional variables internal variables. In our specifications, we want to hide the internal variables, leaving only the external variables visible.</p><p>In a linear-time temporal logic, we hide a variable y in a formula F with the temporal existential quantifier ∃ ∃ ∃ ∃ ∃ ∃ . The approximate definition is that ∃ ∃ ∃ ∃ ∃ ∃ y : F is true of a behavior σ iff there exist assignments of values to y in the states of σ (a separate assignment for each state of σ ) that make the resulting behavior satisfy F . This definition is wrong because it doesn't ensure that ∃ ∃ ∃ ∃ ∃ ∃ y : F is stuttering insensitive. The correct definition is that σ satisfies ∃ ∃ ∃ ∃ ∃ ∃ y : F iff there is a behavior τ stuttering equivalent for F to σ and assignments of values to y that make τ satisfy F . For a list y of variables y 1 , . . . y m , we define ∃ ∃ ∃ ∃ ∃ ∃ y : F to equal ∃ ∃ ∃ ∃ ∃ ∃ y 1 : . . . ∃ ∃ ∃ ∃ ∃ ∃ y m : F. We generalize the form (3) of a specification S to ∃ ∃ ∃ ∃ ∃ ∃ y : IS , where and x and y are lists of variables that may appear in Init, Next, and L. The external variables x are assumed to be different from the internal variables y. We call IS the internal specification of S.</p><formula xml:id="formula_6">IS Δ = Init ∧ [Next] x,y ∧ L,<label>(4)</label></formula><note type="other">Prophecy Made Simple 6:5</note></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">IMPLEMENTATION AND REFINEMENT MAPPINGS</head><p>We explain refinement mappings with an example consisting of a specification A, a specification B that implements A, and a refinement mapping that can be used to verify B ⇒ A .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Specification</head><p>A Specification A describes a system that receives as input a sequence of integers and, after receipt of each integer, outputs the average of all the integers received thus far. Receipt of an integer i is represented by the value of the variable in changing from the special value rdy to i , where we assume rdy is not a number. Producing an output is represented by the value of in changing back to rdy and the value of out being set to the output. Initially, in = rdy and out = 0. Here is the beginning of a behavior that satisfies A : </p><p>A is defined to equal ∃ ∃ ∃ ∃ ∃ ∃ sum, num : IA , where num is the number of outputs that have been produced and sum is the sum of the inputs that produced the most recent output. Here is a behavior satisfying IA, which shows that behavior (5) satisfies A :</p><p>[in : rdy, out : 0, num : 0, sum : 0], [in : 3, out : 0, num : 0, sum : 0], [in : rdy, out : 3, num : 1, sum : 3], [in : -2, out : 3, num : 1, sum : 3], [in : rdy, out : 1 2 , num : 2, sum : 1], . . . .</p><p>The complete specification A is defined in Figure <ref type="figure" target="#fig_0">1</ref>, where Int is the set of all integers. A step satisfies the action Next A iff it is an Input A step or an Output A step. An Input A step represents the receipt of an input and an Output A step represents the production of an output.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Specification B</head><p>Specification B is a different way of writing the same specification as A. Instead of variables that record the number of inputs and their sum, the internal specification IB has a single internal variable seq that records the entire sequence of inputs received so far. Specification B has the same form as A, except its action Input B appends the value being input to seq, and its Output B action outputs the average of the numbers in the sequence seq.</p><p>To write B, we introduce some notation for sequences. As mentioned above, we enclose sequences in angle brackets, so is the empty sequence. We define Len (sq ) to equal the length of sequence sq and Append (sq, e ) to be the sequence obtained by appending e to the end of sequence sq, so Len ( 3, 1 ) equals 2 and Append ( 3, 1 , 42) equals 3, 1, 42 . We also define Sum (sq ) to be the sum of the elements of sq, so Sum ( 3, 1, 42 ) equals 46 (which equals 3 + 1 + 42) and Sum ( ) equals 0. Specification B is defined in Figure <ref type="figure" target="#fig_2">2</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Implementation and a Refinement Mapping</head><p>To show B ⇒ A , we must show (∃ ∃ ∃ ∃ ∃ ∃ seq : IB) ⇒ A . The quantifier ∃ ∃ ∃ ∃ ∃ ∃ obeys the same rules as the quantifier ∃ of ordinary math. By those rules, since seq is not a variable of A, to show (∃ ∃ ∃ ∃ ∃ ∃ seq : IB) ⇒ A it suffices to show IB ⇒ A .</p><p>For any state s, let s[[num ← u, sum ← v ]] be the state that is the same as s except that it assigns the value u to variable num and the value v to variable sum. Since A equals ∃ ∃ ∃ ∃ ∃ ∃ num, sum : IA , to show IB ⇒ A , it suffices to assume that a behavior s 1 , s 2 , . . . satisfies IB and find sequences of values num 1 , num 2 , . . . and sum 1 , sum 2 , . . . such that the behavior</p><formula xml:id="formula_9">s 1 [[num ← num 1 , sum ← sum 1 ]], s 2 [[num ← num 2 , sum ← sum 2 ]], . . .</formula><p>satisfies IA. We are free to let each num i and sum i depend on the entire behavior s 1 , s 2 , . . . . However, we are going to make them depend only on the state s i . We do that by finding expressions num and sum, containing only the variables in, out, and seq of IB, and let num i and sum i be the values of these expressions in state s i .</p><p>More precisely, if u and v are expressions (formulas that need not be Boolean valued), then let s[[num ← u, sum ← v ]] be the state that is the same as s except that it assigns to the variables num and sum the values of u and v in state s, respectively. </p><formula xml:id="formula_10">(in = rdy) ∧ (out = num = sum = 0), the state s[[num ← num, sum ← sum]] satisfies Init A iff state s satisfies (in = rdy) ∧ (out = num = sum = 0).<label>(7)</label></formula><p>This is the formula obtained by substituting the expression num for the variable num and the expression sum for the variable sum in the formula Init A . Let's call that formula</p><formula xml:id="formula_11">Init A with num ← num, sum ← sum.</formula><p>RM1 asserts that every state satisfying Init B satisfies <ref type="bibr" target="#b6">(7)</ref>. Therefore, it is equivalent to</p><formula xml:id="formula_12">RM1. Init B ⇒ (Init A with num ← num, sum ← sum ).</formula><p>As ] is what ER calls a refinement mapping. Thinking of refinement mappings in terms of formulas instead of states is better when writing proofs, since proofs are written with formulas.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Finding the Refinement Mapping</head><p>Let's now find the expressions num and sum for the actual formulas defined in Figures <ref type="figure" target="#fig_0">1</ref> and<ref type="figure" target="#fig_2">2</ref> that satisfy RM1 and RM2. RM2 asserts that a step satisfying Next B simulates a step satisfying Next A or a stuttering step, where the values of num and sum are simulated by the values of num and sum. In this simulation, the variables in and out are simulated by themselves. This implies that an Input B step must simulate an Input A step, leaving num and sum unchanged, and an Output B step must simulate an Output A step. So, we should verify RM2 by verifying these two formulas:</p><formula xml:id="formula_13">Input B ⇒ (Input A with num ← num, sum ← sum ),<label>(8)</label></formula><formula xml:id="formula_14">Output B ⇒ (Output A with num ← num, sum ← sum ).<label>(9)</label></formula><p>It's pretty clear that, after an output step, num should equal Len (seq ) and sum should equal Sum (seq ). Since in equals rdy after an Output A step, this leads to the following definitions:</p><formula xml:id="formula_15">num Δ = if in = rdy then Len (seq ) else Len (Front (seq )), sum Δ = if in = rdy then Sum (seq ) else Sum (Front (seq )),</formula><p>where Front (sq ) is defined to equal the sequence consisting of the first Len (sq ) -1 elements of sequence sq, and Front ( ) is defined to equal . It's easy to verify RM1, which asserts</p><formula xml:id="formula_16">(in = rdy) ∧ (out = 0) ∧ (seq = ) ⇒ (in = rdy) ∧ (out = num = sum = 0).</formula><p>It's not hard to verify Formula (8), since Input B implies Front (seq ) = seq. Equation ( <ref type="formula" target="#formula_14">9</ref>) may also appear valid, but it's not. For example, there's no way to show that Formula ( <ref type="formula" target="#formula_14">9</ref>) is true if in = 42 and seq = rdy , since we don't know what Sum ( rdy ) and Sum ( rdy, 42 ) equal.</p><p>It may seem obvious that seq can't equal rdy , but why can't it? Nothing in Formula (9) or Figure <ref type="figure" target="#fig_2">2</ref> asserts that seq doesn't equal rdy . What is true is that the value of seq can't equal rdy in any state of any behavior satisfying IB. To show implementation, we don't have to show that RM2 is true for all pairs of states. It need only be true for reachable states, which are states that can occur in a behavior satisfying IB. In fact, every reachable state of IB satisfies the following formula Inv :</p><formula xml:id="formula_17">Inv Δ = (in ∈ Int ∪ {rdy}) ∧ (out ∈ Int ) ∧ (seq ∈ Int * ) ∧ ((in rdy ) ⇒ (seq ) ∧ (in = Last (seq ))),</formula><p>where Int * is the set of finite sequences of integers and Last (sq ) denotes the last element of a non-empty sequence sq. A formula that is true in every reachable state of a specification is called an invariant of the specification. In temporal logic, the formula Inv is satisfied by a behavior iff every state of the behavior satisfies Inv . Therefore, the assertion that Inv is an invariant of IB is expressed by IB ⇒ Inv . Since Inv contains only variables of IB, its value is left unchanged by steps that leave those variables unchanged. To show that Inv is an invariant of IB, by induction it suffices to show:</p><formula xml:id="formula_18">I1. Init B ⇒ Inv, I2. Inv ∧ Next B ⇒ Inv .</formula><p>(Remember that Inv is the formula obtained by priming all the variables in Inv .) Because Inv is an invariant of IB, instead of showing RM2, we need only show:</p><formula xml:id="formula_19">Inv ∧ Inv ∧ Next B ⇒ (Next A with num ← num, sum ← sum ) ∨ UC in, out, num, sum .<label>(10)</label></formula><p>We leave this to the reader. Proving invariance by proving I1 and I2 underlies all state-based methods for proving correctness, including the Floyd-Hoare <ref type="bibr" target="#b8">[9,</ref><ref type="bibr" target="#b11">12]</ref> and Owicki-Gries <ref type="bibr" target="#b20">[21]</ref> methods. ER avoids the explicit use of invariants by restricting a specification's set of states to ones that satisfy the needed invariant.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Generalization</head><p>We now generalize what we have done in this section to arbitrary specifications S 1 and S 2 , with external variables x, defined by</p><formula xml:id="formula_20">IS 1 Δ = Init 1 ∧ [Next 1 ] x,y ∧ L 1 , IS 2 Δ = Init 2 ∧ [Next 2 ] x,z ∧ L 2 , S 1 Δ = ∃ ∃ ∃ ∃ ∃ ∃ y : IS 1 S 2 Δ = ∃ ∃ ∃ ∃ ∃ ∃ z : IS 2 ,<label>(11)</label></formula><p>where the lists y and z of internal variables of S 1 and S 2 contain no variables of x. To verify S 1 ⇒ S 2 , we first define a state predicate Inv , with variables in x and y, and show it is an invariant of IS 1 by showing:</p><formula xml:id="formula_21">I1. Init 1 ⇒ Inv, I2. Inv ∧ Next 1 ⇒ Inv .</formula><p>Then, if z is the list z 1 , . . . , z m of variables, we find expressions z 1 , . . . , z m with variables x and y and show the following, where z ← z means</p><formula xml:id="formula_22">z 1 ← z 1 , . . . , z m ← z m : RM1. Init 1 ⇒ (Init 2 with z ← z), RM2. Inv ∧ Inv ∧ Next 1 ⇒ ((Next 2 with z ← z) ∨ UC x, z ), RM3. Init 1 ∧ [Next 1 ] x,y ∧ L 1 ⇒ (L 2 with z ← z).</formula><p>When RM1-RM3 hold, we say that IS 1 implements IS 2 under the refinement mapping z ← z .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">AUXILIARY VARIABLES</head><p>Sometimes, one specification implements another, but there does not exist a refinement mapping that shows it. For example, while we showed above that B implies A, the two specifications are actually equivalent. However, IA does not implement IB under any refinement mapping because there is no way to define seq in terms of the variables of A.</p><p>To show A ⇒ B, we construct a specification A a from A containing an additional variable a such that A is equivalent to ∃ ∃ ∃ ∃ ∃ ∃ a : A a , and we show A a ⇒ B . This shows A ⇒ B, assuming that a is not an (external) variable of B. Constructing A a such that ∃ ∃ ∃ ∃ ∃ ∃ a : A a is equivalent to A is called adding the auxiliary variable a to A. We define three kinds of auxiliary variables: history, prophecy, and stuttering variables.</p><p>Let specification S have internal specification IS defined by Formula (4). We define S a to equal ∃ ∃ ∃ ∃ ∃ ∃ y : IS a and define</p><formula xml:id="formula_23">IS a Δ = Init a ∧ [Next a ] x,y,a ∧ L, (<label>12</label></formula><formula xml:id="formula_24">)</formula><p>where Init a and Next a are obtained from Init and Next by adding specifications of the initial value of a and how a changes. To show that S a is obtained by adding a as an auxiliary variablethat is, ∃ ∃ ∃ ∃ ∃ ∃ a : S a is equivalent to S-we show that ∃ ∃ ∃ ∃ ∃ ∃ a : IS a is equivalent to IS. Since IS a and IS have the same supplementary property L, it suffices to show their equivalence with L removed. That is, we only have to show that if we hide the variable a, the state machines of IS a and IS are equivalent. This requires verifying two conditions:</p><p>AV1. Any behavior satisfying SM1 and SM2 for IS a satisfies them for IS. AV2. From any behavior σ satisfying SM1 and SM2 for IS, we can obtain a behavior σ a satisfying SM1 and SM2 for IS a by adding stuttering steps and assigning new values to the variable a in the states of the resulting behavior.</p><p>For all our auxiliary variables, Init a is defined by</p><formula xml:id="formula_25">Init a Δ = Init ∧ J , (<label>13</label></formula><formula xml:id="formula_26">)</formula><p>where J is an expression containing the variables x, y, and a. To define Next a , we write Next as a disjunction of elementary actions, where we consider existential quantification to be a disjunction. For example, if U , V , and W (i ) are actions, we can consider the elementary actions of</p><formula xml:id="formula_27">U ∨ V ∨ ∃ i ∈ Int : W (i )<label>(14)</label></formula><p>to be U , V , and all W (i ) with i ∈ Int. (We could also consider U ∨ V and ∃ i ∈ Int : W (i ) to be the elementary actions of Formula ( <ref type="formula" target="#formula_27">14</ref>).) We define Next a by replacing every elementary action A of Next with an action A a . For history and prophecy variables, A a is defined by letting</p><formula xml:id="formula_28">A a Δ = A ∧ B, (<label>15</label></formula><formula xml:id="formula_29">)</formula><p>where B is an action containing the variables x, y, and a (which may appear primed or unprimed), and letting a be left unchanged by stuttering steps of IS. Condition AV1 is implied by Formulas ( <ref type="formula" target="#formula_25">13</ref>) and <ref type="bibr" target="#b14">(15)</ref>. Condition AV2 is implied by: AX. For any behavior s 1 , s 2 , . . . satisfying SM1 and SM2 for IS, there exists a behavior s a 1 , s a 2 , . . . such that each s a i is the same as s i except for the value it assigns to a, and (1) s a 1 satisfies Init a and (2) for each elementary action A and each step s i , s i+1 that satisfies A, the step s a i , s a i+1 satisfies A a . We can show that history and prophecy variables satisfy AX. Stuttering variables can be shown to satisfy AV1 and AV2 directly.</p><p>Inspired by Abadi <ref type="bibr" target="#b0">[1]</ref>, we explain prophecy variables in terms of examples in which a specification with an undo action that reverses the effect of some other action implements the same specification without the undo action. However, there is nothing about undo that makes our prophecy variables work especially well. We find them just as easy to use on other kinds of examples.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">History Variables</head><p>We use a history variable h to show A ⇒ B. A history variable stores information from the current and previous states. To be able to find a refinement mapping that shows IA h ⇒ ∃ ∃ ∃ ∃ ∃ ∃ seq : IB , we let h record the sequence of values input thus far. The initial value of h should obviously be the empty sequence, so we define</p><formula xml:id="formula_30">Init h A Δ = Init A ∧ (h = ).</formula><p>The elementary actions of Next A are Input A and Output A . We let Input h A append the new input value to h and Output A leave h unchanged: </p><formula xml:id="formula_31">Input h A Δ = Input A ∧ (h = Append (h, in )), Output h A Δ = Output A ∧ (h = h ).</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Finally, we define</head><p>Next</p><formula xml:id="formula_32">h A Δ = Input h A ∨ Output h A , IA h Δ = Init h A ∧ [Next h A ] in,out,sum,num,h , A h Δ = ∃ ∃ ∃ ∃ ∃ ∃ sum, num : IA h .</formula><p>Condition AX is satisfied because, for any behavior s 1 , s 2 , . . . satisfying SM1 and SM2 for IA, we can inductively define the required states s h i as follows: The value of h in s h 1 is determined by the condition h = . For each i , a nonstuttering step s i , s i+1 is a step of one of the two elementary actions, and we let s h i+1 assign to h the value of h determined by the h = . . . condition of that action. For a stuttering step, h = h.</p><p>To show A h ⇒ B, we let seq equal h; that is, we use the refinement mapping seq ← h. We must find an invariant Inv of IA h and show:</p><formula xml:id="formula_33">Init h A ⇒ (Init B with seq ← h ), Inv ∧ Inv ∧ Input h A ⇒ (Input B with seq ← h ), Inv ∧ Inv ∧ Output h A ⇒ (Output B with seq ← h ).<label>(16)</label></formula><p>This is a standard exercise in assertional reasoning. Formula ( <ref type="formula" target="#formula_33">16</ref>) implies RM1 and RM2, which imply A h ⇒ B.</p><p>The generalization to an arbitrary internal specification (Formula ( <ref type="formula" target="#formula_6">4</ref>)) is simple. We define</p><formula xml:id="formula_34">Init h Δ = Init ∧ (h = f ),</formula><p>where f is an expression that can contain the variables x and y. For an elementary action A of Next, we define</p><formula xml:id="formula_35">A h Δ = A ∧ (h = F ),</formula><p>where F is an expression that can contain the variables x and y, both unprimed and primed, and the unprimed variable h. The general verification of AX is essentially the same as for our example.</p><p>(If a step satisfies more than one elementary action, the value of h determined by A h for any of those actions can be used.)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Simple Prophecy Variables</head><p>We now consider a specification C that models implementing A with speculative execution, where an input can either produce an output or else be "undone" by resetting in to rdy without changing any other variables. Such a specification cannot implement A, which requires that every input produces an output. However, it does model a specification A that is the same as A except with the variable in hidden. We therefore let A equal ∃ ∃ ∃ ∃ ∃ ∃ in : A , which equals ∃ ∃ ∃ ∃ ∃ ∃ in, num, sum : IA . Thus, A is the same as A except we consider input actions to be internal to the system. We define C to be the same as A, except that after an input is received, the input action can be undone, setting in to rdy, without producing any output for that input. The definition of C is in Figure <ref type="figure" target="#fig_3">3</ref>.</p><p>Since out is the only external variable, it's clear that C allows the same externally visible behaviors as A. An Input A step followed by an Undo C step produces no change to out, so viewed externally they're just stuttering steps. It's obvious that A implements C because IA implies IC. (A behavior allowed by IA is allowed by IC because IC does not require that any Undo C steps occur.) However, we can't show C ⇒ A with a refinement mapping, even by adding history variables.</p><p>We can verify that C implements A by adding a prophecy variable p to C and showing that IC p implements IA under a refinement mapping. The variable p predicts whether or not an  input value will be output. More precisely, its value predicts whether the next Output A ∨ Undo C step will be an Output A step or an Undo C step. The initial predicate makes the first prediction. The next prediction is made after the currently predicted Output A or Undo C step occurs. The specification C p is defined in Figure <ref type="figure" target="#fig_4">4</ref>.</p><p>The value of the prophecy variable p is always either do or undo. Initially, p can have either of those values. If p equals do, then the next Output A or Undo C step must be an Output A step; it must be an Undo C step if p equals undo. In either case, after that step is taken, p is set to either do or undo. Condition AX is satisfied because for any behavior s 1 , s 2 , . . . satisfying IC, there is a corresponding behavior s p 1 , s p 2 , . . . satisfying IC p in which p always makes the correct prediction.</p><p>It's not hard to see that IC p implements IA under this refinement mapping:</p><formula xml:id="formula_36">in ← if p = undo then rdy else in, num ← num, sum ← sum.</formula><p>The generalization from this example is straightforward. Suppose the next-state action Next is the disjunction of elementary actions that include a set of actions A i for i in some set P . A simple prophecy variable p that predicts for which i the next A i step occurs is obtained by:</p><p>(1) Conjoining p ∈ P to the initial predicate Init, (2) Replacing each The examples we use to illustrate prophecy variables are unrealistically simple because input steps are internal. This makes it possible to define the necessary refinement mappings using the stuttering variables introduced in Section 4.7 instead of prophecy variables. We have no reason to believe stuttering variables can replace prophecy variables in any realistic example.</p><formula xml:id="formula_37">A i by (p = i ) ∧ (p ∈ P ) ∧ A i ,<label>(3)</label></formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Predicting the Impossible</head><p>What if we obtain S p by adding a prophecy variable p in this way to a specification S, and p makes a prediction that cannot be fulfilled? This would appear to cause unsoundness, because it seems that ∃ ∃ ∃ ∃ ∃ ∃ p : S p and S couldn't be equivalent. But they would be equivalent, and understanding why helps understand our prophecy variables. Let's consider an especially egregious example. Define S by</p><formula xml:id="formula_38">S Δ = (x = 0) ∧ [x = x + 1] x .</formula><p>Since x = x + 1 equals (x = x + 1) ∨ false , we can rewrite this as</p><formula xml:id="formula_39">S Δ = (x = 0) ∧ [(x = x + 1) ∨ false] x .</formula><p>Following the procedure above, we add a prophecy variable p that predicts if the next nonstuttering step (i.e., the next (x = x + 1) ∨ false step) is an x = x + 1 step or a false step:</p><formula xml:id="formula_40">S p Δ = Init p ∧ [Next p ] x,p , Init p Δ = (p ∈ {go, stop}) ∧ Init, Next p Δ = ((p = go) ∧ (x = x + 1) ∧ (p ∈ {go, stop})) ∨ ((p = stop) ∧ false ∧ (p ∈ {go, stop})).</formula><p>If p ever becomes equal to stop, then no further Next p step is possible (since no step can satisfy false), at which point the behavior must consist entirely of stuttering steps. In other words, the behavior describes a system that has stopped. But that's fine because S allows such behaviors. If we don't want S to allow such halting behaviors, we must conjoin to it a supplementary property such as WF x (x = x + 1). In that case, S p becomes</p><formula xml:id="formula_41">Init p ∧ [Next p ] x,p ∧ WF x (x = x + 1). (<label>17</label></formula><formula xml:id="formula_42">)</formula><p>The conjunct WF x (x = x + 1) implies that a behavior must keep taking steps that increment x . Formula (17) thus rules out any behavior in which p ever equals stop, and therefore the formula</p><formula xml:id="formula_43">∃ ∃ ∃ ∃ ∃ ∃ p : S p ∧ WF x (x = x + 1) is equivalent to S ∧ WF x (x = x + 1) .</formula><p>Readers who find this equivalence puzzling may be confusing the next-state action false with the specification false. The specification false is satisfied by no behavior; the specification</p><p>[false] x allows any behavior in which the value of x never changes.</p><p>Readers who find the specification <ref type="bibr" target="#b16">(17)</ref> weird are not confused. It is weird. In the terminology introduced by ER, it is weird because it is not machine closed. (Machine closure is explained in ER; it originally appeared under the name feasibility <ref type="bibr" target="#b4">[5]</ref>.) Except in rare cases, system specifications should be machine closed. However, a specification obtained by adding a prophecy variable is not meant to specify a system. It is used only to verify the system. Its weirdness is harmless.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">A Sequence of Prophecies</head><p>We generalize a simple prophecy variable that makes a single prediction to one that makes a sequence of consecutive predictions. As an example, let D be the specification that is the same as A except instead of alternating between input and output actions, it maintains a queue inq of unprocessed input values. An input action appends a value to the end of inq, and an output action removes the value at the head of the queue and changes sum, num, and out as in our previous specifications. An input action can be performed anytime, but an output action can occur only when inq is not empty. The definition of D is in Figure <ref type="figure" target="#fig_6">5</ref>, where for any nonempty sequence sq of values, Head (sq ) is the first element of sq and Tail (sq ) is the sequence obtained from sq by removing its first element, with Tail ( ) = .   As for our previous example, we implement D with a specification E, which also contains an undo action that throws away the first input in inq instead of processing it. It is specified in Figure <ref type="figure" target="#fig_7">6</ref>.</p><p>To define a refinement mapping under which E implements D, we add a prophecy variable whose value is a sequence of predictions, each one predicting whether the corresponding value of inq will be processed by an output action or thrown away by an undo action. Each prediction is made when the value is added to inq by an input action. The prediction is forgotten when the predicted action occurs. The definition of E p is in Figure <ref type="figure" target="#fig_8">7</ref>.</p><p>For sequences vsq and dsq of the same length, let OnlyDo (vsq, dsq ) be the subsequence of vsq consisting of all the elements for which the corresponding element of dsq equals do. For example: OnlyDo ( 3, 2, 1, 4, 7 , do, undo, undo, do, undo ) = 3, 4 . Specification IE implements ID under this refinement mapping: inq ← OnlyDo (inq, p), sum ← sum, num ← num. The generalization from this example is straightforward, if we take p = to mean that there is no prediction being made. Let the next-state action Next be the disjunction of elementary actions that include a set of actions A i for i in a set P , and let P n be the set of all length n sequences of elements of P . Here is how we add a prophecy variable p that makes a sequence of predictions of the i for which the next A i step occurs:</p><p>(1) Conjoin p ∈ P n to the initial predicate Init, for some n ≥ 0. (Note that p ∈ P 0 is equivalent to p = .) As with simple prophecy variables, AX is satisfied with the required behavior s p 1 , s p 2 , . . . being one in which all the right predictions are made.</p><p>In our definition of E p , we could eliminate the p = of condition 2 from the definitions of Output p E and Undo p E because IE p implies that p is always the same length as inq, and Output D and Undo E both imply inq . In condition 1, n can even equal ∞, where P ∞ is the set of all infinite sequences of elements of P . In that case, condition 3 requires replacing B by (p = p) ∧ B , since one cannot append an element to an infinite sequence. Such a prophecy variable, which makes infinitely many initial predictions that can unfold forever, is used in the completeness proof of Section 7.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.5">A Set of Prophecies</head><p>Our next type of prophecy variable is one that makes a set of concurrent predictions. Our example specification F is similar to D, except that instead of a queue inq of inputs, it has an unordered set inset of inputs. An output action can process any element of inset. Formula F is defined in Figure <ref type="figure" target="#fig_9">8</ref>, where \ is the set difference operator, so Int \ inset is the set of all integers not in inset.</p><p>As before, we add an undo action that can throw away an element in inset so it is not processed by an output action. The resulting specification G is defined in Figure <ref type="figure" target="#fig_11">9</ref>.</p><p>To show that G implements F , we add a prophecy variable p whose value is always a function with domain inset. For any element n of inset, p (n ) predicts whether that element will be undone or produce an output. To write the resulting specification G p , we need some notation for describing functions:  The specification G p is defined in Figure <ref type="figure" target="#fig_12">10</ref>. As before, AX holds with s p 1 , s p 2 , . . . a behavior having all the right predictions. Specification IG p implements IF under this refinement mapping:</p><formula xml:id="formula_45">inset ← {n ∈ inset : p (n ) = do}, sum ← sum, num ← num,</formula><p>which assigns to the variable inset of IF the subset of inset consisting of all elements n with p (n ) = do.</p><p>The only nontrivial part of the generalization from this example to an arbitrary set of prophecies is that p should make no prediction for a value not in its domain. Usually, as in our example, the actions to which the prediction apply are not enabled for a value not in the domain of p. If that's not the case, then the condition conjoined to an action to enforce the prediction should equal true if the prediction is being made for a value not in the domain of p.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.6">Further Generalizations of Prophecy Variables</head><p>Prophecy variables making sequences and sets of predictions can be generalized to prophecy variables whose predictions are organized in any data structure-even an infinite one. The generalization is described in detail in <ref type="bibr" target="#b17">[18]</ref>. The basic ideas are:</p><p>• A prediction predicts a value i for which the next step satisfying an action ∃ i ∈ P : A i satisfies A i . To add the prophecy variable, each A i is modified to enforce this prediction.</p><p>• An action or an initial condition that makes a prediction must allow any value i in P to be predicted. • Any action may remove predictions and/or make new predictions. An action that fulfills a prediction must remove that prediction. Except for that requirement, actions may leave all predictions unchanged.</p><p>Whether a particular prophecy is made is often indicated by the data structure containing the prophecies. In the example of Section 4.5, whether a prediction is made for an integer n depends on whether n is in the domain of p. Sometimes it is convenient to indicate the absence of a prophecy by a special value none that is not an element of the set P of possible predictions. In the example of a simple prophecy variable in Section 4.2, we could let the Output and Undo actions remove the prophecy by setting p to none and have the Input action make the prophecy by setting p to do or undo. A none value is handled like the value of the prophecy sequence variables of Section 4.4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.7">Stuttering Variables</head><p>Usually, when S 1 implements S 2 , specification S 1 takes more steps than S 2 . Those extra steps simulate stuttering steps of S 2 under a refinement mapping. As an example, let S 2 have an internal variable q, whose value is a sequence, and an action A that sets q to Tail (q ). Let A equal</p><formula xml:id="formula_46">E ∧ (q = Tail (q )) ∧ UC w ,</formula><p>where E is an enabling condition that implies q , and w is the list of all internal and external variables of S 2 except q.</p><p>Let S 1 implement S 2 by representing q with an array variable a, where the value of q is the sequence of elements a[0], . . . , a[Len (q ) -1], and a[j ] equals a special value null for j ≥ Len (q ). (We assume that a is a large enough array-perhaps infinite.) Let an A step of S 2 be implemented with a variable i , initially equal to 0, by steps setting a[i ] to a[i + 1] for i equal to 0 through Len (q ) -1, the last step resetting i to 0. To show that S 1 implements S 2 , we might use a refinement mapping in which an A step of S 2 is implemented by the first of those Len (q ) steps of S 1 .</p><p>If a and i are internal variables of S 1 , then S 2 should implement S 1 . Since S 1 takes more steps than S 2 to implement an A step, defining a refinement mapping to show that S 2 implements S 1 requires an auxiliary variable that adds stuttering steps to S 2 that implement the additional steps taken by S 1 . That variable must add Len (q ) -1 stuttering steps for each A step.</p><p>ER made their prophecy variables more complicated so they could add stuttering steps; we have long felt it was easier instead to use a new kind of auxiliary variable. We introduce a variable s that can add stuttering steps before and/or after an action, in this case the action A. An easy way to do it is to let the value of s be a natural number. Normally s equals 0; it is set to a positive integer to take stuttering steps, the value of s being the number of steps remaining. Let Init and Next be the initial predicate and next-state actions of S 2 . We assume Next is written A ∨ B 1 ∨ . . . ∨ B n , where for each j , no step is both an A and B j step. We add the stuttering variable s to S 2 as follows to obtain the specification S s 2 that adds Len (q ) -1 steps after each A step. The initial predicate Init s and next-state action Next s of S s 2 are</p><formula xml:id="formula_47">Init s Δ = Init ∧ (s = 0) Next s Δ = A s ∨ B s 1 ∨ . . . ∨ B s n , A s Δ = ((s = 0) ∧ (s = Len (q ) -1) ∧ A) ∨ ((s &gt; 0) ∧ (s = s -1) ∧ UC w, q ), B s j Δ = (s = s = 0) ∧ B j , for j = 1, . . . , n.</formula><p>Defining the refinement mapping under which S s 2 implements S 1 is tricky. The reader can verify that if A were the only action that changed q, then the correct refinement mapping would include these substitutions, where q[k ] equals the k th element of q: i ← iBar a[j ] ← if s = 0 then if j &lt; Len (q ) then q[j + 1] else null else if j &lt; iBar then q[j + 1] else if j ≤ Len (q ) then q[j ] else null where iBar Δ = if s = 0 then 0 else Len (q ) + 1s.</p><p>To add the Len (q ) -1 stuttering steps before every A step, we just change the definition of A s to:</p><formula xml:id="formula_48">A s Δ = ((s = 0) ∧ E ∧ (s = Len (q ) -1) ∧ UC w, q ) ∨ ((s &gt; 1) ∧ (s = s -1) ∧ UC w, q ) ∨ ((s = 1) ∧ (s = 0) ∧ (q = Tail (q )) ∧ UC w ). (<label>18</label></formula><formula xml:id="formula_49">)</formula><p>Finding a refinement mapping with this stuttering variable is another tricky exercise.</p><p>The generalizations that add K stuttering steps before or after each A step, for an arbitrary state function K and action A, are straightforward. To add the steps after A, we modify the definition above by replacing Len (q ) -1 with K and w, q with the list of all variables of S 2 . To add the stuttering steps before the A step, we make one additional change to the corresponding definition of A s : replacing (q = Tail (q )) ∧ UC w with F , where F is an action such that A ≡ E ∧ F and F is enabled in every state in which E is true.</p><p>We don't have to use natural numbers for counting stuttering states. We can add stuttering steps both before and after an action by using negative integers to count the steps after the action, counting up to 0-e.g., for an additional J stuttering steps after action A, we can replace the last disjunct of Formula (18) by</p><formula xml:id="formula_50">∨ ((s = 1) ∧ (s = -J ) ∧ (q = Tail (q )) ∧ UC w ) ∨ ((s &lt; 0) ∧ (s = s + 1) ∧ UC w, q ).</formula><p>Often, we let s take values that help define the refinement mapping. For example, suppose we want to take stuttering steps so the refinement mapping can implement an action by each process satisfying some condition. We can let s always be a sequence of processes, where the empty sequence is the normal value of s, and counting down is done by s = Tail (s ).</p><p>A single variable s can be used to add stuttering steps before and/or after multiple actions. For example, we can let the normal value of s be , add stuttering steps to an action A by letting s assume values of the form "A", i for a number i , and add stuttering steps to an action B by letting s assume values of the form "B ", q for q a sequence of processes.</p><p>To handle the rare case when S 1 implements S 2 but it has internal behaviors that halt while the corresponding internal behaviors of S 2 must take additional steps, we add an infinite stuttering variable s to S 1 that simply keeps changing forever. The formula WF s (s s ) asserts that there are infinitely many steps in which the value of s changes. <ref type="foot" target="#foot_3">2</ref> We add the auxiliary variable s by conjoining to the supplementary property of S 1 the temporal logic tautology ∃ ∃ ∃ ∃ ∃ ∃ s : WF s (s s ) . An infinite stuttering variable is our only auxiliary variable that is added by modifying the supplementary property rather than the initial predicate and next-state action. </p><note type="other">Prophecy Made Simple 6:19</note></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">VERIFYING LINEARIZABILITY</head><p>Linearizability has become a standard way of specifying an object shared by multiple processes <ref type="bibr" target="#b9">[10]</ref>. A process's operation Op is described by a sequence of three steps: a BeginOp step that provides the operation's input, a DoOp step that performs the operation by reading and/or modifying the object, and an EndOp step that reports the operation's output. The BeginOp and EndOp steps are externally visible, meaning that they change external variables. The DoOp step is internal, meaning it modifies only internal variables.</p><p>We illustrate our use of auxiliary variables for verifying a linearizability specification with the atomic snapshot algorithm of Afek et al. <ref type="bibr" target="#b2">[3]</ref>. Our discussion is informal; a precise exposition including formal TLA + specifications is in <ref type="bibr" target="#b17">[18]</ref>. The algorithm implements an array of memory registers accessed by a set of writer processes and a set of reader processes, with one register for each writer. A writer can perform write operations to its register. A reader can perform read operations that return a "snapshot" of the memory-that is, the values of all the registers.</p><p>We let LinearSnap be a linearizable specification of what a snapshot algorithm should do. It uses an internal variable mem, where mem (w ) equals the value of writer w 's register. A DoWrite step modifies mem (w ) for a single writer w . A single DoRead step reads the value of mem. Another internal variable maintains a process's state while it is performing an operation, including whether the DoOp action has been performed and, for a reader, what value of mem was read by DoRead and will be returned by EndRead . An external variable describes the BeginOp and EndOp actions.</p><p>We consider a simplified version of the Afek et al. snapshot algorithm we call SimpleAfek . It maintains an internal variable imem. A writer w writes a value v on its i th write by setting imem (w ) to the pair i, v . A reader does a sequence of reads of imem, each of those reads reading the values of imem (w ) for all writers w in separate actions, executed in any order. If the reader obtains the same value of imem on two successive reads, it returns the obvious snapshot contained in that value of imem. If not, it keeps reading. SimpleAfek does not guarantee termination. The actual algorithm adds a way to have reading terminate after at most three reads and a way to replace the unbounded write numbers by a bounded set of values. The more complicated algorithm can be handled in the same way as SimpleAfek .</p><p>SimpleAfek implements LinearSnap, but constructing a refinement mapping to show that it does requires predicting the future. We show why with the following example, illustrated in Figures <ref type="figure" target="#fig_15">11 to 13</ref>. There are two writers, named 1 and 2, and one reader. We describe two behaviors σ and τ of SimpleAfek and consider how a refinement mapping maps steps of those behaviors to DoRead and DoWrite steps of LinearSnap. As shown in Figure <ref type="figure" target="#fig_13">11</ref>, both behaviors begin in a state having imem (1) = imem (2) = 0, old for some value old and with the reader performing a BeginRead step (labeled BR) and beginning its sequence of reads of the complete array imem with individual reads obtaining the value 0, old for the first reads Rd 1 (1) of imem (1) and Rd 1 (2) of imem (2), as well as for the second read of imem <ref type="bibr" target="#b0">(1)</ref>. Meanwhile, writer 1 performs a  BeginWrite step BW (new ) of the value new . It then writes value new to imem (1), updating it to 1, new , followed by an EndWrite step.</p><p>As illustrated in Figure <ref type="figure" target="#fig_14">12</ref>, in behavior σ the reader then completes its second read, finding imem (2) = 0, old . Concurrently, writer 2 writes new to its register, the write of imem (2) occurring after the second read of imem <ref type="bibr" target="#b1">(2)</ref>. Since the first two reads see the same values of imem, the read completes and returns the snapshot with mem (1) = mem (2) = old . Because the reader obtained the snapshot before the writes, we have: A. For behavior σ , the step of SimpleAfek that implements the DoRead step must precede the step that implements writer 1's DoWrite step.</p><p>As shown in Figure <ref type="figure" target="#fig_15">13</ref>, in behavior τ the second read of imem (2) is preceded by writer 2 updating imem (2) to 1, new . The reader then continues its operation, finding imem (2) = 1, new . Because the first two reads obtained different values of imem (2), the reader continues reading. Its third and fourth reads find imem (1) = imem (2) = 1, new , so the read completes and returns the snapshot with mem (1) = mem (2) = new . Since that snapshot contains the value written by writer 1, we have:</p><p>B. For behavior τ , the step of SimpleAfek that implements the DoRead step must follow the steps that implement the DoWrite steps of both writers.</p><p>Observations A and B imply that to handle the behavior σ correctly, the refinement mapping must know that the current behavior is σ and not τ before the two behaviors have diverged. This is possible only if something in the state predicts the future-i.e., only if we add a prophecy variable. Linearizability provides a simple, uniform way of specifying data objects, but it provides little insight into what state must be maintained by an implementation. Whether this is a feature or a flaw depends on what the specification is used for. We present an equivalent snapshot specification NewLinearSnap that can make verifying correctness of an implementation easier. We verify that SimpleAfek implements LinearSnap by verifying that it implements NewLinearSnap and that NewLinearSnap implements LinearSnap.</p><p>In addition to the internal variable mem of LinearSnap, NewLinearSnap uses an internal variable isnap such that during a read operation by reader r , the value of isnap (r ) is the sequence of values that mem had since the operation began. These values are the snapshots that LinearSnap allows the read to return. The BeginRead action sets isnap (r ) to a one-element sequence containing the current value of mem. The writer actions are the same as in LinearSnap, except that a DoWrite action appends the new value of mem to isnap (r ) for all readers r that have executed a BeginRead action but not the corresponding EndRead . The EndRead action of reader r returns a nondeterministically chosen element of the sequence isnap (r ). There is no DoRead action.</p><p>To verify that SimpleAfek implements NewLinearSnap, we add to it a history variable that has the same value as variable isnap of NewLinearSnap. Translating an understanding of why the algorithm is correct into an invariant of SimpleAfek and a refinement mapping under which it implements NewLinearSnap is then a typical exercise in assertional reasoning about concurrent algorithms, requiring no prophecy variable.</p><p>Although NewLinearSnap is equivalent to LinearSnap, to verify SimpleAfek we need only verify that it implements LinearSnap. This is done by first adding to it a prophecy variable p so that p (r ) predicts which element of the sequence isnap (r ) of snapshots will be chosen by the EndRead action of reader r . The value of p (r ) is set to an arbitrary positive integer by r 's BeginRead action and is reset to none by its EndRead action.</p><p>If p (r ) is set to 1, predicting that r will return the value mem had when the BeginRead step occurred, then the refinement mapping will cause the DoRead step of LinearSnap to occur right after the BeginRead step. If p (r ) is set to a number greater than 1, predicting that r will return the value of mem after the (p (r ) -1) st DoWrite action since the read began, then the refinement mapping will cause the DoRead step to occur immediately after that DoWrite step. The step that implements the DoRead step of LinearSnap is added as follows as a stuttering step of NewLinearSnap.</p><p>We introduce a stuttering variable that adds a single stuttering step after r 's BeginRead action if p (r ) = 1, and that adds stuttering steps after each DoWrite action-one stuttering step for every read r for which the write adds the p (r ) th element to isnap (r ). To add the stuttering step after a BeginRead step, the stuttering variable simply counts down from 1. To add any necessary stuttering steps after a DoWrite step, it counts down using the set of readers whose DoRead the steps will simulate. Requiring the stuttering steps to simulate those DoRead steps of LinearSnap makes it clear how to define the refinement mapping.</p><p>The verification that SimpleAfek implements LinearSnap, which requires a prophecy variable, has been split into two steps: verifying that the intermediate specification NewLinearSnap implements LinearSnap and is implemented by SimpleAfek . Only the first step requires a prophecy variable. This approach can also be applied to an example in Herlihy and Wing's article defining linearizability <ref type="bibr" target="#b9">[10]</ref>: an algorithm that implements a linearizable specification of a queue and requires predicting the future to construct a refinement mapping. The intermediate specification replaces the totally ordered queue of the original specification with a partially ordered set, where the partial order constrains which items may be dequeued. A refinement mapping showing that the new specification implements the original one can be defined using a prophecy variable that predicts the order in which items will be dequeued.</p><p>Verifying linearizability is an important problem. Liang and Feng devised a method for doing it <ref type="bibr" target="#b18">[19]</ref>, and Chakraborty et al. developed an elaborate theory just for proving linearizability of queue algorithms <ref type="bibr" target="#b5">[6]</ref>. Our method of decomposing the verification has two obvious advantages. Adding a prophecy variable is not trivial-especially for complex algorithms. It is easier to add it to the simpler intermediate specification. Second, the same intermediate specification can be used for multiple implementations. There is a third advantage that suggests the approach should be widely applicable: the intermediate specification is likely to be useful.</p><p>A specification might be written for implementors of a system or for its users. A specification written for implementors should not contain in its state information that is not needed by an implementation. The need for auxiliary variables to define a refinement mapping means that its state does contain unnecessary information. However, it could be a better specification for users. It's easier for a user to think of a queue as being totally ordered; an implementor should know that a partial order suffices. Writing an intermediate specification with no unnecessary state can be a useful part of the system-design process.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6">PROPHECY CONSTANTS</head><p>In addition to variables and constants like 0, a temporal logic formula can contain constant parameters. The sets of readers and writers in the SimpleAfek specification are examples of constant parameters. Constant parameters can also be used to make predictions. Moreover, no new rules are required to use them in this way. The ordinary rules of logic suffice.</p><p>What we call a variable is called a flexible variable by logicians because its value can vary during the course of a behavior. They call a constant parameter a rigid variable because its value remains the same throughout a behavior. In addition to quantifiers over variables, temporal logic has quantifiers ∃ and ∀ over constant parameters. A behavior σ satisfies the formula ∃ n : F iff there is a value of the constant parameter n (the same value in every state of σ ) for which σ satisfies F . We let ∃ n ∈ P : F equal ∃ n : (n ∈ P ) ∧ F , where P is a constant expression (one containing only constants and constant parameters) not containing n. The following simple rule of ordinary logic holds for any temporal logic formulas F and G and constant expression P .</p><p>∃ Elimination To prove (∃ n ∈ P : F ) ⇒ G , it suffices to assume n ∈ P and prove F ⇒ G .</p><p>The following example from Section 5.2 of ER shows how this rule can be used to construct refinement mappings that require predicting the future, without adding a prophecy variable.</p><p>Specification S 1 is satisfied by behaviors that begin with x = 0, repeatedly increment x by 1, and eventually stop (take only stuttering steps). It has no internal variables. Specification S 2 has external variable x and internal variable y. Its internal specification is satisfied by behaviors that begin with x = 0 and y any element of the set Nat of natural numbers, take steps that increment x by 1 and decrement y by 1, and stop when y = 0. The TLA specifications of S 1 and S 2 are in Figure <ref type="figure" target="#fig_16">14</ref>, where formula Stops asserts that the value of x eventually stops changing.</p><p>Clearly S 1 and S 2 are equivalent, since both are satisfied by behaviors that increment x a finite number of times (possibly 0 times) and then stop. ER observes that S 1 ⇒ S 2 cannot be verified Prophecy Made Simple 6:23 using their prophecy variables because S 1 doesn't satisfy a condition they call finite internal nondeterminism. We can prove it using the ∃ Elimination rule.</p><p>Specification S 1 implies that the value of x is bounded, which means that there is some natural number n for which x ≤ n is an invariant. This means that the following theorem is true:</p><formula xml:id="formula_51">S 1 ⇒ ∃ n ∈ Nat : (x ≤ n ).<label>(19)</label></formula><p>Define T 1 (n ) to equal S 1 ∧ (x ≤ n ). Formula <ref type="bibr" target="#b18">(19)</ref> implies that S 1 equals ∃ n ∈ Nat : T 1 (n ).</p><p>By the ∃ Elimination rule, this implies that to prove S 1 ⇒ S 2 , it suffices to assume n ∈ Nat and prove T 1 (n ) ⇒ S 2 . This can be done with the refinement mapping y ← nx . The proof of S 1 ⇒ S 2 can be made completely rigorous in TLA and presumably in other temporal logics.</p><p>In general, we prove S 1 ⇒ S 2 by finding a formula T 1 (n ) such that S 1 implies ∃ n ∈ P : T 1 (n ) for some constant set P , and we then prove n ∈ P implies T 1 (n ) ⇒ S 2 . We can view this method in two ways. The first is that instead of proving S 1 ⇒ S 2 with a single refinement mapping, we prove T 1 (n ) ⇒ S 2 by using a separate refinement mapping for each value of n. The second is that n is a constant that predicts the value x will have when the execution stops (stutters forever). We take the latter view and call n a prophecy constant.</p><p>Prophecy constants are useful for predicting the infinite future-that is, making predictions that depend on the entire behavior. Section 6 of ER provides an example in which they cannot prove S 1 ⇒ S 2 with a refinement mapping because the supplementary property of S 2 implies that the initial value of an internal variable depends on whether the behavior terminates, violating a condition they call internal continuity. It is easy to find the refinement mapping by adding a prophecy constant that predicts if the behavior terminates-a prediction about the entire behavior.</p><p>The completeness results of the next section show that, in principle, we can use prophecy constants instead of prophecy variables, and vice versa. In practice, it seems that we should use prophecy variables to predict safety and prophecy constants to predict liveness. A prophecy variable is good for predicting which of multiple possibilities will be allowed to happen; a prophecy constant is good for predicting what will eventually happen.</p><p>"Prophecy constants" is just a new name for the bound rigid variables of a temporal logic. The observation that those bound variables can be used for defining refinement mappings appears not to have been published before. Hesselink's eternity variables <ref type="bibr" target="#b10">[11]</ref> are essentially a special case of prophecy constants, except based on reasoning directly about sequences of states using history variables rather than on temporal logic. Temporal logic was introduced to computer science by Pnueli to abstract that kind of reasoning <ref type="bibr" target="#b23">[24]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7">THE EXISTENCE OF REFINEMENT MAPPINGS</head><p>We now present two completeness results. The first states that for any specification S 1 of the form ∃ ∃ ∃ ∃ ∃ ∃ y : Init ∧ [Next] x,y ∧ L , if S 1 implements S 2 , then we can add history, stuttering, and prophecy variables to S 1 to obtain an equivalent specification S a 1 for which there exists a refinement mapping showing that S a 1 implements S 2 . The second result is the same except for prophecy constants rather than prophecy variables.</p><p>These results require only the assumption that the language for defining auxiliary variables and writing proofs is sufficiently expressive. (TLA + is such a language.) We first sketch the proof for prophecy constants. It is almost the same as Hesselink's proof of completeness for eternity variables <ref type="bibr" target="#b10">[11]</ref>. We then indicate how the proof is modified for prophecy variables. In the proofs, we let a specification's state be an assignment of values to that specification's variables, and we let a behavior of a specification be the sequence of specification states of a behavior satisfying the specification.</p><p>Let IS 1 and IS 2 be the internal specifications of S 1 and S 2 . To simplify the proof, we assume that the next-state action Next of IS 1 allows stuttering steps, replacing it by Next ∨ UC x, y if necessary; and we assume IS 1 never halts, adding an infinite stuttering variable if it may halt. <ref type="foot" target="#foot_4">3</ref> Let IS h 1 be obtained from IS 1 by adding a history variable h that initially equals 1 and is incremented by 1 with every Next step. Letting σ [i] be the i th state of a behavior σ , specification IS h 1 equals ∃ σ ∈ P :</p><formula xml:id="formula_52">IS h 1 ∧ ( x, y = σ [h]</formula><p>), where P is the set<ref type="foot" target="#foot_5">4</ref> of all behaviors of IS h 1 . We define a refinement mapping using σ as a prophecy constant.</p><p>Since S 1 implements S 2 , for each σ in P there exists a behavior f (σ ) of IS 2 that σ simulates. We define the refinement mapping for σ so that it maps the state σ [h] in the behavior of IS h 1 to the corresponding state f (σ ) [g] of IS 2 , for some g. In the absence of stuttering steps, g would equal h. To define g in general, we first make the externally visible steps σ and f (σ ) match up by adding stuttering steps to σ and/or f (σ ). Since our specifications are stuttering insensitive, we can choose f so that f (σ ) already has the necessary stuttering steps. Since σ is an arbitrary behavior of IS 1 , we may have to add stuttering steps to it to make the externally visible steps of σ match those of f (σ ). We do that by adding a stuttering variable s to IS h 1 . We can then define g to be a function of h, s, σ , and f (σ ).</p><p>We now show how to use a prophecy variable p instead of the prophecy constant σ to construct the refinement mapping. Let IS h 1 be as above. Let IS hj 1 be the specification obtained by adding a history variable j to IS h 1 whose value is the sequence of IS 1 states reached thus far during the current behavior of IS h 1 . Initially, j contains a single element that equals the initial state of IS 1 ; and each Next h step appends the new IS 1 state to j . At any point during an execution of IS hj 1 , the value of j is the part of the behavior of IS 1 executed thus far, and its length always equals h. We will define p to be a prophecy variable whose value is an infinite sequence of IS 1 states, predicted to be the rest of the behavior whose prefix is the current value of j . Thus, the complete behavior σ is a function of the current state. We can then define the necessary refinement mapping g the same way we did for the prophecy constant σ .</p><p>To complete our proof sketch, we show how the prophecy variable p is defined and how to define the behavior σ of IS 1 as a function of the current values of j and p. Let Σ be any set of IS 1 states containing all its reachable states. We then define the specification IS hjp 1 obtained by adding the prophecy variable p to IS hj 1 as follows: the initial value of p is any infinite sequence of elements of Σ, and the next-state action of</p><formula xml:id="formula_53">IS hjp 1 is Next hj ∧ (Head (p) = x , y ) ∧ (p = Tail (p)).</formula><p>The behavior σ is defined to equal the concatenation of j and p, which equals its initial value throughout a behavior of IS hjp 1 . Define a step of σ to be a correct prediction if it satisfies the nextstate relation of IS 1 . If all the steps of σ are correct predictions, then σ is a behavior of IS 1 . We can therefore define the required refinement mapping the same way we did for the prophecy constant σ . If σ contains an incorrect prediction, then IS hjp 1 halts (stutters forever) at the first incorrect prediction. Since IS 1 is assumed not to halt, this means σ does not satisfy IS 1 and it doesn't matter how the refinement mapping is defined, since a proof that S 1 implements S 2 considers only behaviors satisfying IS 1 .</p><p>These completeness proofs are based on embedding behavioral reasoning in state-based reasoning by recording behaviors in auxiliary variables. This is the same idea used in the first completeness result for assertional reasoning about concurrent specifications <ref type="bibr" target="#b21">[22]</ref>. Such a completeness result is important because it shows that there are no inherent limitations to a proof method. However, it does not tell us anything about how to use the method in practice. For example, prophecy constants and prophecy variables are used differently, even though their completeness proofs are similar. Trying to mimic the reasoning used in these completeness proofs would simply place a state-based veneer over a behavioral proof. It would defeat the purpose of refinement mappings, which is to extend the Floyd-Hoare state-based assertional approach to concurrent systems.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="8">CONCLUSION</head><p>Refinement means implementing a higher-level description of a program or system with a lowerlevel one. We know of two general methods of verifying refinement: refinement mappings, which we have described, and reduction. Reduction means obtaining a coarser-grained description (one with fewer atomic actions) from a finer-grained one by combining multiple atomic actions into a single action <ref type="bibr" target="#b19">[20]</ref>. Reduction can be performed in TLA using refinement mappings <ref type="bibr" target="#b6">[7]</ref>.</p><p>ER and later uses of prophecy variables are based on assertional reasoning, introduced by Floyd [9] and Hoare <ref type="bibr" target="#b11">[12]</ref>. The fundamental principle underlying this reasoning is that whether a program will do the correct thing in the future depends not on what it did in the past (or what it will do in the future), but on a property of its current state. For properties like invariance (including partial correctness) and termination that can be described in terms of the program's state, auxiliary variables are not necessary. They are needed only for refinement, which relate two specifications that may have different sets of states.</p><p>Much of the recent work uses prophecy variables based on a paradigm in which a havoc statement nondeterministically assigns to the variable an arbitrary element of some set of values, and a subsequent assume statement aborts execution if the "wrong" value was chosen. If the set of values is finite, this is a special case of an ER prophecy variable. Because it is a restricted type of ER variable, it is sound for an infinite set of values even though it doesn't satisfy ER's finite internal nondeterminism condition.</p><p>This assume/havoc approach is much like our simple prophecy variable, and it too is easier to use than an ER prophecy variable because it involves thinking forward to the future rather than backward from the future. However, like an ER prophecy variable, it predicts the future value of a variable. Our prophecy variables predict future events (action executions). This allows us easily to make predictions about structured sets of events, such as sequences. The prophecy variables of Zhang et al. <ref type="bibr" target="#b25">[26]</ref> can predict a finite sequence of future values of a variable, but unlike predictions made with our prophecy sequences, their predictions cannot be modified. And sequences are just one kind of structure that can be put on our predictions. Some recent work <ref type="bibr" target="#b7">[8,</ref><ref type="bibr" target="#b22">23]</ref> uses prophecy variables to assist in model checking, verifying that something eventually happens by adding a variable that predicts how many steps it takes for it to happen. They are verifying properties of state machines. Other recent work on prophecy variables <ref type="bibr" target="#b14">[15,</ref><ref type="bibr" target="#b18">19,</ref><ref type="bibr" target="#b24">25,</ref><ref type="bibr" target="#b25">26]</ref> uses Hoare triples to reason about programming-language code. Some of this work is for proving reduction <ref type="bibr" target="#b24">[25]</ref>. The rest is for proving refinement (also called abstraction).</p><p>Being based on a programming language limits the power of methods. Reduction and refinement mappings are restricted to conform to the program structure. For example, it seems impossible for them to prove the equivalence (each refining the other) of two formulations of a simple N -process producer-consumer algorithm-one using two processes and the other using N processes <ref type="bibr" target="#b15">[16]</ref>. Because their expression languages have no way of describing the control state, these programminglanguage-based methods require history variables to prove even the simplest properties-for example, that the parallel composition of two atomic statements that each increment x by 1 is a program that increments x by 2. Moreover, they do not seem to be able to express, let alone verify, the rich variety of liveness conditions that arise in concurrency-for example, to distinguish between weakly and strongly fair semaphores.</p><p>We do not mean to denigrate programming languages and verification of programs written in them. Programs are what are executed on computers, and it is important to verify them. TLA is for describing and reasoning about algorithms, which are above the code level. Hoare famously said: "Inside every large program is a small program that is struggling to get out. " That small program is what we call an algorithm <ref type="bibr" target="#b13">[14]</ref>. TLA is for specifying and reasoning about those algorithms. TLA is simple because it is very close to its semantics. It is extremely expressive because it uses the full power of mathematics to describe an algorithm. The algorithm and the properties we prove about it are written in mathematics, the same language in which the proofs are written. There is no need for a special verification logic such as Hoare logic or separation logic. TLA is mathematics.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. The definition of specification A.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>[</head><label></label><figDesc>in : rdy, out : 0], [in : 3, out : 0], [in : rdy, out : 3], [in : -2, out : 3], [in : rdy, out : 1 2 ], . . . .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 2 .</head><label>2</label><figDesc>Fig. 2. The definition of specification B.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. The definition of specification C.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 4 .</head><label>4</label><figDesc>Fig. 4. The definition of specification C p .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head></head><label></label><figDesc>Replacing each other elementary action B by (p = p) ∧ B . Generalizations of simple prophecy variables and of the prophecy variables described in Sections 4.4 and 4.5 are discussed in Section 4.6.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Fig. 5 .</head><label>5</label><figDesc>Fig. 5. The definition of specification D.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Fig. 6 .</head><label>6</label><figDesc>Fig. 6. The definition of specification E.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Fig. 7 .</head><label>7</label><figDesc>Fig. 7. The definition of specification E p .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Fig. 8 .</head><label>8</label><figDesc>Fig. 8. The definition of specification F .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>2 )</head><label>2</label><figDesc>Replace each A i by (p = ∨ Head (p) = i ) ∧ (p = Tail (p)) ∧ A i . (3) Replace each other elementary action B by either (p = p) ∧ B or (∃ i ∈ P : p = Append (p, i )) ∧ B .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head>Fig. 9 .</head><label>9</label><figDesc>Fig. 9. The definition of specification G.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head>Fig. 10 .</head><label>10</label><figDesc>Fig. 10. The definition of specification G p .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>Fig. 11 .</head><label>11</label><figDesc>Fig. 11. The common prefix of behaviors σ and τ .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_14"><head>Fig. 12 .</head><label>12</label><figDesc>Fig. 12. Suffix of behavior σ .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_15"><head>Fig. 13 .</head><label>13</label><figDesc>Fig. 13. Suffix of behavior τ .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_16"><head>Fig. 14 .</head><label>14</label><figDesc>Fig. 14. The definitions of specification S 1 and S 2 .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>If a behavior s 1 , s 2 , . . . satisfies IB, then the behavior s 1 [[num ← num, sum ← sum]], s 2 [[num ← num, sum ← sum]], . . . From conditions SM1 and SM2 of Section 2.2 and the definitions of IA and IB, we see that RM is implied by: RM1. For any state s, if s satisfies Init B , then s[[num ← num, sum ← sum]] satisfies Init A . RM2. For any states s and t, if step s, t satisfies Next B ∨ UC in, out, seq , then the pair of states</figDesc><table><row><cell>s[[num ← num, sum ← sum]], t[[num ← num, sum ← sum]]</cell></row><row><cell>satisfies Next A ∨ UC in, out, num, sum .</cell></row><row><cell>Because num and sum contain only the variables in, out, and seq of IB, if the step s, t satisfies</cell></row><row><cell>UC in, out, seq , then the step</cell></row><row><cell>s[[num ← num, sum ← sum]], t[[num ← num, sum ← sum]]</cell></row><row><cell>satisfies UC in, out, num, sum . Therefore, RM2 is automatically satisfied if the step s, t satisfies</cell></row><row><cell>UC in, out, seq . This means we can simplify RM2 to:</cell></row><row><cell>RM2. For any states s and t, if the step s, t satisfies Next B , then the pair of states</cell></row><row><cell>s[[num ← num, sum ← sum]], t[[num ← num, sum ← sum]]</cell></row><row><cell>satisfies Next A ∨ UC in, out, num, sum .</cell></row><row><cell>Let's consider RM1. Since Init A is the formula</cell></row><row><cell>To show IB ⇒ ∃ ∃ ∃ ∃ ∃ ∃ num, sum : IA , it</cell></row><row><cell>suffices to find expressions num and sum, containing only the (unprimed) variables of IB, such</cell></row><row><cell>that:</cell></row><row><cell>RM. satisfies IA.</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head></head><label></label><figDesc>a sanity check on this condition, observe that because the variables in expressions num and sum are variables of Init B , and the other variables in and out of Init A are also variables of Init B , the formula (Init A with . . .) in RM1 contains only variables in Init B . Therefore, RM1 asserts that Init B implies a formula containing only variables of Init B .Substituting an expression like num for num in NextA means replacing num by num . The expression num represents the value of num in the second state of a step. It is the expression obtained by priming all the variables in num.The substitutions num ← num, sum ← sum of expressions containing variables of IB for the internal variables of IA are what we call a refinement mapping. In ER, a state of IA or IB would be an assignment of values to that specification's variables. The mapping from states of IB to states of IA that maps s to s[[num ← num, sum ← sum]</figDesc><table><row><cell>Applying the same reasoning to RM2, we see that RM2 is equivalent to</cell></row><row><cell>RM2. Next B ⇒</cell></row><row><cell>(Next A with num ← num, sum ← sum ) ∨ UC in, out, num, sum .</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_0"><p>ACM Transactions on Programming Languages and Systems, Vol. 44, No. 2, Article 6. Publication date: April 2022.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_1"><p>The definitions of safety and liveness can be found elsewhere<ref type="bibr" target="#b3">[4]</ref>; they are not needed here. ACM Transactions on Programming Languages and Systems, Vol. 44, No.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_2"><p>2, Article 6. Publication date: April 2022.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_3"><p>We assume that variables can take more than one value. ACM Transactions on Programming Languages and Systems, Vol. 44, No. 2, Article 6. Publication date: April 2022.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_4"><p>This also allows us to avoid Hesselink's "preservation of quiescence" assumption.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="4" xml:id="foot_5"><p>In TLA + , it is easy to write a specification IS h 1 in which P is a collection that is "too large" to be a set-for example, a version of the Afek et al. algorithm in which a memory value can be any set, Russell's paradox implying that the collection of all sets is not a set. We could remove the assumption that P is a set by generalizing prophecy variables and constants to predict one among an arbitrary collection of possibilities, but there is no practical reason to do so. This assumption is built into many formalisms, including the one used by ER.ACM Transactions on Programming Languages and Systems, Vol. 44, No. 2, Article 6. Publication date: April 2022.</p></note>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">The prophecy of undo</title>
+		<author>
+			<persName><forename type="first">Martín</forename><surname>Abadi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Fundamental Approaches to Software Engineering</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<editor>
+			<persName><forename type="first">Alexander</forename><surname>Egyed</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Ina</forename><surname>Schaefer</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Berlin</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2015">2015. 9033</date>
+			<biblScope unit="page" from="347" to="361" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">The existence of refinement mappings</title>
+		<author>
+			<persName><forename type="first">Martín</forename><surname>Abadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Leslie</forename><surname>Lamport</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Theoretical Computer Science</title>
+		<imprint>
+			<biblScope unit="volume">82</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="253" to="284" />
+			<date type="published" when="1991-05">1991. May 1991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Atomic snapshots of shared memory</title>
+		<author>
+			<persName><forename type="first">Yehuda</forename><surname>Afek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hagit</forename><surname>Attiya</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Danny</forename><surname>Dolev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Eli</forename><surname>Gafni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Merritt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nir</forename><surname>Shavit</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the ACM</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="873" to="890" />
+			<date type="published" when="1993-09">1993. Sept. 1993</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Defining liveness</title>
+		<author>
+			<persName><forename type="first">Bowen</forename><surname>Alpern</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fred</forename><forename type="middle">B</forename><surname>Schneider</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Information Processing Letters</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="181" to="185" />
+			<date type="published" when="1985-10">1985. Oct. 1985</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Appraising fairness in languages for distributed programming</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Krzysztof</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nissim</forename><surname>Apt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shmuel</forename><surname>Francez</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Katz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Distributed Computing</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="226" to="241" />
+			<date type="published" when="1988">1988. 1988</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Aspect-oriented linearizability proofs</title>
+		<author>
+			<persName><forename type="first">Soham</forename><surname>Chakraborty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">A</forename><surname>Henzinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ali</forename><surname>Sezgin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Viktor</forename><surname>Vafeiadis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Logical Methods in Computer Science</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="33" />
+			<date type="published" when="2015">2015. 2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Reduction in TLA</title>
+		<author>
+			<persName><forename type="first">Ernie</forename><surname>Cohen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Leslie</forename><surname>Lamport</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Concurrency Theory (CONCUR&apos;98)</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<editor>
+			<persName><forename type="first">David</forename><surname>Sangiorgi</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Robert</forename><surname>De</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Simone</forename></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer-Verlag</publisher>
+			<date type="published" when="1998">1998</date>
+			<biblScope unit="volume">1466</biblScope>
+			<biblScope unit="page" from="317" to="331" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Making prophecies with decision predicates</title>
+		<author>
+			<persName><forename type="first">Byron</forename><surname>Cook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Eric</forename><surname>Koskinen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 38th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages (POPL&apos;11)</title>
+		<editor>
+			<persName><forename type="first">Thomas</forename><surname>Ball</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Mooly</forename><surname>Sagiv</surname></persName>
+		</editor>
+		<meeting>the 38th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages (POPL&apos;11)</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="page" from="399" to="410" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Assigning meanings to programs</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">W</forename><surname>Floyd</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Symposium on Applied Mathematics</title>
+		<meeting>the Symposium on Applied Mathematics</meeting>
+		<imprint>
+			<publisher>American Mathematical Society</publisher>
+			<date type="published" when="1967">1967</date>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="19" to="32" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Linearizability: A correctness condition for concurrent objects</title>
+		<author>
+			<persName><forename type="first">Maurice</forename><forename type="middle">P</forename><surname>Herlihy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeannette</forename><forename type="middle">M</forename><surname>Wing</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Programming Languages and Systems</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="463" to="492" />
+			<date type="published" when="1990-01">1990. Jan. 1990</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Eternity variables to prove simulation of specifications</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Wim</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Hesselink</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Computational Logic</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="175" to="201" />
+			<date type="published" when="2005">2005. 2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">An axiomatic basis for computer programming</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A R</forename><surname>Hoare</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Communications of the ACM</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page" from="576" to="583" />
+			<date type="published" when="1969-10">1969. Oct. 1969</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Proof of correctness of data representations</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A R</forename><surname>Hoare</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Acta Informatica</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="271" to="281" />
+			<date type="published" when="1972">1972. 1972</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A R</forename><surname>Hoare</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2019">2019. 2019</date>
+		</imprint>
+	</monogr>
+	<note>Personal communication</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">The future is ours: Prophecy variables in separation logic</title>
+		<author>
+			<persName><forename type="first">Ralf</forename><surname>Jung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rodolphe</forename><surname>Lepigre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gaurav</forename><surname>Parthasarathy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marianna</forename><surname>Rapoport</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Amin</forename><surname>Timany</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Derek</forename><surname>Dreyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bart</forename><surname>Jacobs</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the ACM on Programming Languages</title>
+		<meeting>the ACM on Programming Languages</meeting>
+		<imprint>
+			<publisher>POPL</publisher>
+			<date type="published" when="2020">2020. 2020</date>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="1" to="45" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Processes are in the eye of the beholder</title>
+		<author>
+			<persName><forename type="first">Leslie</forename><surname>Lamport</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Theoretical Computer Science</title>
+		<imprint>
+			<biblScope unit="volume">179</biblScope>
+			<biblScope unit="page" from="333" to="351" />
+			<date type="published" when="1997">1997. 1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">Specifying Systems</title>
+		<author>
+			<persName><forename type="first">Leslie</forename><surname>Lamport</surname></persName>
+		</author>
+		<ptr target="http://lamport.org" />
+		<imprint>
+			<date type="published" when="2003">2003</date>
+			<publisher>Addison-Wesley</publisher>
+			<pubPlace>Boston</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<author>
+			<persName><forename type="first">Leslie</forename><surname>Lamport</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Stephan</forename><surname>Merz</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1703.05121</idno>
+		<ptr target="http://lamport.azurewebsites.net/tla/auxiliary/auxiliary.html" />
+		<title level="m">Auxiliary Variables in TLA+</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note>together with TLA + specifications</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Modular verification of linearizability with non-fixed linearization points</title>
+		<author>
+			<persName><forename type="first">Hongjin</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xinyu</forename><surname>Feng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI&apos;13)</title>
+		<editor>
+			<persName><forename type="first">Hans-Juergen</forename><surname>Boehm</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Cormac</forename><surname>Flanagan</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="459" to="470" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Reduction: A method of proving properties of parallel programs</title>
+		<author>
+			<persName><forename type="first">Richard</forename><forename type="middle">J</forename><surname>Lipton</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Communications of the ACM</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="717" to="721" />
+			<date type="published" when="1975-12">1975. Dec. 1975</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Verifying properties of parallel programs: An axiomatic approach</title>
+		<author>
+			<persName><forename type="first">Susan</forename><surname>Owicki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><surname>Gries</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Communications of the ACM</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="279" to="284" />
+			<date type="published" when="1976-05">1976. May 1976</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+		<title level="m" type="main">Axiomatic Proof Techniques for Parallel Programs</title>
+		<author>
+			<persName><forename type="first">Susan</forename><surname>Speer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Owicki</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1975">1975</date>
+		</imprint>
+		<respStmt>
+			<orgName>Cornell University</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Ph.D. Dissertation</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Temporal prophecy for proving temporal properties of infinite-state systems</title>
+		<author>
+			<persName><forename type="first">Jochen</forename><surname>Oded Padon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kenneth</forename><forename type="middle">L</forename><surname>Hoenicke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andreas</forename><surname>Mcmillan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mooly</forename><surname>Podelski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sharon</forename><surname>Sagiv</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Shoham</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Formal Methods in Computer Aided Design (FMCAD&apos;18)</title>
+		<editor>
+			<persName><forename type="first">Nikolaj</forename><surname>Bjørner</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Arie</forename><surname>Gurfinkel</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2018">2018. 2018</date>
+			<biblScope unit="page" from="1" to="11" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">The temporal logic of programs</title>
+		<author>
+			<persName><forename type="first">Amir</forename><surname>Pnueli</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 18th Annual Symposium on the Foundations of Computer Science</title>
+		<meeting>the 18th Annual Symposium on the Foundations of Computer Science</meeting>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="1977">1977</date>
+			<biblScope unit="page" from="46" to="57" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<title level="m" type="main">Back and Forth: Prophecy Variables for Static Verification of Concurrent Programs</title>
+		<author>
+			<persName><forename type="first">Shaz</forename><surname>Qadeer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ali</forename><surname>Sezgin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Serdar</forename><surname>Tasiran</surname></persName>
+		</author>
+		<idno>MSR-TR-2009-142</idno>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+		<respStmt>
+			<orgName>Microsoft</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Technical Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">A structural approach to prophecy variables</title>
+		<author>
+			<persName><forename type="first">Zipeng</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xinyu</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ming</forename><surname>Fu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zhong</forename><surname>Shao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yong</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Theory and Applications of Models of Computation -9th Annual Conference (TAMC&apos;12), Proceedings (Lecture Notes in Computer Science)</title>
+		<editor>
+			<persName><forename type="first">S</forename><forename type="middle">Barry</forename><surname>Manindra Agrawal</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Angsheng</forename><surname>Cooper</surname></persName>
+		</editor>
+		<editor>
+			<persName><surname>Li</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2012">2012</date>
+			<biblScope unit="volume">7287</biblScope>
+			<biblScope unit="page" from="61" to="71" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

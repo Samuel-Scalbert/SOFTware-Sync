@@ -1,22 +1,30 @@
-import logging
-import json
 import sys
-from bs4 import BeautifulSoup
-import string
-import re
-from dif_checker.dif_checker import xml_enhance_json
+from dif_checker.dif_checker import json_enhance_xml
+from dif_checker.utils import common_file, setup_logger
+from tqdm import tqdm
 
-# Entry point of the script
 if __name__ == "__main__":
-    # Check if the correct number of command line arguments is provided
+
+    super_logger = setup_logger('super_logger', 'super_logger.log')
+
     if len(sys.argv) != 4:
-        print("Usage: python your_script_name.py <script.py> <xml_path> <json_path>")
+        print("Usage: python your_script_name.py '--dif or --enhance-file' <xml_path> <json_path>")
         sys.exit(1)
 
-    # Extract XML and JSON file paths from command line arguments
-    xml_path = sys.argv[2]
-    json_path = sys.argv[3]
+    if sys.argv[1] == "--enhance-dir":
+        dir_xml_path = sys.argv[2]
+        dir_json_path = sys.argv[3]
+        list_common_file = common_file(dir_xml_path,dir_json_path)
+        #for file in tqdm(list_common_file, desc="Traitement en cours", bar_format="{l_bar}{bar:10}{r_bar}"):
+        for file in list_common_file:
+            xml_path = dir_xml_path + file + '.grobid.tei.xml'
+            json_path = dir_json_path + file + '.software.json'
+            print(xml_path)
+            logger = setup_logger('logger', f'{xml_path}.log')
+            json_enhance_xml(xml_path, json_path,super_logger,logger)
 
-    if sys.argv[1] == "--dif":
-        xml_enhance_json(xml_path, json_path)
-        #print("// DIF_CHECKER ====> info logged in dif_checker.log")
+    if sys.argv[1] == "--enhance-file":
+        xml_path = sys.argv[2]
+        json_path = sys.argv[3]
+        logger = setup_logger('logger', f'{xml_path}.log')
+        json_enhance_xml(xml_path, json_path,super_logger,logger)
