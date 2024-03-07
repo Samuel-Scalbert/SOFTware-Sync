@@ -1,0 +1,1133 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Gender in 30 Years of IEEE Visualization</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher />
+				<availability status="unknown"><licence /></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Natkamon</forename><surname>Tovanich</surname></persName>
+							<email>natkamon.tovanich@irt-systemx.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">Pierre</forename><surname>Dragicevic</surname></persName>
+							<email>pierre.dragicevic@inria.fr.</email>
+						</author>
+						<author>
+							<persName><forename type="first">Petra</forename><surname>Isenberg</surname></persName>
+							<email>petra.isenberg@inria.fr.</email>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department">Natkamon Tovanich is with IRT SystemX</orgName>
+								<orgName type="institution">Université Paris-Saclay</orgName>
+								<address>
+									<addrLine>Paris-Saclay</addrLine>
+									<postCode>91120</postCode>
+									<settlement>Palaiseau</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution" key="instit1">CNRS</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">LISN</orgName>
+								<address>
+									<postCode>91405</postCode>
+									<settlement>Orsay</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">Université Paris-Saclay</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<orgName type="institution" key="instit3">Inria</orgName>
+								<orgName type="institution" key="instit4">LISN</orgName>
+								<address>
+									<postCode>91405</postCode>
+									<settlement>Orsay</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="institution" key="instit1">Université Paris-Saclay</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<orgName type="institution" key="instit3">Inria</orgName>
+								<orgName type="institution" key="instit4">LISN</orgName>
+								<address>
+									<postCode>91405</postCode>
+									<settlement>Orsay</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Gender in 30 Years of IEEE Visualization</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date />
+						</imprint>
+					</monogr>
+					<idno type="MD5">A163BDFDACAA62E50B7D0FA037C0ECB5</idno>
+					<idno type="DOI">10.1109/TVCG.2021.3114787</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid" />
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>visualization</term>
+					<term>gender</term>
+					<term>diversity</term>
+					<term>publication</term>
+					<term>scientometry</term>
+					<term>collaboration</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div><p>We present an exploratory analysis of gender representation among the authors, committee members, and award winners at the IEEE Visualization (VIS) conference over the last 30 years. Our goal is to provide descriptive data on which diversity discussions and efforts in the community can build. We look in particular at the gender of VIS authors as a proxy for the community at large. We consider measures of overall gender representation among authors, differences in careers, positions in author lists, and collaborations. We found that the proportion of female authors has increased from 9% in the first five years to 22% in the last five years of the conference. Over the years, we found the same representation of women in program committees and slightly more women in organizing committees. Women are less likely to appear in the last author position, but more in the middle positions. In terms of collaboration patterns, female authors tend to collaborate more than expected with other women in the community.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div><head n="1">INTRODUCTION</head><p>We present a descriptive, exploratory data analysis of gender representation in the academic visualization community. We draw data from authors of papers published at the IEEE Visualization (VIS) conference, the largest and oldest academic visualization-focused venue. At the VIS conference, gender as well as more broad diversity efforts have started to emerge. Since 2014, we have seen efforts such as the first Family Room (2014), VisKids Chairs <ref type="bibr">(2015)</ref>, and in 2017 the first panel on the topic of diversity more broadly. Since 2018, inclusivity chairs are part of the organizing committee and have put tremendous efforts into new initiatives such as the inclusivity and diversity scholarships. The new VIS charter <ref type="bibr">[20]</ref> emphasizes that "all committees should be diverse in their membership in terms of research area, academic lineage, gender, geographic origin, sector (academia, industry, government), demographics and other characteristics as they emerge."</p><p>In March 2019, Metoyer and Gaither edited a book on diversity in visualization <ref type="bibr" target="#b34">[36]</ref>. In this book, the two editors call for additional data analysis regarding the diversity of the community: "To truly understand and measure the diversity of a community, we must begin to collect this data <ref type="bibr" target="#b5">[6]</ref>. It is difficult to understand where to go if we are uncertain about where we are." We follow this call and provide data focused on the gender representation in the IEEE VIS community. Some of our data has been published as part of one chapter in the diversity in visualization book <ref type="bibr" target="#b34">[36]</ref>, where we showed that the number of authors at VIS has increased steadily since 1990 but the number of female authors grew less quickly than the number of male authors.</p><p>Our present article includes updated and more extensive data and a much deeper analysis of additional metrics. It describes the history and current state of the conference in regards to male and female gender representation. What the paper does not attempt is to suggest possible causes, consequences or solutions regarding gender representation issues. Instead, our work is motivated by the need to provide the community with factual foundations from which discussions can take place within the wider community. We hope that our data will help organizing, steering, and executive committees to make data-driven assessments and further address potential issues related to gender representation.</p><p>Our analysis is based on full paper publication data from VIS for the years 1990-2020 and, similar to other bibliometric analyses <ref type="bibr" target="#b10">[11,</ref><ref type="bibr" target="#b20">22,</ref><ref type="bibr" target="#b24">26,</ref><ref type="bibr" target="#b27">29,</ref><ref type="bibr" target="#b39">43]</ref>, on a first name to gender matching. We engaged in a systematic in-depth manual cleaning of the data to improve, in particular, accuracy for the early years of VIS where many authors published with only abbreviated first names and for Asian names for which automatic matching has shown to be much less reliable <ref type="bibr" target="#b35">[37]</ref>. Importantly, like all work based on first-name to gender matches (see Sect. 8), we are not able to capture the non-binary and fluid nature of gender and acknowledge this shortcoming. Our gender to name associations should, therefore, be considered as inferred rather than true representations of authors' self-identified genders.</p><p>Based on our analyses of gender differences in related fields (see Sect. 8), we extracted various metrics to trace gender representation and publications at the IEEE VIS conference. While exploratory, our analysis was guided by two broader research directions: • How is male/female gender represented among VIS authors, committees, and award winners and how has their representation changed over time? Data about current and historic gender representation, dropouts, and career ages of community members allows to identify possible gender gaps and their trends in the community and can help to steer discussions on how to address them. • What are gender related collaboration and publication patterns in the VIS community and how have they evolved? How a community collaborates and networks could potentially influence how healthy, innovative, and impactful it is <ref type="bibr" target="#b10">[11]</ref>. How credit is shared among authors and analyzing co-authorship relationships in the VIS community may provide an overview of how members of the community work with each other. In summary, our work contributes an in-depth analysis of genderrelated patterns in the VIS community and a cleaned dataset of committee members, awardees, and authors, as well as a name-gender matching dataset. </p></div>
+<div><head>Year</head><p>The year when the article appeared at the conference.</p></div>
+<div><head>DOI</head><p>The digital object identifier (unique ID) of the article.</p></div>
+<div><head>Author name</head><p>The full deduped author name provided by DBLP <ref type="bibr">[41]</ref>.</p></div>
+<div><head>Author gender</head><p>The inferred gender of the author.</p></div>
+<div><head>Author order rank</head><p>The position of an author in the author list. One of: first, middle, and last position.</p></div>
+<div><head>Career age</head><p>The number of years since the author published their first paper on DBLP. Career age is stored relative to each paper an author published at VIS to infeer author seniority at each paper.</p></div>
+<div><head>Publication Count</head><p>For each paper an author wrote we store the total number of VIS articles published by the author before this one. Used to infer research productivity at a specific career age. Last publication?</p><p>Is this the last publication of an author at VIS? True if the author has no publications at VIS for five years or more after this one.</p><p>meta-data such as DOI, title, and year, as well as a list of de-duped coauthors. We considered conference and journal papers in our analysis but excluded posters, short papers, and panel statements as these were not consistently included in the dataset. In total, we analyzed 3,073 publications with 5,577 distinct authors. For each author, we extracted the year of their first publication in the computer science literature from the DBLP database <ref type="bibr">[42]</ref> under the assumption that it reflects the beginning of the author's research career. This assumption is likely a good approximation for authors who started their careers in computer science but is likely less accurate for authors who started to publish at VIS after a career in other disciplines that are not indexed by DBLP.</p><p>To infer the gender of authors in the vispubdata.org dataset, we used a multi-step process which consisted of preliminary automatic assignment based on first name, followed by a two-step manual cleaning.</p><p>Automatic Assignment: For the initial automatic assignment, we built a master file mapping first names to tentative genders by combining multiple publicly available sources, each containing a list of first names with an assigned gender <ref type="bibr" target="#b44">48]</ref>. This master file contained 294,352 name+gender pairs. In combining sources we used the predominant gender for each first name, or "unisex". Then we removed duplicates, leading to 163,283 unique name+gender pairs. Next, for each VIS author, we assigned a tentative gender (Male: 3,352 authors, Female: 1,128 authors, or Unisex: 139 authors) based on their first name and the name+gender master file. For each author whose first name was not in our master file (958 authors), we searched the first name using the <software>Genderize</software> Python <software>library</software> <ref type="bibr" target="#b38">[40]</ref> which provides an interface to http://genderize.io. In this process, these authors were assigned a gender among male, female or unknown.</p><p>Manual Cleaning: For all authors with either more than two publications or unknown or unisex gender, we (two co-authors of this paper) engaged in a first manual cleaning pass in which we manually checked the automatically-assigned gender based on personal knowledge of the authors or web searches for author websites or biographies. This process resulted in several hundred changes to the automatic assignment. In order to double-check and document this manual cleaning process, we (all three authors plus a collaborator) carried out an extra pass on all 1,514 authors whose automatically-inferred gender had been either manually changed or had remained unknown or unisex. We built a web-based tool that allowed us to revisit all such authors, verify that the changes made were justified, and record reasons and sources for those changes. Possible reasons were finding a personal pronoun in author biographies or websites (representing 53% of all changes), inferring gender from first or middle name (e. g. after finding a full name of an abbreviated first name) (29%), personal acquaintance with the author (4%), asking a previous colleague of the author (0.95%), or other (e. g. asking colleagues from other countries about the typical gender for a specific name) (2%). For the remaining 11% no confirmation of the automatically assigned gender could be found and the gender was set to "unknown." We were able to assign a gender to 92% of all 332 authors with an abbreviated first name. Taken together, the two passes of manual cleaning represented between 80 and 90 hours of work and resulted in 921 changes to the automatically inferred gender.</p><p>Final datasets: As a result, we obtained an author+gender dataset consisting of 4,418 authors (79%) whose gender was inferred to be male and 1,004 authors (18%) whose gender was inferred to be female. We will subsequently refer to them as male authors and female authors. In addition, there were 155 authors (3%) whose gender we could not identify with any certainty, neither from their first name nor from a manual Internet search. They together co-authored 146 papers in our dataset (5% of all papers). We exclude those authors from most of our analyses (starting from Sect. 4), but include them in our initial analysis of gender representation (Sect. 3).</p><p>Finally, we compiled all our data about papers and authors into a long-form table of author-publication pairs that consist of the columns listed in Table <ref type="table" target="#tab_0">1</ref> and a total of 11,574 rows.</p></div>
+<div><head n="2.2">Committees Dataset</head><p>The committee dataset includes people who were on the VIS organizing (OC) and program (PC) committee and when. We started from two datasets of OC members <ref type="bibr" target="#b30">[32,</ref><ref type="bibr" target="#b31">33]</ref> and added the 2019 and 2020 members listed on the VIS website. We also compiled a list of PC members from the VIS website as well as proceedings front matter for all years from 1990-2020. Next, we matched the OC and PC members with the deduped author names from our publication dataset. Of all committee members, 921 (71%) were also authors in our publication dataset (505 OC and 702 PC members) and 263 people (29%) were not. Likely, these were researchers or practitioners from outside the VIS community pulled in to provide specific expertise. For those non-VIS authors, we used the first name+gender master dataset from the automatic assignment to infer their gender. As a result, we obtained a committee+gender dataset consisting of 2,036 rows of OC members and 3,210 of PC members from 1990 to 2020. In this dataset, we found 695 male members (75%), 200 female members (22%), and another 29 members (3%) for whom we could not infer a gender.</p></div>
+<div><head n="2.3">Statistical Methods</head><p>Although our analysis is exploratory and descriptive, we graphically report basic inferential statistics to help us distinguish signal from noise. We fit raw time-series data using local regression <ref type="bibr" target="#b25">[27]</ref> and report 95% confidence intervals (CIs) as ribbons (see, e. g., Fig. <ref type="figure" target="#fig_2">3</ref>). Ribbons that are clearly distinct (like the green and purple ribbons in Fig. <ref type="figure" target="#fig_2">3-A</ref>) indicate a reliable difference, whereas overlapping ribbons (e. g., Fig. <ref type="figure" target="#fig_2">3-D</ref>) indicate that the data is too noisy or too insufficient to infer a difference. Local regression consists of performing multiple successive regressions inside a window that moves over predictor values (e. g., years in Fig. <ref type="figure" target="#fig_2">3-A</ref>). This approach can be seen as a middle ground between reporting individual CIs for specific predictor values (e. g., one for each year in Fig. <ref type="figure" target="#fig_2">3-A</ref>) and fitting a global regression model on all the data. Compared to the former approach it yields narrower CIs (because each CI uses more data), and compared to the latter approach, it makes less assumptions and can help reveal non-linear trends. Figures that do not have smooth curves and ribbons (e. g., Fig. <ref type="figure" target="#fig_0">1</ref>) show raw data.</p><p>We use likelihood estimation to compute local regressions, using the <software>locfit</software> R package <ref type="bibr" target="#b26">[28]</ref>. For strictly positive outcomes (e. g., career age), we use Gaussian regression with log link; for bounded data (e. g., percentages) we use Gaussian regression with logit link; and for count data (e. g., number of publications) we use Poisson regression <ref type="bibr">Chap. 3]</ref>. Compared to generic local regression approaches like LOESS <ref type="bibr" target="#b6">[7]</ref>, these link functions guarantee that confidence ribbons stay within the theoretical limits of the data. We use 0.7 as the smoothing parameter and 2 as the degree of local polynomials, which are the default settings of <software>locfit</software>.</p><p>In all beeswarm plots (Fig. <ref type="figure" target="#fig_8">9</ref> and Fig. <ref type="figure" target="#fig_0">10</ref>), we use as measure of central tendency the geometric mean, which reduces the influence of extreme observations and equals the median for log-normal data <ref type="bibr" target="#b36">[38]</ref>. Except for paper awards (left plots in Fig. <ref type="figure" target="#fig_0">10-B</ref> and<ref type="figure">C</ref>), all samples come from approximately log-normal distributions, since observations are strictly positive, bell-shaped and skewed. Accordingly, we report t-based CIs computed on log-transformed data <ref type="bibr" target="#b14">[15]</ref>. The two samples that depart from a log-normal distribution (paper awards) have a large enough sample size so that t-based CIs remain accurate <ref type="bibr" target="#b32">[34]</ref>. For proportions (Fig. <ref type="figure" target="#fig_0">10-a</ref>), we report Wilson's CIs for a single proportion <ref type="bibr" target="#b43">[47]</ref>. For guidance on how to visually interpret overlap in CIs, see <ref type="bibr" target="#b23">[25]</ref>.</p></div>
+<div><head n="3">GENDER REPRESENTATION IN VIS</head><p>We begin our exploration of the data with an analysis of the overall gender representation in paper authorship over time. Fig. <ref type="figure" target="#fig_0">1-A</ref> shows the number of VIS authors from 1990 to 2020. The green and purple lines show the number of male and female authors, respectively. Solid lines show the total number of authors, while dashed lines show new authors who published their first VIS paper in that particular year. Over the past 30 years, the visualization research community has been continually growing, and the number of VIS authors has been increasing every year. This is true for both genders: the number of female authors increased from 9 in the first year to 140 in 2020, while male authors increased from 104 to 462. The number of new authors also increased but at a slower pace. During the past five years (2016-2020), there were, on average, 61 new female authors and 175 new male authors per year. Fig. <ref type="figure" target="#fig_0">1</ref>-B shows the percentage of male and female authors per year. The percentage of female authors rose from 9% in the first five years to 22% (+13%) in the last five. Accordingly, the percentage of male authors decreased from 86% to 75% (-11%). Hence, there has been a substantial decrease in the gender gap, but the gap is still remarkably large. The trend is the same for new authors (the dashed lines).</p><p>Next, we looked at the trends for each child conference making up IEEE Visualization, namely: Vis, <software>VAST</software>, <software>InfoVis</software>, and <software>SciVis</software> <ref type="bibr" target="#b34">[36]</ref>. The evolution of number of authors for each child conference is reported in Fig. <ref type="figure" target="#fig_0">1</ref>-C across all genders. The Vis conference (in yellow) existed from 1990 to 2011 and has been predominantly continued by <software>SciVis</software> (in blue) afterward. <software>InfoVis</software> (in red) started in 1995 and has seen a constant increase in the number of authors over the years. The <software>VAST</software> conference (in green) began in 2006 and has the most significant number of authors in the last five years. The percentages of female authors are shown in Fig. <ref type="figure" target="#fig_0">1-D</ref>. Percentages have fluctuated over the years due to the relatively small number of female authors in each conference. Vis and SciVis have a smaller female representation than the other conferences, although there has been a slight increase from 9% in 1990-1994 to 14% (+5%) in 2016-2020. The Infovis conference has also seen an increase in female participation from 17% in 1995-1999 to 27% (+10%) in 2016-2020. Over the 15 years of the VAST conference, we observed that female authors have fluctuated around 22% per year <ref type="bibr">(2020)</ref>.</p><p>To learn about differences in seniority between male and female authors, we looked at the number of authors by career age and numbers of publications. We use as a proxy for career age the number of years since the author's first publication listed in DBLP (see Sect. 2). Fig. <ref type="figure" target="#fig_1">2-A</ref> shows, for each career age between 1 and 30 (x-axis), the number of authors having this career age (y-axis, log scale). Fig. <ref type="figure" target="#fig_1">2-B</ref> shows the same data but using the total number of VIS publications (x-axis) as a proxy for seniority instead of career age. Both plots are consistent with a power-law distribution of seniority, with many more junior authors than senior ones. The number of male authors is overall higher than female authors but both exhibit similar power laws in seniority.</p></div>
+<div><head n="4">CAREERS AND PUBLICATIONS</head><p>To understand how research careers and publication patterns vary according to gender, we analyzed (1) career ages of VIS publication authors, (2) numbers of publications, (3) when authors stop publishing (drop out) at VIS, and (4) positions in co-author lists. For all our analyses in this section, we exclude authors whose gender we could not infer (3% of all authors, see Sect. 2). This yields a slightly smaller dataset of 5,422 authors instead of the initial 5,577. Two papers for which all authors are of unknown gender are also excluded in the process, bringing the number of papers to 3,071 instead of 3,073.</p></div>
+<div><head n="4.1">Career Age</head><p>To understand how seniority in the IEEE VIS conference evolves across time and varies across genders, we now look at an average career age by year and by gender. Again, we use as a proxy for career age the number of years since the first publication listed in DBLP.</p><p>Fig. <ref type="figure" target="#fig_2">3</ref>-A shows the average career age of VIS authors per year and per gender. The average career age grew substantially between 1990 and 2020 for both genders. Female authors tend to have a slightly younger career age (3-10 years) than male authors (4-12 years) across all years. This result is not too surprising, as the number of recurrent authors in the VIS conference is growing while the number of new authors increases slowly (see Fig. <ref type="figure" target="#fig_0">1-A</ref>). The gap between genders can be explained by the fact that the proportion of recurrent male authors is higher than the proportion of female authors, implying a higher average career age for male authors.</p><p>We also examined how long it takes authors to publish their first paper at VIS. Fig. <ref type="figure" target="#fig_2">3-B</ref> shows the average career age of new authors when they published their first VIS paper. Between 1990 and 2020, the average career age of new authors grew from 3 to 8 years for female authors and from 4 to 9 years for male authors. This increase indicates that the conference might become more selective, requiring more research experience to publish. Female authors tend to have a slightly lower average career age than men when publishing their first paper. However, the evidence is weak since the 95% confidence intervals of both genders (shown as ribbons on the figure) overlap for several years.</p></div>
+<div><head n="4.2">Publication Pacing</head><p>To understand the pace at which female and male authors publish, we looked at average career age as a function of paper count. Fig. <ref type="figure" target="#fig_2">3</ref>-C shows the average career age of authors per publication count, i. e., when they published their first, second, third,. . . article at VIS. The more horizontal the curve, the faster the rate of publication. The shape of the two curves is roughly concave overall, indicating that authors publish faster over time. This is perhaps because as they become more senior in their research career, authors tend to occupy more supervisory academic positions and build more reputation, leading to more collaborations. Both female and male authors typically publish their first VIS article around 5-6 years of career age and their third article around 10 years. In those early years, the curves for women and men are confounded, indicating that research careers in terms of publications advance at the same pace for men and women, on average. However, female authors tend to publish slightly faster than male authors between their 10 th and 20 th article. After that, the data becomes too noisy to make reliable comparisons, as the number of female authors is getting too low. For example, only two female authors published more than 25 articles compared to 25 male authors (see Fig. <ref type="figure" target="#fig_1">2</ref>).</p></div>
+<div><head n="4.3">Dropout Rate</head><p>To examine research continuity for female and male authors (i. e., how long a researcher stays an active author at VIS), we track when authors published their last paper at VIS. As a proxy for true dropout rates (for which no data is available), we consider that an author dropped out when they stopped publishing at VIS for more than five years. This analysis excludes all authors who published after 2015 and for whom we cannot determine the dropout status. We calculated dropout rates following the method from Jadidi et al. <ref type="bibr" target="#b20">[22]</ref>. The dropout rate r(i) is the proportion of authors who left the conference at career age i compared to the number of authors who dropped at career age i or later:</p><formula xml:id="formula_0">r(i) = d(i) ∑ n j=i d( j)</formula><p>, where d(i) is the number of authors who left the conference at career age i, and n is the maximum career age. All dropout rates will be expressed in percents (i. e., multiplied by 100) to facilitate interpretation. Fig. <ref type="figure" target="#fig_2">3</ref>-D shows author dropout rate as a function of career age (from 1 to 30 years). The shape of the curve shows three phases in dropout rates which match those previously observed for computer science in general <ref type="bibr" target="#b20">[22]</ref>: (1) early career: high dropout for low career ages (career age 1-10); (2) mid-career: slight increase of the dropout rate and then a few years of stability <ref type="bibr" target="#b9">(10)</ref><ref type="bibr" target="#b10">(11)</ref><ref type="bibr" target="#b11">(12)</ref><ref type="bibr" target="#b12">(13)</ref><ref type="bibr" target="#b13">(14)</ref><ref type="bibr" target="#b14">(15)</ref><ref type="bibr" target="#b15">(16)</ref><ref type="bibr" target="#b16">(17)</ref><ref type="bibr" target="#b17">(18)</ref><ref type="bibr" target="#b18">(19)</ref><ref type="bibr">(20)</ref><ref type="bibr" target="#b19">(21)</ref><ref type="bibr" target="#b20">(22)</ref><ref type="bibr" target="#b21">(23)</ref><ref type="bibr" target="#b22">(24)</ref><ref type="bibr" target="#b23">(25)</ref>; and (3) senior: continuous increase of dropout percentages until career age 30.</p><p>Female authors appear to have a slightly higher dropout rate than male authors in the early career. The initial dropout rate is around 15% for female authors, while it is around 11% for male authors. Note that there is a very substantial overlap between the two curves, which become almost identical for the career ages of 15 years and above. The 95% confidence region (purple ribbon) is wider for female authors due to the smaller sample sizes in that group.</p></div>
+<div><head n="4.4">Authorship Position</head><p>We now look at the authors' position in lists of co-authors as a rough indication of their role in the published research. For VIS papers, if an author is listed first or last, it is expected (but not universally true) that their role was central to the project in terms of contribution and/or coordination. More specifically, the first position is typically filled by the person who contributes the most work (often a graduate student or postdoc). In contrast, the last position is often filled by someone in a key supervisory position (e. g., a Ph.D. advisor). We will only be considering three positions: first, middle (i. e., any position that is neither first nor last), and last. We wanted to see if female (and male) authors concentrated in any particular position. For this analysis, we removed all 193 articles (6%) with only one author, since it is unclear whether they should be classified as first or last authors. Fig. <ref type="figure">4</ref>-A shows the percentage of female authors for each authorship position from 1990 to 2020. The three curves increase, following the global increase in the proportion of female authors, previously reported in Fig. <ref type="figure" target="#fig_0">1-B</ref> and indicated here by a solid black curve. Female authors tend to more often be in the first and middle than in the last position compared to what we should expect from the overall percentage of female authors, a trend that is especially visible after 2005-2010.</p><p>We also examined the relationship between authorship position and career age to see how seniority affects authorship position. Fig. <ref type="figure">4-B</ref> shows the percentage of authors in the first position as a function of career age, both for female and male authors. Across both genders, this percentage increases from 1 to 4 years of career age. This might be due to junior students helping with other people's projects before they get to publish their own paper. After 4 years, the percentage of authors in the first position decreases with career age as we should expect. Since there are very few female first authors at high career ages, the purple ribbon gets very wide. Overall, the trends between female and male authors cannot be distinguished. Fig. <ref type="figure">4-C</ref> shows the percentage of authors in the middle position, again as a function of career age. Percentages are higher than before due to this position being more frequent, as there are many articles with four authors or more. Percentages tend to remain stable and are similar for both genders, although there is a small but distinct drop for male authors after 10 years of career age that does not seem to occur for female authors. Finally, Fig. <ref type="figure">4-D</ref> shows the percentage of authors in the last position, which increases with career age for both genders. However, this increase reaches a plateau for male authors and is followed by a surprising decline for female authors after about 20 years of career age. In addition, the two curves separate at 10 years of career age. Putting this trend in context with Fig. <ref type="figure">4-B</ref>, it seems that mid-career and senior female authors are more likely to publish in the middle position than in the last position, compared to male authors. This indicates a possible gender disparity whereby male authors tend to take on the last author position more often than female authors.</p></div>
+<div><head n="5">GENDER AND COLLABORATIONS</head><p>To explore collaboration patterns in the community, we analyzed networks of VIS paper co-authors and co-authorship teams.</p></div>
+<div><head n="5.1">Co-Author Networks</head><p>As researchers publish more papers at VIS, they form growing coauthor networks. We first examine for each researcher the size of their co-author network (i. e., their total number of accumulated coauthors) each time they publish a new VIS paper. We also look at their collaboration count, which is the total number of accumulated co-authors without merging identical co-authors (i. e., each co-author is counted as many times as they appear on a co-publication). The solid line in Fig. <ref type="figure">5</ref>-A shows the average size of authors' collaboration network when they publish their first, second, third, etc. article at VIS. The dashed line shows average collaboration counts. For both genders, the average size of co-author networks and of collaboration counts increases linearly with the number of publications. The growing gap between co-author network size (solid lines) and collaboration count (dashed lines) indicates that authors tend to repeatedly collaborate with the same co-authors. At the same time, the solid lines do not seem to reach a plateau, indicating that authors keep seeking new collaborations.</p><p>We suspect these to be new students, postdocs, or domain experts. We do not see a clear difference in trends between genders.</p><p>We next assess whether authors prefer to collaborate with authors of the same gender and whether this evolves with the number of publications. Fig. <ref type="figure">5-B</ref> shows the average percentage of female co-authors in authors' collaboration networks, again at each published paper. Overall, female authors collaborate remarkably more often with other female authors than male authors do, and this trend increases with the number of published papers. Female authors have about 20-25% female co-authors for their first five articles, and reach about 35% female coauthors at their 25 th article. Compared to female authors, male authors have a lower and more stable percentage of female co-authors, i. e., around 16% on average, which is only slightly lower than the total percentage of female authors (around 19%).</p></div>
+<div><head n="5.2">Co-Authorship Teams</head><p>We now take a closer look at the effect of gender on how VIS researchers form teams, through a statistical examination of the gender composition of author lists. If gender had no influence, we should observe author lists whose gender composition is reflective of the overall proportion of male and female authors. If in contrast, researchers form teams in a gender-sensitive manner, we should observe the gender composition of papers to be less balanced. For example, if on average researchers have a preference for working with researchers of the same gender (which seems to be the case according to Sect. 5.1), we should observe a disproportionately high number of papers with all authors of the same gender. Alternatively, if researchers were trying to actively balance gender when they form collaborations, opposite trends should be observed-for example, we should see an anomalously low number of papers with all-male or all-female authors.</p><p>To simplify our analyses and reporting, we exclude in this section all papers with at least one author of unknown gender, which amounts to about 5% of all publications. This brings the total number of papers analyzed to 2,927 and the number of unique authors to 5,159.</p><p>To address the question of whether gender influences team formation, we first define a null model that assumes that all researchers are fully gender-blind in how they form co-authorship teams. The model is informed by the overall probability that an author is male or female, computed across our entire dataset of 2,927 VIS papers. The probability of an author being male is 0.831, while the probability of an author being female is 0.169. <ref type="foot" target="#foot_0">1</ref> The model is also informed by the empirical distribution of team sizes. For example, among all 2,927 papers in the dataset, 193 are written by a single author and 701 are written by two authors. The expected number of papers for each possible team composition can be derived from the overall team size distribution and # male authors # female authors  <ref type="bibr" target="#b15">[16]</ref>. In C, D and E, red means a lower count than expected, and blue means a higher count than expected.</p><p>the overall gender probabilities. Note that our model does not take time (i. e., publication years) into account.</p><p>Here is a simple example to illustrate. Since we have 193 singleauthor papers in total, we should expect to see (in the sense of probabilistic expectation) 0.831 × 193 ≈ 160 papers to be written by a single male author, and 0.169 × 193 ≈ 33 papers to be written by a single female author. More generally, if we consider papers written by n authors, the probability of each gender combination is given by the binomial distribution B (n,0.831) . For example, since we have 701 two-author papers, we should expect to see: • B (2,0.831) (2) × 701 ≈ 485 papers authored by two men, • B (2,0.831) (1) × 701 ≈ 197 papers authored by a man and a woman (irrespective of the order), and • B (2,0.831) (0) × 701 ≈ 20 papers authored by two women.</p><p>The expected number of papers for each possible team composition is given in Fig. <ref type="figure" target="#fig_5">6-A</ref>, for max. 12 authors and six same-gender authors.</p><p>The next step is to examine deviations from the null model, i. e., differences between our predictions (again in Fig. <ref type="figure" target="#fig_5">6-A</ref>) and actual paper counts in the dataset (reported in Fig. <ref type="figure" target="#fig_5">6-B</ref>). Differences (real counts minus predicted counts) are shown in Fig. <ref type="figure" target="#fig_5">6-C</ref>, while ratios (real counts divided by predicted counts) are shown in Fig. <ref type="figure" target="#fig_5">6-D</ref>. In all plots, red means lower than expected and blue means higher than expected. It can be seen for example that i) the number of papers with a single female author is abnormally low (about 0.8 times the expected count, see second-to-last row in Fig. <ref type="figure" target="#fig_5">6-D</ref>); ii) the number of papers without any female author is abnormally high (about 1.1 times the expected count, see last row in the same figure); and iii) the number of papers with many (3-5) female authors and few or no male authors is abnormally high (top-left quarter in Fig. <ref type="figure" target="#fig_5">6-D</ref>)).</p><p>The last plot, shown in Fig. <ref type="figure" target="#fig_5">6-E</ref>, completes the picture by showing how surprising each paper count under the null model is. Each cell displays an s-value or "surprisal value" <ref type="bibr" target="#b15">[16]</ref> computed as follows: first, we compute the p-value of the binomial test using the null model as the null hypothesis (this p-value is the probability of getting a count at least as extreme as the observed count assuming the null model). We then compute and report s = -log 2 (p). One advantage of s-values over p-values is that they convey very low probabilities more clearly. In addition, due to the very low replicability of p-values <ref type="bibr" target="#b8">[9]</ref>, it has been suggested that conclusions should be based on their magnitude <ref type="bibr" target="#b3">[4]</ref>. Finally, s-values align with an information-theoretic definition of surprise and are thought to have a more intuitive interpretation <ref type="bibr" target="#b15">[16]</ref>.</p><p>For example, our dataset includes 537 papers written by two male authors (Fig. <ref type="figure" target="#fig_5">6-B</ref>), which seems substantially higher than the expected 485 (Fig. <ref type="figure" target="#fig_5">6-A</ref>). How surprised should we be if we thought there was no gender bias? The s-value of this observation is 17.2 bits, which means it is as surprising as seeing all heads in 17 successive tosses of a fair coin <ref type="bibr" target="#b15">[16]</ref>. So it is extraordinarily unlikely. Meanwhile, the s-value corresponding to having 27 papers authored by a single woman instead of the predicted 33 is 2.6 bits, which is not more surprising than seeing three heads in three coin tosses. As an indication, s-values greater than 4.3 bits correspond to p &lt; .05 (since -log 2 (0.05) = 4.3). Note that since no multiplicity correction is used, we should not be surprised at all to find s &gt; 4.3 in at least one of the 48 cells (the probability under the null model is 1 -(1 -.05) 48 = 0.91). Nevertheless, Fig. <ref type="figure" target="#fig_5">6-E</ref> exhibits patterns that are clearly distinct from random noise.</p><p>First of all, Fig. <ref type="figure" target="#fig_5">6</ref>-E confirms that there are considerably fewer multiauthor papers with a single female author than we should expect if researchers were gender-blind (the second-to-last row of the matrix is mostly red). Accordingly, we find more papers with only male authors than we should expect (the last row is mostly blue), though the evidence is clear only for papers with two and three authors. We also see confirmation that large all-female and female-dominated teams are far more numerous than we should expect if gender played no role (the top-left part of the matrix is mostly blue), even though they are not numerous in the absolute (see raw counts in Fig. <ref type="figure" target="#fig_5">6-B</ref>).</p><p>Our data therefore suggests a moderate but clearly measurable samegender preference bias among VIS researchers in how they form collaboration teams. One way in which this bias manifests itself in our data is through an excess of papers whose authors are of the same gender: both the bottom row and the left column in Fig. <ref type="figure" target="#fig_5">6</ref>-E are mostly blue. However, this phenomenon is not symmetric. For men, the same-gender preference manifests itself largely through collaborations involving only two male authors, and the evidence weakens as the number of authors increases. In contrast, for women, the same-gender bias manifests itself most clearly through the formation of large all-female teams (three to five authors), while the number of collaborations consisting of two female authors is slightly lower than what we should expect.</p><p>Another striking way in which the same-gender bias is asymmetric is that the presence of a single male author is not at all uncommon in large teams (second column in Fig. <ref type="figure" target="#fig_5">6-E</ref>). This is in stark contrast with multi-author teams involving a single female author which, as we have already seen, are far less common than we should expect if authors were gender-blind (second-to-last row in Fig. <ref type="figure" target="#fig_5">6-E</ref>).</p><p>Note that we cannot say what causes these observed discrepancies. In particular, we cannot say whether women tend to avoid all-men teams or whether they tend not to be invited. Many mechanisms could be at play. For example, some research topics may attract more female researchers, while other topics may attract more males. In addition, since the unit of analysis here is the paper and not the author (authors of multiple papers are counted multiple times), some of the observed effects could be driven by a small number of authors who publish a lot.   </p></div>
+<div><head n="6">VIS ORGANIZING AND PROGRAM COMMITTEES</head><p>Organizing committees (OCs) and program committees (PCs) are an essential part of any scientific discipline, in particular its largest flagship conference. Certain OC members have a direct influence on the types of research that is exhibited at a conference, whether it is through workshops, tutorials, posters, or papers. PC members of the full paper track have substantial power over deciding which work has value and gets the right to be presented. As such, committee members can be seen as gatekeepers in the scientific peer review process and a potential bias in the makeup of this group may influence what is seen as acceptable in a community <ref type="bibr" target="#b12">[13,</ref><ref type="bibr" target="#b16">17]</ref>. To understand the makeup of the VIS "peer" group of committee members in terms of gender, we analyzed the gender representation of VIS' OC and PC from 1990 to 2020. We started by looking at how the size and gender composition of the OC and PC evolved over time. The OC has been expanding over the years as the VIS research community grew (Fig. <ref type="figure" target="#fig_6">7-A</ref>). The percentage of female members has been increasing from 19% in the first five years to 29% in the last five years (solid purple line in Fig. <ref type="figure" target="#fig_6">7-B</ref>) and has consistently been slightly higher than the percentage of female authors (dashed purple line in the same figure). This shows that women have been actively engaged in OCs over the entire history of the VIS conference. Like OC members, the number of PC members has increased over the years for both genders (Fig. <ref type="figure" target="#fig_6">7-C</ref>). For both genders, the percentage of PC members has remained very close to the percentage of authors across the entire VIS history (Fig. <ref type="figure" target="#fig_6">7-D</ref>), showing that the PCs have reflected the gender composition of VIS publications.</p><p>Next, we examined the seniority of OC and PC members across genders. We estimated the probability that an author of a given career age serves in a committee, by dividing the number of committee members having that career age by the number of authors with the same career age. Results for OCs are shown in Fig. <ref type="figure" target="#fig_7">8-A</ref>. The probability that a male author is an OC member increases linearly with career age. For female authors, the probability increases more sharply in the first ten years, and then appears to decrease, although the ribbon becomes very wide due to a lack of data. The data overall suggests that female authors tend to be in the OC at an earlier career age, but senior female authors are not more likely to be in the OC than senior male authors. The probability of being a PC member at each career age is reported in Fig. <ref type="figure" target="#fig_7">8-B</ref>. Until career age 15, this probability increases sharply and similarly for both genders. Then, for higher career ages, female authors become more likely to serve on the PC than male authors. Female authors have a lower career age on average (see again Fig. <ref type="figure" target="#fig_2">3-A</ref>), so those with career age &gt; 15 might be more sought after as PC members. However, the figure also suggests a sharp decline of female participation for career ages of 25 and more, but again the uncertainty becomes too large to be able to compare to male authors with any reliability.</p><p>Next, we examined the recent distribution of career ages for different OC roles from 2016-2020. We used six OC role categories that have been used in the last years to structure OC calls by the conference organizers: Core (e. g., conference, publication, finance, program chairs), Main scientific content (e. g., [short] paper, poster, demo, tutorial, panel chairs), Infrastructure (e. g., student volunteer, meetup, fast forward chairs), Associated Events (e. g., workshops, associated symposia/conference, contest chairs), Outreach (e. g., publicity, community, compass, supporter chairs), and Oversight (steering committees (SC) and the visualization executive committee (VEC) members).</p><p>The distribution of career ages for each OC role and each gender is plotted in Fig. <ref type="figure" target="#fig_8">9</ref>  be able to conclude that there are reliable differences <ref type="bibr" target="#b23">[25]</ref>. On the same figure, the plots on the right labeled Program show the average career age of PC members according to child conference. Average career ages are similar across genders for <software>InfoVis</software> and <software>VAST</software>, but female members of <software>SciVis</software> PCs tend to have a younger career age.</p></div>
+<div><head n="7">AWARDS</head><p>Several types of awards have been given out to VIS community members for their work and service:</p><p>Paper awards: including best paper, honorable mention, best application paper, best case study, and test of time awards. These awards were not given out consistently each year. We group all types of awards together and analyzed the authors of 174 awarded papers. VGTC VIS awards: VGTC stands for the Visualization and Graphics Technical Community, a committee that oversees multiple conferences, including VIS. Since 2004, it has given out one Visualization Career and one Technical Achievement Award a year. The criteria are listed on the VGTC website <ref type="bibr" target="#b17">[18]</ref>. Visualization Academy: The Visualization Academy was announced as "the highest and most prestigious honor in the field of visualization" at VIS '19 <ref type="bibr" target="#b18">[19]</ref>. The first inductees in 2019 were all 30 previous VGTC VIS awardees. The announcement led to controversy in the community regarding the gender diversity in the academy and an open letter to the VGTC <ref type="bibr" target="#b9">[10]</ref>. 15 new members were inducted in 2020. We analyzed all 45 academy members.</p><p>Fig. <ref type="figure" target="#fig_0">10-A</ref> shows the percentage of male and female recipients for each of these those awards. The bar on the top gives as a baseline of comparison the percentage of female authors across all VIS papers. The percentage is 19% overall, although it is slightly higher now, i. e., in the last five years 22% of papers authors were female (Sect. 3). The gender distribution of paper award winners closely matches the baseline. In contrast, the proportion of female VGTC awardees is much lower (9%), though this percentage is computed from a small sample size so the CI is wide. The VIS Academy, on the other hand, compensated for the low female induction rate in the first year (2/30 inductees) by increasing the number of female inductees in the second year (10/15 inductees) to currently reach a female representation of 27%. Fig. <ref type="figure" target="#fig_0">10-B</ref> shows the distribution of the awardees' career ages, while Fig. <ref type="figure" target="#fig_0">10-C</ref> shows their number of publications. Overall, female and male awardees are comparable in terms of their seniority and scientific output. There is too much overlap between the CIs to be able to conclude with any certainty that there is a difference between genders.</p></div>
+<div><head n="8">RELATED WORK</head><p>The literature on gender disparities in science is vast and has repeatedly pointed to differences between genders in the scientific workforce. Gender differences have been analyzed according to a number of different aspects such as hiring (e. g., <ref type="bibr" target="#b29">[31,</ref><ref type="bibr" target="#b40">44]</ref>), peer review (e. g., <ref type="bibr" target="#b16">[17]</ref>), salary and promotion (e. g., <ref type="bibr" target="#b21">[23]</ref>), or collaboration and scientific output (e. g., <ref type="bibr" target="#b0">[1,</ref><ref type="bibr" target="#b20">22]</ref>). Our work is most closely related to research in scientometrics that uses publications as data to analyze gender disparities in science. Scientometrics research has analyzed gender from a number of different angles, including differences in disciplines, geographies, and authorship metrics <ref type="bibr" target="#b10">[11]</ref>. Here, we focus on comparing methodologies to ours and on results from related research fields.</p></div>
+<div><head n="8.1">Methodology Comparison</head><p>Inferring binary gender from authors' first names is a common practice in scientometric gender research. Most of the work uses, like we did, multiple first-name-to-gender datasets or services; see Santamaría and Mihaljević <ref type="bibr" target="#b35">[37]</ref> for an overview and assessment of different services. Publications that used a first-name matching approach with similar goals as ours include the Elsevier report <ref type="bibr" target="#b10">[11]</ref> which applied name matching to the Scopus database (62M documents), Larivière et al. <ref type="bibr" target="#b24">[26]</ref> who matched authors in Thomson Reuters' Web of Science data (5.5M documents), as well as more computer science oriented analyses such as the one by Mattauch et al. <ref type="bibr" target="#b27">[29]</ref> and Jadidi et al. <ref type="bibr" target="#b20">[22]</ref> that use DBLP publication data [42], or Wang et al. <ref type="bibr" target="#b39">[43]</ref> who used <software>Semantic Scholar</software> to analyze computer science publications <ref type="bibr">(11.8M documents)</ref>. In contrast to this past work, we were interested in a domain-specific analysis with a subsequently much smaller sample of publications (≈ 3000). This smaller sample allowed us to manually clean the automatic gender assignment and infer a gender for 97% of all authors and likely achieve a higher accuracy, especially for unisex and Asian names.</p></div>
+<div><head n="8.2">Comparison of Findings</head><p>Gender representation. Gender representation in scientific research varied widely by discipline. West et al. <ref type="bibr" target="#b41">[45]</ref> found a range of representation from 10.64% female authors in Mathematics to 46.35% in Education. The Elsevier report <ref type="bibr" target="#b10">[11]</ref> shows that the proportion of female authors in STEM varies highly based on countries and research discipline. In their data from 2011-2015, most countries had fewer than 25% female authors in computer science (the average in the EU and USA was 22% and only 11% in Japan). <ref type="bibr">Fig. 1]</ref> found an average of 26% female authors in computer science in the last five years (2016-2020) and in the five years previously (2011-2015). This is higher than the percentage found for specific countries by the Elsevier report and also higher than the percentage we found for VIS (22% in 2016-2020). The authors also observed that the proportion of female authors has increased but that the increase has slowed down in recent years, an observation we cannot confirm in our data. Percentages for subfields of computer science seem to vary widely. Mattauch et al. <ref type="bibr" target="#b27">[29]</ref>, for example, found only 6-12% female authors in the area of Invasive Computing for the 19 conferences analyzed from 2012-2017. Even within VIS 2016-2020, we found a percentage of female authors that varied widely between <software>SciVis</software> (14%), <software>VAST</software> (22%), and <software>InfoVis</software> (27%). West et al. <ref type="bibr" target="#b41">[45]</ref> confirm that even in research fields with near gender parity, the distribution of genders in subfields varies widely.</p><p>Dropout Rates. Jadidi et al. <ref type="bibr" target="#b20">[22]</ref> calculated dropout rates in computer science in the entire DBLP database to test the "leaky pipeline" <ref type="bibr" target="#b42">[46]</ref> hypothesis. The term "leaky pipeline" describes the observation that women drop out more than men as they advance in academia. They found a consistently higher dropout rate for women in computer science with a two percentage point difference to men across all career ages. We do not have enough data to be able to detect such small differences, but we did find some evidence for a higher dropout rate for female authors in the early career phase.</p><p>Productivity. The productivity of men and women has been studied in terms of number of papers published as well as citation count. The "productivity puzzle" <ref type="bibr" target="#b7">[8]</ref> was coined as a term to describe the unknown cause of lower publication rates for women in various fields. Across science, the Elsevier report <ref type="bibr" target="#b10">[11]</ref> found that on average women published fewer papers than men, but found no evidence of an impact of this lower publication count on citations or downloads. For computer science research, Jadidi et al. <ref type="bibr" target="#b20">[22]</ref> found a higher average productivity for men across all years (measured in terms of publication count), but the difference virtually disappeared once the authors' career age was controlled for. They showed that the apparently higher productivity of men in the computer science literature is due to a higher count of senior male authors. This observation was confirmed by Mattauch et al. <ref type="bibr" target="#b27">[29]</ref>. In our dataset, we similarly observed a higher average career age for men (8 years for men vs. 6 years for women) and did not find a substantial difference of productivity across career ages.</p><p>Author Position. The Elsevier report <ref type="bibr" target="#b10">[11]</ref> analyzed author position across engineering disciplines, which use similar ways of ordering authors as VIS: the first author contributes the most work with the senior author often listed last. Their analysis shows that in engineering, the share of papers first-authored by women is greater than the percentage of female authors in the field. We did not replicate this result for VIS, and found instead that the number of papers first-authored by women is comparable to the percentage of female authors. West et al. <ref type="bibr" target="#b41">[45]</ref> report that women were underrepresented as authors of single-authored papers for fields in the natural sciences. However, our analysis of co-authorship teams does not provide conclusive evidence that at VIS, women publish single-authored papers less often than men.</p><p>Collaboration. Homophily is the tendency to bond with others who are similar to oneself. In academia, homophily can manifest itself by a tendency for researchers to collaborate with researchers of the same gender. Jadidi et al. <ref type="bibr" target="#b20">[22]</ref> showed that women tend to collaborate more than expected with other women in computer science research and Wang et al. <ref type="bibr" target="#b39">[43]</ref> came to the same conclusion for both samegender collaborations in computer science. This same-gender bias has been found in specific computer science fields like information retrieval <ref type="bibr" target="#b45">[49]</ref>, as well as in other disciplines. For example, it has long been documented in economics <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b13">14,</ref><ref type="bibr" target="#b28">30]</ref>. However, the effect does not seem universal. For example, no same-gender bias was found in a study of Turkish social sciences researchers <ref type="bibr" target="#b33">[35]</ref>. Our data shows that a same-gender bias is present at VIS, and provides a detailed analysis of the different ways this bias is expressed among female authors and male authors. The Elsevier report <ref type="bibr" target="#b10">[11]</ref> also looked at international collaborations, something we did not analyze. The report found that women collaborate less with authors from other countries but that there was no effect on how papers are cited or downloaded.</p><p>Committee Membership. Felt <ref type="bibr" target="#b12">[13]</ref> examined the gender of committee members for eight computer science conferences in 2017, finding a range of 12-25% female members and an average of 19%. Among these, SIGGRAPH (25%) and VLDB (20%) are perhaps the most related to VIS. At VIS, in the last five years, the program committee (PC) had 25% female members while the organizing committee (OC) had 29%. We found that across the entire history of VIS, the gender makeup of the PC closely matched the gender distribution of paper authors, while the proportion of women in OCs was slightly higher.</p><p>At ACM CHI, the group of subcommittee chairs (the equivalent of VIS paper chairs) had a 50-50 gender ratio in 2020 <ref type="bibr" target="#b2">[3]</ref>, due to diversity initiatives in the community. At VIS, we found a 15% ratio for female paper chairs across all years, and 25% in the last five years.</p></div>
+<div><head n="9">DISCUSSION AND CONCLUSION</head><p>We provided an exploratory analysis to inform the community about gender representation at IEEE VIS. We specifically omitted any conclusion beyond the dataset as well as our personal views because we want these discussion to happen in the wider community. Discussions on possible causes or solutions to gender gaps can build on our data but should also include discussions on data that we could not analyze-such as the possible effects of having children on researchers' careers. These kinds of discussions have already started <ref type="bibr" target="#b34">[36]</ref> and need to continue. We hope our paper will serve in such discussions and beyond. The key observations from our analysis are summarized as follows: 1. Across all VIS publications, 19% of authors are female. <software>SciVis</software> has a smaller female representation than <software>InfoVis</software> and <software>VAST</software>. 2. The proportion of female authors has been steadily increasing over the years, from 9% in 1990-1995 to 22% in the last five years. This number however remains below the average in computer science (26% in the last five years according to Wang et al. <ref type="bibr" target="#b39">[43]</ref>). 3. Because there were fewer female authors in the past, male authors are more senior on average (measured in terms of career age). 4. If career age is controlled for, publication rates are comparable across genders, though female authors seem to publish slightly faster mid-career (between their 10 th and 20 th articles). 5. We did not find evidence for a substantial difference in drop-out rates across genders, except for a possibly higher drop-out rate for women during their first few years of career age. Note that our data only allows us to reliably detect large differences. 6. Women take on the first author position about as often as men.</p><p>However, among mid-career and senior researchers, male authors take on the last position more frequently than female authors, who are more often in a middle position relative to men. 7. Compared to men, women have substantially more female coauthors, a trend that increases with the number of publications (women have 23% female co-authors at their 1 st article and 35% at their 25 th article). Male authors have 16% female co-authors on average. Women tend to collaborate in relatively large teams while men tend to collaborate in pairs. Teams with a single female author are underrepresented, while teams with a single male author are not. 8. Across all VIS history, the composition of program committees has closely reflected the proportion of male and female authors. Meanwhile, the proportion of women in organizing committees has been slightly higher than the proportion of female authors. 9. Among recipients of paper awards, the proportion of women closely mirrors the proportion of female authors. The proportion of women among VIS VGTC awardees is lower than the baseline, while the proportion of women in the VIS Academy is higher. We found no evidence for a difference in average career age or publication count among female and male awardees, for none of the award types. Our work has several limitations. As we mentioned before, like much previous work, our analysis is limited to male and female genders. This could be addressed in future work by considering self-identified gender, although it will be likely impossible to cover the entire set of VIS authors, as many will be unreachable. Our method for inferring gender is also imperfect, although as we noted before, our extensive manual cleaning likely makes our data more accurate than most previous work. Another source of uncertainty are the relatively small sample sizes, especially for senior female authors, making it sometimes difficult to draw reliable inferences about gender differences. This could be improved by extending our dataset with data from related venues.</p><p>There are many ways our analysis could be extended. One important way is by looking at diversity metrics beyond gender. Several metrics that warrant further investigation have been mentioned in the new VIS Charter [20]: geographic origin, sector (academia, industry, government), academic lineage of authors, and the diversity of academic background or research areas of authors, for example.</p></div><figure xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Number of paper authors per year: (A) Total number of authors per year and gender. (B) Percentage of authors per year and gender. (C) Number of authors per year, for each child conference across all genders. (D) Percentage of female authors per year, for each child conference.</figDesc></figure>
+<figure xml:id="fig_1"><head>Fig. 2 .</head><label>2</label><figDesc>Fig. 2. Distribution of author seniority: (A) Number of authors (yaxis, log scale) having a given career age (x-axis), for each gender. (B) Number of authors having a given number of publications.</figDesc></figure>
+<figure xml:id="fig_2"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. Career age, productivity, and continuity: Average career age of authors for (A) all authors per year, and (B) all new authors per year. (C) Average career age as a function of number of publications. (D) Author dropout rate as a function of career age.</figDesc></figure>
+<figure xml:id="fig_3"><head>Fig. 4 .Fig. 5 .</head><label>45</label><figDesc>Fig. 4. Authorship position. (A) The % of female authors by position per year. The solid (dashed) black line indicates the percentage of all female (new female) authors. (B-D) The probability of being the author in (B) the first, (C) middle, and (D) last position by gender per career age.</figDesc></figure>
+<figure xml:id="fig_5"><head>Fig. 6 .</head><label>6</label><figDesc>Fig. 6. Tables showing paper count for each possible gender composition of co-authors. (A) Expected paper counts predicted by our null model assuming gender-blind team formation; (B) Actual paper counts from our dataset; (C) Differences between data and predictions; (D) Ratios between data and predictions; (E) s-values conveying how surprising each of the deviation is<ref type="bibr" target="#b15">[16]</ref>. In C, D and E, red means a lower count than expected, and blue means a higher count than expected.</figDesc></figure>
+<figure xml:id="fig_6"><head>Fig. 7 .</head><label>7</label><figDesc>Fig. 7. VIS committee memberships by year and gender. (A) Total number of OC members. (B) Percentage of OC members. (C) Total number of PC members. (D) Percentage of PC members. The dashed lines in (B) and (D) indicate the % of female and male paper authors.</figDesc></figure>
+<figure xml:id="fig_7"><head>Fig. 8 .</head><label>8</label><figDesc>Fig. 8. Probability of serving in a committee per career age. (A) Organizing committee. (B) Program committee.</figDesc></figure>
+<figure xml:id="fig_8"><head>Fig. 9 .</head><label>9</label><figDesc>Fig. 9. Career age of OC and PC members in the last five years (2016-2020). Each small dot is a member, while big dots are geometric means.</figDesc></figure>
+<figure type="table" xml:id="tab_0"><head>Table 1 .</head><label>1</label><figDesc>Columns of the author-publication dataset</figDesc><table><row><cell>Feature</cell><cell>Description</cell></row></table></figure>
+<figure type="table" xml:id="tab_2"><head /><label /><figDesc>(all plots labeled Organizing), with geometric means and 95% CIs (see Sect. 2.3 for more details). As can be expected, average career age depends on role. Oversight roles have the highest career ages, while roles like Infrastructure are held by more junior community members. The average career age is comparable among men and women, although women with Oversight and Main roles appear to have a slightly younger career age overall. The other CIs overlap too much toFig. 10. Awards. (A) Percentage of awardees per gender compared to the overall proportion of female/male authors in our entire dataset (top bar). (B) Career age of awardees when they received the award (Paper and VGTC Awards); Career age of VIS academy members in 2020. (C) The number of publications by award recipients up to the year they received the award. Point estimates are again geometric means.</figDesc><table><row><cell cols="4">(A) % Award recipients per gender</cell><cell /><cell /></row><row><cell cols="2">Baseline percentages (all VIS authors)</cell><cell>19%</cell><cell /><cell /><cell /><cell>81%</cell></row><row><cell cols="2">Paper Awards</cell><cell>18%</cell><cell /><cell /><cell /><cell>82%</cell></row><row><cell cols="2">VIS VGTC Awards</cell><cell /><cell>9%</cell><cell /><cell /><cell>91%</cell></row><row><cell cols="2">VIS Academy</cell><cell>27%</cell><cell /><cell /><cell /><cell>73%</cell></row><row><cell /><cell cols="2">0%</cell><cell>25%</cell><cell>50%</cell><cell>75%</cell><cell>100%</cell></row><row><cell>(B) Career age</cell><cell /><cell /><cell cols="3">(C) # Publications</cell></row><row><cell>50</cell><cell /><cell /><cell /><cell /><cell /></row><row><cell>40</cell><cell /><cell /><cell>60</cell><cell /><cell /></row><row><cell>30</cell><cell /><cell /><cell>40</cell><cell /><cell /></row><row><cell>20</cell><cell /><cell /><cell /><cell /><cell /></row><row><cell /><cell /><cell /><cell>20</cell><cell /><cell /></row><row><cell>10</cell><cell /><cell /><cell /><cell /><cell /></row><row><cell>0</cell><cell /><cell /><cell>0</cell><cell /><cell /></row><row><cell>Paper</cell><cell cols="2">VIS VGTC</cell><cell>VIS Academy</cell><cell>Paper</cell><cell>VIS VGTC</cell><cell>VIS Academy</cell></row><row><cell>Awards</cell><cell /><cell>Awards</cell><cell /><cell>Awards</cell><cell>Awards</cell></row><row><cell /><cell /><cell /><cell>Female</cell><cell>Male</cell><cell /></row></table></figure>
+			<note place="foot" n="1" xml:id="foot_0"><p>Note that these probabilities do not match the gender percentages reported in Sect.</p></note>
+			<note place="foot" xml:id="foot_1"><p>2.1, which are computed on unique authors. Since here we are interested in the probability that an author on any given paper is male or female, each author is counted as many times as the number of papers they wrote.</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>ACKNOWLEDGMENTS</head><p>Steve helped us considerably during all stages of this research, including by providing statistical expertise, by giving advice on how to maximize the transparency of our reporting, and by contributing to the qualitative coding work. <rs type="person">Steve</rs> was initially part of the research team but withdrew from authorship due to methodological disagreements. We thank <rs type="person">Tamara Munzner</rs> who shared detailed data and patiently answered our questions about early years of the conference. We also received data from the students of the Visual Analytics 2017 class at CentraleSupélec, as well as <rs type="person">Lucy Lu Wang</rs>. All images in the paper are licensed under cb Attribution 4.0 and available on https://osf.io/ydfj4/.</p></div>
+			</div>
+			<div type="availability">
+<div><p>All non-gender related data is available on https://osf.io/ydfj4/ and the gender-author matching can be accessed through https://nyu.databrary.org/volume/1301. we analyzed it. All our data is available for follow-up research. We consider the name-gender matching to be sensitive personal information and chose to make it available through Databrary (https://nyu.databrary.org/volume/1301) that offers a framework for sharing research data of sensitive nature and requires authorization for access. All other data is available via https://osf.io/ydfj4/.</p></div>
+<div><head n="2.1">Publications Dataset</head><p>We obtained a list of IEEE Visualization (VIS) publications from vispubdata.org <ref type="bibr" target="#b19">[21]</ref>, a public dataset that</p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Gender gaps in international research collaboration: a bibliometric approach</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Aksnes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">N</forename><surname>Piro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Rørstad</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11192-019-03155-3</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Scientometrics</title>
+		<imprint>
+			<biblScope unit="volume">120</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="747" to="774" />
+			<date type="published" when="2019-08">Aug. 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Data.world "gender by names'' dataset. Online</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Babu</surname></persName>
+		</author>
+		<ptr target="https://data.world/arunbabu/gender-by-names" />
+		<imprint>
+			<date type="published" when="2020-02-13">2020. Feb. 13, 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Diversity of the program committee for CHI</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bjørn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Zhao</surname></persName>
+		</author>
+		<ptr target="https://chi2020.acm.org/blog/diversity-of-the-program-committee-for-chi-2020/" />
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">P-value precision and reproducibility</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">D</forename><surname>Boos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">A</forename><surname>Stefanski</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The American Statistician</title>
+		<imprint>
+			<biblScope unit="volume">65</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="213" to="221" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Is team formation gender neutral? evidence from coauthorship patterns</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Boschini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sjögren</surname></persName>
+		</author>
+		<idno type="DOI">10.1086/510764</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Labor Economics</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="325" to="365" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Best practices in achieving workforce diversity</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Bunton</surname></persName>
+		</author>
+		<ptr target="https://govinfo.library.unt.edu/npr/library/workforce-diversity.pdf" />
+	</analytic>
+	<monogr>
+		<title level="j">Online</title>
+		<imprint>
+			<date type="published" when="2000-10">Oct. 2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Robust locally weighted regression and smoothing scatterplots</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">S</forename><surname>Cleveland</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/01621459.1979.10481038</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American statistical association</title>
+		<imprint>
+			<biblScope unit="volume">74</biblScope>
+			<biblScope unit="issue">368</biblScope>
+			<biblScope unit="page" from="829" to="836" />
+			<date type="published" when="1979">1979</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">The productivity puzzle</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Cole</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Zuckerman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Motivation and Achievement</title>
+		<imprint>
+			<date type="published" when="1984-01">Jan. 1984</date>
+			<biblScope unit="page" from="217" to="258" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Replication and p intervals: p values predict the future only vaguely, but confidence intervals do much better</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Cumming</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1745-6924.2008.00079.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Perspectives on Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="286" to="300" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Open letter to the IEEE VGTC regarding the Visualization Academy</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Elmqvist</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Isenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Collins</surname></persName>
+		</author>
+		<ptr target="https://sites.google.com/d/1Z6Hid2saUBb8x16sViQ4v9VBlJNLFOJ-/p/1TmTMyzpbPKLzpZcTH0awr1HKE4PGCe06/edit" />
+	</analytic>
+	<monogr>
+		<title level="j">Online</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<ptr target="https://www.elsevier.com/research-intelligence/campaigns/gender-17" />
+		<title level="m">Gender in the global research landscape: Analysis of research performance through a gender lens across 20 years, 12 geographies, and 27 subject areas</title>
+		<imprint>
+			<publisher>Elsevier</publisher>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">Technical report</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<title level="m" type="main">Liste de prénoms</title>
+		<author>
+			<persName><surname>Etalab</surname></persName>
+		</author>
+		<ptr target="https://www.data.gouv.fr/fr/datasets/liste-de-prenoms/" />
+		<imprint>
+			<date type="published" when="2020-02-13">2020. Feb. 13, 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">peer" review? gender imbalance in program committees</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">P</forename><surname>Felt</surname></persName>
+		</author>
+		<ptr target="https://www.adrienneporterfelt.com/writing/2019/11/27/peer-review-gender-imbalance-in-program-committees" />
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">Blog post</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Are women economists at a disadvantage in publishing journal articles?</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Ferber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Teiman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Eastern Economic Journal</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3/4</biblScope>
+			<biblScope unit="page" from="189" to="193" />
+			<date type="published" when="1980">1980</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Confidence intervals rather than p values: estimation rather than hypothesis testing</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Gardner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">G</forename><surname>Altman</surname></persName>
+		</author>
+		<idno type="DOI">10.1136/bmj.292.6522.746</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Br Med J (Clin Res Ed)</title>
+		<imprint>
+			<biblScope unit="volume">292</biblScope>
+			<biblScope unit="issue">6522</biblScope>
+			<biblScope unit="page" from="746" to="750" />
+			<date type="published" when="1986">1986</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Valid p-values behave exactly as they should: Some misleading criticisms of p-values and their resolution with s-values</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Greenland</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/00031305.2018.1529625</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The American Statistician</title>
+		<imprint>
+			<biblScope unit="volume">73</biblScope>
+			<biblScope unit="issue">sup1</biblScope>
+			<biblScope unit="page" from="106" to="114" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Research: Gender bias in scholarly peer review</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Helmer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Schottdorf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Neef</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Battaglia</surname></persName>
+		</author>
+		<idno type="DOI">10.7554/eLife.21718</idno>
+	</analytic>
+	<monogr>
+		<title level="j">eLife</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page">21718</biblScope>
+			<date type="published" when="2017-03">Mar. 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title />
+		<ptr target="https://tc.computer.org/vgtc/awards/visualization-technical-awards/" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE VGTC Visualization Technical Awards</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+		<respStmt>
+			<orgName>IEEE VGTC</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<author>
+			<persName><forename type="first">Ieee</forename><surname>Vgtc</surname></persName>
+		</author>
+		<ptr target="https://tc.computer.org/vgtc/awards/visualization-academy/" />
+		<title level="m">The IEEE VGTC Visualization Academy</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">vispubdata.org: A metadata collection about IEEE visualization (VIS) publications</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Isenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Heimerl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Koch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Isenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Stolper</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sedlmair</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Möller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Stasko</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TVCG.2016.2615308</idno>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Visualization and Computer Graphics</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="2199" to="2206" />
+			<date type="published" when="2017-09">Sept. 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Gender disparities in science? dropout, productivity, collaborations and success of male and female computer scientists</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Jadidi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Karimi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Lietz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wagner</surname></persName>
+		</author>
+		<idno type="DOI">10.1142/S0219525917500114</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Complex Systems</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">03n04</biblScope>
+			<biblScope unit="page">1750011</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Promotions and earnings-gender or merit? evidence from longitudinal personnel data</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Jokinen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Pehkonen</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s12122-017-9254-7</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Labor Research</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="page" from="306" to="334" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">CMU AI repository names corpus</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kantrowitz</surname></persName>
+		</author>
+		<ptr target="http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/areas/nlp/corpora/names/" />
+	</analytic>
+	<monogr>
+		<title level="j">Online</title>
+		<imprint>
+			<date type="published" when="2020-02-13">2020. Feb. 13, 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Error bars</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Krzywinski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Altman</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/nmeth.2659</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Nature methods</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="page" from="921" to="922" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Global gender disparities in science</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Larivière</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Gingras</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Cronin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R</forename><surname>Sugimoto</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/504211a</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">504</biblScope>
+			<biblScope unit="page" from="211" to="213" />
+			<date type="published" when="2013-12">Dec. 2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<title level="m" type="main">Local regression and likelihood</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Loader</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/b98858</idno>
+		<imprint>
+			<date type="published" when="2006">2006</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<monogr>
+		<title level="m" type="main">Package 'locfit'. The Comprehensive R Archive Network</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Loader</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Liaw</surname></persName>
+		</author>
+		<ptr target="https://cran.r-project.org/web/packages/locfit/locfit.pdf" />
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">A bibliometric approach for detecting the gender gap in computer science</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mattauch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Lohmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Hanning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lohmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Teich</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3376901</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Communications of the ACM</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="74" to="80" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">The effect of gender-sorting on propensity to coauthor: Implications for academic promotion</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Mcdowell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">K</forename><surname>Smith</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1465-7295.1992.tb01536.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Economic Inquiry</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="68" to="82" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Science faculty's subtle gender biases favor male students</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A</forename><surname>Moss-Racusin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Dovidio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">L</forename><surname>Brescoll</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Graham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Handelsman</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.1211286109</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">109</biblScope>
+			<biblScope unit="issue">41</biblScope>
+			<biblScope unit="page" from="16474" to="16479" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<monogr>
+		<title level="m" type="main">VIS Historical Year Through</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Munzner</surname></persName>
+		</author>
+		<ptr target="https://docs.google.com/spreadsheets/d/1fz3KkR03JCyOoL7wFj2UorD6UqG0iZBXlY4POk1iVU/edit" />
+		<imprint>
+			<date type="published" when="2018">2018. 2019</date>
+		</imprint>
+	</monogr>
+	<note>Google spreadsheet</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<author>
+			<persName><forename type="first">T</forename><surname>Munzner</surname></persName>
+		</author>
+		<ptr target="https://docs.google.com/document/d/1OXVHMB7oTD9lujDC0WragUP-kyOPX0PQ6y12sFhYg4/edit" />
+		<title level="m">Steering/VEC Members Historical Archive. Google spreadsheet</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Likert scales, levels of measurement and the "laws" of statistics</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Norman</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10459-010-9222-y</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Health Sciences Education</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="625" to="632" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Co-authorship pair distribution patterns by gender</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Ozel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Kretschmer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Kretschmer</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11192-013-1145-y</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Scientometrics</title>
+		<imprint>
+			<biblScope unit="volume">98</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="703" to="723" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Marshalling the many facets of diversity</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">E</forename><surname>Rogowitz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Diehl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Isenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Borgo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Abdul-Rahman</surname></persName>
+		</author>
+		<idno type="DOI">10.2200/S00894ED1V01Y201901VIS010</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Diversity in Visualization, Synthesis Lectures on Visualization</title>
+		<editor>
+			<persName><forename type="first">R</forename><surname>Metoyer</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">K</forename><surname>Gaither</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Morgan Claypool</publisher>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Comparison and benchmark of nameto-gender inference services</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Santamaría</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Mihaljević</surname></persName>
+		</author>
+		<idno type="DOI">10.7717/peerj-cs.156</idno>
+	</analytic>
+	<monogr>
+		<title level="j">PeerJ Computer Science</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page">e156</biblScope>
+			<date type="published" when="2018-07">July 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Average task times in usability tests: what to report</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Sauro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Lewis</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/1753326.1753679</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</title>
+		<meeting>the SIGCHI Conference on Human Factors in Computing Systems</meeting>
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<biblScope unit="page" from="2347" to="2350" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<monogr>
+		<title level="m" type="main">Beyond the top 1000 names -national data</title>
+		<ptr target="https://www.ssa.gov/oact/babynames/limits.html" />
+		<imprint>
+			<date type="published" when="2020-11-19">2020. Nov. 19, 2020</date>
+			<publisher>Social Security Administration</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">Python package</title>
+		<author>
+			<persName><surname>Steelpangolin</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Genderize</surname></persName>
+		</author>
+		<ptr target="https://github.com/SteelPangolin/genderize" />
+		<imprint>
+			<date type="published" when="2020-11">2020. Nov. 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Gender trends in computer science authorship</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">L</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Stanovsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Weihs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Etzioni</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3430803</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Communications of the ACM</title>
+		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="78" to="84" />
+			<date type="published" when="2021-02">Feb. 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Gender, productivity, and prestige in computer science faculty hiring networks</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">F</forename><surname>Way</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">B</forename><surname>Larremore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Clauset</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2872427.2883073</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Conference on World Wide Web (WWW)</title>
+		<meeting>the Conference on World Wide Web (WWW)</meeting>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="page" from="1169" to="1179" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">The role of gender in scholarly authorship</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>West</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Jacquet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>King</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Correll</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">T</forename><surname>Bergstrom</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0066212</idno>
+	</analytic>
+	<monogr>
+		<title level="j">PLoS ONE</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="68" to="82" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Along the leaky pipeline</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Wickware</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/36639</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">390</biblScope>
+			<biblScope unit="page" from="202" to="203" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Probable inference, the law of succession, and statistical inference</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">B</forename><surname>Wilson</surname></persName>
+		</author>
+		<idno type="DOI">10.2307/2276774</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Statistical Association</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">158</biblScope>
+			<biblScope unit="page" from="209" to="212" />
+			<date type="published" when="1927">1927</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">List of first names, genders and country-specific frequencies</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Winkelmann</surname></persName>
+		</author>
+		<ptr target="https://github.com/MatthiasWinkelmann/firstname-database" />
+	</analytic>
+	<monogr>
+		<title level="j">Online</title>
+		<imprint>
+			<date type="published" when="2020-02-13">2020. Feb. 13, 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Understanding scientific collaboration: Homophily, transitivity, and preferential attachment</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Bu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Ding</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Xu</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/asi.23916</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the Association for Information Science and Technology</title>
+		<imprint>
+			<biblScope unit="volume">69</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="72" to="86" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

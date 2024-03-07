@@ -1,0 +1,2287 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Meta-Analysis of the Functional Neuroimaging Literature with Probabilistic Logic Programming</title>
+				<funder ref="#_aPuvAtv">
+					<orgName type="full">unknown</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher />
+				<availability status="unknown"><licence /></availability>
+				<date type="published" when="2022-02-25">February 25, 2022</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Majd</forename><surname>Abdallah</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Team Parietal</orgName>
+								<orgName type="institution" key="instit1">Inria</orgName>
+								<orgName type="institution" key="instit2">CEA</orgName>
+								<orgName type="institution" key="instit3">Université Paris-Saclay</orgName>
+								<address>
+									<postCode>91120</postCode>
+									<settlement>Palaiseau</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">NeuroSpin</orgName>
+								<orgName type="institution" key="instit1">CEA</orgName>
+								<orgName type="institution" key="instit2">Université Paris-Saclay</orgName>
+								<address>
+									<addrLine>Gif-sur-Yvette</addrLine>
+									<postCode>91190</postCode>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Valentin</forename><surname>Iovene</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Team Parietal</orgName>
+								<orgName type="institution" key="instit1">Inria</orgName>
+								<orgName type="institution" key="instit2">CEA</orgName>
+								<orgName type="institution" key="instit3">Université Paris-Saclay</orgName>
+								<address>
+									<postCode>91120</postCode>
+									<settlement>Palaiseau</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">NeuroSpin</orgName>
+								<orgName type="institution" key="instit1">CEA</orgName>
+								<orgName type="institution" key="instit2">Université Paris-Saclay</orgName>
+								<address>
+									<addrLine>Gif-sur-Yvette</addrLine>
+									<postCode>91190</postCode>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Gaston</forename><surname>Zanitti</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Team Parietal</orgName>
+								<orgName type="institution" key="instit1">Inria</orgName>
+								<orgName type="institution" key="instit2">CEA</orgName>
+								<orgName type="institution" key="instit3">Université Paris-Saclay</orgName>
+								<address>
+									<postCode>91120</postCode>
+									<settlement>Palaiseau</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">NeuroSpin</orgName>
+								<orgName type="institution" key="instit1">CEA</orgName>
+								<orgName type="institution" key="instit2">Université Paris-Saclay</orgName>
+								<address>
+									<addrLine>Gif-sur-Yvette</addrLine>
+									<postCode>91190</postCode>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Demian</forename><surname>Wassermann</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Team Parietal</orgName>
+								<orgName type="institution" key="instit1">Inria</orgName>
+								<orgName type="institution" key="instit2">CEA</orgName>
+								<orgName type="institution" key="instit3">Université Paris-Saclay</orgName>
+								<address>
+									<postCode>91120</postCode>
+									<settlement>Palaiseau</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">NeuroSpin</orgName>
+								<orgName type="institution" key="instit1">CEA</orgName>
+								<orgName type="institution" key="instit2">Université Paris-Saclay</orgName>
+								<address>
+									<addrLine>Gif-sur-Yvette</addrLine>
+									<postCode>91190</postCode>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Meta-Analysis of the Functional Neuroimaging Literature with Probabilistic Logic Programming</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2022-02-25">February 25, 2022</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">CD1C8B35A679414651221F0DF2493576</idno>
+					<idno type="DOI">10.1038/s41598-022-21801-4</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid" />
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Neuroimaging</term>
+					<term>Meta-Analysis</term>
+					<term>Probabilistic logic programming</term>
+					<term>Domain-specific language</term>
+					<term>Neuroinformatics</term>
+					<term>Knowledge Representation 1</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div><p>Inferring reliable brain-behavior associations requires synthesizing evidence from thousands of functional neuroimaging studies through meta-analysis. However, existing meta-analysis tools are limited to investigating simple neuroscience concepts and expressing a restricted range of questions. Here, we expand the scope of neuroimaging meta-analysis by designing <software>NeuroLang</software>: a domain-specific language to express and test hypotheses using probabilistic first-order logic programming. By leveraging formalisms found at the crossroads of artificial intelligence and knowledge representation, <software>NeuroLang</software> provides the expressivity to address a larger repertoire of hypotheses in a meta-analysis, while seamlessly modelling the uncertainty inherent to neuroimaging data. We demonstrate the language's capabilities in conducting comprehensive neuroimaging meta-analysis through use-case examples that address questions of structure-function associations. Specifically, we infer the specific functional roles of three canonical brain networks, support the role of the visual word-form area in visuospatial attention, and investigate the heterogeneous organization of the fronto-parietal control network.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div><head n="1">Introduction</head><p>Meta-analysis confronts hypotheses of brain-behavior mappings with synthesized evidence from thousands of functional neuroimaging studies <ref type="bibr" target="#b0">[1]</ref>. However, commonly used standard tools for meta-analysis, such as <software>BrainMap</software> <ref type="bibr" target="#b1">[2]</ref> and <software>Neurosynth</software> <ref type="bibr" target="#b2">[3]</ref> are limited in their formal expressivity. For example, it is challenging to express complex questions like 'which topics are likely to be present in a study given activation in one set of regions and there exists no activation in another set of regions'. Answering this question requires that we explicitly run a meta-analysis on every single term of interest, while integrating heterogeneous and uncertain data, such as spatial masks and parcellations, to define the regions <ref type="bibr" target="#b6">[7]</ref>. Importantly, however, applying the nontrivial criteria to select articles for inclusion and exclusion necessitates coding in a general-purpose programming language, which can be error-prone and hard to maintain. In this work, we harness advancements in symbolic artificial intelligence, specifically in probabilistic logic programming, to design <software>NeuroLang</software>: a domain-specific language (DSL) to formulate rich and expressive neuroscience hypotheses using formal logic-based criteria, while seamlessly combining heterogeneous data and reasoning about uncertainty. Our bet is that <software>NeuroLang</software>'s clear syntax and probabilistic logic semantics will enable accessible, rigorous, and highly reproducible large-scale meta-analysis.</p><p>Large-scale meta-analysis has become popular in cognitive neuroscience research as a result of the growth in non-invasive neuroimaging experiments, which provoked an upsurge in the number of yearly publications on structure-function associations <ref type="bibr" target="#b7">[8]</ref>. As a powerful approach to synthesizing large quantities of results, meta-analysis has been performed to distinguish spurious from replicable findings, derive coactivation patterns <ref type="bibr" target="#b8">[9]</ref>, and define a priori regions of interest <ref type="bibr" target="#b9">[10]</ref>. Moreover, elaborate coactivation-based connectivity, meta-analytic functional parcellations, and sophisticated network models are now being inferred from datasets covering tens of thousands of subjects. Recently, even more elaborate meta-analyses have been performed to derive new findings. For instance, Yeo et al. <ref type="bibr" target="#b5">[6]</ref> have used meta-analysis to study the human association cortex, identifying frontal and parietal regions that are either specialized or flexible. Furthermore, meta-analysis has been used to support findings on the fractionation of networks into subsystems underlying disparate processing domains <ref type="bibr" target="#b6">[7,</ref><ref type="bibr" target="#b10">11]</ref>. Thus, large-scale metaanalysis is essential for the continued detection of latent properties of brain systems, far beyond what can be inferred from individual studies.</p><p>Over three decades ago, spatial normalization-the use of peak activation coordinates standardized in stereotaxic space-was introduced to human neuroimaging research <ref type="bibr" target="#b11">[12]</ref>. This norm has been embraced, enlarged, and popularized by an outstanding series of methodological breakthroughs in the field. As a result, a large and methodologically cohesive functional neuroimaging literature has emerged over the past years. Capitalizing on this wealth of results, large-scale online databases have been created to compile peak activation coordinates and their related meta-data, spurring the development of coordinate-based meta-analytic approaches to exploit this rapidly growing corpus. This makes coordinate-based meta-analysis (CBMA) the most popular type of neuroimaging meta-analysis so far. The earliest approach to compiling peak coordinates, used by <software>Brain-Map</software> <ref type="bibr" target="#b1">[2]</ref>, is to manually transcribe them from study tables. The peaks are then linked to the content of the studies by taxonomy experts. A more recent approach, used by <software>Neurosynth</software> <ref type="bibr" target="#b2">[3]</ref>, is to automate this laborious task via special software that automatically extracts peak coordinates from study tables. <software>Neurosynth</software> also automates the annotation of studies using natural language processing techniques that incorporate term-frequency features, i.e. TF-IDF, estimated from the texts of studies. Albeit noisier, these fully automated approaches to meta-analysis scale better to the rapidly expanding neuroimaging literature.</p><p>Tools like BrainMap <ref type="bibr" target="#b1">[2]</ref> and <software>Neurosynth</software> <ref type="bibr" target="#b2">[3]</ref> have indeed simplified meta-analysis, becoming cornerstones of contemporary neuroscience research. However, only a narrow range of questions can be natively posed using these tools due to their limited expressivity. Specifically, these tools are based on propositional logic, which makes formulating queries beyond straightforward propositions, while applying nontrivial selection criteria of studies, a verbose and arduous task. More recently, <software>NeuroQuery</software>, a regularised predictive model trained on CBMA data, has been introduced to map any arbitrary text fragment (i.e. a set of keywords of interest, dubbed 'query') to a brain activation map. This approach shows that modelling semantic relations across studies can produce meaningful statistical maps for terms that are rarely mentioned in the literature. Nonetheless, Neuro-Query cannot express questions that infer a pattern of activation from studies associated with 'working memory', for instance, but not associated with other related functions. Such an analysis could be interesting to infer unique neural substrates among closelyrelated mental functions. Yet, <software>NeuroQuery</software> does not employ any logic-based semantics. That is, the words 'but' and 'not' are not in <software>NeuroQuery</software>'s pre-selected vocabulary, and have no influence on the resulting statistical maps. Thus, there seems to be a space for a logic-based framework that, by giving access to more elaborate meta-analytic queries, could help bridge the gap between statistical modeling and cognitive neuroscience. An all encompassing domain-specific language (DSL) for neuroscience research could encode any type of data, express complex queries using logic semantics, and reason about elements of uncertainty, all in a single unifying framework.</p><p>Parallel to the growth of functional neuroimaging over the past few decades, the artificial intelligence (AI) sub-fields of probabilistic logic programming and probabilistic databases have experienced a rapid evolution. This has lead to the development of methods that efficiently represent knowledge with both logical and probabilistic semantics in a way that makes statistical model assumptions declarative, clear and less biased. Theoretical formalisms ground probabilistic logic languages with well-defined semantics and a mathematical understanding of the complexity of various classes of queries and different types of data <ref type="bibr" target="#b12">[13]</ref>. Efforts to address the scalability of probabilistic logic systems led to recent algorithms and data structures that can remarkably speed up analyses, even on very large and diverse databases <ref type="bibr" target="#b13">[14]</ref>.</p><p>Can probabilistic logic programming formalize and broaden the range of questions that can be expressed in a meta-analysis? Can it simplify formulating complex hypotheses while combining heterogeneous and uncertain data? In this work, we present <software>NeuroLang</software>, a domain-specific language for conducting comprehensive neuroimaging meta-analyses using formal, succinct, and self-contained programs. At its core, <software>NeuroLang</software> uses predicate logic, as opposed to propositional logic, to ease the formulation of queries in a way that is closer to human discourse <ref type="bibr" target="#b14">[15]</ref>, and that can be run against structured neuroscientific data. Logic rules and queries are augmented with probabilistic semantics to account for uncertainty that emerges from missing information, analytical variability across studies, and measurement imperfections. In this article, we present concrete use-case applications of <software>NeuroLang</software> that address popular questions from the literature.</p></div>
+<div><head n="2">Results</head><p>The use-case examples of <software>NeuroLang</software> shed light on the utility of probabilistic logic semantics in representing neuroscience hypotheses that cannot be readily expressed with standard meta-analysis tools. In the first example, we use between-network segregation queries to infer the unique functional roles of three canonical functional networks: the dorsal attention network (DAN), default mode network (DMN), and frontoparietal cognitive control network (FPCN). In the second example, we explore potential associations between topics and activity within the visual word-form area (VWFA), when it either coactivates with regions of the dorsal attention network or those of the language network. In the third and fourth examples, we study the functional heterogeneity of the FPCN, uncovering differential activation profiles for a number of mental functions and varying connectivity patterns with other brain networks.</p></div>
+<div><head>Representing Neuroscientific Knowledge under Uncertainty</head><p>Before exploring use-case examples of <software>NeuroLang</software>, we describe how heterogeneous neuroimaging data are represented in using fact and rule tables. A table is a set of tuples or rows, each representing a data instance and has a set of k elements representing columns. Probabilities can be ascribed to the rows of a table to quantify the level uncertainty in the data presented by each, in which case the table is said to be probabilistic.</p><p>Studies in a CBMA database report a set of peak activations that we store in a table named <software>PeakReported</software>. This table contains one row (x, y, z, s) for each peak that a study s has reported at location (x, y, z) in MNI space. Moreover, the uncertainty around the spatial location of peaks can be encoded in a rule table by assuming each peak's 10mm neighboring voxels to be equivalently reported, similar to the multilevel kernel density analysis (MKDA) <ref type="bibr" target="#b15">[16]</ref>. This rule table is called <software>VoxelReported</software>, and it includes a row (x, y, z, s) for each voxel at location (x, y, z) in the neighborhood (&lt; 10mm) of a peak reported by study s. More details on how other spatial smoothing priors can be encoded in <software>NeuroLang</software>, such as the probabilistic prior used by the activation likelihood estimation (ALE) <ref type="bibr" target="#b16">[17]</ref> algorithm, are provided in the Supplementary Materials.</p><p>Further, each study within a meta-analytic corpus is associated with cognitive processes or concepts addressed by its experiments. Fully automated meta-analytic tools like <software>Neurosynth</software> calculate statistical term-frequency features on study texts or abstracts, and threshold them to establish these links in a data-driven manner <ref type="bibr" target="#b2">[3]</ref>. We store these associations within a TermAssociation table, containing one row (t, s) for each term t associated with study s. Moreover, we incorporate data-driven topic models, learned and openly shared by <software>Neurosynth</software> <ref type="bibr" target="#b17">[18]</ref>, within a TopicAssociation probabilistic table, containing one row (t, s, P) for each uncertain association between a topic t and a study s. In probabilistic logic, we write TopicAssociation(t, s) :: P to state 'study s has a probability P of being associated with topic t' <ref type="figure" target="#fig_0">1</ref>.<ref type="bibr" target="#b18">[19]</ref>. This data representation process is illustrated in fig. </p><p>Similarly to Neurosynth, we assume each study within the meta-analytic database to be an independent equiprobable sample of neuroscientific knowledge <ref type="bibr" target="#b16">17]</ref>. This assumption is encoded by a <software>SelectedStudy</software> rule, depicted in the bottom left part of fig. <ref type="figure" target="#fig_0">1</ref>, which gives studies an equal weight 1/N in any meta-analysis, where N is the total number of studies within the meta-analytic database. This makes it possible to estimate statistics on CBMA databases in the absence of statistical power indicators (e.g. sample size).</p><p>It is common for meta-analyses to integrate anatomical or functional brain parcellations <ref type="bibr" target="#b10">[11]</ref> to enhance interpretability and reduce computational burdens. In the examples, we use the DiFuMo-256 atlas <ref type="bibr" target="#b19">[20]</ref>, which is part of a multiscale "soft" parcellation estimated from thousands of subjects across 27 studies that include both task and resting-state fMRI experiments. This data-driven functional atlas is argued to achieve comparable statistical performance as voxel-level analyses, while simultaneously reducing computational cost and enhancing interpretability. We represent the 256 functional regions from DiFuMo in a <software>RegionVoxel</software> table, containing a row (r, x, y, z) for each brain voxel at MNI location (x, y, z) belonging to a DiFuMo-256 region r. An excerpt of the <software>RegionVoxel</software> table is depicted on the right part of fig. <ref type="figure" target="#fig_0">1</ref>. We also incorporate a table <software>NetworkRegion</software> that contains a row (n, r) for each region r that significantly overlaps with some network n from the 7 or 17-network parcellations <ref type="bibr" target="#b20">[21]</ref>. The network membership of regions is provided as part of the DiFuMo meta-data file. The experiments that follow will use this unified framework of knowledge representation to formulate probabilistic logic programs that drive meta-analytical findings.</p></div>
+<div><head>Collection of Neuroimaging Studies</head><p>The myth of the visual word form area</p><p>Recent functional imaging studies have referred to a posterior region of the left midfusiform gyrus as the "visual word form area" (VWFA). We review the evidence for this claim and argue that neither the neuropsychological nor neuroimaging data are consistent with a cortical region specialized for visual word form representations. Specifically, there are no reported cases of pure alexia who have deficits limited to visual word form processing and damage limited to the left midfusiform. In addition, we present functional imaging data to demonstrate that the so-called VWFA...</p></div>
+<div><head>Topic Model Natural Language Processing</head><p>Extract DiFuMo Functional Parcellation</p><p>Each study is treated as an equiprobable independent sample of neuroscientific knowledge </p></div>
+<div><head>Between-Network Segregation: Reverse Inference of Brain Network Function</head><p>In this example, we perform a segregation-based meta-analysis to infer the likelihood of a topic to be present in a study given activation in a brain network, with an additional constraint that there exists no activation in other networks. The goal of this example is to show that a segregation query can identify which network's activation pattern is preferentially more predictive of the presence of topic terms related to certain mental functions.</p><p>We use the Neurosynth CBMA database <ref type="bibr" target="#b2">[3]</ref>, consisting of 14,371 studies, and its associated v5-topics-100 topic model <ref type="bibr" target="#b17">[18]</ref>. The networks included in this example are the DMN, FPCN and DAN defined using the coarse 7-Network atlas <ref type="bibr" target="#b20">[21]</ref>. These networks exhibit coupling dynamics in support of an array of internally and externally-directed mental functions <ref type="bibr" target="#b21">[22]</ref>. However, each one of them is believed to subserve a unique set of cognitive processes <ref type="bibr" target="#b6">[7,</ref><ref type="bibr" target="#b21">22,</ref><ref type="bibr" target="#b22">23]</ref>. The FPCN contributes to a wide variety of tasks by engaging top-down control processes, the DAN is concerned with orienting attention towards salient cues, and the DMN is involved in abstract self-referential, social and affective functions. Using a segregation query, we can quantitatively identify the specific functional roles of these networks from the literature.</p><p>First, we have to represent useful heterogeneous data in <software>NeuroLang</software>. For instance, we assume a DiFuMo-256 component r to be reported by a study s whenever a peak activation is reported by the study within that region. In <software>NeuroLang</software>, this is expressed by the following logic rule</p><formula xml:id="formula_0">RegionReported(r, s) :- PeakReported(x, y, z, s) &amp; RegionVoxel(r, x, y, z)</formula><p>which translates, in plain English, to 'region r is reported by study s if s reports a peak at location (x, y, z) that falls within region r'. Furthermore, we model the reporting of networks by studies in a probabilistic table. The probabilities are based on the total volume of the reported regions that belong to a network. This table accounts for the uncertainty in the location of reported peak activation coordinates as well as the number of potentially reported regions. More precisely, we consider that each study has a probability of reporting a network, proportional to the number of reported regions belonging to the network. This is implemented by the following rules in <software>NeuroLang</software></p><formula xml:id="formula_1">RegionVolume(r, count(x, y, z)) :- RegionVoxel(r, x, y, z) NetworkVolume(n, sum(v)) :- RegionVolume(r, v) &amp; NetworkRegion(n, r) ReportedVolume(n, s, sum(v)) :- RegionVolume(r, v) &amp; NetworkRegion(n, r) &amp; RegionReported(r, s) NetworkReported(n, s) : v/V :- ReportedVolume(n, s, v) &amp; NetworkVolume(n, V)</formula><p>In plain English, 'a network n is considered to be reported by study s with probability v/V , where v is the total volume of regions within network n that are reported active by study s, and V is the total volume of all regions in the network'. This program makes use of <software>NeuroLang</software>'s built-in count and sum aggregation functions.</p><p>Next, we define a rule that infers the probability that studies are associated with a topic given activation in only one of the three networks. That is, we query the probability that a study s is associated with topic t given that some network n is reported by s and there exists no other network reported by study s. In <software>NeuroLang</software>, this corresponds to the following rule</p><formula xml:id="formula_2">ans(t, n, PROB) :- TopicAssociation(t, s) &amp; SelectedStudy(s) // NetworkReported(n, s) &amp; ~exists(n2; Network(n2) &amp; n2 != n &amp; NetworkReported(n2, s) )</formula><p>where the // operator is read as given, representing probabilistic conditioning. This rule contains a negated existential expression, ∼exists(• • • ), that prevents two or more networks from being reported by a study at the same time.</p><p>We report the resulting functional profiles in fig. <ref type="figure" target="#fig_1">2</ref>. We observe that topics related to sensory processing of direct environmental demands such as eye movements, visual attention, and spatial orientation are more likely to appear in studies reporting activations in the DAN only. Also, we observe that topics related to cognitive control such as task switching, task demands, response inhibition, and performance monitoring are more likely to be mentioned in studies reporting activations in the FPCN. Finally, topics related to higher-order abstract cognitive and memory-related processes are mostly associated with studies reporting DMN activations only.  : Functional profiles obtained with network-based segregation queries that identify the most probable topic associations in studies reporting activations within one network but not reporting activations within any of the other networks. A 95% confidence interval is depicted, across 1000 random 50% subsamples of the <software>Neurosynth</software> database <ref type="bibr" target="#b2">[3]</ref>.</p></div>
+<div><head>Meta-Analysing the Role of the Visual Word-Form Area in Attention Circuitry</head><p>The visual word-form area (VWFA) has attracted controversy over the years with recent findings suggesting it to take part in the attention circuitry not only in the language network <ref type="bibr" target="#b23">[24]</ref>. Can this relationship be inferred solely from a meta-analysis of past studies that have reported activations in the left ventral occipito-temporal cortex without necessarily identifying it as the VWFA?</p><p>To answer this question, we formulate queries that infer the most probable topic associations among studies that report activations close to the VWFA region, while simultaneously reporting activations within regions of the attention network, but not reporting activations within regions of the language network.</p><p>To define regions of the VWFA; dorsal attention and language network, we use the seed locations defined in <ref type="bibr" target="#b23">[24]</ref>, and store them in a RegionSeedVoxel table. This table contains a row (x, y, z, r) for each region r's seed location (x, y, z). A database table <software>NetworkRegion</software> contains rows (n, r) for each region r belonging to network n. A brain region is considered to be reported by a study if it reports a peak activation within 10mm of the region seed location. The choice of a 10mm radius was used to facilitate comparisons with the range of smoothing kernels that are typically used within metaanalyses.</p><p>In this example, a network is considered to be reported by a study if it reports one of the network's regions. In <software>NeuroLang</software>, these rules are as follows:</p><formula xml:id="formula_3">RegionReported(r, s) :- PeakReported(x, y, z, s) &amp; RegionSeedVoxel(x1, y1, z1, r) &amp; d = EUCLIDEAN(x, y, z, x1, y1, z1) &amp; d &lt; 10 NetworkReported(n, s) :-RegionReported(r, s) &amp; NetworkRegion(n, r)</formula><p>where <software>EUCLIDEAN</software> is a built-in function that calculates the Euclidean distance between two locations in MNI space.</p><p>Finally, to test our hypothesis, we use the following probability encoding rule</p><formula xml:id="formula_4">ans(t, n, PROB) :-TermAssociation(t, s) // (RegionReported(vwfa, s) &amp; NetworkReported(n, s) &amp; SelectedStudy(s) &amp; ~exists(n2; Network(n2) &amp; n2 != n &amp; Study(s) &amp; NetworkReported(n2, s)) )</formula><p>which calculates the probability of finding an association with topic t among studies that report the activation of both the VWFA and network n, but do not report the activation of any other network n 2 , where n 2 ̸ = n. Because only two networks, language and attention, are present in the Network table, this rule simultaneously calculates the probabilities for each pair of networks, including one while segregating the other.</p><p>Results are shown in table <ref type="table" target="#tab_1">1</ref>. Topic 32 was found to be significantly associated with studies that report activations within the VWFA and the attention network but that do not report activations within the 'language' network. This topic loads on terms related to object recognition-a task for which attention circuitry is essential <ref type="bibr" target="#b24">[25]</ref>. This result suggests that the VWFA may play a role in attention, as studies that report its activations are significantly associated with object recognition, and supports the running hypothesis that the VWFA plays a role in processing multiple categories of visual stimuli <ref type="bibr" target="#b23">[24]</ref>. We also observe a significant association with topic 21, which loads on terms related to the task of reading words-the putative role of the VWFA. The opposite segregation query selects studies reporting the VWFA and the 'language' network but not reporting the attention network (N = 318). This analysis did not yield any significant topic association after correction for multiple comparison. However, a similar topic association analysis, but without segregating studies that report activation in the attention network, does yield a significant association with topic 21, linked to the 'reading words' (χ 2 (1, N = 852) = 56.86, p FDR = 0.000081). This result might have more than one explanation, but a plausible explanation could be the relative decrease in statistical power (i.e. smaller number of studies) in the segregation query compared to the non-segregation query.</p></div>
+<div><head>Inferring Differential Activation Patterns within the FPCN using Topic Segregation Queries</head><p>In this example, we perform forward inference using topic-based segregation queries to derive activation patterns within the frontoparietal cognitive control network (FPCN). As a major part of the multiple demand system <ref type="bibr" target="#b25">[26]</ref>, the FPCN is associated with a large set of tasks, themselves belonging to disparate and overlapping cognitive processes such as working memory, memory retrieval, task switching, and semantic processing, to name a few. Moreover, there is evidence for a heterogeneous internal organization in the FPCN, whereby a different combination of regions may be involved in a different domain of control processing <ref type="bibr" target="#b26">[27]</ref>. Thus, the goal of this example is to infer activation patterns within the FPCN predicted by the presence of topic terms related to one process and the simultaneous absence of topic terms related to other processes. In this sense, segregation queries can enhance the relative specificity of meta-analytic forward inferences by minimizing the amount of overlap amongst related topics.</p><p>From the set of 200 Neurosynth topics (version-5), we select five exemplar topics representing a subset of the cognitive processes often attributed to the FPCN, along with the loading values of studies on each topic. These topics are working memory, decision making, task set switching, semantic control, and memory retrieval <ref type="bibr" target="#b28">29]</ref>. Then, we formulate the following <software>NeuroLang</software> program which performs topic segregation queries, yielding an activation map for each topic separately. This <software>program</software> is written as follows:  We report the resulting topic-based activations within the FPCN in fig. <ref type="figure" target="#fig_3">3</ref>. The results of this segregation query show that the FPCN exhibits a varied activation profile across topics, corroborating previous findings of flexible adaptation of activity within this network as task demands change. Specifically, working memory and task set switching tend to activate, to some extent, spatially interleaved, frontal and parietal regions of the FPCN network. Semantic processing, on the other hand, dominantly activates a left-lateralized ventral frontal regions. Finally, decision making and memory retrieval are associated with activation in the cingulo-medial portion of the FPCN, the pre-supplementary motor/dorsal anterior cingulate cortex (decision making) and a precuneus/posterior cingulate cortex network (memory retrieval).</p></div>
+<div><head>Inferring Varying Meta-Analytic Connectivity Profiles of FPCN Subnetworks</head><p>Recent findings suggest that the frontoparietal cognitive control network (FPCN) can be decomposed into sub-systems associated with disparate and overlapping mental processes. Dixon et al. <ref type="bibr" target="#b6">[7]</ref> studied two broad subsystems of the FPCN that also appear as separate networks in the influential 17-network model from Yeo et al. <ref type="bibr" target="#b20">[21]</ref>. Using the same nomenclature, we label these two subsystems FPCN-A and FPCN-B. Dixon et al. observed preferential connectivity between FPCN-A and the default mode network (DMN), and between FPCN-B and the dorsal attention network (DAN). We reproduce these results by conducting a similar, but more compact, meta-analysis with <software>NeuroLang</software>.</p><p>For this analysis we use the <software>NeuroQuery</software> <ref type="bibr" target="#b29">[30]</ref> database instead of <software>Neurosynth</software>. We formulate conditional probabilistic queries that include studies reporting activations in each of the two FPCN sub-networks. By contrasting their posterior probability maps, we identify a distinct meta-analytic connectivity pattern associated with each sub-network. Using the same probabilistic definition of network reported by studies as in the first example, we formulate a rule that calculates the coactivation pattern of each FPCN subnetwork. In <software>NeuroLang</software>, we use the following rule to calculate the conditional probability of a region being reported given that a network is also reported ans(r, n, PROB) :-RegionReported(r, s) // (NetworkReported(n, s) &amp; <software>SelectedStudy</software>(s))</p><p>whose resulting ans table contains rows (r, n, p), where p is the probability of region r being reported active given that network n, where n is either FPCN-A or FPCN-B.</p><p>A likelihood-ratio test and a FDR correction (α = 0.05) for multiple comparison are used to identify statistically significant coactivating regions. To ensure that the results are not driven by one choice of studies, we estimate the conditional probabilities on 1000 random sub-samples of the <ref type="figure" target="#fig_6">5</ref>.<software>NeuroQuery</software> database (each sub-sample is 50% of the entire database). This allows us to compute confidence intervals for our probability estimates,  In fig. <ref type="figure" target="#fig_5">4</ref>, we show scatter plots of the probabilities that each DiFuMo-256 brain region is active given activation of the FPCN-A or FPCN-B sub-networks defined by Yeo 17-network parcellation. We only show the results of regions that exhibit a significant coactivation with at least one subnetwork, based on a likelihood-ratio test. In the left panel, regions are color coded by their network membership according to the coarser Yeo 7-network parcellation to facilitate interpretation. In general, regions belonging to the somatomotor, visual, salience networks do not preferential coactivate with either the FPCN-A or FPCN-B. In contrast, regions of the coarse FPCN show a dichotomy in their coactivations with either FPCN-A and FPCN-B. That is, meta-analysis supports the hypothesis that FPCN can be functionally divided into two sub-systems <ref type="bibr" target="#b6">[7]</ref>. Importantly, we find a clearer dichotomy in the coactivation profiles of the DMN and the DAN with the FPCN sub-networks. On one hand, 31 out of 32 DMN regions coactivate more with FPCN-A, while only one DMN region (a sub-region in the middle frontal gyrus) seem to exhibit a preferential coactivation with FPCN-B. In fig. <ref type="figure" target="#fig_6">5</ref>, we illustrate a meta-analytic coactivation contrast map between FPCN-A and FPCN-B, showing that the former coactivates to a greater extent with the core regions of the DMN, than does the latter. On the other hand, without indicating any preference, we observe that 21 out of 30 DAN regions exhibit statistically significant coactivations with FPCN-A, while 19 show significant coactivations with FPCN-B. However, only 11 regions have a higher probability of activating given an FPCN-B activation than FPCN-A, while the others have comparable probabilities of coactivating with either sub-networks. This is in line with the findings from Dixon et al. <ref type="bibr" target="#b6">[7]</ref>, showing less distinction in the DAN with respect to coactivation with the FPCN sub-networks. Nonetheless, FPCN-B does indeed coactivate to a greater extent with the core regions of the DAN, the superior parietal lobule and frontal eye fields, than FPCN-A as seen from the coactivation contrast map in fig. </p></div>
+<div><head n="3">Discussion</head><p>We present a domain-specific language (DSL), coined <software>NeuroLang</software>, which broadens the range of meta-analytic hypotheses that can be expressed and tested against an everincreasing functional neuroimaging literature. Through probabilistic logic semantics, users can formally represent their hypotheses, query heterogeneous data, and reason about uncertainty in a unified language. Ultimately, <software>NeuroLang</software> is envisioned to lead a new generation of computational tools for neuroimaging data analysis, including metaanalysis, to reduce miscommunication in the community and promote formal and reproducible research. To support this language-oriented approach, we provide concrete meta-analysis examples fully performed with <software>NeuroLang</software>.</p><p>An important meta-analysis application, beyond finding consistent activation patterns, is inferring reliable and specific structure-function associations. Traditionally, researchers carefully select studies that "ask a similar question" or rely on databases of expertly curated annotations of studies, such as <software>BrainMap</software> <ref type="bibr" target="#b1">[2]</ref>. However, non-automated meta-analysis is not scalable, time-consuming, and can suffer from low statistical power. As a response, automated tools have been developed, like <software>Neurosynth</software> <ref type="bibr" target="#b2">[3]</ref>, <software>NeuroQuery</software> <ref type="bibr" target="#b29">[30]</ref>, and more recently <software>NiMare</software>, to enable scalable, richer, and unbiased meta-analysis. However, as mentioned before, these tools cannot formally express nontrivial inclusion/exclusion criteria of studies to infer specific structure-function associations. In contrast, <software>NeuroLang</software> provides a unified formal framework to succinctly express versatile queries of functional specificity in the brain via first-order logic semantics rather than propositional logic statements <ref type="bibr" target="#b18">[19]</ref>.</p><p>A recurring use-case of expressive querying throughout the examples is that of segregation queries, which we formulate using the first-order logical negation operator (¬) and existential quantifier (∃). Using a segregation query enables a seamless split-up of studies in a meta-analysis, while contrasting any number of topics and brain regions of interest both in a forward and reverse inference paradigms. In this sense, segregation queries can enhance the specificity of inferred structure-function associations in brain regions that are putatively recruited to varying degrees by multiple tasks and brain networks, such as the VWFA <ref type="bibr" target="#b23">[24]</ref> or the anterior insula <ref type="bibr" target="#b30">[31]</ref> for instance.</p><p>The three networks example serves as a proof of concept for using segregation queries to derive specific structure-function associations for brain structures, such as networks.</p><p>In this example, we infer the topics that are preferentially linked to each of the FPCN, DMN, and DAN. These three networks are known to exhibit competitive and cooperative coupling dynamics across a wide array of tasks <ref type="bibr" target="#b31">[32]</ref>. Thus, observed activations may emerge from the dynamics of these networks depending on task demands <ref type="bibr" target="#b32">[33]</ref>. This might yield to a blurry characterization of networks in terms of their specific roles and spatial arrangement, sometimes leading to nomenclature ambiguities across studies and research groups <ref type="bibr" target="#b33">[34]</ref>. One way to solve this is to infer relatively specific functions of a network by "isolating" its activity pattern from the other networks. Achieving this isolation through segregation queries, we find preferential topic associations for the FPCN, DMN, and DAN that align with the general understanding of their roles <ref type="bibr" target="#b25">[26,</ref><ref type="bibr" target="#b34">35,</ref><ref type="bibr" target="#b35">36]</ref>. Such a segregation-based meta-analysis can be performed in future studies, for instance, to create a foundation for a fine-scale taxonomy of brain networks depending on their inferred roles in addition to their connectivity patterns.</p><p>In the VWFA example, we use segregation queries to address a controversial hypotheses <ref type="bibr" target="#b23">[24,</ref><ref type="bibr" target="#b36">37]</ref> about the role of this region in general visual processing beyond reading words. The main result is a statistically significant association for the VWFA with a topic loading on terms of object recognition given coactivation with attention but not language regions. However, the topic loads on terms such as 'fusiform' and 'occipitotemporal'-zones in the close vicinity of the putative VWFA known to represent features and attributes of objects <ref type="bibr" target="#b37">[38]</ref>, which might bias the results due to uncertainty in precisely locating the VWFA and the ambiguity in nomenclature across studies. But given that the dorsal attention network is active and its strong functional connectivity to the left occipito-temporal zone <ref type="bibr" target="#b36">[37]</ref>, a link between the VWFA and "object recognition" is plausible. Concurrently, we observe no statistically significant topic associations for the VWFA when it coactivates with language but not attention regions. Yet, if we do not exclude studies reporting the coactivity among language and attention networks, a significant association with a topic related to "reading words" is observed. This finding suggests that the VWFA might not be specific to language per se, but rather have a broader role at the interface of language and visuospatial attention. Findings from <ref type="bibr" target="#b23">[24]</ref> suggest that the VWFA acts as a gateway between attention and language networks, such that the former amplifies the representations of written words so they may be conveyed to the latter. Our findings suggest that the VWFA is a more general visual processor that may be recruited in other visual tasks in addition to reading. This segregation-based meta-analysis can be extended to understand the dynamic roles of flexible regions in the brain, such as connector hubs.</p><p>In the third and fourth examples, we derive varying coactivation patterns within the FPCN revealing its heterogeneous organization. The FPCN comprises regions that coactivate across diverse conditions. Given the lack of formal definitions and fine lines between different executive functions, which are often conjointly studied, it can be difficult to determine domain-specific FPCN regions. As a potential solution to this problem, a segregation query can simultaneously select studies highly loading on topic terms related to a single function, discard studies loading on topic terms of other functions, and contrast them. The results reveal a relatively unique coactivation pattern consistently associated with each topic, consistent with findings of dynamical activity in canonical brain networks as a function of varying demands <ref type="bibr" target="#b38">[39]</ref>. We say "relatively unique" because we only study a small set of topics for the sake of demonstration, while in fact there are putatively more functions attributed to the FPCN. This meta-analysis can include a cognitive ontology <ref type="bibr" target="#b39">[40]</ref> to systematically define all pertinent concepts and similarly contrast them <ref type="bibr" target="#b40">[41]</ref>. Moreover, this type of meta-analysis can be effective in system-level causal modeling approaches (e.g., dynamic causal modeling) <ref type="bibr" target="#b41">[42]</ref>, which require strong a priori hypotheses about the regions involved in particular contexts. Finally, we reproduce the results of Dixon et al. <ref type="bibr" target="#b6">[7]</ref>, equivalently revealing two subsystems, FPCN-A and FPCN-B that exhibit distinct activations profiles and specific associations with the DMN and DAN, respectively. Although Dixon et al. <ref type="bibr" target="#b6">[7]</ref> have successfully performed this analysis using <software>Neurosynth</software>'s command line tools, we have been able to reproduce their findings with significantly more compact, declarative and formal queries. In this sense, after representing the data in <software>NeuroLang</software>, a user only has to worry about what question to ask rather than about explicitly declaring every step needed to answer it.</p><p>Performing meta-analyses often requires integrating heterogeneous data. For example, Andrews et al. <ref type="bibr" target="#b10">[11]</ref> use a brain parcellation to characterize components of the DMN whose respective functions are decoded through reverse inference reasoning. Here, to study the functional profiles of brain networks and the coactivation patterns of FPCN subsystems, we integrate the DiFuMo-256 functional atlas. Components of this functional atlas overlap with anatomical landmarks whose names are used to label the components by experts to enhance interpretability <ref type="bibr" target="#b19">[20]</ref>. The DiFuMo components are also grouped into 7 and 17 canonical networks whose labels have been integrated in our examples. This approach facilitated the formulation of hypotheses and the interpretation of results. We believe that future studies conducted with <software>NeuroLang</software> could benefit from its capacity to represent any anatomical and functional atlas as well as tabular meta-data and formal ontologies <ref type="bibr" target="#b40">[41]</ref>. Moreover, it is imperative for a complete meta-analytic tool to be flexible enough to represent any type of parcellation, meta-analytic database or, more generally, neuroscientific knowledge. Within our experiments, we have been able to represent both the <software>Neurosynth</software> database and its associated openly-shared topic models in <software>NeuroLang</software>. But, in other experiments, we use the <software>NeuroQuery</software> database because of its lower error-rate in the extraction of peak activation coordinates <ref type="bibr" target="#b29">[30]</ref>. Together, these examples demonstrate that <software>NeuroLang</software> is agnostic to the database used for conducting meta-analyses, and could incorporate future sources of neuroscientific knowledge with various topologies.</p><p>Of course, due to the analytical variability across neuroimaging studies <ref type="bibr" target="#b42">[43]</ref> and imperfections in data acquisition, knowledge representation should account for elements of uncertainty in the data. Probabilistic programs and databases constitute general frameworks for representing structured but uncertain knowledge. As these two paradigms reside at the heart of <software>NeuroLang</software>, uncertain data can be combined within its probabilistic programs. In our experiments, we model the reporting of functional modes and networks probabilistically based on their volumetric proportion that is reported by studies, although other indicators of uncertainty can be used. Another possible measure of uncertainty can be sample size and relative location of peaks with respect to the regions of a network. This probabilistic definition is thus arbitrary, but <software>NeuroLang</software> is expressive enough to represent any assumption just as well. For instance, to obtain network-specific functional profiles, we combine meta-analytic data and functional atlases with data-driven topic models. The topics are associated to studies probabilistically by the loadings of the fitted latent Dirichlet allocation model that are based on the frequency of co-occurrence of terms in abstracts of studies <ref type="bibr" target="#b17">[18]</ref>.</p><p>It is worth noting that, so far, not all types of queries can be efficiently solved by Neu-roLang's engine. For example, negated disjunctive queries, such as ¬(FirstSegregation(s)∨ SecondSegregation(s)), where FirstSegregation and SecondSegregation correspond to two segregation rules -similar to those presented in our examples -, can be computationally intractable in a voxel-level analysis, where &gt; 150, 000 voxels need to be modeled. This is because extensions to logic programming, such as negation <ref type="bibr" target="#b43">[44]</ref>, are not directly transposable to lifted query processing of unions of conjunctive queries on probabilistic databases <ref type="bibr" target="#b44">[45]</ref>. In other words, more expressivity in a language leads to higher data complexity-the complexity of solving a query with respect to the size of the data <ref type="bibr" target="#b45">[46]</ref>. In the case of whole-brain voxel-level statistical modeling, data complexity is significant, and solving a segregation query can become impractical due to the large number of voxels that are modeled. Efficient algorithms exist for solving a limited subset of queries on probabilistic databases <ref type="bibr" target="#b13">[14]</ref>. <software>NeuroLang</software> privileges lifted query processing to solve queries on probabilistic databases (see the Methods section for details). Lifted query processing is an algorithm with a set of rules that translate a query to an algebraic expression to solve it in polynomial time. This allows <software>NeuroLang</software> to efficiently scale to large databases. However, to calculate the solution of a potentially non-liftable query, <software>NeuroLang</software> falls back to knowledge compilation strategies <ref type="bibr" target="#b46">[47]</ref>. Yet, when modeling hundreds of thousands of brain voxels, we find resolution times of knowledge compilation to be impractical as well. Obtaining a solution for meta-analytic queries at the voxel-level currently take several minutes to be solved with <software>NeuroLang</software>, while such queries can be solved in a few seconds by <software>Neurosynth</software>'s engine, which uses a custom python-based implementation. Nevertheless, major improvements to <software>NeuroLang</software>'s engine are currently underway.</p><p>In designing <software>NeuroLang</software>, we provide a high-level programming interface for harnessing meta-analysis databases in cognitive neuroscience research. We believe that this approach has three main advantages : Accessibility, Readability, and Sound semantics. Implementing a program to test a complex hypothesis against meta-analytic data can be time-consuming and error-prone, especially for those not proficient in general-purpose programming languages. A domain-specific syntax as <software>NeuroLang</software>'s eases the process of formulating hypotheses combining heterogeneous data. This has the potential of speeding up the meta-analysis process as well as making it highly reproducible. Moreover, being specific about the research question and assumptions a in meta-analysis is an important practice <ref type="bibr" target="#b47">[48]</ref>. <software>NeuroLang</software>'s logical syntax makes model assumptions and inclusion/exclusion criteria readable and understandable directly from the code of the program. Finally, <software>NeuroLang</software> is grounded in formal mathematical logic, providing theoretical guarantees that both limit modeling errors and provide trust in the language. We believe that these advantages make <software>NeuroLang</software> a tool of choice for conducting and reproducing functional neuroimaging meta-analyses. One <software>NeuroLang</software> program developed for a study in 2022 could be re-used by another team of researchers in 2027, five years later, either as a modeling inspiration for an entirely different study or to confront the original study's findings with results published from 2022 to 2027.</p></div>
+<div><head n="4">Methods</head><p>We apply a language-oriented programming approach to the problem of expressing and testing meta-analytic neuroscientific hypotheses. That is, instead of using a generalpurpose programming language to solve the problem, we design a domain-specific language (DSL) to represent the problem, and solve it in that language. <software>NeuroLang</software> uses logic, declarative, and probabilistic programming paradigms.</p><p>We start by introducing computer science concepts required to understand the semantics of the language. Then, we explore how these formalisms can be applied to the specific case of expressing cognitive neuroscience hypotheses. Finally, we detail the tech-nicalities of solving queries on <software>NeuroLang</software> programs when working at the whole-brain neuroimaging scale.</p></div>
+<div><head>Probabilistic Logic Programs and Databases</head><p>To represent heterogeneous neuroscientific knowledge, <software>NeuroLang</software> leans on Datalog <ref type="bibr" target="#b48">[49]</ref>, a fully declarative logic programming language designed to efficiently solve queries on large deductive databases. A Datalog rule takes the form ∀x, (ψ(x) ← ∃y, φ(x, y)), where x is a set of universally quantified variables, y is a (possibly empty) set of existentially quantified variables, ψ is a relational symbol, and φ(x, y) is a conjunctive logic formula over x ∪ y. For readability, the implicit ∀ and ∃ quantifiers are often omitted, and the rule is written ψ(x) ← φ(x, y). A Datalog program is a set of such rules. The input of the program is a set of extensional facts and its output is a set of intensional facts that have been obtained through deductive inference, based on the program's rules and input facts. This process is summarised in fig. <ref type="figure">6</ref>. In <software>NeuroLang</software>, we write a Datalog rule ∀(x, z), (P (x, z) ← ∃y, Q(x, y, z) ∧ R(z)) as P(x, z) :-Q(x, y, z) &amp; R(z). Theoretical formalisms and efficient query resolution algorithms have been developed by the logic programming community over the past decades. By restricting the syntax of its rules, Datalog queries have been proven to be solvable in polynomial time w.r.t. the size of the database <ref type="bibr" target="#b48">[49]</ref>. Strong guarantees on query resolution complexity are primordial to handle high dimensional whole-brain neuroimaging data.  Testing cognitive neuroscience hypotheses requires aggregating data from many subjects or studies using statistical models. Logic programming languages were not designed for statistics or probabilistic modeling, as their programs live in a world where everything is either true or false and only one outcome is possible. To address this limitation, logic programming languages were extended with probabilistic semantics to incorporate uncertainty and allow for probabilistic inference, such as <software>ProbLog2</software> <ref type="bibr" target="#b49">[50]</ref> or <software>CP-Logic</software> <ref type="bibr" target="#b50">[51]</ref>. Following CP-Logic's semantics, a probabilistic rule ψ(x) : α ← φ(x) causes the event ψ(x) to be true with probability α, whenever φ(x) is true. Probabilistic logic programs define a distribution over possible outputs of the programs' execution, a.k.a. possible worlds <ref type="bibr" target="#b51">[52]</ref>. For a more detailed introduction to probabilistic logic programming, we refer the reader to De Raedt et al.'s review <ref type="bibr" target="#b52">[53]</ref>. In <software>NeuroLang</software>, we write a CP-Logic rule P (x, y) : f (x, y) ← Q(x, y) ∧ R(y) as P(x, y) : f(x, y) :-Q(x, y) &amp; R(y).</p><p>Inferring the probability of a query boils down to summing the probabilities of all possible worlds where this query is verified. This process is called weighted model counting <ref type="bibr" target="#b53">[54]</ref>. The number of possible worlds is often very large, and naively counting possible worlds becomes intractable. For example, were we to model the activation of each brain voxel as independent Bernoulli random variables, the number of possible worlds would be 2 K , where K is the number of voxels in the brain, typically hundreds of thousands. Solving weighed model counting problems on real-world data requires efficient resolution algorithms. Knowledge compilation finds compact representations of large probabilistic programs, and can be used to solve queries drastically faster <ref type="bibr" target="#b13">[14,</ref><ref type="bibr" target="#b54">55]</ref>.</p></div>
+<div><head>A B C</head></div>
+<div><head>Union of Conjunctive Queries</head><p>Task: infer probabilities a set of probabilistic relations In parallel, the field of probabilistic databases extended traditional relational databases with the possibility of encoding uncertain knowledge using probabilities <ref type="bibr" target="#b55">[56]</ref>. A probability can be attached to any tuple in the database, as illustrated in fig. <ref type="figure" target="#fig_9">8</ref>. Similarly to probabilistic programs that define a distribution over possible outputs, a probabilistic database defines a probability distribution over a set of possible databases (or worlds), where tuples are chosen to be true or false based on their probability. The probability attached to a tuple then corresponds to the marginal probability of that tuple being found in any database randomly chosen from the distribution over possible databases. Probabilistic tuples within the database are often assumed to be independent random events, in which case the database is called a tuple-independant database (TID). A tuple with probability 1 is true in all possible databases, and a tuple with probability 0.5 is true in half of the possible databases.</p></div>
+<div><head>Tuple-Independent Probabilistic Database</head><p>In some cases, solving a query on a probabilistic database can be done much more efficiently than through knowledge compilation approaches. One recent theoretical result is the dichotomy theorem, which classifies queries on TIDs based on their complexity</p></div>
+<div><head>Extensional Query Plan</head><p>Algebraic expressions with operators extended for probabilistic calculations</p></div>
+<div><head>Given a query</head><p>The query plan computes <ref type="bibr">Figure 9</ref>: An extensional query plan solves P[Q] for a given query Q by using algebraic operations that are extended with probabilistic calculations <ref type="bibr" target="#b13">[14]</ref>. <ref type="bibr" target="#b12">[13]</ref>. At the heart of this theorem, is a resolution strategy named lifted query processing. It applies, based solely on syntactic analysis of a queries, a set of rules that derive an algebraic expression that computes the probability of the query <ref type="bibr" target="#b13">[14]</ref>. We illustrate this process in fig. <ref type="figure">9</ref>. Liftable queries have a polynomial data complexity. If the rules fail to apply, the query is said to be non-liftable, and has been proven to have a #P-hard complexity. To solve non-liftable queries, we use knowledge compilation strategies, which can be intractable in the voxel-level modeling setting.</p><p>By incorporating probabilistic semantics and fast query resolution algorithms from both probabilistic logic programming and probabilistic databases, <software>NeuroLang</software> is a fullfledged probabilistic programming language <ref type="bibr" target="#b18">[19]</ref>. This approach makes it possible to express a wide variety of programs and queries, some of which can be efficiently solved using lifted query processing on probabilistic databases, even at the voxel-level.</p></div>
+<div><head>Syntactic Specificities of NeuroLang</head><p>We describe the syntactic extensions of typical logic and probabilistic logic programming languages that we made to provide features necessary to express end-to-end meta-analyses in <software>NeuroLang</software>.</p><p>A <software>NeuroLang</software> probability encoding rule (PER) captures the result of a probabilistic inference into a deterministic table. They are a syntactic convenience, or sugar syntax, that makes it possible to solve probabilistic queries within the program and process their solution with deterministic rules. Internally, we stratify (i.e. split in several code sections) a <software>NeuroLang</software> program as deterministic and probabilistic strata. Stratification allows us to programmatically post-process and analyse results from probabilistic calculations within the same self-contained program, as illustrated in fig. <ref type="figure" target="#fig_10">10</ref>. Morever, this strategy can be used to supplement deterministic strata with logic programming extensions that would not necessarily be compatible with probabilistic programming <ref type="bibr" target="#b40">[41]</ref>.</p><p>PERs can either infer marginal or conditional probabilities. A marginal PER takes the form Result(..., PROB, ...) :-P1(...) &amp; ... &amp; Pn(...) where P1, ..., Pn are deterministic or probabilistic relational symbols, and where PROB is a special symbol that indicates which attribute of the resulting Result relation will contain the marginal probability that the rule's antecedent is true. A conditional PER is only slightly different in that it calculates the probability of a conjunction of literals being true, given that another conjunction of literals is true. Conditional PER take the (H 0 ) and alternative (H 1 ) hypotheses are (2)</p><p>We define the likelihood ratio as λ = L(H 1 )/L(H 0 ), where L(H 1 ) and L(H 0 ) are the maximum likelihood of the observed data under the alternative and null hypotheses, defined as </p><formula xml:id="formula_5">L</formula><p>where m is the number of studies s such that φ(s), n is the number of studies s such that ψ(s), k is the number of studies s such that φ(s) ∧ ψ(s), and N is the total number of studies within the database. As 2 log λ is asymptotically χ 2 distributed with 1 degree of freedom <ref type="bibr" target="#b56">[57]</ref>, it provides an estimate of the false-positive rate when rejecting the null hypothesis.</p></div><figure xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Representation of meta-analytic and functional parcellation knowledge using database tables in NeuroLang.</figDesc></figure>
+<figure xml:id="fig_1"><head>Figure 2</head><label>2</label><figDesc>Figure2: Functional profiles obtained with network-based segregation queries that identify the most probable topic associations in studies reporting activations within one network but not reporting activations within any of the other networks. A 95% confidence interval is depicted, across 1000 random 50% subsamples of the Neurosynth database<ref type="bibr" target="#b2">[3]</ref>.</figDesc></figure>
+<figure xml:id="fig_2"><head /><label /><figDesc>k S e t S w i t c h i n g F P C N D i F u M o C o m p o n e n t s S e m a n t i c s W o r k i n g M e m o r y</figDesc></figure>
+<figure xml:id="fig_3"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Cortical maps showing the difference in posterior probabilities of FPCN regions to be active given topic segregation and when given no topic segregation queries. We mask out brain voxels that are not part of the FPCN. The difference between posterior probabilities is defined as ∆ = P[VoxelReported(x, y, z)|SingleTopicAssociation(t)]-P[VoxelReported(x, y, z)|TopicAssociation(t)]. Probability differences are thresholded at 0.05.</figDesc><graphic coords="11,78.44,153.30,423.13,439.62" type="bitmap" /></figure>
+<figure xml:id="fig_4"><head>7 -</head><label>7</label><figDesc>Network Cortical Atlas P[RegionReported(r) | NetworkReported(FPCN-A)] P[RegionReported(r) | NetworkReported(FPCN-A)] P[RegionReported(r) | NetworkReported(FPCN-B)] P[RegionReported(r) | NetworkReported(FPCN-B)] P[RegionReported(r) | NetworkReported(FPCN-A)]</figDesc></figure>
+<figure xml:id="fig_5"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Comparison of the probabilities that DiFuMo-256 components coactivate with the two FPCN subnetworks. Regions are colored based on their belonging to the networks proposed by Yeo et al. [21]. Only regions exhibiting a statistically significant (p FDR &lt; 0.05) coactivations with either subnetwork are included in the figure, based on the likelihood-ratio test and a correction for multiple comparison. P[RegionReported(r)|NetworkReported(FPCN-A)] denotes the conditional probability of region r being reported by studies reporting FPCN-A in the database. Probabilities are calculated on 1000 random 50% subsamples of the NeuroQuery CBMA database.</figDesc></figure>
+<figure xml:id="fig_6"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: DiFuMo-256 components that are more likely to coactivate with one FPCN sub-network than the other. In blue, we depict regions exhibiting a greater probability of coactivation with FPCN-A. In red, we depict regions exhibiting a greater probability of coactivation with FPCN-B. The absolute difference between region coactivation probabilities is defined as ∆ = P[RegionReported(r)|NetworkReported(FPCN-A)] -P[RegionReported(r)|NetworkReported(FPCN-B)]. A likelihood-ratio test and a FDR correction (α = 0.05) for multiple comparison are used to identify regions that exhibit significant coactivation with either networks before estimating ∆.</figDesc><graphic coords="14,72.00,215.69,451.28,310.75" type="bitmap" /></figure>
+<figure xml:id="fig_8"><head>Figure 6 :Figure 7 :</head><label>67</label><figDesc>Figure 6: Deductive in Datalog. Using knowledge and implication rules to infer new knowledge.</figDesc></figure>
+<figure xml:id="fig_9"><head>Figure 8 :</head><label>8</label><figDesc>Figure 8: Solving a union of conjunctive queries on a tuple-independant database.</figDesc></figure>
+<figure xml:id="fig_10"><head>H 0 :</head><label>0</label><figDesc>P[φ(s)|ψ(s)] = P[φ(s)|¬ψ(s)] = P[φ(s)] (1) H 1 : P[φ(s)|ψ(s)] ̸ = P[φ(s)|¬ψ(s)]</figDesc></figure>
+<figure xml:id="fig_11"><head /><label /><figDesc>(H 0 ) = Bin(k; n, P[φ(s)])Bin(mk; Nn, P[φ(s)]) (3) L(H 1 ) = Bin(k; n, P[φ(s)|ψ(s)])Bin(mk; Nn, P[φ(s)|¬ψ(s)])</figDesc></figure>
+<figure type="table" xml:id="tab_1"><head>Table 1 :</head><label>1</label><figDesc>TopicLikelihood Ratio Test 32 object objects visual χ 2 (1, N = 455) = 15.96, p FDR = 0.0065 21 reading words word χ 2 (1, N = 455) = 14.4, p FDR = 0.0074 Topics associated with studies reporting the VWFA and the fronto-parietal attention network, but not reporting the 'language' network. We only depict associations surviving a likelihood ratio test and a false discovery rate (FDR) correction for multiple comparison (p FDR &lt; 0.05). More details on the likelihood ratio test are provided in the Supplementary Materials. Topics are those from Neurosynth's v5-topics-100 topic model. Out of Neurosynth's 14,371 studies, 455 report activations within the frontoparietal attention network without reporting activations within the 'language' network.</figDesc><table /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head n="5">Acknowledgments</head><p>This work was funded by the <rs type="grantName">-STG <software>NeuroLang</software></rs> grant. We are grateful to <rs type="person">Guillaume Favelier</rs> who helped with some of our visualisations. We are also grateful to <rs type="person">Jonas Renault</rs> who worked on optimising <software>NeuroLang</software>'s engine and developing its webbased application. The source code of <software>NeuroLang</software> is openly available on <software>GitHub</software> at https://github.com/<software>NeuroLang</software>/<software>NeuroLang</software>.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_aPuvAtv">
+					<idno type="grant-number">ERC-2017</idno>
+					<orgName type="grant-name">-STG NeuroLang</orgName>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div><head>Stratifiable program</head><p>post-probabilistic stratum with deterministic rules that can act on probabilistic results deterministic &amp; probabilistic relations deterministic rules and probabilistic encoding rules (PER) where the // operator applies a probabilistic conditioning. The PROB attribute of the resulting Result relation encodes the conditional probabilities</p><p>for each tuple x such that the probability is strictly positive.</p><p><software>NeuroLang</software> supports explicit existential quantification of variables using rules of the form P(x) :-Q(x) &amp; exists(y, R(x, y)), where variable y is existentially-quantified using the language's special symbol exists. The language also supports negation within its deterministic and probabilistic rules, and aggregations within its deterministic rules. An example of aggregation rule is P(x, count(y, z)) :-Q(x, y, z), which counts, for each possible assignment of x, the number of tuples (y, z) such that Q(x, y, z) is true, and stores this count in the second column of table P .</p><p>Probabilistic tables can be constructed dynamically from deterministic rules. For example, the rule P(x) : f(x, y, z) :-Q(x, y, z) constructs a probabilistic table P , assigning a probability to each tuple (x, ) based on function f . In the case where such rule generates multiple probabilities for the same tuple (x, ), an error is thrown and the user is advised to either change her probabilistic definition, or apply an aggregation function on the probabilities, such as max(f(x, y, z)). The antecedent of these rules must be deterministic.</p></div>
+<div><head>Likelihood Ratio Test for NeuroLang Queries</head><p>Throughout this work, we formulate meta-analytic conditional probabilistic queries of the form P[φ(s)|ψ(s)], where φ(s) and ψ(s) are first-order logic formulas describing studyspecific probabilistic events of interest; such as whether a region / network is reported by study s, or whether s is associated with a topic related to a particular psychological concept. For brevity, we write P[φ(s)|ψ(s)] instead of P[φ(s) = ⊤|ψ(s) = ⊤], where φ(s) and ψ(s) are modeled as Bernoulli random variables that have a probability of being true (⊤) or false (⊥) in any possible execution of the probabilistic logic program. The formula ψ(s) imposes conditions that select studies that will be included in a meta-analysis. To test the statistical dependence of φ(s) on ψ(s), we use a likelihood ratio test, whose null</p></div>
+<div><head n="6">Conflict of Interest Statement</head><p>All authors declare no conflict of interest for this manuscript.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">The coordinate-based meta-analysis of neuroimaging data</title>
+		<author>
+			<persName><forename type="first">Pantelis</forename><surname>Samartsidis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Silvia</forename><surname>Montagna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Timothy</forename><forename type="middle">D</forename><surname>Johnson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">E</forename><surname>Nichols</surname></persName>
+		</author>
+		<idno type="DOI">10.1214/17-sts624</idno>
+		<ptr target="https://doi.org/10.1214/17-sts624" />
+	</analytic>
+	<monogr>
+		<title level="j">Statist. Sci</title>
+		<idno type="ISSN">0883-4237</idno>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="580" to="599" />
+			<date type="published" when="2017-11">November 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">BrainMap: The social evolution of a human brain mapping database</title>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jack</forename><forename type="middle">L</forename><surname>Lancaster</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">T</forename><surname>Fox</surname></persName>
+		</author>
+		<idno type="DOI">10.1385/ni:3:1:065</idno>
+		<ptr target="https://doi.org/10.1385/ni:3:1:065" />
+	</analytic>
+	<monogr>
+		<title level="j">NI</title>
+		<idno type="ISSN">1539-2791</idno>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="65" to="078" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Large-scale automated synthesis of human functional neuroimaging data</title>
+		<author>
+			<persName><forename type="first">Tal</forename><surname>Yarkoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Russell</forename><forename type="middle">A</forename><surname>Poldrack</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">E</forename><surname>Nichols</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">C</forename><surname>Van Essen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tor D</forename><surname>Wager</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/nmeth.1635</idno>
+		<ptr target="https://doi.org/10.1038/nmeth.1635" />
+	</analytic>
+	<monogr>
+		<title level="j">Nat Methods</title>
+		<idno type="ISSN">1548-7091, 1548-7105</idno>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="665" to="670" />
+			<date type="published" when="2011-06">June 2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Disruption of reward processing in addiction</title>
+		<author>
+			<persName><forename type="first">Maartje</forename><surname>Luijten</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Arnt</forename><forename type="middle">F</forename><surname>Schellekens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simone</forename><surname>Kühn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Marise</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Guillaume</forename><surname>Machielse</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Sescousse</surname></persName>
+		</author>
+		<idno type="DOI">10.1001/jamapsychiatry.2016.3084</idno>
+		<ptr target="https://doi.org/10.1001/jamapsychiatry.2016.3084" />
+	</analytic>
+	<monogr>
+		<title level="j">JAMA Psychiatry</title>
+		<idno type="ISSN">2168-622X</idno>
+		<imprint>
+			<biblScope unit="volume">74</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">387</biblScope>
+			<date type="published" when="2017-04">April 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">A view behind the mask of sanity: Meta-analysis of aberrant brain activity in psychopaths</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Timm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maximilian</forename><forename type="middle">R</forename><surname>Poeppl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andreas</forename><surname>Donges</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rainer</forename><surname>Mokros</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">T</forename><surname>Rupprecht</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Danilo</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Berthold</forename><surname>Bzdok</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><forename type="middle">B</forename><surname>Langguth</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Eickhoff</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41380-018-0122-5</idno>
+		<ptr target="https://doi.org/10.1038/s41380-018-0122-5" />
+	</analytic>
+	<monogr>
+		<title level="j">Mol Psychiatry</title>
+		<idno type="ISSN">1359-4184, 1476-5578</idno>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="463" to="470" />
+			<date type="published" when="2018-07">July 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Functional specialization and flexibility in human association cortex</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">T</forename><surname>Thomas Yeo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fenna</forename><forename type="middle">M</forename><surname>Krienen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><forename type="middle">B</forename><surname>Eickhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Siti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">T</forename><surname>Yaakub</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Randy</forename><forename type="middle">L</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christopher</forename><forename type="middle">L</forename><surname>Buckner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">W L</forename><surname>Asplund</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Chee</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/cercor/bhu217</idno>
+		<ptr target="https://doi.org/10.1093/cercor/bhu217" />
+	</analytic>
+	<monogr>
+		<title level="j">Cereb. Cortex</title>
+		<idno type="ISSN">1047-3211, 1460-2199</idno>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="3654" to="3672" />
+			<date type="published" when="2014-09">September 2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Heterogeneity within the frontoparietal control network and its relationship to the default and dorsal attention networks</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Matthew</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alejandro</forename><surname>Dixon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">La</forename><surname>De</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Caitlin</forename><surname>Vega</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jessica</forename><surname>Mills</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">Nathan</forename><surname>Andrews-Hanna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">W</forename><surname>Spreng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kalina</forename><surname>Cole</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Christoff</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.1715766115</idno>
+		<ptr target="https://doi.org/10.1073/pnas.1715766115" />
+	</analytic>
+	<monogr>
+		<title level="j">Proc Natl Acad Sci</title>
+		<idno type="ISSN">0027- 8424</idno>
+		<imprint>
+			<biblScope unit="volume">115</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="1598" to="E1607" />
+			<date type="published" when="2018-01">January 2018</date>
+			<pubPlace>USA</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Cognitive neuroscience 2.0: Building a cumulative science of human brain function</title>
+		<author>
+			<persName><forename type="first">Tal</forename><surname>Yarkoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Russell</forename><forename type="middle">A</forename><surname>Poldrack</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">C</forename><surname>Van Essen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tor</forename><forename type="middle">D</forename><surname>Wager</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2010.08.004</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2010.08.004.Edition:2010/09/29" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends Cogn. Sci</title>
+		<idno type="ISSN">1364-6613</idno>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="489" to="496" />
+			<date type="published" when="2010-11">November 2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Functional coactivation map of the human brain</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Toro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">T</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Paus</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/cercor/bhn014</idno>
+		<ptr target="https://doi.org/10.1093/cercor/bhn014" />
+	</analytic>
+	<monogr>
+		<title level="j">Cereb. Cortex</title>
+		<idno type="ISSN">1047-3211, 1460-2199</idno>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="2553" to="2559" />
+			<date type="published" when="2008-02">February 2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">An fMRI-based neurologic signature of physical pain</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Tor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lauren</forename><forename type="middle">Y</forename><surname>Wager</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Martin</forename><forename type="middle">A</forename><surname>Atlas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mathieu</forename><surname>Lindquist</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Choong-Wan</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ethan</forename><surname>Woo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Kross</surname></persName>
+		</author>
+		<idno type="DOI">10.1056/nejmoa1204471</idno>
+		<ptr target="https://doi.org/10.1056/nejmoa1204471" />
+	</analytic>
+	<monogr>
+		<title level="j">N Engl J Med</title>
+		<idno type="ISSN">0028-4793, 1533-4406</idno>
+		<imprint>
+			<biblScope unit="volume">368</biblScope>
+			<biblScope unit="issue">15</biblScope>
+			<biblScope unit="page" from="1388" to="1397" />
+			<date type="published" when="2013-04">April 2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">The default network and self-generated thought: Component processes, dynamic control, and clinical relevance</title>
+		<author>
+			<persName><forename type="first">Jessica</forename><forename type="middle">R</forename><surname>Andrews-Hanna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jonathan</forename><surname>Smallwood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">Nathan</forename><surname>Spreng</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/nyas.12360</idno>
+		<ptr target="https://doi.org/10.1111/nyas.12360" />
+	</analytic>
+	<monogr>
+		<title level="j">Ann. N.Y. Acad. Sci</title>
+		<idno type="ISSN">0077-8923</idno>
+		<imprint>
+			<biblScope unit="volume">1316</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="29" to="52" />
+			<date type="published" when="2014-02">February 2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Meta-analysis in human neuroimaging: computational modeling of large-scale databases</title>
+		<author>
+			<persName><forename type="first">Jack</forename><forename type="middle">L</forename><surname>Peter T Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Lancaster</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><forename type="middle">B</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Eickhoff</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annual review of neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="page" from="409" to="434" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">The dichotomy of probabilistic inference for unions of conjunctive queries</title>
+		<author>
+			<persName><forename type="first">Nilesh</forename><surname>Dalvi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dan</forename><surname>Suciu</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2395116.2395119</idno>
+		<ptr target="https://doi.org/10.1145/2395116.2395119.Number:6" />
+	</analytic>
+	<monogr>
+		<title level="j">J. ACM</title>
+		<idno type="ISSN">0004-5411, 1557- 735X</idno>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1" to="87" />
+			<date type="published" when="2012-12">December 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Query processing on probabilistic data: A survey</title>
+		<author>
+			<persName><forename type="first">Guy</forename><surname>Van Den Broeck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dan</forename><surname>Suciu</surname></persName>
+		</author>
+		<idno type="DOI">10.1561/1900000052</idno>
+		<ptr target="https://doi.org/10.1561/1900000052.Number:3-4" />
+	</analytic>
+	<monogr>
+		<title level="j">FNT in Databases</title>
+		<idno type="ISSN">1931-7883, 1931-7891</idno>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">3-4</biblScope>
+			<biblScope unit="page" from="197" to="341" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">From Discourse to Logic</title>
+		<author>
+			<persName><forename type="first">Hans</forename><surname>Kamp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Uwe</forename><surname>Reyle</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-94-011-2066-1</idno>
+		<ptr target="https://doi.org/10.1007/978-94-011-2066-1" />
+		<imprint>
+			<date type="published" when="1993">1993</date>
+			<publisher>Springer Netherlands</publisher>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="page">9789401120661</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Meta-analysis of functional neuroimaging data: Current and future directions</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Tor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Martin</forename><surname>Wager</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lauren</forename><surname>Lindquist</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Kaplan</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/scan/nsm015</idno>
+		<ptr target="https://doi.org/10.1093/scan/nsm015" />
+	</analytic>
+	<monogr>
+		<title level="j">Soc. Cogn. Affect. Neur</title>
+		<idno type="ISSN">1749-5024, 1749-5016</idno>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="150" to="158" />
+			<date type="published" when="2007-06">June 2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Activation likelihood estimation meta-analysis revisited</title>
+		<author>
+			<persName><forename type="first">Simon</forename><forename type="middle">B</forename><surname>Eickhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Danilo</forename><surname>Bzdok</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Florian</forename><surname>Kurth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">T</forename><surname>Fox</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuroimage.2011.09.017</idno>
+		<ptr target="https://doi.org/10.1016/j.neuroimage.2011.09.017" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroimage</title>
+		<idno type="ISSN">1053-8119</idno>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="2349" to="2361" />
+			<date type="published" when="2012-02">February 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Discovering relations between mind, brain, and mental disorders using topic mapping</title>
+		<author>
+			<persName><forename type="first">Russell</forename><forename type="middle">A</forename><surname>Poldrack</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeanette</forename><forename type="middle">A</forename><surname>Mumford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tom</forename><surname>Schonberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Donald</forename><surname>Kalar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bishal</forename><surname>Barman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tal</forename><surname>Yarkoni</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pcbi.1002707</idno>
+		<ptr target="https://doi.org/10.1371/journal.pcbi.1002707" />
+	</analytic>
+	<monogr>
+		<title level="j">PLoS Comput Biol</title>
+		<idno type="ISSN">1553-7358</idno>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page">1002707</biblScope>
+			<date type="published" when="2012-10">October 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Complex coordinatebased meta-analysis with probabilistic programming</title>
+		<author>
+			<persName><forename type="first">Valentin</forename><surname>Iovene</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gaston</forename><forename type="middle">E</forename><surname>Zanitti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Demian</forename><surname>Wassermann</surname></persName>
+		</author>
+		<ptr target="https://ojs.aaai.org/index.php/AAAI/article/view/16096" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the AAAI Conference on Artificial Intelligence</title>
+		<meeting>the AAAI Conference on Artificial Intelligence</meeting>
+		<imprint>
+			<date type="published" when="2021-05">May 2021</date>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="223" to="231" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Finegrain atlases of functional modes for fMRI analysis</title>
+		<author>
+			<persName><forename type="first">Kamalaker</forename><surname>Dadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gaël</forename><surname>Varoquaux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Antonia</forename><surname>Machlouzarides-Shalit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Krzysztof</forename><forename type="middle">J</forename><surname>Gorgolewski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Demian</forename><surname>Wassermann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bertrand</forename><surname>Thirion</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Arthur</forename><surname>Mensch</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuroimage.2020.117126</idno>
+		<ptr target="https://doi.org/10.1016/j.neuroimage.2020.117126" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroimage</title>
+		<idno type="ISSN">1053-8119</idno>
+		<imprint>
+			<biblScope unit="volume">221</biblScope>
+			<biblScope unit="page">117126</biblScope>
+			<date type="published" when="2020-11">November 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">The organization of the human cerebral cortex estimated by intrinsic functional connectivity</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">T</forename><surname>Thomas Yeo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fenna</forename><forename type="middle">M</forename><surname>Krienen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jorge</forename><surname>Sepulcre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Mert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Danial</forename><surname>Sabuncu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marisa</forename><surname>Lashkari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joshua</forename><forename type="middle">L</forename><surname>Hollinshead</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jordan</forename><forename type="middle">W</forename><surname>Roffman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lilla</forename><surname>Smoller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jonathan</forename><forename type="middle">R</forename><surname>Zöllei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bruce</forename><surname>Polimeni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hesheng</forename><surname>Fischl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Randy</forename><forename type="middle">L</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Buckner</surname></persName>
+		</author>
+		<idno type="DOI">10.1152/jn.00338.2011</idno>
+		<ptr target="https://doi.org/10.1152/jn.00338.2011" />
+	</analytic>
+	<monogr>
+		<title level="j">J. Neurophysiol</title>
+		<idno type="ISSN">0022-3077, 1522-1598</idno>
+		<imprint>
+			<biblScope unit="volume">106</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1125" to="1165" />
+			<date type="published" when="2011-09">September 2011</date>
+			<publisher>American Physiological Society</publisher>
+			<pubPlace>Bethesda, MD</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Intrinsic architecture underlying the relations among the default, dorsal attention, and frontoparietal control networks of the human brain</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">Nathan</forename><surname>Spreng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jorge</forename><surname>Sepulcre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gary</forename><forename type="middle">R</forename><surname>Turner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">Dale</forename><surname>Stevens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><forename type="middle">L</forename><surname>Schacter</surname></persName>
+		</author>
+		<idno type="DOI">10.1162/jocn_a_00281</idno>
+		<ptr target="https://doi.org/10.1162/jocn_a_00281" />
+	</analytic>
+	<monogr>
+		<title level="j">J. Cognitive Neurosci</title>
+		<idno type="ISSN">0898-929X, 1530-8898</idno>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="74" to="86" />
+			<date type="published" when="2013-01">January 2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">The dorsal frontoparietal network: A core system for emulated action</title>
+		<author>
+			<persName><forename type="first">Radek</forename><surname>Ptak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Armin</forename><surname>Schnider</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Julia</forename><surname>Fellrath</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2017.05.002</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2017.05.002" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends Cogn. Sci</title>
+		<idno type="ISSN">1364-6613</idno>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="589" to="599" />
+			<date type="published" when="2017-08">August 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">The visual word form area (VWFA) is part of both language and attention circuitry</title>
+		<author>
+			<persName><forename type="first">Lang</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Demian</forename><surname>Wassermann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><forename type="middle">A</forename><surname>Abrams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John</forename><surname>Kochalka</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Guillermo</forename><surname>Gallardo-Diez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vinod</forename><surname>Menon</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41467-019-13634-z</idno>
+		<ptr target="https://doi.org/10.1038/s41467-019-13634-z" />
+	</analytic>
+	<monogr>
+		<title level="j">Nat Commun</title>
+		<idno type="ISSN">2041-1723</idno>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">5601</biblScope>
+			<date type="published" when="2019-12">December 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">The reorienting system of the human brain: From environment to theory of mind</title>
+		<author>
+			<persName><forename type="first">Maurizio</forename><surname>Corbetta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gaurav</forename><surname>Patel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gordon</forename><forename type="middle">L</forename><surname>Shulman</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuron.2008.04.017</idno>
+		<ptr target="https://doi.org/10.1016/j.neuron.2008.04.017" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuron</title>
+		<idno type="ISSN">0896-6273</idno>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="306" to="324" />
+			<date type="published" when="2008-05">May 2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">The multiple-demand (MD) system of the primate brain: Mental programs for intelligent behaviour</title>
+		<author>
+			<persName><forename type="first">John</forename><surname>Duncan</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2010.01.004</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2010.01.004" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends Cogn. Sci</title>
+		<idno type="ISSN">1364-6613</idno>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="172" to="179" />
+			<date type="published" when="2010-04">April 2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Flexible coordinator and switcher hubs for adaptive task control</title>
+		<author>
+			<persName><forename type="first">Takuya</forename><surname>Carrisa V Cocuzza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Douglas</forename><surname>Ito</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Danielle</forename><forename type="middle">S</forename><surname>Schultz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">W</forename><surname>Bassett</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Cole</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">36</biblScope>
+			<biblScope unit="page" from="6949" to="6968" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Sustained neural activity associated with cognitive control during temporally extended decision making</title>
+		<author>
+			<persName><forename type="first">Tal</forename><surname>Yarkoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeremy</forename><forename type="middle">R</forename><surname>Gray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Elizabeth</forename><forename type="middle">R</forename><surname>Chrastil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Deanna</forename><forename type="middle">M</forename><surname>Barch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Leonard</forename><surname>Green</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Todd</forename><forename type="middle">S</forename><surname>Braver</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cogbrainres.2005.01.013</idno>
+		<ptr target="https://doi.org/10.1016/j.cogbrainres.2005.01.013" />
+	</analytic>
+	<monogr>
+		<title level="j">Cognitive Brain Res</title>
+		<idno type="ISSN">0926-6410</idno>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="71" to="84" />
+			<date type="published" when="2005-04">April 2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Meta-analytic evidence for a superordinate cognitive control network subserving diverse executive functions</title>
+		<author>
+			<persName><forename type="first">Tara</forename><forename type="middle">A</forename><surname>Niendam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kimberly</forename><forename type="middle">L</forename><surname>Ray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">Monica</forename><surname>Dean</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">C</forename><surname>Glahn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cameron</forename><forename type="middle">S</forename><surname>Carter</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13415-011-0083-5</idno>
+		<ptr target="https://doi.org/10.3758/s13415-011-0083-5" />
+	</analytic>
+	<monogr>
+		<title level="j">Cogn Affect Behav Neurosci</title>
+		<idno type="ISSN">1530-7026, 1531-135X</idno>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="241" to="268" />
+			<date type="published" when="2012-01">January 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<monogr>
+		<title level="m" type="main">Statistical models for comprehensive meta-analysis of neuroimaging studies</title>
+		<author>
+			<persName><forename type="first">Jérôme</forename><surname>Dockes</surname></persName>
+		</author>
+		<idno>Issue: 2019SACLT048</idno>
+		<imprint>
+			<date type="published" when="2019-11">November 2019</date>
+		</imprint>
+		<respStmt>
+			<orgName>Université Paris-Saclay</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Theses</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Microstructural organization of human insula is linked to its macrofunctional circuitry and predicts cognitive control</title>
+		<author>
+			<persName><forename type="first">Vinod</forename><surname>Menon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Guillermo</forename><surname>Gallardo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mark</forename><forename type="middle">A</forename><surname>Pinsk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Van-Dang</forename><surname>Nguyen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jing-Rebecca</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Weidong</forename><surname>Cai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Demian</forename><surname>Wassermann</surname></persName>
+		</author>
+		<idno type="DOI">10.7554/elife.53470</idno>
+		<ptr target="https://doi.org/10.7554/elife.53470" />
+	</analytic>
+	<monogr>
+		<title level="j">eLife</title>
+		<idno type="ISSN">2050-084X</idno>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page">53470</biblScope>
+			<date type="published" when="2020-06">June 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Default network activity, coupled with the frontoparietal control network, supports goal-directed cognition</title>
+		<author>
+			<persName><forename type="first">Nathan</forename><surname>Spreng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dale</forename><surname>Stevens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jon</forename><forename type="middle">P</forename><surname>Chamberlain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Adrian</forename><forename type="middle">W</forename><surname>Gilmore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><forename type="middle">L</forename><surname>Schacter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuroimage</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="303" to="317" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Formal models of the network co-occurrence underlying mental operations</title>
+		<author>
+			<persName><forename type="first">Danilo</forename><surname>Bzdok</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gaël</forename><surname>Varoquaux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Olivier</forename><surname>Grisel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Eickenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cyril</forename><surname>Poupon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bertrand</forename><surname>Thirion</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pcbi.1004994</idno>
+		<ptr target="https://doi.org/10.1371/journal.pcbi.1004994" />
+	</analytic>
+	<monogr>
+		<title level="j">PLoS Comput Biol</title>
+		<idno type="ISSN">1553-7358</idno>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">1004994</biblScope>
+			<date type="published" when="2016-06">June 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Towards a universal taxonomy of macro-scale functional human brain networks</title>
+		<author>
+			<persName><forename type="first">Thomas</forename><surname>Lucina Q Uddin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nathan</forename><surname>Yeo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Spreng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Brain topography</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="926" to="942" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">The brain's default mode network</title>
+		<author>
+			<persName><forename type="first">Marcus</forename><forename type="middle">E</forename><surname>Raichle</surname></persName>
+		</author>
+		<idno type="DOI">10.1146/annurev-neuro-071013-014030</idno>
+		<ptr target="https://doi.org/10.1146/annurev-neuro-071013-014030" />
+	</analytic>
+	<monogr>
+		<title level="j">Annu. Rev. Neurosci</title>
+		<idno type="ISSN">0147-006X, 1545-4126</idno>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="433" to="447" />
+			<date type="published" when="2015-07">July 2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Dorsal and ventral attention systems</title>
+		<author>
+			<persName><forename type="first">Simone</forename><surname>Vossel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joy</forename><forename type="middle">J</forename><surname>Geng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gereon</forename><forename type="middle">R</forename><surname>Fink</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1073858413494269</idno>
+		<ptr target="https://doi.org/10.1177/1073858413494269" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscientist</title>
+		<idno type="ISSN">1073-8584, 1089-4098</idno>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="150" to="159" />
+			<date type="published" when="2013-07">July 2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">The putative visual word form area is functionally connected to the dorsal attention network</title>
+		<author>
+			<persName><forename type="first">Alecia</forename><forename type="middle">C</forename><surname>Vogel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fran</forename><forename type="middle">M</forename><surname>Miezin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Steven</forename><forename type="middle">E</forename><surname>Petersen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bradley</forename><forename type="middle">L</forename><surname>Schlaggar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cerebral cortex</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="537" to="549" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">The anatomical and functional specialization of the fusiform gyrus</title>
+		<author>
+			<persName><forename type="first">Kevin</forename><forename type="middle">S</forename><surname>Weiner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Karl</forename><surname>Zilles</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuropsychologia.2015.06.033</idno>
+		<ptr target="https://doi.org/10.1016/j.neuropsychologia.2015.06.033" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuropsychologia</title>
+		<idno type="ISSN">0028-3932</idno>
+		<imprint>
+			<biblScope unit="volume">83</biblScope>
+			<biblScope unit="page" from="48" to="62" />
+			<date type="published" when="2016-03">March 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Reconfigurable taskdependent functional coupling modes cluster around a core functional architecture</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Fenna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">T</forename><surname>Krienen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Randy</forename><forename type="middle">L</forename><surname>Thomas Yeo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Buckner</surname></persName>
+		</author>
+		<idno type="DOI">10.1098/rstb.2013.0526</idno>
+		<ptr target="https://doi.org/10.1098/rstb.2013.0526" />
+	</analytic>
+	<monogr>
+		<title level="j">Phil. Trans. R. Soc. B</title>
+		<idno type="ISSN">0962-8436, 1471- 2970</idno>
+		<imprint>
+			<biblScope unit="volume">369</biblScope>
+			<biblScope unit="page">20130526</biblScope>
+			<date type="published" when="1653-10">1653. October 2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">The cognitive atlas: toward a knowledge foundation for cognitive neuroscience</title>
+		<author>
+			<persName><forename type="first">Aniket</forename><surname>Russell A Poldrack</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Donald</forename><surname>Kittur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Eric</forename><surname>Kalar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christian</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yolanda</forename><surname>Seppa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fred</forename><forename type="middle">W</forename><surname>Stott Parker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><forename type="middle">M</forename><surname>Sabb</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Bilder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in neuroinformatics</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page">17</biblScope>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<title level="m" type="main">Scalable Query Answering under Uncertainty to Neuroscientific Ontological Knowledge: The NeuroLang Approach</title>
+		<author>
+			<persName><forename type="first">Yamil</forename><surname>Gaston E Zanitti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Valentin</forename><surname>Soto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maria</forename><forename type="middle">Vanina</forename><surname>Iovene</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ricardo</forename><forename type="middle">O</forename><surname>Martinez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gerardo</forename><forename type="middle">I</forename><surname>Rodriguez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Demian</forename><surname>Simari</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Wassermann</surname></persName>
+		</author>
+		<ptr target="https://hal.inria.fr/hal-03187887" />
+		<imprint>
+			<date type="published" when="2021-04">April 2021</date>
+		</imprint>
+	</monogr>
+	<note>working paper or preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Dynamic causal modelling</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Harrison</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Penny</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/s1053-8119(03)00202-7</idno>
+		<ptr target="https://doi.org/10.1016/s1053-8119(03)00202-7" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroimage</title>
+		<idno type="ISSN">1053-8119</idno>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1273" to="1302" />
+			<date type="published" when="2003-08">August 2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<monogr>
+		<title />
+		<author>
+			<persName><forename type="first">Rotem</forename><surname>Botvinik-Nezer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Felix</forename><surname>Holzmeister</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Colin</forename><forename type="middle">F</forename><surname>Camerer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anna</forename><surname>Dreber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Juergen</forename><surname>Huber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Magnus</forename><surname>Johannesson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Kirchler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Roni</forename><surname>Iwanir</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeanette</forename><forename type="middle">A</forename><surname>Mumford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">Alison</forename><surname>Adcock</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Paolo</forename><surname>Avesani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Blazej</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Aahana</forename><surname>Baczkowski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Leah</forename><surname>Bajracharya</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sheryl</forename><surname>Bakst</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marco</forename><surname>Ball</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nadège</forename><surname>Barilari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Derek</forename><surname>Bault</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Julia</forename><surname>Beaton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Roland</forename><forename type="middle">G</forename><surname>Beitner</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Benoit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">W J</forename><surname>Ruud</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jamil</forename><forename type="middle">P</forename><surname>Berkers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bharat</forename><forename type="middle">B</forename><surname>Bhanji</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sebastian</forename><surname>Biswal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tiago</forename><surname>Bobadilla-Suarez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Katherine</forename><forename type="middle">L</forename><surname>Bortolini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Bottenhorn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Senne</forename><surname>Bowring</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hayley</forename><forename type="middle">R</forename><surname>Braem</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Emily</forename><forename type="middle">G</forename><surname>Brooks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cristian</forename><forename type="middle">B</forename><surname>Brudner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Julia</forename><forename type="middle">A</forename><surname>Calderon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jaime</forename><forename type="middle">J</forename><surname>Camilleri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Luca</forename><surname>Castrellon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Edna</forename><forename type="middle">C</forename><surname>Cecchetti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zachary</forename><forename type="middle">J</forename><surname>Cieslik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Olivier</forename><surname>Cole</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><forename type="middle">W</forename><surname>Collignon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">William</forename><forename type="middle">A</forename><surname>Cox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Stefan</forename><surname>Cunningham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kamalaker</forename><surname>Czoschke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Charles</forename><forename type="middle">P</forename><surname>Dadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alberto</forename><forename type="middle">De</forename><surname>Davis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mauricio</forename><forename type="middle">R</forename><surname>Luca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lysia</forename><surname>Delgado</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeffrey</forename><forename type="middle">B</forename><surname>Demetriou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xin</forename><surname>Dennison</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Erin</forename><forename type="middle">W</forename><surname>Di</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ekaterina</forename><surname>Dickie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Claire</forename><forename type="middle">L</forename><surname>Dobryakova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Juergen</forename><surname>Donnat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Niall</forename><forename type="middle">W</forename><surname>Dukart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joke</forename><surname>Duncan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Amr</forename><surname>Durnez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><forename type="middle">B</forename><surname>Eed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andrew</forename><surname>Eickhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Laura</forename><surname>Erhart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Fontanesi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shiguang</forename><surname>Matthew Fricke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Adriana</forename><surname>Fu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Remi</forename><surname>Galván</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sarah</forename><surname>Gau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tristan</forename><surname>Genon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Enrico</forename><surname>Glatard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jelle</forename><forename type="middle">J</forename><surname>Glerean</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Goeman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Sergej</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carlos</forename><surname>Golowin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Krzysztof</forename><forename type="middle">J</forename><surname>González-García</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cheryl</forename><forename type="middle">L</forename><surname>Gorgolewski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mikella</forename><forename type="middle">A</forename><surname>Grady</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Green</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>João</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Olivia</forename><surname>Guassi Moreira</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shabnam</forename><surname>Guest</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">Paul</forename><surname>Hakimi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Roeland</forename><surname>Hamilton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Giacomo</forename><surname>Hancock</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bronson</forename><forename type="middle">B</forename><surname>Handjaras</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Colin</forename><surname>Harry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peer</forename><surname>Hawco</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gabrielle</forename><surname>Herholz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Stephan</forename><surname>Herman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Felix</forename><surname>Heunis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeremy</forename><surname>Hoffstaedter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Susan</forename><surname>Hogeveen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Chuan-Peng</forename><surname>Holmes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Scott</forename><forename type="middle">A</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthew</forename><forename type="middle">E</forename><surname>Huettel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vittorio</forename><surname>Hughes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexandru</forename><forename type="middle">D</forename><surname>Iacovella</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Iordan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Peder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ayse</forename><forename type="middle">I</forename><surname>Isager</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andrew</forename><surname>Isik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthew</forename><forename type="middle">R</forename><surname>Jahn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tom</forename><surname>Johnson</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Johnstone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Michael</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anthony</forename><forename type="middle">C</forename><surname>Joseph</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joseph</forename><forename type="middle">W</forename><surname>Juliano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michalis</forename><surname>Kable</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cemal</forename><surname>Kassinopoulos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xiang-Zhen</forename><surname>Koba</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Timothy</forename><forename type="middle">R</forename><surname>Kong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nuri</forename><forename type="middle">Erkut</forename><surname>Koscik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Brice</forename><forename type="middle">A</forename><surname>Kucukboyaci</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sebastian</forename><surname>Kuhl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Kupek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Claus</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Lamm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nina</forename><surname>Langner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hongmi</forename><surname>Lauharatanahirun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sangil</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andrea</forename><surname>Leemans</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Elise</forename><surname>Leo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Flora</forename><surname>Lesage</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Monica</forename><forename type="middle">Y C</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Phui</forename><forename type="middle">Cheng</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Evan</forename><forename type="middle">N</forename><surname>Lim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Schuyler</forename><forename type="middle">W</forename><surname>Lintz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Annabel</forename><forename type="middle">B Losecaat</forename><surname>Liphardt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bradley</forename><forename type="middle">C</forename><surname>Vermeer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Love</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41586-020-2314-9</idno>
+		<imprint />
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Data functions, datalog and negation</title>
+		<author>
+			<persName><forename type="first">Serge</forename><surname>Abiteboul</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Richard</forename><surname>Hull</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/50202.50218</idno>
+		<ptr target="https://doi.org/10.1145/50202.50218" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 1988 ACM SIGMOD international conference on Management of data -SIGMOD '88, SIGMOD '88</title>
+		<meeting>the 1988 ACM SIGMOD international conference on Management of data -SIGMOD '88, SIGMOD '88<address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM Press</publisher>
+			<date type="published" when="1988">1988</date>
+			<biblScope unit="page" from="143" to="153" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Dichotomies for queries with negation in probabilistic databases</title>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Fink</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dan</forename><surname>Olteanu</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2877203</idno>
+		<ptr target="https://doi.org/10.1145/2877203" />
+	</analytic>
+	<monogr>
+		<title level="j">ACM Trans. Database Syst</title>
+		<idno type="ISSN">0362-5915, 1557-4644</idno>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="47" />
+			<date type="published" when="2016-04">April 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">The complexity of relational query languages (Extended abstract)</title>
+		<author>
+			<persName><forename type="first">Moshe</forename><forename type="middle">Y</forename><surname>Vardi</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/800070.802186</idno>
+		<ptr target="https://doi.org/10.1145/800070.802186" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the fourteenth annual ACM symposium on Theory of computing -STOC '82</title>
+		<meeting>the fourteenth annual ACM symposium on Theory of computing -STOC '82<address><addrLine>San Francisco, California, United States</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM Press</publisher>
+			<date type="published" when="1982">1982</date>
+			<biblScope unit="page" from="137" to="146" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Recent trends in knowledge compilation (dagstuhl seminar 17381)</title>
+		<author>
+			<persName><forename type="first">Adnan</forename><surname>Darwiche</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pierre</forename><surname>Marquis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dan</forename><surname>Suciu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Stefan</forename><surname>Szeider</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Dagstuhl Reports</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="volume">7</biblScope>
+		</imprint>
+		<respStmt>
+			<orgName>Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Ten simple rules for neuroimaging meta-analysis</title>
+		<author>
+			<persName><forename type="first">Veronika</forename><forename type="middle">I</forename><surname>Müller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Edna</forename><forename type="middle">C</forename><surname>Cieslik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angela</forename><forename type="middle">R</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">T</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joaquim</forename><surname>Radua</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><surname>Mataix-Cols</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christopher</forename><forename type="middle">R</forename><surname>Tench</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tal</forename><surname>Yarkoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">E</forename><surname>Nichols</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">E</forename><surname>Turkeltaub</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Tor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><forename type="middle">B</forename><surname>Wager</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Eickhoff</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neubiorev.2017.11.012</idno>
+		<ptr target="https://doi.org/10.1016/j.neubiorev.2017.11.012" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscience &amp; Biobehavioral Reviews</title>
+		<idno type="ISSN">0149-7634</idno>
+		<imprint>
+			<biblScope unit="volume">84</biblScope>
+			<biblScope unit="page" from="151" to="161" />
+			<date type="published" when="2018-01">January 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<monogr>
+		<title level="m" type="main">Foundations of databases</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Abiteboul</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Richard</forename><surname>Hull</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Victor</forename><surname>Vianu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1995">1995</date>
+			<publisher>Addison-Wesley</publisher>
+			<pubPlace>Reading, Mass</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">ProbLog2: Probabilistic logic programming</title>
+		<author>
+			<persName><forename type="first">Anton</forename><surname>Dries</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angelika</forename><surname>Kimmig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Wannes</forename><surname>Meert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joris</forename><surname>Renkens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Guy</forename><surname>Van Den</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jonas</forename><surname>Broeck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Luc</forename><surname>Vlasselaer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Raedt</forename><surname>De</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-319-23461-8_37</idno>
+		<ptr target="https://doi.org/10.1007/978-3-319-23461-8_37.SeriesTitle" />
+	</analytic>
+	<monogr>
+		<title level="m">Machine Learning and Knowledge Discovery in Databases</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<meeting><address><addrLine>Cham</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2015">9286. 2015</date>
+			<biblScope unit="page">9783319234618</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">CP-logic: A language of causal probabilistic events and its relation to logic programming</title>
+		<author>
+			<persName><forename type="first">Joost</forename><surname>Vennekens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marc</forename><surname>Denecker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maurice</forename><surname>Bruynooghe</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/s1471068409003767</idno>
+		<ptr target="https://doi.org/10.1017/s1471068409003767" />
+	</analytic>
+	<monogr>
+		<title level="j">Theor. Pract. Log. Prog</title>
+		<idno type="ISSN">1471-0684, 1475-3081</idno>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="245" to="308" />
+			<date type="published" when="2009-05">May 2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">A statistical learning method for logic programs with distribution semantics</title>
+		<author>
+			<persName><forename type="first">Taisuke</forename><surname>Sato</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 12th international conference on logic programming (ICPL'95)</title>
+		<meeting>the 12th international conference on logic programming (ICPL'95)</meeting>
+		<imprint>
+			<publisher>MIT Press</publisher>
+			<date type="published" when="1995">1995</date>
+			<biblScope unit="page" from="715" to="729" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">Probabilistic (logic) programming concepts</title>
+		<author>
+			<persName><forename type="first">Luc</forename><surname>De</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Raedt</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Angelika</forename><surname>Kimmig</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10994-015-5494-z</idno>
+		<ptr target="https://doi.org/10.1007/s10994-015-5494-z" />
+	</analytic>
+	<monogr>
+		<title level="j">Mach Learn</title>
+		<idno type="ISSN">0885-6125, 1573-0565</idno>
+		<imprint>
+			<biblScope unit="volume">100</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="5" to="47" />
+			<date type="published" when="2015-05">May 2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Performing Bayesian inference by weighted model counting</title>
+		<author>
+			<persName><forename type="first">Tian</forename><surname>Sang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Paul</forename><surname>Beame</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Henry</forename><forename type="middle">A</forename><surname>Kautz</surname></persName>
+		</author>
+		<ptr target="http://www.aaai.org/Library/AAAI/2005/aaai05-075.php" />
+	</analytic>
+	<monogr>
+		<title level="m">AAAI</title>
+		<imprint>
+			<date type="published" when="2005">2005</date>
+			<biblScope unit="page" from="475" to="482" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">SDD: A new canonical representation of propositional knowledge bases</title>
+		<author>
+			<persName><forename type="first">Adnan</forename><surname>Darwiche</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Twenty-Second International Joint Conference on Artificial Intelligence -Volume Volume Two, IJCAI'11</title>
+		<meeting>the Twenty-Second International Joint Conference on Artificial Intelligence -Volume Volume Two, IJCAI'11</meeting>
+		<imprint>
+			<publisher>AAAI Press</publisher>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="page" from="819" to="826" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">Probabilistic databases</title>
+		<author>
+			<persName><forename type="first">Dan</forename><surname>Suciu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dan</forename><surname>Olteanu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christopher</forename><surname>Ré</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christoph</forename><surname>Koch</surname></persName>
+		</author>
+		<idno type="DOI">10.2200/s00362ed1v01y201105dtm016</idno>
+		<ptr target="https://doi.org/10.2200/s00362ed1v01y201105dtm016" />
+	</analytic>
+	<monogr>
+		<title level="j">Synthesis Lectures on Data Management</title>
+		<idno type="ISSN">2153-5418, 2153-5426</idno>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="1" to="180" />
+			<date type="published" when="2011-05">May 2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<monogr>
+		<title level="m" type="main">Introduction to the Theory of Statistics</title>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Mcfarlane</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mood</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1950">1950</date>
+			<publisher>McGraw-hill</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

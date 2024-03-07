@@ -1,0 +1,876 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Energy-Efficient Partial-Duplication Task Mapping under multiple DVFS schemes</title>
+				<funder>
+					<orgName type="full">China Scholarship Council</orgName>
+					<orgName type="abbreviated">CSC</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher />
+				<availability status="unknown"><licence /></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Minyu</forename><surname>Cui</surname></persName>
+							<email>minyu.cui@irisa.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">Angeliki</forename><surname>Kritikakou</surname></persName>
+							<email>angeliki.kritikakou@irisa.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">Lei</forename><surname>Mo</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Emmanuel</forename><surname>Casseau</surname></persName>
+							<email>emmanuel.casseau@irisa.fr</email>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">INRIA</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">INRIA</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="department">School of Automation</orgName>
+								<orgName type="institution">Southeast University</orgName>
+								<address>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">INRIA</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Energy-Efficient Partial-Duplication Task Mapping under multiple DVFS schemes</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date />
+						</imprint>
+					</monogr>
+					<idno type="MD5">AE8816AE769678483F4525E12E4EB26F</idno>
+					<idno type="DOI">10.1007/s10766-022-00724-7</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid" />
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Fault tolerant</term>
+					<term>Task mapping</term>
+					<term>DVFS</term>
+					<term>Real-time execution</term>
+					<term>Reliability</term>
+					<term>Energy minimisation</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div><p>On multicore platforms, reliable task execution, as well as low energy consumption, are essential. Dynamic Voltage/Frequency Scaling (DVFS) is typically used for energy savings, but with a negative impact on reliability, especially when the applied frequency is low. Using high frequencies, required to meet reliability constraints, or replicating tasks increases energy consumption. To reduce energy consumption, while enhancing reliability and satisfying real-time constraints, we propose a hybrid approach that combines distinct reliability enhancement techniques, under task-level, processor-level and systemlevel DVFS. Our task mapping problem jointly decides task allocation, task frequency assignment, and task duplication, under real-time and reliability constraints. This is achieved by formulating the task mapping problem as a Mixed Integer Non-Linear Programming (MINLP) problem, and equivalently transforming it into a Mixed Integer Linear Programming (MILP), that can be optimally solved. From the obtained results, the proposed approach achieves better energy consumption, finding solutions, when replication approaches fail.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div><head n="1">Introduction</head><p>The execution of parallel applications on multicore platforms requires both a timely and a reliable execution of tasks. In time-critical domains, tasks must be finished before a given deadline, in order to consider the result as correct. Meanwhile, the correct execution of tasks can be threatened by several sources, such as radiation <ref type="bibr" target="#b0">[1]</ref> and electromagnetic interference <ref type="bibr">[2]</ref>, causing nonpersistent transient faults (also called soft errors). Due to the technology size reduction and the increasing scaling of CMOS technology, systems have become more susceptible to soft errors <ref type="bibr">[3]</ref>. To enable correct execution of the tasks, the system reliability must be enhanced. To this end, typical methods include the use of high frequencies to execute the tasks <ref type="bibr" target="#b1">[4]</ref>, and system-level fault-tolerance techniques, where tasks are replicated <ref type="bibr" target="#b2">[5]</ref><ref type="bibr" target="#b3">[6]</ref><ref type="bibr" target="#b4">[7]</ref>. Nonetheless, these approaches both increase the system energy consumption. Energy saving has become one of the essential objectives during system deployment, due to its impact on the environment and lifetime of the system. In order to enhance energy saving, Dynamic Voltage/Frequency Scaling (DVFS) has been adopted in multicore platforms as an efficient way to adjust the voltage and frequency for task execution. However, DVFS has a significant, negative impact on system reliability, mainly because of the increased transient fault rates at low supply voltage and frequency levels <ref type="bibr" target="#b2">[5]</ref>. The system becomes more susceptible to soft errors when the frequency is low <ref type="bibr" target="#b5">[8]</ref>. Therefore, adequate mapping approaches are required in order to obtain a reliable, in-time and energy efficient task execution on multicore platforms.</p><p>Although both reliability and energy management have been extensively (but often independently) studied, their co-management, during system deployment, has been addressed only recently <ref type="bibr" target="#b6">[9]</ref>. One category of such approaches focus on meeting the reliability requirements, considering only original tasks <ref type="bibr" target="#b7">[10,</ref><ref type="bibr" target="#b8">11]</ref>. However, these methods usually assign high frequencies, whereas it may be impossible to satisfy the reliability constraints, even with the highest platform frequency. The other category replicates tasks to improve reliability. Full replication, such as <ref type="bibr" target="#b4">[7]</ref>, leads to large energy consumption, combined with a negative impact on execution time; the end-times of tasks are delayed, due to the execution of task replicas. Partial task replication is usually performed with heuristics, as in <ref type="bibr" target="#b3">[6,</ref><ref type="bibr" target="#b9">12]</ref>, without considering timing constraints.</p><p>The main contribution of this work is to propose an optimal task mapping approach, which keeps the benefits and withdraws the drawbacks of existing approaches. The goal is to minimize energy consumption, by deciding between reliable original task execution and task duplication, under real-time and reliability constraints, exploiting different DVFS schemes. The execution of a task is considered safe when it meets its reliability constraint. Otherwise, the task requires duplication. As a result, the number of tasks that require duplication is reduced, relieving the negative impact on execution time and energy consumption. The proposed approach optimally and concurrently decides which tasks to be duplicated, the frequency per task and the task allocation, under both real-time and reliability constraints. Unlike the majority of State-of-the-Art (SoA) techniques, original and duplicated tasks can have different operating frequencies, being more suitable for real-world systems <ref type="bibr" target="#b10">[13]</ref>. To achieve that, the task mapping problem is formulated as an Mixed Integer Non-Linear Programming (MINLP), and safely transformed into an Mixed Integer Linear Programming (MILP) problem, in order to be solved optimally. This work extends <ref type="bibr" target="#b11">[14]</ref>, where only frequency assignment per task (TL-DVFS) has been considered and a less efficient solver has been used. The proposed energyaware fault tolerant task mapping approach leverages frequency assignment per processor (PL-DVFS) and frequency assignment per system (SL-DVFS). Extensive experiments have been performed by using <software>Gurobi</software> solver which has a better ability for solving optimization problems, under different scenarios. Experiments show the impact of the flexibility of the three DVFS schemes on feasibility, energy savings, reliability achievement and time required to find solutions. Overall, from the obtained results, the proposed approach can find feasible solutions, when existing replication approaches sometimes fail, and provides solutions consuming less energy, compared to existing approaches.</p><p>The rest of the paper is organized as follows: Section 2 presents the relevant related works and Section 3 describes a motivational example. Section 4 introduces the system model. Section 5 presents the problem formulation and the proposed duplication-based Energy-efficient Fault-tolerant Task Mapping Approach (EFTMA). Section 6 presents the evaluation results. Finally, Section 7 concludes this work.</p></div>
+<div><head n="2">Related Work</head><p>Table <ref type="table" target="#tab_0">1</ref> summarises existing task mapping approaches with DVFS technique, under Energy Budget (EB), Real-Time (RT) and Reliability (R) constraints, with the goal to maximizing system Reliability (mR), minimizing schedule length (also called makespan) (mS) of the task scheduling or minimizing Energy consumption (mE). Fault tolerance is provided by Recovery tasks (Rec.) or task Replicas (Rep.). A task is executed successfully, if at least one replica is executed without faults <ref type="bibr" target="#b4">[7,</ref><ref type="bibr" target="#b12">15]</ref>. The platform has Homogeneous (HO), Heterogeneous (HE) or Single (S) processor(s). Based on the problem formulation and solving method, solutions are Feasible (F) or Optimal (O).</p><p>Regarding reliability maximization, approaches without fault tolerance map only original tasks, e.g., through online heuristics <ref type="bibr" target="#b13">[16]</ref>. Approaches with faulttolerance i) insert a recovery task, always executed with maximum frequency if an error occurs during original task execution <ref type="bibr" target="#b2">[5]</ref>, ii) map a given number of task replicas <ref type="bibr" target="#b10">[13]</ref>, and iii) decide the number of replicas <ref type="bibr" target="#b3">[6]</ref>.</p><p>Regarding minimizing schedule length, the optimal scheduling is obtained using Integer Linear Programming (ILP) on a distributed platform composed of heterogeneous processing units <ref type="bibr" target="#b14">[17]</ref>. In <ref type="bibr" target="#b15">[18]</ref>, an algorithm based on a weightedbased mechanism pre-assigns energy consumption to unassigned tasks with the goal of minimizing the schedule length for energy consumption constrained parallel applications, and the idea is extended to solve reliability maximiza-tion problems. However, no fault tolerance techniques are considered in these above works. In <ref type="bibr" target="#b16">[19]</ref>, the authors studied the problem of makespan optimization jointly considering reliability, temperature and stochastic characteristics of precedence-constrained tasks. An affinity-driven task allocation and scheduling approach is proposed and a heuristic is designed by assigning a task to the processor with highest affinity.</p><p>Regarding minimizing energy consumption, which is the goal in this work, approaches exist without fault tolerance, e.g. by scheduling independent tasks on heterogeneous platform using DVFS <ref type="bibr" target="#b25">[28]</ref> or by decomposing the task mapping problem into two sub-problems (satisfying reliability goal and minimizing resource consumption) <ref type="bibr" target="#b7">[10,</ref><ref type="bibr" target="#b17">20]</ref> and by applying heuristics <ref type="bibr" target="#b8">[11]</ref>. To tackle the negative impacts of DVFS on reliability, existing techniques preserve the original system reliability for all tasks, i.e., the reliability obtained with the maximum platform frequency, which leads to some time slack. Using DVFS technique, the available time slack is reserved to execute a recovery task (individual <ref type="bibr" target="#b18">[21]</ref> or shared <ref type="bibr" target="#b6">[9]</ref>) with the maximum frequency, to preserve reliability. If an error is detected, the recovery task is evoked. A longest-task-first heuristic applies DVFS and recovery tasks only to a selected task subset <ref type="bibr" target="#b19">[22]</ref>. However, such approaches usually use high frequencies to execute the original tasks to meet reliability requirements, increasing energy consumption. It is also possible that reliability constraints cannot be satisfied, even with the maximum frequency, leading to empty solution space.</p><p>Other approaches, aiming at energy savings, apply replication schemes to provide fault-tolerance. Some techniques compute the required number of replicas to always meet reliability constraints <ref type="bibr" target="#b4">[7,</ref><ref type="bibr" target="#b9">12]</ref>. Heuristics are typically proposed, due to high computation complexity or NP-hard problems, e.g., a first-fit decreasing heuristic for homogeneous platforms <ref type="bibr" target="#b4">[7]</ref> and a list scheduling heuristic for heterogeneous platforms <ref type="bibr" target="#b9">[12]</ref>. The work in <ref type="bibr" target="#b12">[15]</ref> improves the approach proposed in <ref type="bibr" target="#b4">[7]</ref> by applying a layered Worst-Fit-Decreasing strategy, where the secondary replicas are executed with same frequency. Hybrid approaches use a given number of replicas to explore the available time slack to impose energy overhead, when an error occurs <ref type="bibr" target="#b22">[25]</ref>. However, the increased number of replicas leads to large energy consumption, combined with a negative impact on execution time. When the real-time constraints are strict, solutions may not exist. To reduce this negative impact, the number of replicas is restricted. In <ref type="bibr" target="#b21">[24]</ref>, a heuristic decides among single execution, task duplication and task triplication. However, no guarantees are provided on real-time and reliability constraints. In <ref type="bibr" target="#b23">[26]</ref>, a heuristic determines which tasks to be duplicated, removing the need of a recovery task, without considering any reliability constraint.An Integer Linear Programming (ILP) approach <ref type="bibr" target="#b24">[27]</ref> maps independent tasks on a heterogeneous platform to satisfy a given percentage of duplicated tasks, under a energy budget constraint. However, reliability is not considered. This work proposes an optimal task mapping energy minimisation approach for homogeneous multicore platforms with DVFS capabilities, that combines partial task duplication and reliable original task execution, under real-time and reliability constraints. Furthermore, this work exploits the impact of hardware DVFS schemes over such task mapping methods.</p></div>
+<div><head n="3">Motivational example</head><p>Initially, we show the benefits of the proposed Energy-efficient Fault-tolerant Task Mapping Approach (EFTMA) through a motivational example. We consider a simple case with a single task, under the TL-DVFS scheme, with C=4 × 10 8 , a reliability threshold equals to 0.9995 and the first five voltage/frequency levels of the platform used in the experimental section (Table 4). Table <ref type="table" target="#tab_1">2</ref> depicts the possible solutions (Sol.), with the selected frequency (f ), the execution time (t), energy consumption (E = P l × t) and reliability (R). Columns f 1 -f 5 corresponding to the execution of only the original task, while columns f 1 /f 1 -f 5 /f 5 corresponding to the execution of both the original and its replica. Table <ref type="table" target="#tab_1">2</ref>.a enumerates all feasible solutions that satisfy only the reliability constraint, in the execution time increasing order, for i) the proposed approach (EFTMA), ii) the Reliability-Aware Mapping (RAM) approach, which satisfies the reliability constraint without task duplication, and iii) the Task Duplication Mapping approach (TDM), always performing task duplication without need to satisfy the reliability constraints. Table <ref type="table" target="#tab_1">2</ref>.b explores how the deadline constraint (D) affects the feasible and optimal solutions. For instance, when 0.8862 ≤ D &lt; 0.8978, the proposed approach can find the solutions {S4-S5,S20}, where S4 is the optimal solution. RAM obtains the solutions {S4,S5}, with S4 the optimal solution. However, for TDM, only one solution is feasible, i.e., S20, while for more strict deadlines no solution is found. Therefore, full replication approaches, such as TDM, are not able to find optimal solutions, due to strict deadline constraint, even for only a single task. For more relaxed deadlines, when 0.9818 ≤ D, the proposed approach can find the solutions {S4-S5,S7-S20}, where S7 is the optimal solution. TDM obtains the solutions {S7-S20}, with S7 the optimal solution. However, RAM obtains the solutions {S5,S4}, with S4 the optimal solution. Therefore, reliable original execution approaches, such as RAM, cannot exploit solutions due to task duplication, leading to higher energy consumption. On the contrary, the proposed EFTMA approach exploits the benefits of the aforementioned methods by applying partial task duplication, whenever is advantageous.</p></div>
+<div><head n="4">System Model</head><p>The following paragraphs present the models used in this work.</p><p>Task Model: We consider a set of N independent tasks, i.e., {τ 1 , . . . , τ N }.</p><p>Each task τ i is measured in Worst Case Execution Cycles (WCEC) C i . All tasks must be executed before a common deadline D, which is the scheduling period. No preemption occurs between different tasks executed on the same processor. Without loss of generality, in the rest of the paper, the release times of all tasks are considered at the start of the scheduling period. R th i denotes the reliability threshold of task τ i . Platform and Power Model: A multicore platform is considered with M homogeneous processors, i.e., {θ 1 , . . . , θ M }. The multicore platform can support different DVFS schemes: i) task-level DVFS (TL-DVFS), where each task can be executed with its own frequency <ref type="bibr" target="#b4">[7,</ref><ref type="bibr" target="#b9">12,</ref><ref type="bibr" target="#b20">23]</ref>, ii) processor-level DVFS (PL-DVFS), where all tasks assigned on a processor have the same frequency <ref type="bibr" target="#b10">[13]</ref>, and iii) system level DVFS (SL-DVFS), where all system processors are assigned with the same frequency. For each core, there are L different Volt-age/Frequency (V/F) pairs {(v 1 , f 1 ), . . . , (v L , f L )}. When task τ i is assigned with frequency f l , its execution time is calculated as t i = Ci f l . For each processor θ m , the power consumption is modeled as the sum of static power P sta l and dynamic power P dyn l <ref type="bibr" target="#b26">[29]</ref>, i.e., P l = P sta l + P dyn l . The dynamic power consumption with V/F level (v l , f l ) is given by P dyn l = C ef f v 2 l f l , where C ef f is the effective switching capacitance. Fault Model and Reliability: We focus on soft errors that follow a Poisson Distribution with fault rate λ(f ) at frequency f , modeled as:</p><formula xml:id="formula_0">λ(f ) = λ 0 × 10 d fmax-f fmax-f min ,<label>(1)</label></formula><p>where λ 0 is the average fault rate corresponding to the maximum frequency f max , d 0 is a positive constant, indicating the sensitivity of failure rate related to frequency scaling <ref type="bibr" target="#b1">[4]</ref>. The reliability of a task τ i , i.e., the probability of executing the task without any fault, follows the exponential model <ref type="bibr" target="#b1">[4]</ref>. Hence, the reliability of a task at frequency f l is given by</p><formula xml:id="formula_1">r i (f l ) = e -ϕi(f l ) ,<label>(2)</label></formula><p>where ϕ i (f l ) = λ(f l ) × t i , with t i the execution time of task τ i <ref type="bibr" target="#b1">[4,</ref><ref type="bibr" target="#b2">5,</ref><ref type="bibr" target="#b20">23]</ref>.</p><p>If the reliability of task τ i is larger than its reliability constraint, the execution is considered as reliable, and, thus, the reliability of τ i is not modified, i.e., R i = r i (f l ). Otherwise, the task τ i is duplicated and the duplication task is executed on a different processor and the reliability of τ i becomes:</p><formula xml:id="formula_2">R i = 1 -[1 -r i (f l )][1 -r i (f l )],<label>(3)</label></formula><p>where r i (f l ) is the reliability of duplication task of τ i . As our approach is applied offline to minimize energy consumption, we consider only task duplication, i.e., a single replica per task, in order not to unnecessarily increase the platform workload, in case no faults occur. An online mechanism can be applied, during execution, to further improve the energy consumption of our solution (by not executing replicas, when first executions are correct), and to deal with the low probability cases, where non-replicated tasks and both original and duplicated tasks are faulty, such as <ref type="bibr" target="#b27">[30]</ref>.</p></div>
+<div><head n="5">Energy-efficient Fault-tolerant Task Mapping Approach (EFTMA)</head><p>The goal is to minimize the total energy consumption of the system, subject to a set of reliability and real-time constraints. To achieve that, we decide: 1) frequency of original and duplicated tasks (s and c); 2) duplication of original tasks (σ); 3) allocation of original tasks (q) and duplicated tasks (d). Table <ref type="table" target="#tab_3">3</ref> summarizes the notation of our formulation. The following paragraphs describe the constraints and objective function of EFTMA formulation, initially considering a multicore platform supporting TL-DVFS. Then, the formulation is extended for PL-DVFS and SL-DVFS schemes. </p><formula xml:id="formula_3">σ i = 1 if task τ i is duplicated, else σ i = 0 q im = 1</formula><p>if original task of τ i executes on processor θm, else q im = 0 d im = 1 if duplication task of τ i executes on processor θm, else d im = 0 TL-DVFS:</p><formula xml:id="formula_4">s il = 1, if original task of τ i executes with f l , else s il = 0 c il = 1, if duplication task of τ i executes with f l , else c il = 0 PL-DVFS:</formula><p>s ml = 1, if processor θm executes with f l , else s ml = 0 SL-DVFS: s l = 1, if system executes with f l , else s l = 0 </p><formula xml:id="formula_5">s il = 1, ∀i ∈ N ,<label>(4)</label></formula><formula xml:id="formula_6">l∈L c il = σ i , ∀i ∈ N .<label>(5)</label></formula><p>ii) Task duplication decision: The reliability of original task τ i is expressed as r i = l∈L s il e -ϕi(f l ) , where ϕ i (f l ) = λ(f l ) × T i and T i = l∈L s il Ci f l (the execution time of original task τ i when executed with frequency f l ). Let R th i denote the reliability threshold of task τ i . If 0 &lt; r i ≤ R th i , the task needs to be duplicated, σ i = 1, else (i.e., r i &gt; R th i ), only the original task is executed, thus, σ i = 0. In order to describe this behaviour, the following Lemma is introduced.</p><p>Lemma 1 Let x and y denote two discrete variables where 0 &lt; x min ≤ x ≤ x max ≤ 1 and 0 &lt; y min ≤ y ≤ y max ≤ 1. Let c denote a binary variable. Given the determination i) if 0 &lt; x ≤ y, c = 1, and ii) if x &gt; y, c = 0, we have δ -</p><formula xml:id="formula_7">(1 + δ)c ≤ x -y ≤ 1 -c, where δ is positive small value. Proof Let C 1 : δ -(1 + δ)c ≤ x -y and C 2 : x -y ≤ 1 -c. i) If x &lt; y, then x -y &lt; 0. For C 1 , c must be 1.</formula><p>For C 2 , c can be either 0 or 1. To satisfy C 1 and C 2 at the same time, we have c = 1. If x = y, for C 1 , c must be 1 due to x -y = 0 and δ &gt; 0. For C 2 , c can be either 0 or 1. Similarly, we obtain c = 1. ii) If x &gt; y, for C 1 , c can be either 0 or 1. However, c must be 0 in C 2 due to x -y &gt; 0. Hence, c must be 0 if x &gt; y.</p><p>Since there are L pairs of voltage/frequency, for the values of r i , we have r i ∈ {e -ϕi(f1) , . . . , e -ϕi(f L ) }. According to Lemma 1, the relationship between R i (f l ), R th i and σ i is linearized as follows:</p><formula xml:id="formula_8">δ -(1 + δ)σ i ≤ l∈L s il e -ϕi(f l ) -R th i ≤ 1 -σ i , ∀i ∈ N .<label>(6)</label></formula><p>iii) Task allocation: The original task, τ i is executed on one processor:</p><formula xml:id="formula_9">m∈M q im = 1, ∀i ∈ N .<label>(7)</label></formula><p>The original and its replica are allocated on different processors <ref type="bibr" target="#b9">[12,</ref><ref type="bibr" target="#b23">26]</ref>:</p><formula xml:id="formula_10">m∈M d im = σ i , ∀i ∈ N ,<label>(8)</label></formula><formula xml:id="formula_11">q im + d im ≤ 1, ∀i ∈ N , ∀m ∈ M .<label>(9)</label></formula><p>iv) Real-time constraints: Tasks (original and duplicated) assigned on processor θ m should be executed within a common deadline D, thus</p><formula xml:id="formula_12">i∈N q im T i + i∈N d im t i ≤ D, ∀m ∈ M ,<label>(10)</label></formula><p>where T i = l∈L s il Ci f l and t i = l∈L c il Ci f l are the execution times of original and duplicated task of τ i , respectively. v) Objective Function: The energy consumption of original task τ i and its potential duplicated task is:</p><formula xml:id="formula_13">E i = l∈L s il P l C i f l + l∈L c il P l C i f l<label>(11)</label></formula><p>Based on the objective function and the aforementioned constraints, the Primal Problem (PP) is formulated as</p><formula xml:id="formula_14">PP : min s,c,q,σ,d E s<label>(12)</label></formula><p>s.t. (4), ( <ref type="formula" target="#formula_6">5</ref>), ( <ref type="formula" target="#formula_8">6</ref>), ( <ref type="formula" target="#formula_9">7</ref>), ( <ref type="formula" target="#formula_10">8</ref>), ( <ref type="formula" target="#formula_11">9</ref>), ( <ref type="formula" target="#formula_12">10</ref>)</p><formula xml:id="formula_15">s il , c il , q im , σ i , d im ∈ {0, 1}, ∀i ∈ N , ∀m ∈ M , ∀l ∈ L.</formula><p>where E s = i∈N E i is the total energy consumed by all tasks until the deadline, according to Equation <ref type="bibr" target="#b8">(11)</ref>.</p><p>Since the nonlinear items exist in Equation (10) (i.e., q im T i and d im t i ), PP is an INLP problem, which is difficult to solve optimally. In order to find the optimal solution, as well as to simplify the structure of the problem, we equivalently transform PP to an MILP problem. By applying variable replacement method, the nonlinear variable combinations are replaced equivalently by an MILP formulation. First, we observe that s il ∈ {0, 1} and C i is large enough, one cycle has a negligible impact on the solution. Thus, T i and t i can be relaxed to the continuous variables: 0</p><formula xml:id="formula_16">≤ T i = l∈L s il Ci f l ≤ T i and 0 ≤ t i = l∈L c il Ci f l ≤ T i , where T i = Ci</formula><p>fmin . To linearize q im T i and d im t i , we introduce the following lemma:</p><p>Lemma 2 Given two positive constants s 1 and s 2 , there are two constraint spaces</p><formula xml:id="formula_17">P 1 = {[t, b, x]|t = bx, -s 1 ≤ x ≤ s 2 , b ∈ {0, 1}} and P 2 = {[t, b, x]| - bs 1 ≤ t ≤ bs 2 , t + bs 1 -x -s 1 ≤ 0, t -bs 2 -x + s 2 ≥ 0, b ∈ {0, 1}}, then P 1 P 2 .</formula><p>Proof i) P 1 P 2 : According to t = bx and -s 1 ≤ x ≤ s 2 , then -bs 1 ≤ t ≤ bs 2 . Based on -s 1 ≤ x ≤ s 2 and b ∈ {0, 1}, then (b -1)(x -s 2 ) ≥ 0 and (b -1)(x + s 1 ) ≤ 0. Therefore, t -bs 2 -x + s 2 ≥ 0 and t + bs 1 -x -s 1 ≤ 0 hold. ii) P 1 P 2 : When b = 0, t = 0 and -s 1 ≤ x ≤ s 2 according to P 2 space definition. When b = 1, then -s 1 ≤ t = x ≤ s 2 from P 2 . Thus, P 1 P 2 .</p><p>Based on Lemma 2, the continuous variables α im = q im T i and β im = d im t i are introduced, and Equation ( <ref type="formula" target="#formula_12">10</ref>) can be replaced by:</p><formula xml:id="formula_18">i∈N α im + i∈N β im ≤ D, ∀m ∈ M ,<label>(13a)</label></formula><formula xml:id="formula_19">-T i q im + α im ≤ 0, -T i + α im ≤ 0, T i q im + T i -α im ≤ T i , ∀i ∈ N , ∀m ∈ M , (<label>13b</label></formula><formula xml:id="formula_20">)</formula><formula xml:id="formula_21">-T i d im + β im ≤ 0, -t i + β im ≤ 0, T i d im + t i -β im ≤ T i , ∀i ∈ N , ∀m ∈ M . (13c)</formula><p>Therefore, the primal problem ( <ref type="formula" target="#formula_14">12</ref>) is equally reformulated as follows:</p><p>EFTMA-TL : min s,c,q,σ,d,h, t,χ,ξ i∈N l∈L</p><formula xml:id="formula_22">P l C i f l (s il + c il )<label>(14)</label></formula><p>s.t.</p><formula xml:id="formula_23">                      <label>(4</label></formula><p>) ∼ (9), (13a), (13b), (13c), ,</p><formula xml:id="formula_24">- l∈L C i f l s il + T i = 0, ∀i ∈ N , - l∈L C i f l c il + t i = 0, ∀i ∈ N , s il , c il , q im , σ i , d im ∈ {0, 1}. 0 ≤ T i , t i , α im , β im ≤ T i , ∀i ∈ N , ∀m ∈ M , ∀l ∈ L.</formula><p>Since all the variables (binary and continuous) are coupled linearly with each other, PP1 is an MILP problem.</p><p>Processor-Level DVFS scheme (PL-DVFS): When the platform supports PL-DVFS, each processor can have a single frequency level and the tasks assigned to the processor are executed with same frequency:</p><formula xml:id="formula_25">l∈L s ml = 1, ∀m ∈ M,<label>(15)</label></formula><p>For task τ i , the frequency is decided together with task-to-processor allocation (q im ) and frequency-to-processor assignment (s ml ), as m∈M q im ( l∈L s ml )f l .</p><p>Then, the reliability is R i = m∈M q im ( l∈L s ml )e -ϕi(f l ) . The execution time of the original and duplicated task of τ i (if duplication takes place) are T i = m∈M q im ( l∈L s ml ) Ci f l and t i = m∈M d im ( l∈L s ml ) Ci f l , respectively. These equations replace the corresponding equations of EFTMA-TL, and the proposed approach under PL-DVFS scheme is formulated as</p><formula xml:id="formula_26">EFTMA-PL : min s,q,d,σ i∈N m∈M q im l∈L s ml C i f l P l + m∈M d im l∈L s ml C i f l P l s.t. (<label>6</label></formula><p>) ∼ (10), ( <ref type="formula" target="#formula_25">15</ref>)</p><formula xml:id="formula_27">s ml , q im , d im , σ i ∈ {0, 1}, ∀i ∈ N , ∀m ∈ M , ∀l ∈ L.</formula><p>System-Level DVFS scheme (SL-DVFS): When the platform supports SL-DVFS, all processors are assigned with same frequency:</p><formula xml:id="formula_28">l∈L s l = 1. (<label>16</label></formula><formula xml:id="formula_29">)</formula><p>For all tasks, the frequency is l∈L s l f l , the reliability is R i = l∈L s l e -ϕi(f l ) and the execution time of original and duplicated task (if duplication takes place) is l∈L s l Ci f l . Then, the proposed SL-DVFS approach is formulated as EFTMA-SL : min s,q,d,σ i∈N l∈L</p><formula xml:id="formula_30">s l C i f l P l + i∈N l∈L σ i s l C i f l P l s.t. (<label>7</label></formula><p>) ∼ (10), ( <ref type="formula" target="#formula_28">16</ref>)</p><formula xml:id="formula_31">s l , q im , d im , σ i ∈ {0, 1}, ∀i ∈ N , ∀m ∈ M , ∀l ∈ L.</formula><p>Similarly, the problem formulations of EFTMA-PL and EFTMA-SL are safely and equivalently transformed into MILP forms, using the same method with TL-DVFS.</p></div>
+<div><head n="6">Experimental Result</head><p>The aim of this work is to compare the proposed task mapping approach with existing task mapping approaches and also explore the impact different DVFS schemes may have in the task mapping decisions. Current platforms usually support one DVFS scheme only. Performing experiments using different platforms, having different characteristics and power consumption, does not help at this initial exploration stage. The experiments we present are thus based on simulations and in each experimental set-up the same platform and power model is used. It makes it possible to compare the quality of the obtained results among TL-DVFS, PL-DVFS and SL-DVFS schemes. Experimental set-up: The processor model we used in the experiments is based on RISC-V Instruction Set Architecture (ISA). We have used a highlevel C++ model with 32-bit RISC-V ISA and standard 5-stage pipeline, i.e., the open-source Comet processor <ref type="bibr" target="#b28">[31]</ref>. Regarding the DVFS, L = 6 voltage/frequency levels are used, based on the work of <ref type="bibr" target="#b29">[32]</ref> considering 64 nm technology, as depicted in Table <ref type="table" target="#tab_4">4</ref>).<ref type="table" target="#tab_4">4</ref>. To obtain realistic inputs for our experiments, we count the execution cycles and Memory Accesses (MA) of common benchmarks from <software>MiBench suite</software> <ref type="bibr" target="#b30">[33]</ref>, using <software>Comet simulator</software>. The sources of timing variability are eliminated to obtain safe and context-independent measurement <ref type="bibr" target="#b31">[34]</ref> without interferences (WCEC iso ). Then, the WCEC inf , considering worst case interferences from the other processors, is computed. As the contribution of this paper is not WCET estimation, a trivial pessimistic approach is applied: all processors may conflict during a memory access. Thus, the interference cost is given by (M-1)*MA*Main Memory Access Delay (Table </p><p>The proposed approach (EFTMA) is compared to two SoA approaches: i) the Reliability-Aware Mapping (RAM) approach, similar to <ref type="bibr" target="#b7">[10]</ref> and "ESRG" algorithm in <ref type="bibr" target="#b9">[12]</ref>, and ii) the Duplication Mapping approach (TDM), always performing task duplication , similar to <ref type="bibr" target="#b4">[7,</ref><ref type="bibr" target="#b9">12]</ref>, when the number of replicas is two, or to <ref type="bibr" target="#b24">[27]</ref>, with 100% task duplication. RAM is the typical way to meet the required reliability, without replication. When task replication is applied, TDM is the least energy consuming approach, compared to other methods that use more than two replicas per task. A large and diverse set of experiments is performed, by tuning: i) the number of processors (M = 2, 4), ii) the size of the task set (N = 10, 20), iii) the platform DVFS scheme (from flexible TL-DVFS to more restricted PL-DVFS and SL-DVFS), and iv) the global deadline D (from strict D to more relaxed ones, using D = k × N M × 1 2 ( Cmax fmin + Cmax fmax ), with a step of 0.1 for N = 10 and 0.2 for N = 20 by adjusting k). For each set-up, 20  <ref type="table" target="#tab_4">4</ref>), including the time overhead for DVFS change (e.g., 10-150 µs <ref type="bibr" target="#b18">[21,</ref><ref type="bibr" target="#b19">22]</ref>) and the sanity checks at the end of a task <ref type="bibr" target="#b4">[7]</ref>. The reliability threshold R th i is selected within the range [0.9990, 0.9995], considering a typical magnitude 10 -3 for reliability target <ref type="bibr" target="#b4">[7]</ref>. Such a reliability target for a task is inline with safety standards, such as ISO 26262 for automotive systems, DO-178B for avionics systems and IEC 61508 for industrial software systems <ref type="bibr" target="#b7">[10,</ref><ref type="bibr" target="#b9">12]</ref>. The used fault model has an average failure rate λ 0 = 5 × 10 -5 faults/sec and d 0 = 3 <ref type="bibr" target="#b1">[4]</ref>.</p><p>Note that the above numbers provide only specific values to problem parameters for experiments, without affecting the problem structure. The approaches are implemented and solved with <software>Gurobi</software> 9.0.2 (MILP solver) on several servers, as hundreds of experiments took place.</p><p>To evaluate the behavior of the proposed approach, we compute:</p><p>1. Energy savings, i.e., the gain in energy consumption that EFTMA achieved compared to RAM and TDM. 2. Reliability, i.e., the achieved reliability in each set-up, for all approaches. 3. Feasibility, i.e., percentage of experiments that found the optimal solution among the 20 experiments of each set-up. 4. Task duplication, i.e., the average percentage of tasks that EFTMA approach decided to duplicate among the 20 experiments, for each set-up. 5. Solution time, i.e., the average time required for all approaches to find a solution among the 20 experiments, for each set-up.</p><p>Energy savings: The gain in energy consumption, achieved by the proposed approach compared to RAM and TDM, is depicted in Fig. <ref type="figure">1</ref> (TL-DVFS), Fig. <ref type="figure">2</ref> (PL-DVFS) and Fig. <ref type="figure">3</ref> (SL-DVFS). Notice that, when points do not appear in the figures, the corresponding approach found no solutions. Table <ref type="table" target="#tab_5">5</ref> depicts the achieved minimum, average and maximum gains compared to RAM and TDM approaches. The minimum gain is zero (or close to) for strict deadlines for RAM, since EFTMA behaves as RAM in this case, executing reliably only the original tasks, i.e. with no duplication. For relaxed deadlines, EFTMA behaves as TDM, duplicating all tasks.  In fact, with processor number increasing, the proposed approach has more available resources, thus it can duplicate more tasks and execute them with low frequency and guarantee the reliability requirements. Energy consumption is thus reduced. On the contrary, RAM should always meet the reliability constraint. Although it uses more processors to execute in parallel the tasks, it cannot reduce their energy consumption, as EFTMA can do, due to the fact that the reliability constraints have to be satisfied using only original tasks (no duplication). Compared to TDM, the energy savings of the proposed approach are reduced when the processor number increases. For instance, on average, gains change from 103.9% to 69.8% (TL-DVFS), 77.1% to 51.8% (PL-DVFS) and 61.8% to 34.1% (SL-DVFS), when M increases from 2 to 4 with N = 10. Actually, with more processors or with more relaxed deadline, the proposed approach and TDM tend to behave similarly, i.e., duplicating all tasks. How- Fig. <ref type="figure">2</ref>: PL-DVFS: Energy Saving ever, with less processors, EFTMA can execute more tasks using only the original copy, while TDM has to duplicate all tasks, thus increasing the energy consumption.</p></div>
+<div><head>Number of tasks:</head><p>As expected, with task number increasing, more energy is consumed in all approaches, under all DVFS schemes. When the number of tasks is increased from N = 10 to N = 20, with the same number of processors, the energy savings remain high for the proposed approach, under all three DVFS schemes. With task number increasing and a given number of processors, it takes a wider deadline region for the energy saving gains to become stable. For instance, for N = 10 and TL-DVFS, during the deadline region D = [1, 3.7] (top Fig. <ref type="figure">1a</ref>), the energy gain of EFTMA, compared to RAM, increases with the deadline becoming more relaxed. After D = 3.7, the energy gain becomes stable. For N = 20 with same number of processors (Fig. <ref type="figure">1c</ref>), the energy gain increases with increasing deadline during a wider region D = [2.6, 6.6], and after D = 6.6, it stays fixed. A similar behavior is observed for EFTMA, compared to TDM, but with energy saving gain decreasing. Actually, with more tasks, a larger time is required for their execution, until more relaxed deadlines where energy saving gains become stable.  <ref type="table" target="#tab_5">5</ref>, a general observation is that TL-DVFS scheme achieves promising energy savings for EFTMA. Actually the frequency assignment in TL-DVFS is the most flexible one, since it is performed per task. PL-DVFS comes next, as it performs frequency assignment per processor. SL-DVFS is the least flexible DVFS scheme, since all tasks are assigned the same frequency. Comparing the energy gains of TL-DVFS and PL-DVFS schemes, the average energy gains, between EFTMA and RAM, are decreased, e.g., from 40.8% to 37.0% and 38.8% to 35.4%, for N = 10 and N = 20, when M = 4. Comparing to SL-DVFS, the average energy savings are increased, especially when the number of processors in the platform becomes larger, e.g., from 40.8% to 54.9% and from 38.8% to 52.3%, for N = 10 and N = 20, when M = 4. With the most flexible DVFS scheme, i.e., TL-DVFS, RAM performs a more fine-grained frequency assignment, achieving a lower energy consumption, compared to SL-DVFS. With SL-DVFS, RAM is obliged to select a high frequency, in order to meet the highest reliability threshold among the tasks, and thus, all tasks must be executed with this high frequency, leading to large energy consumption. On the contrary, EFTMA is able to better exploit frequency assignement, even for the less flexible SL-DVFS scheme. Regarding TDM, comparing the average energy gains between TL-DVFS and PL-DVFS and SL-DVFS schemes, we observe a decrease, e.g., from 103.9% (TL-DVFS) to 77.1% (PL-DVFS) and to 61.8% (SL-DVFS), for N = 10 and M = 2, as the flexibility in deciding frequencies is reduced. Deadline restriction: From Fig. <ref type="figure">1</ref>, Fig. <ref type="figure">2</ref> and Fig. <ref type="figure">3</ref>, we observe that the energy gains, between the proposed approach and RAM, remain small at strict deadlines. For instance, for N = 20 and M = 2, the energy gain is smaller than 10% for D = 2.2 to D = 3.4 in TL-DVFS (Fig. <ref type="figure">1c</ref>) and smaller than 5% for D = 2.2 to D = 5.8 in PL-DVFS (Fig. <ref type="figure">2c</ref>), and for D = 2.2 and D = 5.6 in SL-DVFS (Fig. <ref type="figure">3c</ref>). When the deadline is strict, the proposed approach behaves as RAM: there is no available time slack, and thus, EFTMA assigns high frequencies without applying task duplication. At less strict deadlines, the proposed approach explores any available time slack to duplicate tasks. For instance, for N = 20 and M = 2, the energy gain reaches its maximum for D = 6.2 to D = 7.6 in TL-DVFS (Fig. <ref type="figure">1c</ref>), D = 6.6 to D = 7.6 in PL-DVFS (Fig. <ref type="figure">2c</ref>), and D = 6.2 to D = 7.6 in SL-DVFS (Fig. <ref type="figure">3c</ref>). The trend is inverted between the proposed approach and TDM. When TDM can find solutions, the energy gain reaches its maximum at strict deadlines, since the proposed approach can execute original tasks at a high frequency, while TDM requires duplication of all tasks. The minimum (0% for most cases) is observed at quite relaxed deadlines, since in this case EFTMA and TDM behave similarly. Reliability Achievement: Fig. <ref type="figure">4</ref>, Fig. <ref type="figure">5</ref> and Fig. <ref type="figure">6</ref> show the reliability achievements of all approaches and DVFS schemes. Regarding EFTMA, it achieves higher reliability than RAM, except in very strict deadlines. Compared to TDM, EFTMA provides lower reliability for tight deadlines, as it partially duplicates the task-set. However, as discussed in next section, EFTMA can find solutions when TDM cannot. When the deadline is not so strict, e.g., for D = 1.9 to D = 3 in TL-DVFS (Fig. <ref type="figure">4b</ref>) and PL-DVFS (Fig. <ref type="figure">5b</ref>), EFTMA achieves the same reliability as TDM, since they behave in a similar way.</p><p>Regarding RAM, it has the lowest reliability in TL-DVFS, without violating the reliability constraints. This is because RAM has as requirement to meet the reliability threshold. However, for the less flexible in frequency assignment PL-DVFS and SL-DVFS schemes, RAM is obliged to select a higher frequency, even for tasks with lower reliability threshold. As a result, the achieved reliability of RAM is increased, especially in SL-DVFS scheme where all tasks are executed with same frequency. This can be observed that in Fig. <ref type="figure">6</ref> (SL-DVFS), RAM generally achieves higher reliability than in Fig. <ref type="figure">4</ref> (TL-DVFS) and Fig. <ref type="figure">5</ref> (PL-DVFS). Another observation is that the proposed approach and RAM obtain same reliability at strict deadlines, e.g., when D = 1 to D = 1.5 in TL-DVFS (Fig. <ref type="figure">4a</ref>) and D = 1 to D = 1.4 in PL-DVFS (Fig. <ref type="figure">5a</ref>), because in strict deadlines EFTMA behaves as RAM. Regarding TDM, when it can find a solution, it provides a high reliability, since it duplicates all tasks. Therefore, changing from TL-DVFS to PL-DVFS and SL-DVFS, has a low impact on the achieved reliability. When a solution is found in strict deadlines, it has usually high reliability, but at the price of high energy consumption, due to the high frequencies required to meet the strict deadlines. For all DVFS schemes in relaxed deadlines, the reliability achieved by the proposed approach and TDM is the same, since EFTMA and TDM behave similarly, when deadlines are relaxed enough.</p><p>Feasibility: Fig. <ref type="figure">7</ref> depicts the feasibility of TL-DVFS scheme for the 3 approaches. Note that we observed no real difference in the feasibility behavior among TL-DVFS, PL-DVFS and SL-DVFS schemes in the performed experiments so only TL-DVFS feasibility is shown.</p><p>Comparing EFTMA and TDM feasibilities, EFTMA can find solutions in significantly more experiments, because EFTMA is not obliged to duplicate every task, whereas TDM does. More precisely, when feasibility has not reached 100%, for both approaches, EFTMA finds a solution, on average, in 63.5% (Fig. <ref type="figure">7a</ref>), 60.5% (Fig. <ref type="figure">7b</ref>), 65.26% (Fig. <ref type="figure">7c</ref>) and 61.5% (Fig. <ref type="figure">7d</ref>) more experiments than TDM. We also observe that TDM finds solutions only after the deadline D = 1.9 (Fig. <ref type="figure">7a</ref>), D = 0.9 (Fig. <ref type="figure">7b</ref>), D = 4.4 (Fig. <ref type="figure">7c</ref>) and D = 2.2 (Fig. <ref type="figure">7d</ref>). Moreover, EFTMA achieves 100% feasibility in earlier deadlines than TDM, i.e., D = 1.5 (Fig. <ref type="figure">7a</ref>), D = 0.8 (Fig. <ref type="figure">7b</ref>), D = 3 (Fig. <ref type="figure">7c</ref>) and D = 1.6 (Fig. <ref type="figure">7d</ref>). With increasing number of processors (comparing left and right parts in ), the capability of TDM to find solutions improves, as more pro- cessors are available to schedule original and duplication tasks. Furthermore, all approaches achieve 100% feasibility at earlier deadlines.</p><p>Comparing EFTMA with RAM feasibilities, they have the same feasibility, due to the values of reliability thresholds, i.e., the reliability thresholds can be achieved by executing the original task with a high processor frequency. Task duplication: Fig. <ref type="figure">8</ref> depicts the percentage of duplicated tasks by EFTMA in all DVFS schemes. RAM approach does not duplicate tasks (0%) and TDM duplicates all tasks (100%). Under same set-up, except the cases of very strict and very relaxed deadlines, EFTMA decides the highest task duplication in TL-DVFS, and the least in SL-DVFS. The reasons are the flexibility in assigning task frequencies in different DVFS schemes and the reliability threshold's value. TL-DVFS assigns frequencies per task, providing more opportunities in duplicating task and executing them with low frequency, in order to achieve energy savings. In SL-DVFS, all tasks are executed with same frequency, and thus, the task frequency assignment is restricted. This reduces the possibilities to reduce energy consumption, by task duplication and execution with lower energy consumption. At strict deadlines, for all DVFS schemes, few tasks are duplicated. This is because the execution of duplicated tasks requires time and resources. Thus, it is not possible to duplicate tasks and meet the strict deadlines. When the number of processors is increased, more tasks can be duplicated. When the deadline is more relaxed, EFTMA take advantage of the time slack and duplicates more tasks, using lower frequency, and thus, achieving less energy consumption. At very relaxed deadlines, the percentage of task duplication does not always reach 100% for TL-DVFS and PL-DVFS, as SL-DVFS does. This occurs when the reliability threshold of a task is satisfied, by executing only the original task and, at same time, its energy consumption is lower than the energy consumption, when the task is duplicated. When TL-DVFS and PL-DVFS schemes are used, the proposed approach has flexibility in assigning different frequencies among tasks. Therefore, task duplication does not occur for this task, under TL-DVFS and PL-DVFS schemes. However, in SL-DVFS, all task are executed with same frequency. Thus, EFTMA applies task duplication to enable a lower system frequency, leading to less energy consumption.</p><p>Solution Time: Tables 6, 7, 8 and 9 provide the average time required to find the solution, for all approaches and DVFS schemes. For the proposed approach, when deadline is strict or relaxed, less time is needed to obtain the solutions. However, for intermediate deadlines, more time is required, since EFTMA explores the available time slack to decide which, and how many, tasks to be duplicated, without violating constraints, while consuming the least energy. TDM is the most time expensive approach, because all tasks are duplicated, increasing the number of tasks to be scheduled, and thus, the time to find the solutions. For RAM, as it only executes original tasks, it takes the least time to obtain a solution. However, it provides less energy savings as we observed. With same number of tasks and different number of processors (Table <ref type="table" target="#tab_6">6</ref> vs. Table <ref type="table" target="#tab_7">7</ref> and Table <ref type="table" target="#tab_8">8</ref> vs. Table <ref type="table" target="#tab_9">9</ref>), more time is required; with more resources, the solver requires more time to optimally decide how to use the extra processors in order to obtain the global optimal solution.</p></div>
+<div><head n="7">Conclusion, limitations and future work</head><p>In this paper, an energy-aware fault tolerant task mapping approach is proposed to minimize the total energy consumption, while satisfying the real-time and reliability constraints, by simultaneously determining task allocation, task duplication and frequency assignment, under three types of DVFS schemes. The proposed approach is compared with a reliability-aware task mapping approach and a fault-tolerant task mapping approach from state-of-the-art, under several scenarios. The experiment results show our approach is able to provide better energy savings, and it is able to find solutions, even when existing approaches may fail.</p><p>The proposed approach focuses on multicore platforms with homogeneous cores and independent tasks. In our future work, we will enhance the proposed approach to heterogeneous platforms, by considering execution efficiency of a core when it executes a given task and inserting additional constraints (e.g., task precedence and task non-overlapping constraints) into the task mapping problem, so as to be able to handle dependent task graphs. Furthermore, since task mapping on multicore platforms is a NP-hard problem, obtaining an optimal solution in a short time with the proposed approach when the problem size is large is not realistic enough. Therefore, our next step is to design controllable heuristics for EFTMA, in order to reduce the time required to find a solution and thus enhance the scalability of the proposed approach. The results presented in this paper can be used to characterise the quality of such heuristic approaches.    </p></div><figure xml:id="fig_0"><head>(a) N = 10 , 4 Fig. 1 :</head><label>1041</label><figDesc>Fig. 1: TL-DVFS: Energy Savings</figDesc><graphic coords="15,73.95,229.64,165.00,123.75" type="bitmap" /></figure>
+<figure xml:id="fig_1"><head /><label /><figDesc>(a) N = 10, M = 2 (b) N = 10, M = 4 (c) N = 20, M = 2 (d) N = 20, M = 4</figDesc></figure>
+<figure xml:id="fig_2"><head>(a) N = 10 , 4 Fig. 3 :</head><label>1043</label><figDesc>Fig. 3: SL-DVFS: Energy Saving</figDesc><graphic coords="17,73.95,229.64,165.00,123.75" type="bitmap" /></figure>
+<figure xml:id="fig_3"><head>4 Fig. 4 :</head><label>44</label><figDesc>Fig. 4: TL-DVFS: Reliability Achievement.</figDesc><graphic coords="19,73.95,229.64,165.00,123.75" type="bitmap" /></figure>
+<figure xml:id="fig_4"><head>4 Fig. 5 :</head><label>45</label><figDesc>Fig. 5: PL-DVFS: Reliability Achievement.</figDesc><graphic coords="20,73.95,229.64,165.00,123.75" type="bitmap" /></figure>
+<figure xml:id="fig_5"><head>4 Fig. 6 :</head><label>46</label><figDesc>Fig. 6: SL-DVFS: Reliability Achievement.</figDesc><graphic coords="21,73.95,229.64,165.00,123.75" type="bitmap" /></figure>
+<figure xml:id="fig_6"><head>(a) N = 10 , 4 Fig. 7 :</head><label>1047</label><figDesc>Fig. 7: Feasibility of three approaches under TL-, PL-and SL-DVFS schemes.</figDesc><graphic coords="22,73.95,233.88,168.00,126.00" type="bitmap" /></figure>
+<figure xml:id="fig_7"><head>(a) N = 10 , 4 Fig. 8 :</head><label>1048</label><figDesc>Fig. 8: Task Duplication (EFTMA) under all DVFS schemes.</figDesc><graphic coords="23,73.95,229.64,165.00,123.75" type="bitmap" /></figure>
+<figure type="table" xml:id="tab_0"><head>Table 1 :</head><label>1</label><figDesc>Comparison with representative State-of-the-Art approaches</figDesc><table><row><cell>Ref.</cell><cell>Goal</cell><cell>Fault tol.</cell></row></table></figure>
+<figure type="table" xml:id="tab_1"><head>Table 2 :</head><label>2</label><figDesc>Motivational Example. (*Optimal solutions are highlighted in bold).</figDesc><table><row><cell /><cell cols="2">Sol. S1S</cell><cell>S2</cell><cell>S3</cell><cell>S4</cell><cell>S5</cell><cell>S6</cell><cell>S7</cell><cell>S8</cell><cell>S9</cell><cell>S10</cell></row><row><cell /><cell>f</cell><cell>f1</cell><cell>f2</cell><cell>f3</cell><cell>f4</cell><cell>f5</cell><cell cols="4">f1/f1 f1/f2 f1/f3 f1/f4</cell><cell>f1/f5</cell></row><row><cell /><cell cols="9">R 0.9753 0.9964 0.9994 0.9999 ∼1 0.9994 0.9999 ∼1</cell><cell>∼1</cell><cell>∼1</cell></row><row><cell /><cell cols="11">t 0.4994 0.4825 0.4677 0.4547 0.4431 0.9988 0.9818 0.9671 0.9541 0.9425</cell></row><row><cell /><cell cols="11">E 2.1169 2.7905 3.6959 4.926 6.6141 4.2338 4.9074 5.8128 7.0429 8.731</cell></row><row><cell /><cell cols="2">Sol. S11</cell><cell>S12</cell><cell>S13</cell><cell>S14</cell><cell>S15</cell><cell>S16</cell><cell>S17</cell><cell>S18</cell><cell>S19</cell><cell>S20</cell></row><row><cell /><cell cols="10">f f2/f2 f2/f3 f2/f4 f2/f5 f3/f3 f3/f4 f3/f5 f4/f4 f4/f5</cell><cell>f5/f5</cell></row><row><cell /><cell>R</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell><cell>∼1</cell></row><row><cell /><cell cols="11">t 0.9649 0.9501 0.9372 0.9256 0.9353 0.9224 0.9108 0.9094 0.8978 0.8862</cell></row><row><cell /><cell cols="11">E 5.581 6.4864 7.7165 9.4046 7.3918 8.6219 10.31 9.852 11.5401 13.2282</cell></row><row><cell cols="12">a) Feasible solutions of three approaches under reliability constraint only</cell></row><row><cell cols="2">EFTMA</cell><cell /><cell cols="9">S5,S4,S20,S19,S18,S17,S16,S14,S15,S13,S10,S12,S9,S11,S8,S7</cell></row><row><cell cols="2">RAM</cell><cell /><cell /><cell /><cell /><cell /><cell>S5,S4</cell><cell /><cell /><cell /></row><row><cell cols="2">TDM</cell><cell /><cell cols="8">S20,S19,S18,S17,S16,S14,S15,S13,S10,S12,S9,S11,S8,S7</cell></row><row><cell cols="12">b) Feasible and optimal* solutions under reliability and deadline constraints</cell></row><row><cell>D</cell><cell cols="9">[0,0.4431) [0.4431, 0.4547) [0.4547, 0.8862) [0.8862, 0.8978) ......</cell><cell /><cell>[0.9818, -)</cell></row><row><cell>EFTMA</cell><cell>-</cell><cell /><cell>S5</cell><cell /><cell /><cell>S5,S4</cell><cell cols="3">S4-S5,S20/S4 ......</cell><cell cols="2">S4-S5,S7-S20/S7</cell></row><row><cell>RAM</cell><cell>-</cell><cell /><cell>S5</cell><cell /><cell /><cell>S5,S4</cell><cell /><cell>S5,S4</cell><cell>......</cell><cell /><cell>S5,S4</cell></row><row><cell>TDM</cell><cell>-</cell><cell /><cell>-</cell><cell /><cell /><cell>-</cell><cell /><cell>S20</cell><cell>......</cell><cell cols="2">S7-S20/S7</cell></row></table></figure>
+<figure type="table" xml:id="tab_3"><head>Table 3 :</head><label>3</label><figDesc /><table /><note><p><p>Main Notations</p>Task-Level DVFS scheme (TL-DVFS): We first describe the task mapping problem under TL-DVFS scheme as an MINLP, and then how to equivalently transform it into an MILP problem. Let N = {1, . . . , N }, M = {1, . . . , M } and L = {1, . . . , L}. i) Frequency assignment: Under TL-DVFS, the platform applies DVFS per task, and each task can only be assigned with one frequency level: l∈L</p></note></figure>
+<figure type="table" xml:id="tab_4"><head>Table 4 :</head><label>4</label><figDesc>Platform and benchmark characteristics For each experiment, the WCEC C i of each task is selected within the range [1 × 10 8 , 4 × 10 8 ], based on WCEC inf (Table</figDesc><table><row><cell>v l (V)</cell><cell>0.85</cell><cell /><cell>0.90</cell><cell>0.95</cell><cell>1.00</cell><cell>1.05</cell><cell>1.1</cell></row><row><cell cols="3">f l (GHz) 0.801</cell><cell cols="5">0.8291 0.8553 0.8797 0.9027 1.0</cell></row><row><cell>C ef f</cell><cell cols="7">7.3249 8.6126 10.238 12.315 14.998 18.497</cell></row><row><cell cols="6">Main Memory Access Delay</cell><cell cols="2">200 cycles</cell></row><row><cell>Benchmark</cell><cell /><cell /><cell>MA</cell><cell>W CEC iso</cell><cell cols="3">W CEC inf M = 2 M = 4</cell></row><row><cell>matmul (int)</cell><cell /><cell cols="6">371,957 3,313,958 77,705,358 226,488,158</cell></row><row><cell cols="8">matmul (int64) 507,133 4,055,289 78,446,689 308,335,089</cell></row><row><cell>qsort (int)</cell><cell /><cell cols="2">184,089</cell><cell>875,616</cell><cell cols="3">75,267,016 111,329,016</cell></row><row><cell cols="2">qsort (int64)</cell><cell cols="6">259,553 1,219,854 75,611,254 156,951,654</cell></row><row><cell cols="2">qsort (float)</cell><cell cols="6">185,437 1,745,122 76,136,522 113,007,322</cell></row><row><cell>dijkstra</cell><cell /><cell cols="2">117,151</cell><cell>766,369</cell><cell cols="3">75,157,769 71,056,969</cell></row><row><cell>blowfish</cell><cell /><cell cols="6">110,330 3,058,991 77,450,391 69,256,991</cell></row><row><cell>stringsearch</cell><cell /><cell cols="6">597,608 13,093,544 87,484,944 371,658,344</cell></row></table></figure>
+<figure type="table" xml:id="tab_5"><head>Table 5 :</head><label>5</label><figDesc>min., avg. and max. energy saving gains (%)</figDesc><table><row><cell /><cell /><cell /><cell cols="2">TL-DVFS</cell><cell /><cell cols="2">PL-DVFS</cell><cell /><cell cols="2">SL-DVFS</cell></row><row><cell cols="11">N M Min. Avg. Max Min. Avg. Max Min. Avg. Max</cell></row><row><cell /><cell /><cell /><cell /><cell cols="3">RAM -EFTMA</cell><cell /><cell /><cell /><cell /></row><row><cell>10</cell><cell>2</cell><cell>0</cell><cell>29.8</cell><cell>53.9</cell><cell>0</cell><cell>17.2</cell><cell>59.6</cell><cell>0</cell><cell>29.5</cell><cell>89.4</cell></row><row><cell>10</cell><cell>4</cell><cell>0</cell><cell>40.8</cell><cell>53.9</cell><cell>0</cell><cell>37.0</cell><cell>53.9</cell><cell>0</cell><cell>54.9</cell><cell>89.4</cell></row><row><cell>20</cell><cell>2</cell><cell>0</cell><cell>31.2</cell><cell>49.7</cell><cell>0</cell><cell>16.9</cell><cell>54.1</cell><cell>0</cell><cell>29.9</cell><cell>81.1</cell></row><row><cell>20</cell><cell>4</cell><cell>0</cell><cell>38.8</cell><cell>49.7</cell><cell>0</cell><cell>35.4</cell><cell>49.7</cell><cell>0</cell><cell>52.3</cell><cell>81.1</cell></row><row><cell /><cell /><cell /><cell /><cell cols="3">TDM -EFTMA</cell><cell /><cell /><cell /><cell /></row><row><cell>10</cell><cell>2</cell><cell>0.1</cell><cell cols="2">103.9 298.7</cell><cell>0</cell><cell>77.1</cell><cell>229.8</cell><cell>0</cell><cell>61.8</cell><cell>180.0</cell></row><row><cell>10</cell><cell>4</cell><cell>0.1</cell><cell>69.8</cell><cell>296.6</cell><cell>0.1</cell><cell>51.8</cell><cell>295.6</cell><cell>0</cell><cell>34.1</cell><cell>180.0</cell></row><row><cell>20</cell><cell>2</cell><cell>0.01</cell><cell>87.3</cell><cell>280.9</cell><cell>0</cell><cell>69.7</cell><cell>258.4</cell><cell>0</cell><cell>55.5</cell><cell>159.8</cell></row><row><cell>20</cell><cell>4</cell><cell>0.01</cell><cell>32.9</cell><cell>248.1</cell><cell>0.1</cell><cell>29.6</cell><cell>232.7</cell><cell>0</cell><cell>21.4</cell><cell>157.1</cell></row></table></figure>
+<figure type="table" xml:id="tab_6"><head>Table 6 :</head><label>6</label><figDesc>Solution time (seconds) when N = 10, M = 2 for all DVFS schemes.</figDesc><table><row><cell /><cell cols="2">TL-DVFS</cell><cell /><cell cols="2">PL-DVFS</cell><cell /><cell cols="2">SL-DVFS</cell><cell /></row><row><cell>D</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell></row><row><cell>1.0</cell><cell>0.11</cell><cell>0.06</cell><cell>-</cell><cell>2.48</cell><cell>0.18</cell><cell>-</cell><cell>0.38</cell><cell>0.08</cell><cell>-</cell></row><row><cell>1.1</cell><cell>3.81</cell><cell>1.62</cell><cell>-</cell><cell>1.67</cell><cell>0.15</cell><cell>-</cell><cell>0.41</cell><cell>0.09</cell><cell>-</cell></row><row><cell>1.2</cell><cell>1.23</cell><cell>0.50</cell><cell>-</cell><cell>1.07</cell><cell>0.11</cell><cell>-</cell><cell>0.29</cell><cell>0.16</cell><cell>-</cell></row><row><cell>1.3</cell><cell>1.77</cell><cell>0.08</cell><cell>-</cell><cell>1.27</cell><cell>0.16</cell><cell>-</cell><cell>0.45</cell><cell>0.13</cell><cell>-</cell></row><row><cell>1.4</cell><cell>0.82</cell><cell>0.03</cell><cell>-</cell><cell>1.23</cell><cell>0.10</cell><cell>-</cell><cell>0.36</cell><cell>0.14</cell><cell>-</cell></row><row><cell>1.5</cell><cell>1.96</cell><cell>0.62</cell><cell>-</cell><cell>1.13</cell><cell>0.09</cell><cell>-</cell><cell>0.28</cell><cell>0.14</cell><cell>-</cell></row><row><cell>1.6</cell><cell>0.53</cell><cell>0.01</cell><cell>-</cell><cell>1.01</cell><cell>0.29</cell><cell>-</cell><cell>0.26</cell><cell>0.17</cell><cell>-</cell></row><row><cell>1.7</cell><cell>1.82</cell><cell>0.01</cell><cell>-</cell><cell>0.73</cell><cell>0.12</cell><cell>-</cell><cell>0.28</cell><cell>0.17</cell><cell>-</cell></row><row><cell>1.8</cell><cell>2.56</cell><cell>0.01</cell><cell>-</cell><cell>0.80</cell><cell>0.06</cell><cell>-</cell><cell>0.26</cell><cell>0.26</cell><cell>-</cell></row><row><cell>1.9</cell><cell>1.85</cell><cell>0.01</cell><cell>-</cell><cell>0.92</cell><cell>0.06</cell><cell>-</cell><cell>0.25</cell><cell>0.16</cell><cell>-</cell></row><row><cell>2.0</cell><cell>2.38</cell><cell>0.01</cell><cell>1.51</cell><cell>1.20</cell><cell>0.09</cell><cell>0.20</cell><cell>0.27</cell><cell>0.17</cell><cell>0.39</cell></row><row><cell>2.1</cell><cell>2.81</cell><cell>0.02</cell><cell>9.98</cell><cell>1.23</cell><cell>0.06</cell><cell>0.49</cell><cell>0.30</cell><cell>0.18</cell><cell>0.47</cell></row><row><cell>2.2</cell><cell>2.29</cell><cell>0.02</cell><cell>8.55</cell><cell>1.74</cell><cell>0.04</cell><cell>0.53</cell><cell>0.29</cell><cell>0.15</cell><cell>0.40</cell></row><row><cell>2.3</cell><cell>2.95</cell><cell>0.02</cell><cell>13.49</cell><cell>1.94</cell><cell>0.03</cell><cell>1.61</cell><cell>0.32</cell><cell>0.16</cell><cell>0.42</cell></row><row><cell>2.4</cell><cell>2.93</cell><cell>0.02</cell><cell>12.81</cell><cell>2.25</cell><cell>0.03</cell><cell>0.83</cell><cell>0.37</cell><cell>0.16</cell><cell>0.45</cell></row><row><cell>2.5</cell><cell>3.37</cell><cell>0.02</cell><cell>6.70</cell><cell>3.01</cell><cell>0.02</cell><cell>0.60</cell><cell>0.28</cell><cell>0.15</cell><cell>0.40</cell></row><row><cell>2.6</cell><cell>3.96</cell><cell>0.02</cell><cell>14.11</cell><cell>3.88</cell><cell>0.02</cell><cell>0.78</cell><cell>0.32</cell><cell>0.18</cell><cell>0.38</cell></row><row><cell>2.7</cell><cell>1.80</cell><cell>0.01</cell><cell>14.49</cell><cell>3.15</cell><cell>0.02</cell><cell>0.66</cell><cell>0.27</cell><cell>0.16</cell><cell>0.38</cell></row><row><cell>2.8</cell><cell>1.58</cell><cell>0.01</cell><cell>11.95</cell><cell>3.75</cell><cell>0.02</cell><cell>0.70</cell><cell>0.29</cell><cell>0.14</cell><cell>0.36</cell></row><row><cell>2.9</cell><cell>1.19</cell><cell>0.01</cell><cell>11.17</cell><cell>4.68</cell><cell>0.01</cell><cell>0.60</cell><cell>0.26</cell><cell>0.16</cell><cell>0.34</cell></row><row><cell>3.0</cell><cell>1.05</cell><cell>0.01</cell><cell>7.76</cell><cell>4.78</cell><cell>0.02</cell><cell>0.51</cell><cell>0.26</cell><cell>0.18</cell><cell>0.33</cell></row><row><cell>3.1</cell><cell>0.86</cell><cell>0.01</cell><cell>8.79</cell><cell>4.29</cell><cell>0.02</cell><cell>0.78</cell><cell>0.29</cell><cell>0.18</cell><cell>0.32</cell></row><row><cell>3.2</cell><cell>0.49</cell><cell>0.01</cell><cell>6.05</cell><cell>4.41</cell><cell>0.01</cell><cell>0.94</cell><cell>0.32</cell><cell>0.17</cell><cell>0.31</cell></row><row><cell>3.3</cell><cell>0.32</cell><cell>0.01</cell><cell>10.87</cell><cell>7.80</cell><cell>0.02</cell><cell>0.72</cell><cell>0.31</cell><cell>0.16</cell><cell>0.31</cell></row><row><cell>3.4</cell><cell>0.17</cell><cell>0.01</cell><cell>6.48</cell><cell>5.89</cell><cell>0.01</cell><cell>0.66</cell><cell>0.28</cell><cell>0.15</cell><cell>0.29</cell></row><row><cell>3.5</cell><cell>1.03</cell><cell>0.01</cell><cell>2.50</cell><cell>3.51</cell><cell>0.02</cell><cell>0.20</cell><cell>0.25</cell><cell>0.15</cell><cell>0.25</cell></row><row><cell>3.6</cell><cell>0.06</cell><cell>0.01</cell><cell>0.73</cell><cell>2.92</cell><cell>0.02</cell><cell>0.09</cell><cell>0.24</cell><cell>0.16</cell><cell>0.24</cell></row><row><cell>3.7</cell><cell>0.04</cell><cell>0.01</cell><cell>0.84</cell><cell>1.70</cell><cell>0.02</cell><cell>0.11</cell><cell>0.24</cell><cell>0.15</cell><cell>0.22</cell></row><row><cell>3.8-4.0</cell><cell>0.01</cell><cell>0.01</cell><cell>0.01</cell><cell>0.13</cell><cell>0.02</cell><cell>0.06</cell><cell>0.23</cell><cell>0.15</cell><cell>0.22</cell></row></table></figure>
+<figure type="table" xml:id="tab_7"><head>Table 7 :</head><label>7</label><figDesc>Solution time (seconds) when N = 10, M = 4 for all DVFS schemes.</figDesc><table><row><cell /><cell /><cell>TL-DVFS</cell><cell /><cell /><cell cols="2">PL-DVFS</cell><cell /><cell>SL-DVFS</cell><cell /></row><row><cell>D</cell><cell cols="5">EFTMA RAM TDM EFTMA RAM</cell><cell>TDM</cell><cell cols="3">EFTMA RAM TDM</cell></row><row><cell>0.5</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row><row><cell>0.6</cell><cell>6.79</cell><cell>6.84</cell><cell>-</cell><cell>57.62</cell><cell>9.78</cell><cell>-</cell><cell>0.51</cell><cell>0.21</cell><cell>-</cell></row><row><cell>0.7</cell><cell>10.72</cell><cell>2.82</cell><cell>-</cell><cell>45.81</cell><cell>8.93</cell><cell>-</cell><cell>0.55</cell><cell>0.25</cell><cell>-</cell></row><row><cell>0.8</cell><cell>10.03</cell><cell>0.45</cell><cell>-</cell><cell>76.49</cell><cell>6.39</cell><cell>-</cell><cell>0.43</cell><cell>0.25</cell><cell>-</cell></row><row><cell>0.9</cell><cell>37.59</cell><cell>0.02</cell><cell>-</cell><cell>110.45</cell><cell>2.03</cell><cell>-</cell><cell>0.49</cell><cell>0.23</cell><cell>-</cell></row><row><cell>1.0</cell><cell>37.44</cell><cell>0.01</cell><cell>0.26</cell><cell>112.50</cell><cell>0.51</cell><cell>2312.10</cell><cell>0.34</cell><cell>0.20</cell><cell>0.94</cell></row><row><cell>1.1</cell><cell>60.24</cell><cell cols="3">0.01 3755.76 183.62</cell><cell cols="2">0.30 110698.16</cell><cell>0.46</cell><cell>0.20</cell><cell>1.17</cell></row><row><cell>1.2</cell><cell>830.27</cell><cell cols="3">0.01 2283.87 269.00</cell><cell>0.50</cell><cell>4260.27</cell><cell>0.48</cell><cell>0.20</cell><cell>0.91</cell></row><row><cell>1.3</cell><cell>217.16</cell><cell cols="3">0.01 1335.57 566.26</cell><cell>0.08</cell><cell>38399.02</cell><cell>0.58</cell><cell>0.21</cell><cell>1.05</cell></row><row><cell>1.4</cell><cell>215.56</cell><cell>0.01</cell><cell>702.14</cell><cell>424.56</cell><cell>0.03</cell><cell>46466.88</cell><cell>0.67</cell><cell>0.21</cell><cell>0.85</cell></row><row><cell>1.5</cell><cell>273.33</cell><cell cols="3">0.01 2991.75 438.05</cell><cell cols="2">0.03 196016.53</cell><cell>0.56</cell><cell>0.20</cell><cell>0.91</cell></row><row><cell>1.6</cell><cell>9.52</cell><cell cols="3">0.01 3390.81 191.38</cell><cell cols="2">0.03 162484.17</cell><cell>0.48</cell><cell>0.20</cell><cell>0.76</cell></row><row><cell>1.7</cell><cell>1.16</cell><cell>0.01</cell><cell cols="4">214.75 35026.12 0.03 120531.33</cell><cell>0.50</cell><cell>0.21</cell><cell>0.48</cell></row><row><cell>1.8</cell><cell>5.62</cell><cell>0.01</cell><cell>13.83</cell><cell>31.67</cell><cell>0.03</cell><cell>41.78</cell><cell>0.32</cell><cell>0.20</cell><cell>0.30</cell></row><row><cell>1.9-3.0</cell><cell>0.03</cell><cell>0.02</cell><cell>0.03</cell><cell>0.58</cell><cell>0.04</cell><cell>0.33</cell><cell>0.29</cell><cell>0.22</cell><cell>0.27</cell></row></table></figure>
+<figure type="table" xml:id="tab_8"><head>Table 8 :</head><label>8</label><figDesc>Solution time (seconds) when N = 20, M = 2 for all DVFS schemes.</figDesc><table><row><cell /><cell cols="2">TL-DVFS</cell><cell /><cell cols="2">PL-DVFS</cell><cell /><cell cols="2">SL-DVFS</cell><cell /></row><row><cell>D</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell></row><row><cell>2.2</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row><row><cell>2.4</cell><cell>3.38</cell><cell>9.17</cell><cell>-</cell><cell>3.46</cell><cell>0.27</cell><cell>-</cell><cell>NaN</cell><cell>0.09</cell><cell>-</cell></row><row><cell>2.6</cell><cell>2.95</cell><cell>26.80</cell><cell>-</cell><cell>6.39</cell><cell>0.80</cell><cell>-</cell><cell>0.66</cell><cell>0.20</cell><cell>-</cell></row><row><cell>2.8</cell><cell>2.47</cell><cell>47.22</cell><cell>-</cell><cell>3.10</cell><cell>0.12</cell><cell>-</cell><cell>0.45</cell><cell>0.16</cell><cell>-</cell></row><row><cell>3.0</cell><cell>1.42</cell><cell>0.23</cell><cell>-</cell><cell>2.07</cell><cell>0.10</cell><cell>-</cell><cell>0.20</cell><cell>0.17</cell><cell>-</cell></row><row><cell>3.2</cell><cell>2.25</cell><cell>1.07</cell><cell>-</cell><cell>2.44</cell><cell>0.10</cell><cell>-</cell><cell>0.11</cell><cell>0.16</cell><cell>-</cell></row><row><cell>3.4</cell><cell>2.36</cell><cell>0.01</cell><cell>-</cell><cell>3.78</cell><cell>0.09</cell><cell>-</cell><cell>0.16</cell><cell>0.18</cell><cell>-</cell></row><row><cell>3.6</cell><cell>1.59</cell><cell>0.01</cell><cell>-</cell><cell>3.65</cell><cell>0.11</cell><cell>-</cell><cell>0.28</cell><cell>0.17</cell><cell>-</cell></row><row><cell>3.8</cell><cell>2.55</cell><cell>0.01</cell><cell>-</cell><cell>4.79</cell><cell>0.27</cell><cell>-</cell><cell>0.11</cell><cell>0.18</cell><cell>-</cell></row><row><cell>4.0</cell><cell>2.39</cell><cell>0.01</cell><cell>-</cell><cell>5.50</cell><cell>0.21</cell><cell>-</cell><cell>0.13</cell><cell>0.19</cell><cell>-</cell></row><row><cell>4.2</cell><cell>2.43</cell><cell>0.01</cell><cell>-</cell><cell>4.73</cell><cell>0.46</cell><cell>-</cell><cell>0.27</cell><cell>0.16</cell><cell>-</cell></row><row><cell>4.4</cell><cell>3.31</cell><cell>0.01</cell><cell>-</cell><cell>4.26</cell><cell>0.13</cell><cell>-</cell><cell>0.34</cell><cell>0.22</cell><cell>-</cell></row><row><cell>4.6</cell><cell>4.62</cell><cell>0.01</cell><cell>6.26</cell><cell>4.25</cell><cell>0.81</cell><cell>0.56</cell><cell>0.25</cell><cell>0.15</cell><cell>0.36</cell></row><row><cell>4.8</cell><cell>4.87</cell><cell>0.01</cell><cell>7.04</cell><cell>3.45</cell><cell>0.48</cell><cell>0.67</cell><cell>0.23</cell><cell>0.17</cell><cell>0.40</cell></row><row><cell>5.0</cell><cell>4.28</cell><cell>0.01</cell><cell>2.44</cell><cell>3.46</cell><cell>0.08</cell><cell>0.79</cell><cell>0.25</cell><cell>0.17</cell><cell>0.41</cell></row><row><cell>5.2</cell><cell>4.51</cell><cell>0.01</cell><cell>4.28</cell><cell>7.76</cell><cell>0.05</cell><cell>1.33</cell><cell>0.22</cell><cell>0.20</cell><cell>0.47</cell></row><row><cell>5.4</cell><cell>3.85</cell><cell>0.01</cell><cell>4.36</cell><cell>28.74</cell><cell>0.04</cell><cell>1.18</cell><cell>0.23</cell><cell>0.17</cell><cell>0.48</cell></row><row><cell>5.6</cell><cell>2.97</cell><cell>0.01</cell><cell>5.21</cell><cell>48.56</cell><cell>0.03</cell><cell>1.50</cell><cell>0.30</cell><cell>0.17</cell><cell>0.47</cell></row><row><cell>5.8</cell><cell>2.67</cell><cell>0.01</cell><cell>7.40</cell><cell>73.50</cell><cell>0.03</cell><cell>0.96</cell><cell>0.59</cell><cell>0.17</cell><cell>0.45</cell></row><row><cell>6.0</cell><cell>1.51</cell><cell>0.01</cell><cell>6.33</cell><cell>98.67</cell><cell>0.06</cell><cell>0.97</cell><cell>0.20</cell><cell>0.22</cell><cell>0.34</cell></row><row><cell>6.2</cell><cell>2.13</cell><cell>0.02</cell><cell>2.94</cell><cell>65.51</cell><cell>0.06</cell><cell>0.47</cell><cell>0.23</cell><cell>0.17</cell><cell>0.34</cell></row><row><cell>6.4</cell><cell>0.82</cell><cell>0.02</cell><cell>2.00</cell><cell>42.77</cell><cell>0.04</cell><cell>0.40</cell><cell>0.19</cell><cell>0.15</cell><cell>0.27</cell></row><row><cell>6.6</cell><cell>0.24</cell><cell>0.02</cell><cell>0.63</cell><cell>6.06</cell><cell>0.03</cell><cell>0.34</cell><cell>0.31</cell><cell>0.14</cell><cell>0.29</cell></row><row><cell>6.8</cell><cell>0.03</cell><cell>0.01</cell><cell>1.13</cell><cell>8.28</cell><cell>0.03</cell><cell>0.79</cell><cell>0.19</cell><cell>0.17</cell><cell>0.31</cell></row><row><cell>7.0</cell><cell>0.05</cell><cell>0.01</cell><cell>0.19</cell><cell>11.32</cell><cell>0.03</cell><cell>0.31</cell><cell>0.20</cell><cell>0.21</cell><cell>0.28</cell></row><row><cell>7.2</cell><cell>0.02</cell><cell>0.01</cell><cell>0.42</cell><cell>13.92</cell><cell>0.03</cell><cell>0.28</cell><cell>0.36</cell><cell>0.18</cell><cell>0.27</cell></row><row><cell>7.4</cell><cell>0.02</cell><cell>0.01</cell><cell>0.02</cell><cell>0.38</cell><cell>0.03</cell><cell>0.27</cell><cell>0.17</cell><cell>0.18</cell><cell>0.29</cell></row><row><cell>7.6</cell><cell>0.02</cell><cell>0.01</cell><cell>0.02</cell><cell>0.39</cell><cell>0.03</cell><cell>0.27</cell><cell>0.55</cell><cell>0.27</cell><cell>0.27</cell></row></table></figure>
+<figure type="table" xml:id="tab_9"><head>Table 9 :</head><label>9</label><figDesc>Solution time (seconds) when N = 20, M = 4 for all DVFS schemes. Sudo, H. Sasaki, and J. L. Drewniak, "Electromagnetic interference (emi) of systemon-package (sop)," IEEE Trans. Advanced Packaging, vol. 27, no. 2, pp. 304-314, 2004. 3. M. Mbrahimi, A. Evans, M. B. Tahoori et al., "Comprehensive analysis of alpha and neutron particle-induced soft errors in an embedded processor at nanoscales," IEEE/ACM Design, Automation &amp; Test in Europe, 2014.</figDesc><table><row><cell /><cell /><cell>TL-DVFS</cell><cell /><cell /><cell>PL-DVFS</cell><cell /><cell /><cell>SL-DVFS</cell><cell /></row><row><cell>D</cell><cell>EFTMA</cell><cell>RAM</cell><cell>TDM</cell><cell cols="2">EFTMA RAM</cell><cell>TDM</cell><cell cols="3">EFTMA RAM TDM</cell></row><row><cell>1.0</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row><row><cell>1.2</cell><cell cols="2">2576.81 63381.17</cell><cell>-</cell><cell>207.57</cell><cell>99.97</cell><cell>-</cell><cell>0.66</cell><cell>0.30</cell><cell>-</cell></row><row><cell>1.4</cell><cell cols="2">1909.92 57079.83</cell><cell>-</cell><cell cols="2">7040.64 172.35</cell><cell>-</cell><cell>0.58</cell><cell>0.17</cell><cell>-</cell></row><row><cell>1.6</cell><cell>521.33</cell><cell>791.30</cell><cell>-</cell><cell cols="2">1401.37 25.66</cell><cell>-</cell><cell>0.40</cell><cell>0.15</cell><cell>-</cell></row><row><cell>1.8</cell><cell>673.87</cell><cell>0.08</cell><cell>-</cell><cell cols="2">16611.93 7.37</cell><cell>-</cell><cell>0.26</cell><cell>0.16</cell><cell>-</cell></row><row><cell>2.0</cell><cell>399.08</cell><cell>0.07</cell><cell>-</cell><cell>8037.54</cell><cell>0.98</cell><cell>-</cell><cell>0.35</cell><cell>0.18</cell><cell>-</cell></row><row><cell>2.2</cell><cell>1237.58</cell><cell>0.04</cell><cell>-</cell><cell cols="2">24671.73 0.12</cell><cell>-</cell><cell>0.41</cell><cell>0.17</cell><cell>-</cell></row><row><cell>2.4</cell><cell>4356.88</cell><cell>0.05</cell><cell>189.97</cell><cell>2041.74</cell><cell cols="2">0.13 17625.22</cell><cell>0.50</cell><cell>0.17</cell><cell>1.38</cell></row><row><cell>2.6</cell><cell>165.41</cell><cell>0.05</cell><cell cols="4">1193.19 48888.64 0.15 19109.32</cell><cell>0.83</cell><cell>0.24</cell><cell>2.12</cell></row><row><cell>2.8</cell><cell>38.65</cell><cell>0.05</cell><cell cols="4">1447.58 76090.41 0.12 82873.64</cell><cell>5.30</cell><cell>0.18</cell><cell>3.71</cell></row><row><cell>3.0</cell><cell>25.84</cell><cell>0.04</cell><cell cols="3">4258.07 86462.91 0.11</cell><cell>8431.17</cell><cell>1.02</cell><cell>0.18</cell><cell>0.88</cell></row><row><cell>3.2</cell><cell>3.80</cell><cell>0.05</cell><cell cols="4">31173.63 47538.99 0.12 11296.63</cell><cell>0.78</cell><cell>0.23</cell><cell>0.45</cell></row><row><cell>3.4</cell><cell>0.19</cell><cell>0.04</cell><cell>4917.95</cell><cell>202.77</cell><cell>0.17</cell><cell>3509.51</cell><cell>0.63</cell><cell>0.33</cell><cell>0.43</cell></row><row><cell>3.6</cell><cell>0.87</cell><cell>0.05</cell><cell>11.45</cell><cell cols="2">34489.84 0.07</cell><cell>63.94</cell><cell>0.38</cell><cell>0.25</cell><cell>0.25</cell></row><row><cell>3.8-6.0</cell><cell>0.04</cell><cell>0.02</cell><cell>0.03</cell><cell>1.64</cell><cell>0.06</cell><cell>0.52</cell><cell>0.28</cell><cell>0.15</cell><cell>0.14</cell></row><row><cell>2. T.</cell><cell /><cell /><cell /><cell /><cell /><cell /><cell /><cell /><cell /></row></table></figure>
+			<note place="foot" xml:id="foot_0"><p>√ √ √ √ √</p></note>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>This work is founded by <rs type="funder">China Scholarship Council (CSC)</rs>.</p></div>
+			</div>
+			<listOrg type="funding">
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Radiation-induced soft errors in advanced semiconductor technologies</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">C</forename><surname>Baumann</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Device and Materials Reliability</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="305" to="316" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">The effects of energy management on reliability in real-time embedded systems</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Melhem</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Mosse</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE/ACM Int. Conf. Computer Aided Design</title>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="page" from="35" to="40" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">On maximizing reliability of real-time embedded applications under hard energy constraint</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aydin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Industrial Informatics</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="316" to="328" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">A reliability-aware task scheduling algorithm based on replication on heterogeneous computing systems</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mei</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Grid Computing</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="23" to="39" />
+			<date type="published" when="2017-03">Mar. 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">On reliability management of energy-aware realtime systems through task replication</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Haque</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aydin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Parallel and Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="813" to="825" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Reliability challenges for 45nm and beyond</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Mcpherson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ACM Design Automation Conference</title>
+		<imprint>
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Shared recovery for energy efficiency and reliability enhancements in real-time applications with precedence constraints</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aydin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Trans. Design Automation of Electronic Systems</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="1" to="21" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Resource consumption cost minimization of reliable parallel applications on heterogeneous embedded systems</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Xie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Liu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Industrial Informatics</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1629" to="1640" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Reliability-aware task scheduling for energy efciency on heterogeneous multiprocessor systems</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Deng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Cao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Shen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Super computing</title>
+		<imprint>
+			<biblScope unit="page" from="11643" to="11681" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Energy-efficient fault-tolerant scheduling of reliable parallel applications on heterogeneous distributed embedded systems</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Xie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Xiao</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Sustainable Computing</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="167" to="181" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Resource management for improving soft-error and lifetime reliability of real-time MPSoCs</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhou</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="2215" to="2228" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Embedded computer systems: Architectures, modeling, and simulation(samos), springer</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Cui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kritikakou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Casseau</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Embedded Computer Systems: Architectures, Modeling, and Simulation(SAMOS)</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="213" to="227" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Improved energy-aware strategies for periodic real-time tasks under reliability constraints</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Han</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">C</forename><surname>Canon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Robert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Real-Time Systems Symposium (RTSS)</title>
+		<imprint>
+			<date type="published" when="2019">2019. 2019</date>
+			<biblScope unit="page" from="17" to="29" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Maximizing reliability with energy conservation for parallel task scheduling in a heterogeneous cluster</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Xu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Information Sciences</title>
+		<imprint>
+			<biblScope unit="volume">319</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Contention-aware optimal scheduling of real-time precedence-constrained task graphs on heterogeneous distributed systems</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">K</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Devaraj</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sarkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Maji</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Systems Architecture</title>
+		<imprint>
+			<biblScope unit="volume">105</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Task scheduling for energy consumption constrained parallel applications on heterogeneous computing systems</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Quan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><forename type="middle">J</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Ye</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Parallel and Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="page" from="1165" to="1182" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Affinity-driven modeling and scheduling for makespan optimization in heterogeneous multiprocessor systems</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Cao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Cong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="page" from="1189" to="1202" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Minimizing energy consumption with reliability goal on heterogeneous embedded systems</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Pan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Parallel and distributed Computing</title>
+		<imprint>
+			<biblScope unit="volume">127</biblScope>
+			<biblScope unit="page" from="44" to="57" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Joint optimization of energy efficiency and system reliability for precedence constrained tasks in heterogeneous systems</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Int. Journal of Electrical Power Energy Systems</title>
+		<imprint>
+			<biblScope unit="volume">78</biblScope>
+			<biblScope unit="page" from="499" to="512" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Reliability-aware power management for parallel realtime applications with precedence constraints</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Guo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aydin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Int. Green Computing Conf</title>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="page" from="1" to="8" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Energy-efficient fault-tolerant mapping and scheduling on heterogeneous multiprocessor real-time systems</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Jiang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Access</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="57" to="614" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">DRVS: Power-efficient reliability management through dynamic redundancy and voltage scaling under variations</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Salehi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">K</forename><surname>Tavana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rehman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE/ACM International Symposium on Low Power Electronics and Design (ISLPED)</title>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="225" to="230" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Two-phase low-energy n-modular redundancy for hard real-time multi-core systems</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Salehi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ejlali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">M</forename><surname>Al-Hashimi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1497" to="1510" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Reliability-aware energy optimization for throughput-constrained applications on MPSoC</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Gou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Benoit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Int. Conf. Parallel and Distributed Systems</title>
+		<imprint />
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Energy-and reliability-aware task scheduling onto heterogeneous MPSoC architectures</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Tosun</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Supercomputing</title>
+		<imprint>
+			<biblScope unit="volume">62</biblScope>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Hears: A heterogeneous energy-aware real-time scheduler</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Moulik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chaudhary</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Das</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Microprocessors and Microsystems</title>
+		<imprint>
+			<biblScope unit="volume">72</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Energy optimization for real-time multiprocessor system-on-chip with optimal DVFS and DPM combination</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Knoll</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Trans. Embedded Computing Systems</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Temperature-aware microarchitecture: Modeling and implementation</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Skadron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">R</forename><surname>Stan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Sankaranarayanan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Tran. Architecture and Code Optimization</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="94" to="125" />
+			<date type="published" when="2004-03">Mar. 2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">What you simulate is what you synthesize: Designing a processor core from c++ specifications</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rokicki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Pala</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Paturel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE/ACM Int. Conf. on Computer-Aided Design</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Feasibility analysis for temperature-constraint hard realtime periodic tasks</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Quan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Chaturvedi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Industrial Informatics</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="329" to="339" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Mibench: A free, commercially representative embedded benchmark suite</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Guthaus</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Ringenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Ernst</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Austin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mudge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Brown</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Int. Workshop on Workload Characterization</title>
+		<imprint>
+			<date type="published" when="2002">2002</date>
+			<biblScope unit="volume">01</biblScope>
+			<biblScope unit="page" from="3" to="14" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Safe measurement-based wcet estimation</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Deverge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Puaut</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">WCET</title>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,1393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">A Genetic-Algorithm-Based Approach to the Design of DCT Hardware Accelerators</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Mario</forename><surname>Barbareschi</surname></persName>
+							<idno type="ORCID">0000-0002-1417-6328</idno>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Electrical Engineering and Information Technologies</orgName>
+								<orgName type="institution">University of Naples Federico II</orgName>
+								<address>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="department">Department of Electrical and Computer Engineering</orgName>
+								<orgName type="institution" key="instit1">JIE HAN</orgName>
+								<orgName type="institution" key="instit2">University of Alberta</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Salvatore</forename><surname>Barone</surname></persName>
+							<idno type="ORCID">0000-0003-2007-3744</idno>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Electrical Engineering and Information Technologies</orgName>
+								<orgName type="institution">University of Naples Federico II</orgName>
+								<address>
+									<country key="IT">Italy</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="department">Department of Electrical and Computer Engineering</orgName>
+								<orgName type="institution" key="instit1">JIE HAN</orgName>
+								<orgName type="institution" key="instit2">University of Alberta</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author role="corresp">
+							<persName><forename type="first">Alberto</forename><surname>Bosio</surname></persName>
+							<email>alberto.bosio@ec-lyon.fr</email>
+							<affiliation key="aff1">
+								<orgName type="laboratory">ECL</orgName>
+								<orgName type="institution" key="instit1">Univ Lyon</orgName>
+								<orgName type="institution" key="instit2">INSA Lyon</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">UCBL</orgName>
+								<orgName type="institution" key="instit5">CPE Lyon</orgName>
+								<orgName type="institution" key="instit6">INL</orgName>
+								<address>
+									<postCode>UMR5270</postCode>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff3">
+								<orgName type="department">MARCELLO TRAIOLA</orgName>
+								<orgName type="laboratory">UMR 6074</orgName>
+								<orgName type="institution" key="instit1">University of Rennes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Jie</forename><surname>Han</surname></persName>
+							<idno type="ORCID">0000-0002-8849-4994</idno>
+							<affiliation key="aff4">
+								<orgName type="department">of Engineering</orgName>
+								<orgName type="institution">of II</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">A Genetic-Algorithm-Based Approach to the Design of DCT Hardware Accelerators</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">2A6C19C9C6BAA1FD896C36E0EA35CD6C</idno>
+					<idno type="DOI">10.1145/3501772</idno>
+					<note type="submission">Manuscript submitted to ACM 1</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>CCS Concepts:</term>
+					<term>Hardware → Circuit optimization</term>
+					<term>Circuits power issues</term>
+					<term>Switching devices power issues</term>
+					<term>Application specific integrated circuits</term>
+					<term>Full-custom circuits</term>
+					<term>• Applied computing → Multi-criterion optimization and decision-making Code Mutation, Generic Algorithm, Approximate Computing Techniques, Design Space Exploration, JPEG, Discrete Cosine Transform</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>As modern applications demand an unprecedented level of computational resources, traditional computing system design paradigms are no longer adequate to guarantee significant performance enhancement at an affordable cost. Approximate Computing (AxC) has been introduced as a potential candidate to achieve better computational performances by relaxing non-critical functional system specifications. In this paper, we propose a systematic and high-abstraction-level approach allowing the automatic generation of near Pareto-optimal approximate configurations for a Discrete Cosine Transform (DCT) hardware accelerator. We obtain the approximate variants by using approximate operations, having configurable approximation degree, rather than full-precise ones. We use a genetic searching algorithm to find the appropriate tuning of the approximation degree, leading to optimal trade-offs between accuracy and gains. Finally, to evaluate the actual HW gains, we synthesize non-dominated approximate DCT variants for two different target technologies, namely Field Programmable Gate Arrays (FPGAs) and Application Specific Integrated Circuits (ASICs). Experimental results show that the proposed approach allows performing a meaningful exploration of the design space to find the best trade-offs in a reasonable time. Indeed, compared to the state-of-the-art work on approximate DCT, the proposed approach allows an 18% average energy improvement while providing at the same time image quality improvement.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">INTRODUCTION</head><p>With the increasingly fast-growing amount of information processed by modern computing systems, energy efficiency has become a stringent requirement. Therefore, design activities are becoming more challenging and traditional techniques seem more and more unsuitable. An increasingly popular solution is the Approximate Computing (AxC) design paradigm. AxC exploits the gap between the high accuracy level provided by a computer system and the moderate accuracy required by a given application to achieve performance gains or energy savings by carefully reducing accuracy.</p><p>In this perspective, AxC is most effective when applied to applications dealing with redundant data, end-user perceptual limitations, or error resilient algorithms <ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b12">13,</ref><ref type="bibr" target="#b38">39]</ref>.</p><p>AxC has raised many design challenges due to the variety of Approximate Computing Techniques (AxCTs) <ref type="bibr" target="#b24">[25]</ref>.</p><p>Each AxCT can introduce different approximation degrees. This leads to a huge amount of different approximate system configurations. Evaluating the approximation impact on the output quality at the application level is often quite time-consuming and not trivial. Indeed, it is usually achieved through simulations or executions of the whole approximate application <ref type="bibr" target="#b11">[12]</ref> to ensure that the quality specifications are met. An additional challenge is related to the lack of a general automation tool and a methodology for the Design Space Exploration (DSE).</p><p>One of the main fields of application for AxC is image processing: imperceptible reduction of image quality can lead to important computational resources savings. Most of the research work focuses on the JPEG compression, either considering the algorithms as a whole or its individual computational steps. Concerning the design of hardware accelerators, researchers focused on the approximation of Discrete Cosine Transform (DCT) accelerators, mainly targeting figures of merit such as circuit complexity, delay, area and power dissipation <ref type="bibr" target="#b1">[2,</ref><ref type="bibr" target="#b2">3,</ref><ref type="bibr" target="#b20">21]</ref>.</p><p>Unfortunately, the effect of the different approximation techniques and relative configurations (i.e., approximation degrees) are only analyzed individually and without a supporting methodology.</p><p>Conversely, in this work, we assess the impact of approximation -for different approximation degrees -on the DCT computation by performing a fully automated DSE. Starting from the DCT algorithm, we first perform an Abstract Syntax Tree (AST) analysis to gather information on the operations suitable for approximation. Then, we generate parametric approximate versions. Through the approximation parameters, we can tune the approximation degree. Finally, we build a Multi-objective Optimization Problem (MOP) to find the Pareto-optimal values for the aforementioned approximation parameters. To converge towards a Pareto front, we use a Genetic Algorithm (GA). The fitness functions driving the GA are the quality reduction minimization and the gain maximization. To perform the DSE in an acceptable time, we operate at high-abstraction level, by modeling the hardware approximation gains with an estimation function. We measure the quality reduction by evaluating the JPEG execution over a large image dataset. Finally, after the DSE, we synthesize the obtained approximate DCT configurations on both Field Programmable Gate Array (FPGA) and Application Specific Integrated Circuits (ASICs) target technologies and demonstrate the effectiveness of the approach w.r.t. the state of the art.</p><p>The remainder of this paper is structured as follows: Section 2 reviews the existing related work; Section 3 provides preliminary technical background, while Section 4 describes in detail the proposed workflow. In order to evaluate the proposed approach, Section 5 describes the experimental setup, reports result and compares our approach with previous studies. Finally, Section 6 draws the conclusions.</p><p>Manuscript submitted to ACM</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">RELATED WORK</head><p>The effectiveness of imprecise computation for error-resilient applications has been demonstrated both for software and hardware components implementing inexact algorithms <ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b38">39]</ref>. The use of approximation is sometimes intrinsic, e.g., in digital signal processing, where analog signals are discretized and quantized. In many scenarios, the voluntary introduction of approximation turns out to be beneficial. For instance, the perceptual limitations of human senses can be leveraged to reduce the data precision, thus to reduce the storage requirements <ref type="bibr" target="#b30">[31]</ref> or to improve performances of multimedia and signal processing applications <ref type="bibr" target="#b33">[34]</ref>. Likewise, executing iterative-refinement algorithms with a reduced precision of intermediate computation can improve performances, with little or even no effects on the quality of results <ref type="bibr" target="#b29">[30]</ref>. Different AxCTs have been proposed in the scientific literature <ref type="bibr" target="#b24">[25]</ref>. Some examples use bit-width optimization <ref type="bibr" target="#b18">[19]</ref> and loop-perforation <ref type="bibr" target="#b35">[36]</ref>.</p><p>Employing the AxC full potential requires dealing with several challenges. (i) Approximation error-assessment: since compliance with output quality constraints has to be guaranteed, error-assessment is crucial. The actual error assessment may require the simulation of both exact and approximate applications, which is very costly. Nevertheless, in order to reduce the required effort, an estimation can be obtained by resorting to a representative workload. On the other hand, a different approach, based on Bayesian inference <ref type="bibr" target="#b36">[37,</ref><ref type="bibr" target="#b37">38]</ref>, analytical models <ref type="bibr" target="#b10">[11]</ref>, machine-learning <ref type="bibr" target="#b25">[26]</ref>, and even neural networks <ref type="bibr" target="#b42">[43]</ref> have been proposed in order to avoid simulations. (ii) The choice of metrics for error estimation: they may strongly depend on the particular application. Thus, choosing the right metric, or the right combination of metrics, is of major concern, and it is not a trivial task. (iii) Approximate configuration choice: a given application can be approximated in many different ways. Among all the different approximate configurations, choosing those providing the best trade-off between accuracy loss and resource gains is one of the major challenges in AxC.</p><p>Indeed, low error and high benefits are conflicting goals.</p><p>Concerning hardware design, initial approaches -although not efficient nor scalable -addressed the aforementioned issues by manually identifying approximable sub-parts of a given application. Afterwards, there have been several attempts to define systematic and automated approaches. Ranjan et al. <ref type="bibr" target="#b32">[33]</ref>, for instance, identify combinational subcircuits -such as arithmetic units -by looking at the Register Transfer Level (RTL) description of the circuit to be approximated, selecting the optimal quality/energy operating-point using stochastic gradient-descent, in order to maximize energy savings. Nepal et al. <ref type="bibr" target="#b26">[27]</ref> perform AST manipulations to generate several approximate versions of a given circuit, starting from either behavioral or RTL descriptions. The variant providing the optimal trade-off between accuracy and gains is selected by means of a stochastic greedy algorithm.</p><p>The synergetic effects of multiple approximation techniques, acting at different levels, have been also investigated in the scientific literature. In <ref type="bibr" target="#b42">[43]</ref>, for instance, the precision-scaling technique is exploited in conjunction with voltagescaling, since the former usually leads to lower circuit delay, paving the way for aggressive voltage scaling, which provides higher impacts on energy savings. However, all the aforementioned approaches either combine multiple design objectives in a single-objective optimization problem or optimize a single parameter while keeping the others fixed. Therefore, the resulting solutions are centered around a few dominant design alternatives and do not cover the whole Pareto front <ref type="bibr" target="#b14">[15]</ref>. Researches in <ref type="bibr" target="#b34">[35]</ref> addressed the problem by using Cartesian genetic programming to search for Pareto-optimal approximate circuit implementations requiring progressively fewer hardware resources. Unfortunately, such approaches did not focus on complex systems, rather on arithmetic components, such as adders and multipliers, which are used as building blocks for hardware accelerators. Mario Barbareschi, Salvatore Barone, Alberto Bosio, Jie Han, and Marcello Traiola In <ref type="bibr" target="#b25">[26]</ref>, circuits from a library of approximate components are selected to generate an approximate accelerator for a given application. On the basis of contributions from single components, machine learning techniques are adopted to estimate the overall quality and hardware cost of the accelerator, without requiring simulations and synthesis. A similar approach has been presented in <ref type="bibr" target="#b10">[11]</ref>. A set of analytical models of quality and resource requirements are derived for a library of approximate components. Then these are used to estimate resource needed and accuracy of accelerator designed through high-level synthesis of C language description.</p><p>In this work, we focus on a complex system, performing image processing. Specifically, we focus on the JPEG compression. In <ref type="bibr" target="#b2">[3]</ref>, a framework relying on inexact computing to perform the DCT computation for the JPEG has been proposed. The framework acts on three levels: (i) at the application level, it exploits human insensitivity to high-frequency variation to use a filter and discard high-frequency components; (ii) at the algorithmic level, multiplier-less fast algorithms are employed for the actual DCT computation on integer coefficients; (iii) at hardware level, rather than using a simple truncation for adder circuits, authors used Inexact-Adder Cells (IACs) to compute less significant bits instead of the Full-Adder Cells (FACs). Therefore, firstly, the JPEG quantization step is performed only low-frequency components of an image block; thus the high-frequency filter implementation comes down to simply setting some DCT coefficients to zero. Then, at algorithmic level, since the DCT is the most effort-demanding step in JPEG, fast DCT algorithms have been used <ref type="bibr">[7-10, 14, 28, 29]</ref>. Those algorithms reduce the DCT complexity from 𝑂 (𝑁 2 ) to 𝑂 (𝑁 ) and require only integer additions. Finally, at the hardware level, three different IAC families are considered in <ref type="bibr" target="#b2">[3]</ref>, i.e., the Approximate Mirror Adder (AMA) <ref type="bibr" target="#b20">[21]</ref>, the Approximate XOR-based Adder (AXA) <ref type="bibr" target="#b41">[42]</ref> and the IneXact Adder (InXA) <ref type="bibr" target="#b1">[2]</ref>. The framework in <ref type="bibr" target="#b2">[3]</ref> mainly aims at assessing the joint impact of those three levels of approximation. However, it presents two main weaknesses: (i) approximation is introduced by manually tuning the individual approximation parameters and (ii) output quality is assessed over only four images. In this paper, we propose a methodology to overcome the highlighted problems by defining a systematic and automatic approach for approximate hardware design. Fig. <ref type="figure">1</ref>. The workflow of our approach.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">PRELIMINARY TECHNICAL BACKGROUND</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Manuscript submitted to ACM</head><p>In this Section we discuss the proposed workflow, which is depicted in Figure <ref type="figure">1</ref>, while providing the required technical background. In particular, we firstly detail the proposed generation process of approximate variants. Secondly, we describe how we perform a DSE to converge towards the Pareto-optimal approximate variants.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Approximate variants generation</head><p>Given an algorithm implementation, in order to automatically generate approximate variants while having control on the error, gathering information on the operations suitable for approximation is necessary. We obtain this information through the analysis of the algorithm implementation's AST. Hence, we employ mutators <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b5">6]</ref>, to make systematic modifications to the AST, producing altered implementations. Mutators are defined as a set of rules to search and modify the AST. The rule definition is generally application-independent and does not require the user to know the algorithm or its specific implementation. In particular, we consider, as an approximation technique, the replacement of exact sums with approximate ones. We produce a mutator that automatically replaces exact sums with the approximate counterparts, without knowing the particular algorithm or its implementation. In this way, we obtain approximate variants of the original algorithm. Moreover, the approximate sums are configurable in their degree of approximation.</p><p>The number of variants and the number of configurations grow quickly with the number of operations suitable for approximation. Consider, for instance, an algorithm implementation with 𝑛 approximable operations, each allowing 𝑘 different degrees of approximation: 𝑛 𝑗 different approximate variants can be defined by simultaneously approximating 𝑗 operations, and 𝑘 𝑗 different approximate configurations can be defined for each of the variants. Therefore, the total number of approximate configurations is 𝑛 𝑖=1 𝑘 𝑖 × 𝑛 𝑖 . At this point, the main challenge is to find values for the approximation parameters leading to the Pareto-optimal trade-offs between performance gains and accuracy losses, i.e., to perform a DSE.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Design space exploration</head><p>As mentioned in the introduction, we model the DSE as a MOP. Basically, a MOP consists of a set of fitness-functions to minimize/maximize at the same time and a set of constraints to be met, as reported in <ref type="bibr" target="#b0">(1)</ref>,</p><formula xml:id="formula_0">Γ = {𝛾 𝑖 : 𝐴 → R, 𝑖 = 1 • • • 𝑘 } Ψ = {𝜓 𝑗 : 𝐴 → {0, 1}, 𝑗 = 1 • • • 𝑙 } 𝐴 ⊆ R 𝑛 (1)</formula><p>where Γ and Ψ are the set of fitness-functions and the set of constraint-functions, respectively. While the functions of the former set assume values in R, or its subset, the constraint functions assume either the value 1 or 0 to indicate that the constraint is or is not met, respectively. Equation (2) describes the set of solutions for <ref type="bibr" target="#b0">(1)</ref>. For non-trivial MOPs, |𝑋 | &gt; 1, where | • | expresses the size of the set, i.e., the number of elements it contains.</p><formula xml:id="formula_1">𝑋 = {𝑥 ∈ 𝐴 : 𝛾 𝑖 (𝑥) ≤ 𝛾 𝑖 (𝑥 ′ ), 𝑥 ⊢ 𝜓 𝑗 , 𝑥 ′ ≠ 𝑥, 𝑖 ∈ [1, 𝑘] , 𝑗 ∈ [1, 𝑙]}<label>(2)</label></formula><p>Indeed, since different objectives (i.e., fitness functions) often represent conflicting goals, the DSE goal is to seek for a set of equally good solutions being close to the Pareto-front (2). Let us consider two solutions, 𝑥, 𝑦 ∈ 𝑋 : 𝑥 ≠ 𝑦, 𝑥 is said to dominate 𝑦 i.f.f. (3) holds, i.e., 𝑥 shows better or equally good objective values than 𝑦 in all objectives and at least better in one objective. If a solution is not dominated by any others, it is called a Pareto-optimal solution.</p><formula xml:id="formula_2">𝑥 ≺ 𝑦 ⇐⇒ 𝛾 𝑖 (𝑥) ≤ 𝛾 𝑖 (𝑦) ∀𝑖 ∈ [1, 𝑘] ∧ ∃𝑗 ∈ [1, 𝑘] : 𝛾 𝑗 (𝑥) &lt; 𝛾 𝑗 (𝑦)<label>(3)</label></formula><p>Due to the rapid growth of the size of the solution space as the number of decision variables, fitness functions and constraints increases, using exact solving algorithms turns out to be very computation-intensive. Consequently, a variety of heuristics aiming at producing an approximation of the Pareto-front have been proposed in the scientific literature. Some well-known heuristics are hill-climbing, ant-colony <ref type="bibr" target="#b17">[18]</ref> and Evolutionary Algorithms (EAs).</p><p>GAs, a subclass of EAs, have been largely used in the literature to find Pareto-fronts for MOPs <ref type="bibr" target="#b15">[16]</ref>. GAs are inspired by and also borrows terminology from the evolutionary theory: mutation, crossover and selection mechanisms cause the extinction of weak and unfit species while strong ones have greater opportunities to survive and pass their genes to future generations. In particular, we resort to Multi-Objective Evolutionary Algorithms (MOEAs). MOEAs operate on a set of individuals, called population, that evolves and, eventually, converges to a set of Pareto-dominant solutions.</p><p>Each individual is represented as a chromosome, i.e., a data structure encoding the search space. During the evolution process, new offspring is generated either through or in combination of crossover and mutation <ref type="bibr" target="#b16">[17]</ref>. A crossover takes two parent chromosomes to produce a new chromosome. Thence, we resort to the Non-dominated Sorted Genetic Algorithm-II (NSGA-II), which is widely employed as a standard approach <ref type="bibr" target="#b15">[16]</ref>.</p><p>It follows an elitist principle, i.e., the elites of a population are given the opportunity to be carried to the next generation. The evolution process starts from an initial population, which is typically randomly generated or seeded in areas where optimal solutions are likely to be found, and it goes through the following steps.</p><p>At the beginning, the NSGA-II builds a random initial population 𝑃 0 of size 𝑁 , and sorts the latter using nondomination sorting, which will be presented below. Thus, each individual is assigned a rank equal to its non-domination level. At the first iteration, usual crossover, mutation and binary tournament selection operator are used to build the 𝑄 0 offspring population. The behavior of the algorithm during a generic i-th iteration is summarized in Figure <ref type="figure" target="#fig_0">2</ref>: (i) a combined population Along with convergence to the Pareto-front, it is also desired that am EA maintains a good spread in the obtained set of solutions. In order to preserve diversity, the NSGA-II adopts the crowding distance as a metric for the density of solutions surrounding a particular solution. Such distance is the average distance of two points on either side of the considered solution, along each of the fitness functions. The computation requires sorting the population 𝑀 times, according to each fitness function, in ascending order. Each time the population is sorted, the boundary solutionsi.e., solutions with the smallest and the largest fitness -are assigned an infinite distance, while all other solutions are assigned with a crowding distance equal to the absolute normalized difference of fitness of the two adjacent solutions.</p><formula xml:id="formula_3">𝑅 𝑖 = 𝑃 𝑖 ∪ 𝑄 𝑖 is</formula><p>The overall crowding distance is the sum of individual distances corresponding to each fitness function. Using crowded distance, the usual definition of Pareto dominance (3) is slightly modified as in ( <ref type="formula" target="#formula_4">4</ref>), where 𝑥 ≈ 𝑦 denotes 𝑥 and 𝑦 do not dominate each other and 𝑑 (•) is the crowding distance of a given solution. The crowded selection operator preserves diversity by promoting solutions located in less crowded areas of the solution space.</p><formula xml:id="formula_4">𝑥 ≺ 𝑛 𝑦 ⇐⇒ 𝑥 ≺ 𝑦 ∪ (𝑥 ≈ 𝑦 ∧ 𝑑 (𝑥) &gt; 𝑑 (𝑦))<label>(4)</label></formula><p>Modeling a specific optimization problem so that it can be resolved by a MOEA is not trivial and there are no general rules. In our case, as mentioned in Section 3.1, we approximate a number of operations in the DCT algorithm. According to their approximation degree, each of the operations contributes to error and gains differently. On the one hand, it may be easy to analytically define a relationship between the degree of approximation and the corresponding gains, by using properties of the specific approximation. On the other hand, doing the same with the error is not trivial, due to its propagation through the data-flow. Therefore, fitness functions should be defined case by case. Finally, regarding the constraints, identifying acceptable variation ranges for one or more genes or identify an error threshold is generally feasible. For instance, for an n-bits adder, the variation interval of the gene could be {0, 1, • • • , 𝑛} to cover the degree that goes from "no-approximation" to "totally approximate".</p><p>Finally, from a technical standpoint, approximate configurations can be represented by using a vector -i.e., a chromosome, in the MOEA context -having as many elements -i.e., genes -as operations. The value of each element represents the approximation degree for the corresponding operation.</p><p>Being the goal of the DSE to find the Pareto-optimal approximation degree for all the operations, the NSGA-II provides a suitable tool to perform the exploration of such a large design space, in a reasonable time.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">TOWARDS APPROXIMATE DCT</head><p>In this section, firstly we discuss the mathematical steps leading to a set of linear equations to compute DCT coefficients using only additions. These equations are general and independent of the particular DCT algorithm. Secondly, we present the approximate DCT variants generation and how we model the DSE as a MOP so that it can be resolved by using the NSGA-II.</p><p>Manuscript submitted to ACM </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Addition-based computation of DCT coefficients</head><p>As we already mentioned, the DCT computation is known to have 𝑂 (𝑁<ref type="foot" target="#foot_1">2</ref> ) complexity and requires resource-intensive functional units, such as floating-point arithmetic modules. The algorithm proposed in <ref type="bibr" target="#b23">[24]</ref> requires 11 multiplications and 29 additions to compute the one-dimensional eight-point DCT needed by the JPEG compression. It is considered the most efficient exact algorithm, since the lower bound on the number of multiplications required for such DCT computation has been proven to be 11 <ref type="bibr" target="#b19">[20]</ref>. In order to achieve an additional reduction in resource requirements, authors of <ref type="bibr" target="#b3">[4]</ref> moved parts of the DCT computation to the JPEG quantization step. Furthermore, transformed coefficients can be scaled and rounded such that floating-point operations can be superseded by integer ones: the resulting algorithms are significantly faster, and they find extensive use in practical applications. However, integer multiplication is still complex and resource intensive; thus, many low-complexity multiplier-less algorithms have been proposed <ref type="bibr">[7-10, 14, 28, 29]</ref>.</p><p>As in <ref type="bibr" target="#b3">[4]</ref>, all of these algorithms split the DCT computation into two consecutive steps: the first one is referred to as approximate-DCT, which involves only integer operations, while the second step is embedded into the quantization and takes advantages of floating-point operations the latter requires. Moreover, they all avoid computing DCT coefficients separately or iteratively. Instead, they extensively use matrix algebra and its properties. To show how the abovementioned algorithms work, let 𝑋 be an input image tile, which is a 8 × 8 matrix; its two-dimensional DCT transform, from now on simply DCT, is described by the following equation:</p><formula xml:id="formula_5">𝐹 = 𝐶 • 𝑋 • 𝐶 ′ ,<label>(5)</label></formula><p>where 𝐶 is referred to as DCT matrix. 𝐶 contains the cosine function values at the needed frequencies. The 𝑋 and the 𝐹 matrices have the same dimensions. The elements in 𝐹 represent the DCT coefficients as the frequency progressively increases: low-frequency components are closer to the top-left corner, while high-frequency ones are placed close to the bottom-right corner. The 𝐶 matrix can be split into two matrices, 𝑇 and 𝐷, as reported in Equation <ref type="bibr" target="#b5">(6)</ref>.</p><formula xml:id="formula_6">𝐹 = 𝐶 • 𝑋 • 𝐶 ′ = 𝐷 • (𝑇 • 𝑋 • 𝑇 ′ ) • 𝐷<label>(6)</label></formula><p>Different algorithms define 𝑇 and 𝐷 in different ways, so the number of computation operations may vary from algorithm to algorithm, as reported in } being typical values. For this reason, resorting to properties of diagonal matrices allows obtaining the following equation:</p><formula xml:id="formula_7">𝐹 = 𝑇 • 𝑋 • 𝑇 ′ • (𝑑𝑖𝑎𝑔(𝐷) • 𝑑𝑖𝑎𝑔(𝐷) ′ ),<label>(7)</label></formula><p>where • is the Hadamard product, i.e., an element-wise multiplication. Thus, the integer null-multiplicative part 𝑇 • 𝑋 •𝑇 ′ can be isolated from floating-point operations required by 𝐷. Afterwards, floating-point operations can be performed outside the DCT, and embedded into the JPEG quantization step, as shown in the following equation.</p><formula xml:id="formula_8">𝐹 𝑄 = ⌈𝐹 ⊘ 𝑄⌋ = ⌈𝑇 • 𝑋 • 𝑇 ′ • (𝑑𝑖𝑎𝑔(𝐷) • 𝑑𝑖𝑎𝑔(𝐷) ′ ) ⊘ 𝑄⌋ = ⌈𝑇 • 𝑋 • 𝑇 ′ • Q⌋ = ⌈(𝑇 • (𝑇 • 𝑋 ′ ) ′ ) • Q⌋ (8) Q = (𝑑𝑖𝑎𝑔(𝐷) • 𝑑𝑖𝑎𝑔(𝐷) ′ ) ⊘ 𝑄,<label>(9)</label></formula><p>where Q in ( <ref type="formula" target="#formula_8">9</ref>) is the complete quantization matrix and the ⊘ operator is the Hadamard division, i.e., an element-wise division. From ( <ref type="formula">8</ref>), it follows 𝐹 = (𝑇 • (𝑇 • 𝑋 ′ ) ′ ), which means that the approximate two-dimensional DCT transform can be computed using the one-dimensional DCT transform twice, reducing the complexity from quadratic to linear.</p><p>The only substantial difference between the different multiplier-less DCT algorithms is the 𝑇 matrix. Hence, it is straightforward to derive a set of equations to calculate the one-dimensional DCT coefficients. Equations in <ref type="bibr" target="#b9">(10)</ref>, for instance, refers to the BC12 algorithm <ref type="bibr" target="#b6">[7]</ref>.</p><formula xml:id="formula_9">𝑓 0 = 𝑥 0 + 𝑥 1 + 𝑥 2 + 𝑥 3 + 𝑥 4 + 𝑥 5 + 𝑥 6 + 𝑥 7 𝑓 1 = 𝑥 0 -𝑥 7 𝑓 2 = 𝑥 0 -𝑥 1 -𝑥 2 + 𝑥 3 + 𝑥 4 -𝑥 5 -𝑥 6 + 𝑥 7 𝑓 3 = 𝑥 4 -𝑥 3 𝑓 4 = 𝑥 0 -𝑥 3 -𝑥 4 + 𝑥 7 𝑓 5 = 𝑥 5 -𝑥 2 𝑓 6 = 𝑥 2 -𝑥 1 + 𝑥 5 -𝑥 6 𝑓 7 = 𝑥 6 -𝑥 1<label>(10)</label></formula><p>Furthermore, some terms -for instance (𝑥 0 + 𝑥 7 ) -are involved in the computation of multiple 𝑓 𝑖 coefficients, which allows to further reduce the amount of operations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Approximate variants generation and MOP modeling</head><p>Once the addition-based equations for the DCT coefficients are defined, simple implementations for the DCT computation algorithm can be derived, such as BAS08 <ref type="bibr" target="#b8">[9]</ref>, BAS09 <ref type="bibr" target="#b9">[10]</ref>, BAS11 <ref type="bibr" target="#b7">[8]</ref>, BC12 <ref type="bibr" target="#b6">[7]</ref>, CB11 <ref type="bibr" target="#b13">[14]</ref>, PEA12 <ref type="bibr" target="#b28">[29]</ref> and PEA14 <ref type="bibr" target="#b27">[28]</ref>.</p><p>Within those, we introduce further approximation by replacing exact sums by configurable approximate ones. Such approximate sums allow setting two parameters, i.e., the Number of Approximate Bits (NAB) and the type of adder hardware cell to use (namely, a classic FAC or an IAC). This was the same approach adopted in <ref type="bibr" target="#b2">[3]</ref>. However, while in <ref type="bibr" target="#b2">[3]</ref> the approximation was manually introduced, we propose to automate the replacement process by considering the AST of the algorithm implementation. Moreover, in <ref type="bibr" target="#b2">[3]</ref>, approximation parameters were tuned manually and one at a time, keeping the others at fixed values. Unfortunately, this does not necessarily lead to Pareto-optimal solutions.</p><p>Conversely, we propose to find the optimal value for the approximation parameters through an automatic DSE. We model the DSE as a MOP so that it can be resolved by using a MOEA. In the next subsections, we detail the MOP modeling.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.1">Chromosome encoding.</head><p>To enable the MOEA to resolve the MOP, each approximate configuration is modeled as a chromosome. Chromosome's genes represent the two aforementioned approximation parameters, i.e., the NAB Manuscript submitted to ACM Mario Barbareschi, Salvatore Barone, Alberto Bosio, Jie Han, and Marcello Traiola value and the type of adder hardware cell to use. Thus, if 𝑁 𝑜𝑝 is the number of addition required, each chromosome is composed of 2 • 𝑁 𝑜𝑝 different genes. Chromosomes are provided with an additional gene representing the approximation degree for the high-frequency filter. Thus, each chromosome is composed of 2 • 𝑁 𝑜𝑝 + 1 genes.</p><p>Let us consider an approximate configuration from the population and its corresponding chromosome. Suppose a mutation occurs: depending on the particular gene being altered, a different approximate configuration will be generated.</p><p>The latter will differ from the origin one in (i) the number of approximate bits for a certain sum operation, (ii) the adder cell to be used for a certain sum, or (iii) the number of frequencies discarded by the high-frequency filter. Despite the fact that it involves multiple genes and, hence, multiple characteristics of a configuration, the same reasoning also applies to crossover. The NSGA-II selection operator will determine which of the individuals will survive, on the basis of fitness. Fitness functions driving the DSE are detailed in the following sections.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.2">Error fitness-function.</head><p>For the MOEA to be able to evaluate the error entailed by the approximations, we need to define and error fitness-function to minimize.</p><p>In <ref type="bibr" target="#b1">[2]</ref>, the authors computed, through exhaustive simulations, the error-rate for different numbers of erroneous bits, for IAC adders. Unfortunately, this kind of measurements is not suitable for complex algorithms, such as the DCT, as it does not take into account the error propagation. Therefore, we resort to the whole JPEG compression, performed on a representative data set, to estimate the error. Section 5 discusses the experimental setup in more detail.</p><p>Regarding error metrics, in <ref type="bibr" target="#b2">[3]</ref> the Maximum Difference (MD), the Average Difference (AD), the Mean Square Error (MSE) and the Peak Signal-to-Noise Ratio (PSNR) have been considered. Unfortunately, since all of them consider single pixels, these metrics turn out to be too sensible to noise <ref type="bibr" target="#b31">[32]</ref>. Therefore, they are not particularly suited to evaluate the effectiveness of approximations on image processing algorithms. To overcome this issue, we resort to the Structural SIMilarity (SSIM) <ref type="bibr" target="#b40">[41]</ref> to evaluate differences among images. Its formal definition is reported in Equation <ref type="bibr" target="#b10">(11)</ref>, where 𝑋 and 𝑌 are two sets of data (i.e., the images), 𝜇 𝑋 and 𝜇 𝑌 are their mean values, 𝜎 2 𝑋 and 𝜎 2 𝑌 are their variances, 𝜎 𝑋𝑌 is their co-variance, 𝐿 is the value range in which elements of X and Y can vary, and 𝑘 1 and 𝑘 2 are tuning parameters (typically equal to 0.01 and 0.03, respectively). Values of 𝑆𝑆𝐼𝑀 (𝑋, 𝑌 ) span in the range [-1, 1]. Values of 𝑆𝑆𝐼𝑀 (𝑋, 𝑌 ) ≈ 1 mean that 𝑋 and 𝑌 are structurally similar, while values of 𝑆𝑆𝐼𝑀 (𝑋, 𝑌 ) ≈ 0 mean that there is no similarity between the two images. Values smaller than zero are meaningless <ref type="bibr" target="#b39">[40]</ref>.</p><formula xml:id="formula_10">𝑆𝑆𝐼𝑀 (𝑋, 𝑌 ) = (2𝜇 𝑥 𝜇 𝑦 + 𝑘 1 ) • (2𝜎 𝑥 𝑦 + 𝐿 • 𝑘 2 ) (𝜇 𝑥 + 𝜇 𝑦 + 𝑘 1 ) • (𝜎 2 𝑥 + 𝜎 2 𝑦 + 𝐿 • 𝑘 2 )<label>(11)</label></formula><p>The effectiveness of image quality assessment increases if <ref type="bibr" target="#b10">(11)</ref> is applied locally rather than globally since (i) image statistical features are usually highly spatially non-stationary, (ii) image distortions, which may or may not depend on the local image statistics, may also be space-variant, and (iii) only a local area in the image can be perceived with high resolution by human observers <ref type="bibr" target="#b40">[41]</ref>. Since, in practice, a single overall quality measure of the entire image is required, the Mean SSIM (MSSIM) from Equation ( <ref type="formula" target="#formula_11">12</ref>) is adopted. There, 𝑋 and 𝑌 are the reference and the distorted images, respectively, 𝑥 𝑗 and 𝑦 𝑗 are the image contents at the j-th local window; and 𝑀 is the number of local windows in the image. Typically, the MSSIM index is computed considering 11 × 11 Gaussian weighted circular windows rather than on 8 × 8 square tiles <ref type="bibr" target="#b40">[41]</ref>.</p><formula xml:id="formula_11">𝑀𝑆𝑆𝐼𝑀 (𝑋, 𝑌 ) = 1 𝑀 𝑀 ∑︁ 𝑗=1 𝑆𝑆𝐼𝑀 (𝑥 𝑗 , 𝑦 𝑗 )<label>(12)</label></formula><p>Manuscript submitted to ACM As SSIM, the lower the MSSIM index the lower the similarity between X and Y sets; thus, in order to define a suitable fitness-function for the MOEA to minimize error, we adopt the Structural DISSIMilarity (DSSIM) -𝐷𝑆𝑆𝐼𝑀 (𝑋, 𝑌 ) = 1 -𝑀𝑆𝑆𝐼 𝑀 (𝑋, 𝑌 ). In particular, we compute the 𝐷𝑆𝑆𝐼𝑀 between a standard JPEG compressed image 𝑋 and an image 𝑌 which is obtained by using a certain approximate configuration of a given approximate algorithm. Both 𝑋 and 𝑌 originate from the same non-compressed source image. We perform this operation for several images and use the average 𝐷𝑆𝑆𝐼 𝑀 as final error fitness-function.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>4.2.3</head><p>The reward fitness function. In order to accurately assess resource savings, area, power consumption and maximum clock speed should be measured. Unfortunately, this would require the synthesis and simulation of large hardware designs. Thus, performing a hardware synthesis for each design explored in the DSE is a very time-consuming process.</p><p>Therefore, we resort to a gain estimation to drive the DSE. In particular, we estimate the gain (from now on 'reward') from the number of transistors required to implement an inaccurate cell, using the data from <ref type="bibr" target="#b2">[3]</ref>. This constitutes a good predictor for area and power gains, as experimentally evaluated in Subsection 5.2, for both ASIC and FPGA. For convenience, in Table <ref type="table" target="#tab_4">2</ref> we report, from <ref type="bibr" target="#b2">[3]</ref>, the number of transistors required to implement inaccurate cells of the mentioned IACs. Concerning the operating frequency, in this case the approximation does not entail any change, as further explained in Subsection 5.1. Let us detail the reward function. Let 𝑁 𝑜𝑝 be the number of operations required to compute the single-dimensional DCT and let 𝑛𝑎𝑏 𝑖 be the NAB for the i-th addition. We compute the total number of saved transistors as</p><formula xml:id="formula_12">𝑁 𝑜𝑝 -1 ∑︁ 𝑖=0 𝑛𝑎𝑏 𝑖 • (𝑇 𝐹𝐴 -𝑇 𝐼𝐴𝑖 ) ,<label>(13)</label></formula><p>where 𝑇 𝐹𝐴 and 𝑇 𝐼𝐴𝑖 are the number of transistors required by the FAC and the i-th IAC, respectively. Finally, since the number of additions required by each algorithm varies, we use a normalized measure, as reported in the following equation:</p><formula xml:id="formula_13">𝜌 = 1 2 • 𝑁 𝑏𝑖𝑡𝑠 • 𝑁 𝑜𝑝 • 𝑇 𝐹𝐴 𝑁 𝑜𝑝 -1 ∑︁ 𝑖=0 𝑛𝑎𝑏 𝑖 • (𝑇 𝐹𝐴 -𝑇 𝐼𝐴𝑖 )<label>(14)</label></formula><p>where 𝑁 𝑏𝑖𝑡𝑠 and 𝑁 𝑜𝑝 are the number of bits on which each of the sums is expressed and the number of sums required for the DCT computation, respectively.</p><p>Thanks to the so-defined reward function estimation, we are able to execute the DSE without performing any time-consuming syntheses of the approximate designs explored. This allows us to explore a lot more approximate designs, which would be infeasible otherwise. As a result of the DSE, we obtain the Pareto-optimal approximate designs in terms of accuracy and gains. Hence, we actually synthesize these designs to a particular technology.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">EVALUATION AND EXPERIMENTAL RESULT</head><p>In this section, we firstly describe the hardware implementation of the DCT algorithm. Secondly, we validate the suitability of the chosen reward fitness function. Thirdly, we show our experimental setup and related result. Finally, we perform a comparison with previous work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1">DCT algorithm hardware implementation</head><p>In order to be able -at the end of the DSE -to measure the final gains, we encoded all the above-mentioned DCT algorithms in VHDL. Such implementations guarantee high flexibility: they handle the configuration of both the type of adder cells to use for each addition and the number of bits to approximate (NABs). This allows the synthesis of any solution eventually found in the DSE process. VHDL implementations follow Equation ( <ref type="formula">8</ref>  <ref type="figure">4</ref>; without loss of generality, the schema refers to BC12 <ref type="bibr" target="#b6">[7]</ref>, since the differences between different algorithms are negligible.</p><p>The architecture of the one-dimensional DCT computing block is pipelined, with pipe registers separating the adders needed for the partial-sums computation. The one-dimensional DCT has three clock cycles latency; thus, the whole two-dimensional DCT block is six clock cycles latency. Each of the partial sums is performed using a configurable approximate adder. The scheme of a configurable approximate adder is depicted in Figure <ref type="figure">5</ref>: it is a ripple-carry adder whose least significant bits are computed by IACs, while the most significant ones are computed by classical FACs. The number of approximate sums, i.e. IACs, is configurable by means of the NAB parameter.</p><p>The DCT is computed on 8 × 8 image tiles, each one made of three different color channels. Each element's value spans from 0 to 255. For this reason, each one of the single-dimensional DCT output terms can be expressed, at most, as the sum of eight elements. Therefore, the maximum value for the single-dimensional DCT terms is 8 × 255 = 2040 &lt; 2048 = 2 11 .</p><p>As a consequence, the two-dimensional DCT output terms can have a maximum value of 8 × 2040 = 16320 &lt; 16384 = 2 14 .</p><p>Manuscript submitted to ACM As a result, 14 bits turn out to be sufficient to represent the DCT frequency coefficients. It is also worth highlighting that replacing FACs with IACs leaves the overall structure unchanged. As anticipated in Subsection 4.2.3, this means that the approximation does not affect the latency nor the operating frequency of the device. Therefore, we can conclude that the maximum frequency of operation depends entirely on the target technology. In order to compute the maximum operating frequency for our hardware designs, we performed a preliminary FPGA and ASIC synthesis, varying NABs and IACs, while targeting a Xilinx Zynq-7020 FPGA and a 65nm Fin Field-Effect Transistor (FinFET) technology.</p><p>Preliminary synthesis confirmed our aforementioned observation: approximation does not impact on the operating frequency, which depend only on the target technology. Synthesis tools reported a maximum operating frequency in the 250MHz and 770MHz range for FPGA and ASIC, respectively.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">Reward fitness function evaluation</head><p>As mentioned in Section 4.2.3, the reward fitness-function described in Equation ( <ref type="formula" target="#formula_13">14</ref>) performs an estimation of the approximate designs gains. As the main advantage, such an approach enables an immediate gain estimation, without the need to resort to highly time-consuming circuit syntheses. This paves the way to a much wider exploration, thus to a more thorough DSE.</p><p>Despite such an advantage, it is not trivial to reveal the correlation between transistor reduction and FPGA resource savings. In order to validate Equation ( <ref type="formula" target="#formula_13">14</ref>) as suitable gain estimator for FPGA, we conducted two preliminary experiments: (i) we synthesized several configurations of approximate adder by varying the IAC to be used and NABs in order to appreciate programmable resources overhead; (ii) we further synthesized several approximate configurations of DCT hardware accelerators on both a Xilinx Zynq-7020 FPGA and 65nm FinFET <ref type="bibr" target="#b21">[22]</ref> technologies. In these experiments, we did not measure the accuracy, since we are only interested in resource savings.  As reported in Figure <ref type="figure" target="#fig_4">6</ref>, there is an appreciable overhead reduction, in terms of occupied Look-Up Tables (LUTs), for any adder using IAC as NABs increase. Indeed, Boolean minimization process, performed during synthesis, gets more possibilities to reduce the size of circuits in terms of literals, fan-in and number of LUTs since truth tables of IACs are designed to simplify Boolean expressions <ref type="bibr" target="#b2">[3]</ref>. Furthermore, we used different DCT algorithm hardware accelerators from the literature (BAS08 <ref type="bibr" target="#b8">[9]</ref>, BAS09 <ref type="bibr" target="#b9">[10]</ref>, BAS11 <ref type="bibr" target="#b7">[8]</ref>, BC12 <ref type="bibr" target="#b6">[7]</ref>, CB11 <ref type="bibr" target="#b13">[14]</ref>, PEA12 <ref type="bibr" target="#b28">[29]</ref> and PEA14 <ref type="bibr" target="#b27">[28]</ref>). For each accelerator, we gradually increased the NABs to observe the corresponding hardware resources trend.</p><p>Figures <ref type="figure" target="#fig_6">7</ref> and<ref type="figure">8</ref> report the amount of LUTs and a comparison between reward estimation given by Equation ( <ref type="formula" target="#formula_13">14</ref>) and the actual reward on FPGA, respectively, for each of the considered DCT algorithms. As for the former, an appreciable resource overhead reduction is observable; as for the latter, the actual reward trend is sufficiently close to the predicted one. As one can notice, the predicted reward from Equation ( <ref type="formula" target="#formula_13">14</ref>) has the same slope as actual reward trend. Furthermore, the predicted reward is almost a lower bound for the actual reward, which is significantly relevant in order to achieve a fair DSE.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>PEA14</head><p>Predicted Reward Actual Reward Fig. <ref type="figure">8</ref>. Expected vs. actual reward for DCT algorithms on FPGA, varying the NABs 0.65%] and [0.82%, 2.44%], respectively for ASIC and for FPGA. Such low values of MAPE reveal that Equation ( <ref type="formula" target="#formula_13">14</ref>) is an accurate estimator for the involved reward. Therefore, we concluded that Equation ( <ref type="formula" target="#formula_13">14</ref>) is a suitable estimation to forecast approximation gains.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3">Experimental Setup</head><p>In this Section, we describe the experimental setup that we used in order to evaluate our approach. We considered seven different DCT algorithms and ten types of IACs. As for the DCT algorithms, we considered BAS08 <ref type="bibr" target="#b8">[9]</ref>, BAS09 <ref type="bibr" target="#b9">[10]</ref>, the error. The considered data set <ref type="bibr" target="#b0">[1]</ref>, consists of 44 different images, covering a wide set of common features, including among others a flat gray scale, foreground subject with a messy background, and high contrast images.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.4">Experimental Result</head><p>In this Section, we report experimental results. Firstly, we discuss the DSE results. Secondly, we discuss both silicon die area and power consumption reductions we achieved for designs resulting from DSE, synthesized on both FPGA and ASIC.</p><p>5.4.1 DSE results. Figure <ref type="figure" target="#fig_7">10</ref> reports the Pareto front provided by the MOEA for all the considered algorithms. The reference is, for each algorithm, its non-approximate implementation, depicted as a gold star. It is important to bear in mind that such algorithms are non-exact DCT versions (see <ref type="bibr">Section 4)</ref> and that the JPEG implemented with a non-exact DCT algorithm produces lower-quality images compared to its exact version. For this reason, the reported non-approximate solutions exhibit already some error. Their reward value is zero, since they do not use any IACs, so they do not achieve any approximation gain according to Equation <ref type="formula" target="#formula_13">14</ref>. As envisioned, the graphs highlight increasing expected rewards as the error increases. Intel i7-3770 CPU running at 3.9 GHz. On that hardware platform, the DSE for each algorithm took about 20 hours to complete. Therefore, thanks to the proposed fitness-function (Equation <ref type="formula" target="#formula_13">14</ref>), we only needed few days to complete the exploration for all the algorithms. Indeed, by simply evaluating the proposed fitness-function, we avoided performing a circuit synthesis to compute the reward. In fact, on the same hardware platform, the ASIC synthesis tool requires, on average, of 22 minutes to accomplish a single synthesis, while the FPGA tool needs 30 minutes (17 for synthesis and 13 for technology mapping), on average. Considering that the MOEA configurations had a population of 2000 individuals (i.e., 4000 circuit variants to synthesize at each iteration), performing the first of the seven iterations alone would have required 22 × 4000 = 88000 minutes -i.e., about 60 days -for ASIC technology.</p><p>It is worth noting that exhaustive DSE is undoubtedly unfeasible, even in the case evaluating a single solution requires negligible time, since the size of solution spaces ranges between 2.66 × 10 49 ≈ 2 164 and 1.081 × 10 80 ≈ 2 265 .</p><p>After the DSE, to correctly evaluate the final gains, we synthesized the obtained approximate configurations to both ASIC and FPGA technologies. Over all the algorithms, the total number of obtained non-dominated approximate configurations to synthesize was 164, i.e., ≈ 24 per each algorithm, on average. For the reader convenience, in the following figures we plotted the experimental result data along with the corresponding first-order interpolation to highlight the trend.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.4.2">ASIC Synthesis.</head><p>We synthesized all the obtained non-dominated approximate configurations to ASIC, by using the 65nm FinFET <ref type="bibr" target="#b21">[22]</ref> technology and the Cadence Genus Synthesis Solution tool. We resorted to the synthesis reports for the silicon die area of the approximate configurations. In Figure <ref type="figure" target="#fig_9">11</ref>  consumption, to determine whether the synthesis power report provides a satisfying accuracy, we simulated the whole workload for two algorithms (BAS08 and BAS09) and collected the resulting power consumption. As a result, we realized that the difference between the power consumption resulted from the workload simulation and that estimated by the synthesis tool only differed by 5%, on average. We considered the synthesis report accuracy sufficient, thus in Figure <ref type="figure" target="#fig_10">12</ref> we show the power results from the synthesis report. Kindly note that the scale on the left axis (static power) is different from the scale on the right axis (dynamic power).</p><p>Power savings are achieved due to both the reduced area and the lower switching activity that IACs exhibit w.r.t FACs, as also reported in <ref type="bibr" target="#b2">[3]</ref>.</p><p>It is worth highlighting that the trends shown in Figures <ref type="figure" target="#fig_9">11</ref> and<ref type="figure" target="#fig_10">12</ref> are perfectly in line with the trend predicted by our approach (see Figure <ref type="figure" target="#fig_7">10</ref>). Indeed, higher reward in Figure <ref type="figure" target="#fig_7">10</ref> corresponds to lower area/power in Figures <ref type="figure" target="#fig_9">11</ref> and<ref type="figure" target="#fig_10">12</ref>.</p><p>For the reader convenience, Table <ref type="table" target="#tab_5">3</ref> reports a summary of the minimum and maximum area/power savings we achieved during the experimental campaign while targeting ASIC.  5.4.3 FPGA Synthesis. We synthesized all the obtained non-dominated approximate configurations to a Xilinx Zynq-7020 MPSoC. To get a fair estimation of hardware requirements, we used only its embedded FPGA and inhibited Digital Signal Processors (DSPs) usage.</p><p>Figure <ref type="figure" target="#fig_1">13</ref> reports synthesis result in terms of number of LUTs for all the considered algorithms. As expected, approximate solutions require less resources than the precise implementation, as highlighted by the decreasing general trend.</p><p>In order to correctly evaluate energy savings, we performed a post-synthesis timing simulation, using the Dynamic Power Analysis tool provided by the Xilinx Vivado. In this case, since the synthesis report has a very low confidence level for power consumption estimation, we resorted to a workload simulation for all the solutions the DSE provided, for all the algorithms. In this way, we achieved a high confidence level power estimation.</p><p>Figure <ref type="figure">14</ref> shows static and dynamic power consumption for all the algorithms.</p><p>The static power of the FPGA is largely caused by the fabric of the device and does not directly depend on used resources, while dynamic one is directly linked to the user design, due to the input data pattern and the design internal activity. Being our hardware implementations of approximate DCT characterized by low overhead, i.e., device resources usage falls between 6 and 13%, it is necessary to split power consumption in static and dynamic since the former turned out to be about an order of magnitude greater than the latter one for the target FPGA device.  Also in this case, power savings are achieved thanks to both the reduced total area and the logical structure of IACs: FPGA LUTs implementing IACs have a lower switching activity than those implementing FACs, as reported in <ref type="bibr" target="#b2">[3]</ref>.</p><p>As in the ASIC case, also for FPGA the trends shown in Figures <ref type="figure" target="#fig_1">13</ref> and<ref type="figure">14</ref> are perfectly in line with the trend predicted by our approach (see Figure <ref type="figure" target="#fig_7">10</ref>). Indeed, higher reward in Figure <ref type="figure" target="#fig_7">10</ref> corresponds to lower area in Figures 13.</p><p>As done for ASIC, we report a summary of the minimum and maximum area/power savings we achieved during the experimental campaign while targeting FPGA in Table <ref type="table" target="#tab_6">4</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.4.4">Visual Test.</head><p>Since JPEG belongs to image processing domain, we also provide a visual test: Figure <ref type="figure">15</ref> shows, from left to right, the standard JPEG-compressed image of Lena and Baboon, the same images compressed using the exact Manuscript submitted to ACM   We analyzed and modeled several algorithms from the literature to compute a fast and lightweight version of the DCT.</p><p>For each algorithm, we applied approximation by substituting full-precise adders with several approximate ones from the literature having configurable approximation degree. In this way, we can obtain different approximate configurations of the algorithms, depending on the chosen approximate adders and their approximation degree. Approximate adders introduce inaccuracy in the computation, but also achieve gains in terms of area and power consumption. For each algorithm, we performed a DSE to find the non-dominated approximate designs in terms of trade-off between inaccuracy and gains. We modeled the DSE as a MOP and we used a GA to solve it.</p><p>After the DSE, we synthesized the obtained designs by targeting both FPGA and ASIC. To do so, we implemented all the algorithms as re-configurable hardware designs. Finally, we evaluated the actual gains in terms of area and power consumption. Experimental results clearly showed that, with the proposed approach, it is possible to perform a meaningful DSE to find the best trade-offs between output accuracy and resource gains in a reasonable time. Finally, the comparison performed with previous work clearly showed the advantages of the proposed approach.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 2 .</head><label>2</label><figDesc>Fig. 2. The NSGA-II selection strategy.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. RTL block schema for the BC12-2D hardware implementation</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 4 .Fig. 5 .</head><label>45</label><figDesc>Fig. 4. RTL block schema for the BC12-1D hardware implementation</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 6 .</head><label>6</label><figDesc>Fig. 6. Area requirements of 16 bits adders on FPGA, varying the NABs</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Finally, we measured</head><label></label><figDesc>the Mean Absolute Percentage Error (MAPE) between the reward values predicted by Equation<ref type="bibr" target="#b13">(14)</ref> and the actual ones from the syntheses, for both FPGA and ASIC. The measured MAPE ranges between [0.33%,</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Fig. 7 .</head><label>7</label><figDesc>Fig. 7. Area requirements of DCT algorithms on FPGA, varying the NABs</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Fig. 10 .</head><label>10</label><figDesc>Fig. 10. Pareto-front estimation provided by the MOEA</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head></head><label></label><figDesc>, we report the result. Concerning the power</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Fig. 11 .</head><label>11</label><figDesc>Fig. 11. ASIC silicon die area (𝜇𝑚 2 )</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>Fig. 12 .</head><label>12</label><figDesc>Fig. 12. Power consumption estimation for ASIC (nW)</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head>Fig. 13 .Fig. 14 .</head><label>1314</label><figDesc>Fig. 13. FPGA resource requirements</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head></head><label></label><figDesc>version of the BC12 algorithm<ref type="bibr" target="#b6">[7]</ref> -which exhibit a DSSIM of 0.10, and requires 125473.92 𝜇𝑚 2 and 5691946 𝜇𝑊 when implemented on ASIC, or 5902 LUTs and 107933980 𝜇𝑊 while targeting FPGA -and, finally, the ones compressed with its approximate variant having 0.33 as DSSIM value and 0.22 of reward, which correspond to 8362.64 𝜇𝑚 2 and 352.711𝜇𝑊 saved for ASIC and 1846 LUTs and 94506.744𝜇𝑊 saved for FPGA. As the reader can easily figure out, the quality differences are barely perceivable.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_14"><head>Fig. 16 .</head><label>16</label><figDesc>Fig. 15. Visual test</figDesc><graphic coords="22,220.22,467.66,137.09,136.83" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head></head><label></label><figDesc>𝑞}, i.e., the set of individuals 𝑞 which are dominated by 𝑝. Individuals in the highest rank subset of 𝑅 𝑖 , i.e. 𝐹 1 , have 𝑛 𝑝 = 0. Then, for each 𝑝 : 𝑛 𝑝 = 0, each 𝑞 ∈ 𝑆 𝑝 is visited and 𝑛 𝑞 is decremented by one. If the term 𝑛 𝑞 becomes zero, 𝑞 is placed in the second-highest rank subset of 𝑅 𝑖 , i.e. 𝐹 2 . The procedure is iterated until each subset is fully identified.</figDesc><table /><note><p>formed exploiting crossover and mutation, then sorted on the basis of non-domination, and finally split in subsets {𝐹 1 , • • • , 𝐹 𝑚 }; (ii) individuals from the highest rank subsets 𝐹 1 are preserved in the next iteration; if the amount of surviving individuals from 𝐹 1 is less than N, individuals from lower rank subsets 𝐹 2 • • • 𝐹 𝑙 are also preserved, and they survive for the next iteration; (iii) in order to select exactly 𝑁 individuals from 𝑅 𝑖 , individuals from the last non-rejected non-domination subset 𝐹 𝑙 are sorted on the basis of the crowding distance, and selected using the crowded selection operator (4). Manuscript submitted to ACM In order to perform non-domination sorting, for each individual 𝑝 ∈ 𝑃, the NSGA-II computes (i) the non-domination count 𝑛 𝑝 = |𝐷 𝑝 |, 𝐷 𝑝 = {𝑞 ∈ 𝑃 : 𝑞 ≺ 𝑝}, i.e., the amount of individuals 𝑞 which dominate 𝑝, and (ii) the set 𝑆 𝑝 = {𝑞 ∈ 𝑃 : 𝑝 ≺</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 1 .</head><label>1</label><figDesc>Comparison among DCT algorithms in terms of number of operations</figDesc><table><row><cell>Method</cell><cell cols="4">Additions Multiplications Shifts Total operations</cell></row><row><cell>DFT (definition)</cell><cell>432</cell><cell>192</cell><cell>0</cell><cell>624</cell></row><row><cell>FFT</cell><cell>58</cell><cell>6</cell><cell>0</cell><cell>64</cell></row><row><cell>DCT (definition)</cell><cell>56</cell><cell>64</cell><cell>0</cell><cell>120</cell></row><row><cell>Arai algorithm</cell><cell>29</cell><cell>5</cell><cell>0</cell><cell>34</cell></row><row><cell>BAS08 [9]</cell><cell>18</cell><cell>0</cell><cell>2</cell><cell>20</cell></row><row><cell>BAS09 [10]</cell><cell>18</cell><cell>0</cell><cell>0</cell><cell>18</cell></row><row><cell>BAS11 [8] (a=0)</cell><cell>16</cell><cell>0</cell><cell>0</cell><cell>16</cell></row><row><cell>BAS11 [8] (a=1)</cell><cell>18</cell><cell>0</cell><cell>0</cell><cell>18</cell></row><row><cell>BAS11 [8] (a=2)</cell><cell>18</cell><cell>0</cell><cell>2</cell><cell>20</cell></row><row><cell>CB11 [14]</cell><cell>22</cell><cell>0</cell><cell>0</cell><cell>22</cell></row><row><cell>BC12 [7]</cell><cell>14</cell><cell>0</cell><cell>0</cell><cell>14</cell></row><row><cell>PEA12 [29]</cell><cell>24</cell><cell>0</cell><cell>6</cell><cell>30</cell></row><row><cell>PEA14 [28]</cell><cell>14</cell><cell>0</cell><cell>0</cell><cell>14</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head>Table 1 .</head><label>1</label><figDesc>Splitting 𝐶 allows integers-only matrix multiplications. Indeed, 𝑇 contains only the values {0, ± 1 multiplication of 𝐷 in (6) still requires floating-point operations. In fact, 𝐷 is a diagonal matrix consisting of values in the [-1, 1] range, with { 1 2 , 1</figDesc><table><row><cell>√</cell><cell>, 1 √</cell></row><row><cell>2</cell><cell>8</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head>Table 2 .</head><label>2</label><figDesc>Transistor count from<ref type="bibr" target="#b2">[3]</ref> for inexact-adder cells</figDesc><table><row><cell>Cell</cell><cell cols="11">Full Adder AMA1 AMA2 AMA3 AMA4 AXA1 AXA2 AXA3 InXA1 InXA2 InXA3</cell></row><row><cell>Transistors</cell><cell>58</cell><cell>20</cell><cell>14</cell><cell>11</cell><cell>14</cell><cell>8</cell><cell>6</cell><cell>8</cell><cell>6</cell><cell>8</cell><cell>6</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_5"><head>Table 3 .</head><label>3</label><figDesc>Minimum and maximum savings while targeting ASIC</figDesc><table><row><cell>Algorithm</cell><cell cols="4">Area Savings (%) Power Savings (%) min max min max</cell></row><row><cell>BAS08</cell><cell>9</cell><cell>25</cell><cell>5</cell><cell>20</cell></row><row><cell>BAS09</cell><cell>5</cell><cell>15</cell><cell>5</cell><cell>15</cell></row><row><cell>BAS11</cell><cell>5</cell><cell>12</cell><cell>9</cell><cell>13</cell></row><row><cell>BC12</cell><cell>6</cell><cell>27</cell><cell>6</cell><cell>25</cell></row><row><cell>CB11</cell><cell>5</cell><cell>17</cell><cell>3</cell><cell>10</cell></row><row><cell>PEA12</cell><cell>7</cell><cell>17</cell><cell>5</cell><cell>15</cell></row><row><cell>PEA14</cell><cell>5</cell><cell>23</cell><cell>4</cell><cell>18</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_6"><head>Table 4 .</head><label>4</label><figDesc>Minimum and maximum savings for FPGA synthesized approximate configurations</figDesc><table><row><cell>Algorithm</cell><cell cols="2">LUTs Savings (%)</cell><cell cols="2">Dynamic Power Savings (%)</cell></row><row><cell></cell><cell>min</cell><cell>max</cell><cell>min</cell><cell>max</cell></row><row><cell>BAS08</cell><cell>27.5</cell><cell>48.2</cell><cell>0.1</cell><cell>3.4</cell></row><row><cell>BAS09</cell><cell>32.6</cell><cell>42.5</cell><cell>0.3</cell><cell>1.8</cell></row><row><cell>BAS11</cell><cell>30.6</cell><cell>40.4</cell><cell>0</cell><cell>2.5</cell></row><row><cell>BC12</cell><cell>31.1</cell><cell>50.8</cell><cell>0</cell><cell>5.2</cell></row><row><cell>CB11</cell><cell>30.9</cell><cell>42.7</cell><cell>0.5</cell><cell>2.6</cell></row><row><cell>PEA12</cell><cell>31.3</cell><cell>42.7</cell><cell>0.7</cell><cell>4.4</cell></row><row><cell>PEA14</cell><cell>29.2</cell><cell>44.5</cell><cell>0.1</cell><cell>2.8</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_0"><p>Manuscript submitted to ACM</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_1"><p>, ±1, ±2} and it is orthogonal, i.e. 𝑇 ′ = 𝑇 -1 ⇒ 𝑇𝑇 ′ = 𝑇 ′ 𝑇 = 𝐼 , where 𝐼 is the identity matrix. Note that multiplying by<ref type="bibr" target="#b0">1</ref> 2 or 2 comes down to shifting to the right or to the left, respectively; this, at hardware level, is reduced to simple wiring. This means 𝑇 allows computing the DCT using only additions. Nevertheless, the Manuscript submitted to ACM</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>ACKNOWLEDGMENTS</head><p>Authors would like to thank <rs type="person">Andrea Aletto</rs> for his technical support during experimental campaigns.</p></div>
+			</div>			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>BAS11 <ref type="bibr" target="#b7">[8]</ref>, BC12 <ref type="bibr" target="#b6">[7]</ref>, CB11 <ref type="bibr" target="#b13">[14]</ref>, PEA12 <ref type="bibr" target="#b28">[29]</ref> and PEA14 <ref type="bibr" target="#b27">[28]</ref>. As for the IACs families, we considered AMA <ref type="bibr" target="#b20">[21]</ref>, AXA <ref type="bibr" target="#b41">[42]</ref> and InXA <ref type="bibr" target="#b1">[2]</ref>. The considered DCT algorithms and approximate adders are the same considered by the authors of <ref type="bibr" target="#b2">[3]</ref>.  Figure <ref type="figure">9</ref> sketches our workflow as a whole: to speed up the simulation process, we modeled each of the abovementioned multiplier-less DCT algorithms by using C/C++ implementations straightly derived from equations <ref type="bibr" target="#b7">(8)</ref> and <ref type="bibr" target="#b9">(10)</ref>. Starting from such implementations, the generation of approximate variants is performed using the Clang-Chimera tool, which is a Clang/LLVM-based C/C++ source-to-source mutation engine part of the IDEA framework <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b5">6]</ref>.</p><p>For each DCT algorithm, the Clang-Chimera tool produces mutated sources which allow configuring, for each of the sums, both the NABs and type of adder cell to use (i.e., either FAC or IAC). Furthermore, as mentioned in subsection 4.2, we modeled the DSE as a MOP. The MOP resolution is performed by using the ParadisEO framework, a template-based evolutionary computation library <ref type="bibr" target="#b22">[23]</ref>. In order to perform the hardware synthesis, non-dominated solutions from the DSE are employed to configure the VHDL implementation discussed in Section 5.1. Finally, we measure actual gains.</p><p>To find a suitable MOEA configuration, we conducted several DSE campaigns with different MOEA parameters. As a result, we deduced two things: (i) to obtain a populous frontier and avoid local sub-optimum, we need to increase the initial population size as much as possible; (ii) to avoid long-run exploration around local sub-optimum, mutations have to take place frequently. Hence, we set our MOEA parameters as follows: initial population equals to 2000 individuals, mutation and crossover probabilities set to 0.7 and 0.9, respectively. We did not set any maximum error threshold. Details on the fitness-functions employed for the DSE have been provided in Section 4.2.2 and Section 4.2.3. As mentioned in Section 4.2.2, we resort to the whole JPEG compression, performed on a representative data set, to estimate Manuscript submitted to ACM</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.5">Comparison with previous work</head><p>In this subsection, we compare the results obtained with our approach with those obtained in the work in <ref type="bibr" target="#b2">[3]</ref>. Authors of <ref type="bibr" target="#b2">[3]</ref> estimated gains 𝐺 through the following equations:</p><p>where 𝑉 𝑖 and 𝑉 𝑒 represent the average energy required to perform an addition, by an inexact N-bits adder and by an exact N-bits adder respectively, 𝑃 𝑖 and 𝑃 𝑒 represent the average energy required by a single IAC and by a full-adder cell, respectively. Values of 𝑃 𝑖 and 𝑃 𝑒 used in <ref type="bibr" target="#b2">[3]</ref> were measured by using the 45nm Complementary Metal-Oxide Semiconductor (CMOS) technology and are reported in Table <ref type="table">5</ref>. Such equations have the same goal as Equation ( <ref type="formula">14</ref>), i.e., predicting the gains achieved thanks to the approximation. While Equations ( <ref type="formula">15</ref>) and ( <ref type="formula">16</ref>) take into account the energy consumption parameters of the individual adder cell, Equation ( <ref type="formula">14</ref>) takes into account only the number of transistors.</p><p>In <ref type="bibr" target="#b2">[3]</ref>, authors performed a manual exploration. In particular, firstly they tried different IACs and decided to always resort to InXA2 in their experiments, based on its energy delay product. Then, they tried different NAB values for the InXA2 adder and finally set it to 4 for all the experiments (i.e., for all the DCT algorithms). Besides, they used the PSNR metric to measure the JPEG error entailed by the approximate DCT variants. Conversely, we adopted the DSSIM index as error metric -which is more suitable for image processing -and we let the MOEA decide which inaccurate cell to use and how many bits to approximate (i.e., the NAB parameter) for each of the sums. A minor difference concerns the implementation of the adders: while 32-bit adders were considered in <ref type="bibr" target="#b2">[3]</ref>, we considered 14-bit adders.</p><p>In order to effectively compare the two studies, it is necessary to place them under the same conditions. Thus, we executed the JPEG algorithm on the same four images considered in <ref type="bibr" target="#b2">[3]</ref> -i.e., Lena, Cameraman, Boat and Pepper -by using the approximate DCT variants obtained with our approach and computed the PSNR metric. Hence, we computed energy savings according to Equation ( <ref type="formula">15</ref>), considering 32-bit adders. Figure <ref type="figure">16</ref> shows the obtained results. Concerning both energy consumption and PSNR, our approach allowed a significant improvement for all the considered algorithms compared to the approach adopted in <ref type="bibr" target="#b2">[3]</ref>. In detail, our approach allowed an absolute improvement spanning from 15.69% to 20.15% (average 18.38%) concerning the energy gain and from 5.24 dB to 14.88 dB (average 7.91 dB) concerning the PSNR. Therefore, with our approach we were able to produce higher quality images, i.e., with less error, while consuming less energy. This is the result of the thorough DSE made possible by the proposed approach. Indeed, using a MOEA allows performing a multi-objective optimization more efficiently and automatically. Moreover, not needing to synthesize each approximate variant allows exploring more extensively the design space in a reduced time.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6">CONCLUSION AND FUTURE WORK</head><p>In this manuscript, we presented a novel generic and fully automatic approach for the approximation of DCT hardware accelerators. It enables automatic approximate DCT variant generation and automatic space exploration, by using the GA approach.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">SIPI Image Database</title>
+		<ptr target="https://sipi.usc.edu/database/" />
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Inexact Designs for Approximate Low Power Addition by Cell Replacement</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">F</forename><surname>Haider</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">Nandha</forename><surname>Almurib</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fabrizio</forename><surname>Kumar</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Lombardi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2016 Design, Automation Test in Europe Conference Exhibition</title>
+		<meeting><address><addrLine>DATE</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="page" from="660" to="665" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Approximate DCT Image Compression Using Inexact Computing</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">F</forename><surname>Haider</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thulasiraman Nandha</forename><surname>Almurib</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fabrizio</forename><surname>Kumar</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Lombardi</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TC.2017.2731770</idno>
+		<ptr target="https://doi.org/10.1109/TC.2017.2731770" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Comput</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="149" to="159" />
+			<date type="published" when="2018-02">2018. Feb. 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">A Fast DCT-SQ Scheme for Images</title>
+		<author>
+			<persName><forename type="first">Yukihiro</forename><surname>Arai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Takeshi</forename><surname>Agui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Masayuki</forename><surname>Nakajima</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEICE TRANSACTIONS</title>
+		<imprint>
+			<biblScope unit="volume">71</biblScope>
+			<biblScope unit="page" from="1095" to="1097" />
+			<date type="published" when="1976">1988. 1976. 1990. 1988</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Automatic Design Space Exploration of Approximate Algorithms for Big Data Applications</title>
+		<author>
+			<persName><forename type="first">Mario</forename><surname>Barbareschi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Federico</forename><surname>Iannucci</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Antonino</forename><surname>Mazzeo</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/WAINA.2016.172</idno>
+		<ptr target="https://doi.org/10.1109/WAINA.2016.172" />
+	</analytic>
+	<monogr>
+		<title level="m">2016 30th International Conference on Advanced Information Networking and Applications Workshops (WAINA)</title>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="page" from="40" to="45" />
+		</imprint>
+	</monogr>
+	<note>Manuscript submitted to ACM</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">An Extendible Design Exploration Tool for Supporting Approximate Computing Techniques</title>
+		<author>
+			<persName><forename type="first">Mario</forename><surname>Barbareschi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Federico</forename><surname>Iannucci</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Antonino</forename><surname>Mazzeo</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/DTIS.2016.7483888</idno>
+		<ptr target="https://doi.org/10.1109/DTIS.2016.7483888" />
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Design and Technology of Integrated Systems in Nanoscale Era (DTIS)</title>
+		<imprint>
+			<date type="published" when="2016">2016. 2016</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">DCT-like Transform for Image Compression Requires 14 Additions Only</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">M</forename><surname>Bayer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Cintra</surname></persName>
+		</author>
+		<idno type="DOI">10.1049/el.2012.1148</idno>
+		<ptr target="https://doi.org/10.1049/el.2012.1148arXiv:1702.00817" />
+	</analytic>
+	<monogr>
+		<title level="j">Electronics Letters</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="page">919</biblScope>
+			<date type="published" when="2012">2012. 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">A Low-Complexity Parametric Transform for Image Compression</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">Omair</forename><surname>Saad Bouguezel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">N S</forename><surname>Ahmad</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Swamy</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/ISCAS.2011.5938023</idno>
+		<ptr target="https://doi.org/10.1109/ISCAS.2011.5938023" />
+	</analytic>
+	<monogr>
+		<title level="m">IEEE International Symposium of Circuits and Systems (ISCAS)</title>
+		<imprint>
+			<date type="published" when="2011">2011. 2011</date>
+			<biblScope unit="page" from="2145" to="2148" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Low-Complexity 8$\times$ 8 Transform for Image Compression</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">Omair</forename><surname>Saad Bouguezel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">N S</forename><surname>Ahmad</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Swamy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Electronics Letters</title>
+		<imprint>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="issue">21</biblScope>
+			<biblScope unit="page" from="1249" to="1250" />
+			<date type="published" when="2008">2008. 2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">A Fast 8×8 Transform for Image Compression</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">Omair</forename><surname>Saad Bouguezel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">N S</forename><surname>Ahmad</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Swamy</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/ICM.2009.5418584</idno>
+		<ptr target="https://doi.org/10.1109/ICM.2009.5418584" />
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Microelectronics -ICM</title>
+		<imprint>
+			<date type="published" when="2009">2009. 2009</date>
+			<biblScope unit="page" from="74" to="77" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">AxLS: A Framework for Approximate Logic Synthesis Based on Netlist Transformations</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Castro-Godínez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Barrantes-García</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shafique</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Henkel</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TCSII.2021.3068757</idno>
+		<ptr target="https://doi.org/10.1109/TCSII.2021.3068757" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems II: Express Briefs</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="1" />
+			<date type="published" when="2021">2021. 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Analysis and Characterization of Inherent Application Resilience for Approximate Computing</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Vinay</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Chippa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Srimat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kaushik</forename><surname>Chakradhar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anand</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Raghunathan</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2463209.2488873</idno>
+		<ptr target="https://doi.org/10.1145/2463209.2488873" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 50th Annual Design Automation Conference on -DAC &apos;13</title>
+		<meeting>the 50th Annual Design Automation Conference on -DAC &apos;13<address><addrLine>Austin, Texas</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM Press</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="volume">1</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Scalable Effort Hardware Design</title>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">K</forename><surname>Chippa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Mohapatra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">T</forename><surname>Chakradhar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Raghunathan</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TVLSI.2013.2276759</idno>
+		<ptr target="https://doi.org/10.1109/TVLSI.2013.2276759" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Very Large Scale Integration (VLSI) Systems</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="2004" to="2016" />
+			<date type="published" when="2014-09">2014. Sept. 2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">A DCT Approximation for Image Compression</title>
+		<author>
+			<persName><forename type="first">Renato</forename><forename type="middle">J</forename><surname>Cintra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fábio</forename><forename type="middle">M</forename><surname>Bayer</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/LSP.2011.2163394</idno>
+		<ptr target="https://doi.org/10.1109/LSP.2011.2163394" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Signal Processing Letters</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="579" to="582" />
+			<date type="published" when="2011-10">2011. Oct. 2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">A Closer Look at Drawbacks of Minimizing Weighted Sums of Objectives for Pareto Set Generation in Multicriteria Optimization Problems</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Das</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Dennis</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/BF01197559</idno>
+		<ptr target="https://doi.org/10.1007/BF01197559" />
+	</analytic>
+	<monogr>
+		<title level="j">Structural Optimization</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="63" to="69" />
+			<date type="published" when="1997-08">1997. Aug. 1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">A Fast and Elitist Multiobjective Genetic Algorithm: NSGA-II</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Deb</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pratap</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Agarwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Meyarivan</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/4235.996017</idno>
+		<ptr target="https://doi.org/10.1109/4235.996017" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="182" to="197" />
+			<date type="published" when="2002-04">2002. April 2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Self-Adaptive Simulated Binary Crossover for Real-Parameter Optimization</title>
+		<author>
+			<persName><forename type="first">Kalyanmoy</forename><surname>Deb</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Karthik</forename><surname>Sindhya</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tatsuya</forename><surname>Okabe</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/1276958.1277190</idno>
+		<ptr target="https://doi.org/10.1145/1276958.1277190" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 9th Annual Conference on Genetic and Evolutionary Computation -GECCO &apos;07</title>
+		<meeting>the 9th Annual Conference on Genetic and Evolutionary Computation -GECCO &apos;07<address><addrLine>London, England</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM Press</publisher>
+			<date type="published" when="1187">2007. 1187</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Ant Colony Optimization</title>
+		<author>
+			<persName><forename type="first">Marco</forename><surname>Dorigo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mauro</forename><surname>Birattari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><surname>Stutzle</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/MCI.2006.329691</idno>
+		<ptr target="https://doi.org/10.1109/MCI.2006.329691" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Computational Intelligence Magazine</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="28" to="39" />
+			<date type="published" when="2006-11">2006. Nov. 2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Floating-Point Bit-Width Optimization for Low-Power Signal Processing Applications</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Fang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Rutenbar</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/ICASSP.2002.5745332</idno>
+		<ptr target="https://doi.org/10.1109/ICASSP.2002.5745332" />
+	</analytic>
+	<monogr>
+		<title level="m">IEEE International Conference on Acoustics, Speech, and Signal Processing</title>
+		<imprint>
+			<date type="published" when="2002">2002. 2002</date>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="3208" to="3211" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">On the Multiplicative Complexity of Discrete Cosine Transforms</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Feig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Winograd</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/18.144722</idno>
+		<ptr target="https://doi.org/10.1109/18.144722" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Information Theory</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1387" to="1391" />
+			<date type="published" when="1992-07">1992. July 1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Low-Power Digital Signal Processing Using Approximate Adders</title>
+		<author>
+			<persName><forename type="first">Vaibhav</forename><surname>Gupta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Debabrata</forename><surname>Mohapatra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anand</forename><surname>Raghunathan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kaushik</forename><surname>Roy</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TCAD.2012.2217962</idno>
+		<ptr target="https://doi.org/10.1109/TCAD.2012.2217962" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="124" to="137" />
+			<date type="published" when="2013-01">2013. Jan. 2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+		<author>
+			<persName><forename type="first">Xuejue</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Wen-Chin</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Charles</forename><surname>Kuo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Digh</forename><surname>Hisamoto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jakub</forename><surname>Kedzierski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Erik</forename><surname>Anderson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hideki</forename><surname>Takeuchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yang-Kyu</forename><surname>Choi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kazuya</forename><surname>Asano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vivek</forename><surname>Subramanian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tsu-Jae</forename><surname>King</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeffrey</forename><surname>Bokor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Chenming</forename><surname>Hu</surname></persName>
+		</author>
+		<title level="m">Sub 50-Nm FinFET: PMOS</title>
+		<imprint/>
+	</monogr>
+	<note>Revised 12/9/1999</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">ParadisEO-MOEO: A Framework for Evolutionary Multi-Objective Optimization</title>
+		<author>
+			<persName><forename type="first">Arnaud</forename><surname>Liefooghe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthieu</forename><surname>Basseur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Laetitia</forename><surname>Jourdan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">El-Ghazali</forename><surname>Talbi</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-540-70928-2_31</idno>
+		<ptr target="https://doi.org/10.1007/978-3-540-70928-2_31" />
+	</analytic>
+	<monogr>
+		<title level="m">Evolutionary Multi-Criterion Optimization</title>
+		<editor>
+			<persName><forename type="first">Shigeru</forename><surname>Obayashi</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Kalyanmoy</forename><surname>Deb</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Carlo</forename><surname>Poloni</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Tomoyuki</forename><surname>Hiroyasu</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Tadahiko</forename><surname>Murata</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Berlin Heidelberg, Berlin, Heidelberg</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2007">2007</date>
+			<biblScope unit="volume">4403</biblScope>
+			<biblScope unit="page" from="386" to="400" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Practical Fast 1-D DCT Algorithms with 11 Multiplications</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Loeffler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ligtenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">S</forename><surname>Moschytz</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/ICASSP.1989.266596</idno>
+		<ptr target="https://doi.org/10.1109/ICASSP.1989.266596" />
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Acoustics, Speech, and Signal Processing</title>
+		<imprint>
+			<date type="published" when="1989">1989</date>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="988" to="991" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">A Survey of Techniques for Approximate Computing</title>
+		<author>
+			<persName><forename type="first">Sparsh</forename><surname>Mittal</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2893356</idno>
+		<ptr target="https://doi.org/10.1145/2893356" />
+	</analytic>
+	<monogr>
+		<title level="j">Comput. Surveys</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1" to="33" />
+			<date type="published" when="2016-05">2016. May 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">autoAx: An Automatic Design Space Exploration and Circuit Building Methodology Utilizing Libraries of Approximate Components</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Mrazek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Hanif</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Vasicek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sekanina</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shafique</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">56th ACM/IEEE Design Automation Conference (DAC)</title>
+		<imprint>
+			<date type="published" when="2019">2019. 2019</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">ABACUS: A Technique for Automated Behavioral Synthesis of Approximate Computing Circuits</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Nepal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">I</forename><surname>Bahar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Reda</surname></persName>
+		</author>
+		<idno type="DOI">10.7873/DATE.2014.374</idno>
+		<ptr target="https://doi.org/10.7873/DATE.2014.374" />
+	</analytic>
+	<monogr>
+		<title level="m">2014 Design, Automation Test in Europe Conference Exhibition (DATE)</title>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Improved 8-Point Approximate DCT for Image and Video Compression Requiring Only 14 Additions</title>
+		<author>
+			<persName><forename type="first">Uma</forename><surname>Sadhvi Potluri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Arjuna</forename><surname>Madanayake</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Renato</forename><forename type="middle">J</forename><surname>Cintra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Fábio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sunera</forename><surname>Bayer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Amila</forename><surname>Kulasekera</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Edirisuriya</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TCSI.2013.2295022</idno>
+		<ptr target="https://doi.org/10.1109/TCSI.2013.2295022" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems I: Regular Papers</title>
+		<imprint>
+			<biblScope unit="volume">61</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1727" to="1740" />
+			<date type="published" when="2014-06">2014. June 2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Multiplier-Free DCT Approximations for RF Multi-Beam Digital Aperture-Array Space Imaging and Directional Sensing</title>
+		<author>
+			<persName><forename type="first">U S</forename><surname>Potluri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R J</forename><surname>Madanayake</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F M</forename><surname>Cintra</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Bayer</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Rajapaksha</surname></persName>
+		</author>
+		<idno type="DOI">10.1088/0957-0233/23/11/114003</idno>
+		<ptr target="https://doi.org/10.1088/0957-0233/23/11/114003" />
+	</analytic>
+	<monogr>
+		<title level="j">Measurement Science and Technology</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page">114003</biblScope>
+			<date type="published" when="2012-11">2012. Nov. 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Quality Configurable Reduce-and-Rank for Energy Efficient Approximate Computing</title>
+		<author>
+			<persName><forename type="first">Arnab</forename><surname>Raha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Swagath</forename><surname>Venkataramani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vijay</forename><surname>Raghunathan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anand</forename><surname>Raghunathan</surname></persName>
+		</author>
+		<idno type="DOI">10.7873/DATE.2015.0569</idno>
+		<ptr target="https://doi.org/10.7873/DATE.2015.0569" />
+	</analytic>
+	<monogr>
+		<title level="m">2015 Design, Automation Test in Europe Conference Exhibition (DATE)</title>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="665" to="670" />
+		</imprint>
+	</monogr>
+	<note>Manuscript submitted to ACM</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Approximate Associative Memristive Memory for Energy-Efficient GPUs</title>
+		<author>
+			<persName><forename type="first">Abbas</forename><surname>Rahimi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Amirali</forename><surname>Ghofrani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kwang-Ting</forename><surname>Cheng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Luca</forename><surname>Benini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rajesh</forename><forename type="middle">K</forename><surname>Gupta</surname></persName>
+		</author>
+		<idno type="DOI">10.7873/DATE.2015.0579</idno>
+		<ptr target="https://doi.org/10.7873/DATE.2015.0579" />
+	</analytic>
+	<monogr>
+		<title level="m">2015 Design, Automation Test in Europe Conference Exhibition</title>
+		<meeting><address><addrLine>DATE</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="1497" to="1502" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Comparison of JPEG and SPIHT Image Compression Algorithms Using Objective Quality Measures</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">K</forename><surname>Bhawna Rani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Savina</forename><surname>Bansal</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Bansal</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/MSPCT.2009.5164181</idno>
+		<ptr target="https://doi.org/10.1109/MSPCT.2009.5164181" />
+	</analytic>
+	<monogr>
+		<title level="j">International Multimedia, Signal Processing and Communication Technologies</title>
+		<imprint>
+			<biblScope unit="page" from="90" to="93" />
+			<date type="published" when="2009">2009. 2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">ASLAN: Synthesis of Approximate Sequential Circuits</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ranjan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Raha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Venkataramani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Raghunathan</surname></persName>
+		</author>
+		<idno type="DOI">10.7873/DATE.2014.377</idno>
+		<ptr target="https://doi.org/10.7873/DATE.2014.377" />
+	</analytic>
+	<monogr>
+		<title level="m">2014 Design, Automation Test in Europe Conference Exhibition (DATE)</title>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">SAGE: Self-Tuning Approximation for Graphics Engines</title>
+		<author>
+			<persName><forename type="first">Mehrzad</forename><surname>Samadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Janghaeng</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">Anoushe</forename><surname>Jamshidi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Amir</forename><surname>Hormati</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Scott</forename><surname>Mahlke</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2540708.2540711</idno>
+		<ptr target="https://doi.org/10.1145/2540708.2540711" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 46th Annual IEEE/ACM International Symposium on Microarchitecture -MICRO-46</title>
+		<meeting>the 46th Annual IEEE/ACM International Symposium on Microarchitecture -MICRO-46<address><addrLine>Davis, California</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM Press</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="13" to="24" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Automated Search-Based Functional Approximation for Digital Circuits</title>
+		<author>
+			<persName><forename type="first">Lukas</forename><surname>Sekanina</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zdenek</forename><surname>Vasicek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vojtech</forename><surname>Mrazek</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-319-99322-5_9</idno>
+		<ptr target="https://doi.org/10.1007/978-3-319-99322-5_9" />
+	</analytic>
+	<monogr>
+		<title level="m">Approximate Circuits</title>
+		<editor>
+			<persName><forename type="first">Sherief</forename><surname>Reda</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Muhammad</forename><surname>Shafique</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Cham</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="175" to="203" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Managing Performance vs. Accuracy Trade-Offs with Loop Perforation</title>
+		<author>
+			<persName><forename type="first">Stelios</forename><surname>Sidiroglou-Douskos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sasa</forename><surname>Misailovic</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Henry</forename><surname>Hoffmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Martin</forename><surname>Rinard</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2025113.2025133</idno>
+		<ptr target="https://doi.org/10.1145/2025113.2025133" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 19th ACM SIGSOFT Symposium and the 13th European Conference on Foundations of Software Engineering -SIGSOFT/FSE &apos;11</title>
+		<meeting>the 19th ACM SIGSOFT Symposium and the 13th European Conference on Foundations of Software Engineering -SIGSOFT/FSE &apos;11<address><addrLine>Szeged, Hungary</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM Press</publisher>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="page">124</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Predicting the Impact of Functional Approximation: From Component-to Application-Level</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Traiola</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Savino</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Barbareschi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">D</forename><surname>Carlo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bosio</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/IOLTS.2018.8474072</idno>
+		<ptr target="https://doi.org/10.1109/IOLTS.2018.8474072" />
+	</analytic>
+	<monogr>
+		<title level="m">IEEE 24th International Symposium on On-Line Testing And Robust System Design (IOLTS)</title>
+		<imprint>
+			<date type="published" when="2018">2018. 2018</date>
+			<biblScope unit="page" from="61" to="64" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Probabilistic Estimation of the Application-Level Impact of Precision Scaling in Approximate Computing Applications</title>
+		<author>
+			<persName><forename type="first">Marcello</forename><surname>Traiola</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alessandro</forename><surname>Savino</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Stefano</forename><surname>Di</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carlo</forename></persName>
+		</author>
+		<idno type="DOI">10.1016/j.microrel.2019.06.002</idno>
+		<ptr target="https://doi.org/10.1016/j.microrel.2019.06.002" />
+	</analytic>
+	<monogr>
+		<title level="j">Microelectronics Reliability</title>
+		<imprint>
+			<biblScope unit="volume">102</biblScope>
+			<biblScope unit="page">113309</biblScope>
+			<date type="published" when="2019-11">2019. Nov. 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Approximate Computing and the Quest for Computing Efficiency</title>
+		<author>
+			<persName><forename type="first">Swagath</forename><surname>Venkataramani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Srimat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kaushik</forename><surname>Chakradhar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anand</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Raghunathan</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/2744769.2744904</idno>
+		<ptr target="https://doi.org/10.1145/2744769.2744904" />
+	</analytic>
+	<monogr>
+		<title level="m">52nd ACM/EDAC/IEEE Design Automation Conference (DAC)</title>
+		<imprint>
+			<date type="published" when="2015">2015. 2015</date>
+			<biblScope unit="volume">1</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">DLAU: A Scalable Deep Learning Accelerator Unit on FPGA</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Gong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Xie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhou</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TCAD.2016.2587683</idno>
+		<ptr target="https://doi.org/10.1109/TCAD.2016.2587683" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="513" to="517" />
+			<date type="published" when="2017-03">2017. March 2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Image Quality Assessment: From Error Visibility to Structural Similarity</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">C</forename><surname>Bovik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">R</forename><surname>Sheikh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">P</forename><surname>Simoncelli</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TIP.2003.819861</idno>
+		<ptr target="https://doi.org/10.1109/TIP.2003.819861" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="600" to="612" />
+			<date type="published" when="2004-04">2004. April 2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Approximate XOR/XNOR-Based Adders for Inexact Computing</title>
+		<author>
+			<persName><forename type="first">Zhixi</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ajaypat</forename><surname>Jain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jinghang</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jie</forename><surname>Han</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fabrizio</forename><surname>Lombardi</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/NANO.2013.6720793</idno>
+		<ptr target="https://doi.org/10.1109/NANO.2013.6720793" />
+	</analytic>
+	<monogr>
+		<title level="m">2013 13th IEEE International Conference on Nanotechnology (IEEE-NANO</title>
+		<imprint>
+			<date type="published" when="2013">2013. 2013</date>
+			<biblScope unit="page" from="690" to="693" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Multi-Level Approximate Accelerator Synthesis Under Voltage Island Constraints</title>
+		<author>
+			<persName><forename type="first">Georgios</forename><surname>Zervakis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sotirios</forename><surname>Xydis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dimitrios</forename><surname>Soudris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kiamal</forename><surname>Pekmestzi</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TCSII.2018.2869025</idno>
+		<ptr target="https://doi.org/10.1109/TCSII.2018.2869025" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems II: Express Briefs</title>
+		<imprint>
+			<biblScope unit="volume">66</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="607" to="611" />
+			<date type="published" when="2019-04">2019. April 2019</date>
+		</imprint>
+	</monogr>
+	<note>Manuscript submitted to ACM</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

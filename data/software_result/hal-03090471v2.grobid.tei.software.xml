@@ -1,0 +1,1358 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Optimizing full 3D SPARKLING trajectories for high-resolution T 2 *-weighted Magnetic Resonance Imaging</title>
+				<funder ref="#_b78D6BY">
+					<orgName type="full">unknown</orgName>
+				</funder>
+				<funder ref="#_B2yAKGF">
+					<orgName type="full">Cross-Disciplinary Program</orgName>
+				</funder>
+				<funder ref="#_Y4vnxvE">
+					<orgName type="full">ANR-</orgName>
+				</funder>
+				<funder>
+					<orgName type="full">French Alternative Energies and Atomic Energy Commission</orgName>
+				</funder>
+				<funder ref="#_HkKb5De">
+					<orgName type="full">Agence Nationale de la Recherche</orgName>
+					<orgName type="abbreviated">ANR</orgName>
+				</funder>
+				<funder>
+					<orgName type="full">GENCI</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher />
+				<availability status="unknown"><licence /></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Chaithya</forename><surname>Gr</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Pierre</forename><surname>Weiss</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Guillaume</forename><surname>Daval-Fr Érot, Aur Élien Massire</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Alexandre</forename><surname>Vignaud</surname></persName>
+						</author>
+						<author role="corresp">
+							<persName><roleName>Senior Member, IEEE</roleName><forename type="first">Philippe</forename><surname>Ciuciu</surname></persName>
+							<email>philippe.ciuciu@cea.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">G</forename><surname>Daval-Fr</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Aur</forename><surname>Élien Massire</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Ciuciu are with CEA</orgName>
+								<orgName type="department" key="dep2">Inria</orgName>
+								<orgName type="department" key="dep3">Parietal</orgName>
+								<orgName type="institution">NeuroSpin</orgName>
+								<address>
+									<postCode>F-91191</postCode>
+									<settlement>Gif-sur-Yvette, cedex</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">Universit é Paris-Saclay</orgName>
+								<address>
+									<postCode>F-91120</postCode>
+									<settlement>Palaiseau</settlement>
+									<country>France, whereas A. Vignaud</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="laboratory">IMT (UMR 5219) and ITAV (</orgName>
+								<orgName type="institution">CNRS</orgName>
+								<address>
+									<addrLine>USR 3505)</addrLine>
+									<postCode>F-31106</postCode>
+									<settlement>Toulouse</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="institution">Siemens Healthcare SAS</orgName>
+								<address>
+									<postCode>F-93527</postCode>
+									<settlement>Saint-Denis, cedex</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Optimizing full 3D SPARKLING trajectories for high-resolution T 2 *-weighted Magnetic Resonance Imaging</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date />
+						</imprint>
+					</monogr>
+					<idno type="MD5">9740C3D3C74E2097E98C7D0619802C3B</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid" />
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>3D MRI</term>
+					<term>optimization</term>
+					<term>non-Cartesian</term>
+					<term>compressed sensing</term>
+					<term>acceleration</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div><p>The Spreading Projection Algorithm for Rapid K-space samplING, or SPARKLING, is an optimizationdriven method that has been recently introduced for accelerated 2D T 2 *-w MRI using compressed sensing. It has then been extended to address 3D imaging using either stacks of 2D sampling patterns or a local 3D strategy that optimizes a single sampling trajectory at a time. 2D SPARKLING actually performs variable density sampling (VDS) along a prescribed target density while maximizing sampling efficiency and meeting the gradient-based hardware constraints. However, 3D SPARKLING has remained limited in terms of acceleration factors along the third dimension if one wants to preserve a peaky point spread function (PSF) and thus good image quality. In this paper, in order to achieve higher acceleration factors in 3D imaging while preserving image quality, we propose a new efficient algorithm that performs optimization on full 3D SPARKLING. The proposed implementation based on fast multipole methods (FMM) allows us to design sampling patterns with up to 10 7 k-space samples, thus opening the door to 3D VDS. We compare multi-CPU and GPU implementations and demonstrate that the latter is optimal for 3D imaging in the highresolution acquisition regime (600µm isotropic). Finally, we show that this novel optimization for full 3D SPARKLING outperforms stacking strategies or 3D twisted projection imaging through retrospective and prospective studies on NIST phantom and in vivo brain scans at 3 Tesla. Overall the proposed method allows for 2.5-3.75x shorter scan times compared to GRAPPA-4 parallel imaging acquisition at 3 Tesla without compromising image quality.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div><head>I. INTRODUCTION</head><p>The quest for efficient sampling strategies has been a major challenge in MRI since its invention. The theory of compressed sensing (CS) <ref type="bibr" target="#b0">[1]</ref> boosted this quest by providing significant theoretical insights. It was proved and observed empirically that for under-sampled acquisitions and approximately sparse signals in an orthogonal basis, an efficient implementation relies on trajectories with a variable density in k-space: the lower frequencies (center of k-space) have to be sampled more densely than the higher at the borders of k-space <ref type="bibr" target="#b1">[2]</ref>- <ref type="bibr" target="#b4">[5]</ref>. Non-Cartesian k-space trajectories (e.g. spiral, radial, rosette, etc.) <ref type="bibr" target="#b5">[6]</ref>- <ref type="bibr" target="#b10">[11]</ref> have been proposed for accelerated and robust-to-motion 2D imaging, prior to the existence of theoretical foundations. While being compliant with scanner hardware constraints on the gradients, these trajectories do not sample the k-space according to a well controlled target sampling density. For instance, in spiral imaging, fulfilling these constraints transforms an initially prescribed density into another one <ref type="bibr">[12, p. 97]</ref>. Recently, the SPARKLING algorithm <ref type="bibr" target="#b12">[13]</ref>- <ref type="bibr" target="#b14">[15]</ref> has been shown to automatically generate optimized non-Cartesian sampling patterns compatible with MR hardware constraints on maximum gradient amplitude and slew rate. SPARKLING optimally samples the kspace (see <ref type="bibr" target="#b1">[2]</ref>, <ref type="bibr" target="#b2">[3]</ref>) with a controlled distribution of samples (e.g., variable density) and a locally uniform kspace coverage.</p><p>However, for the sake of signal-to-noise ratio (SNR), 3 dimensional (3D) imaging is preferred to reach isotropic high-resolution imaging (e.g. 600µm isotropic). In this regard, multiple approaches have been utilized to efficiently down-sample 3D k-space. Some of these involve a combination of a readout in the z-direction with a 2D under-sampled mask based on Poisson disk sampling <ref type="bibr" target="#b15">[16]</ref>. Additional attempts on full 3D readouts were proposed like 3D radial trajectory <ref type="bibr" target="#b16">[17]</ref>, 3D cones <ref type="bibr" target="#b17">[18]</ref>, twisted projections <ref type="bibr" target="#b18">[19]</ref> and hybrid radialcones <ref type="bibr" target="#b19">[20]</ref>. However, these trajectories were primarily based on parameterizing a k-space sampling curve, and the final sampling pattern was not optimized with respect to the reconstruction quality. Some recent studies explored how to optimize the sampling pattern <ref type="bibr" target="#b20">[21]</ref>- <ref type="bibr" target="#b22">[23]</ref>, but did not include a clear sampling criterion in order to maximize the image reconstruction quality.</p><p>Other methodologies in the literature involved stacking a 2D under-sampled trajectory like stack of stars <ref type="bibr" target="#b23">[24]</ref>, <ref type="bibr" target="#b24">[25]</ref>, stack of spirals <ref type="bibr" target="#b17">[18]</ref>, <ref type="bibr" target="#b25">[26]</ref> and stack of 2D SPARKLING <ref type="bibr" target="#b26">[27]</ref>. Uniform (i.e. cylindrical) stacking is usually implemented even though a spherical strategy, with a number of shots varying as a function of the latitude plan, was shown to be beneficial on image quality for SPARKLING trajectories <ref type="bibr" target="#b26">[27]</ref>. Further in <ref type="bibr" target="#b26">[27]</ref>, a local 3D SPARKLING approach was proposed by designing a single trajectory within a cone obtained from a parcellation of the 3D spherical k-space. Then all the cones covering a given elevation plane were filled up using the replication of the resulting trajectory. However, this method did not ensure a locally uniform sampling pattern at the boundaries of cones as the problem was solved locally.</p><p>The recent rise of machine and deep learning has impacted the literature on MRI sampling <ref type="bibr" target="#b27">[28]</ref>- <ref type="bibr" target="#b34">[35]</ref>. These approaches rely on supervised learning techniques, which means that they need a ground truth corresponding to fully sampled data (like fastMRI dataset <ref type="bibr" target="#b35">[36]</ref>), to learn an optimal under-sampling pattern, whether it is Cartesian or not. In <ref type="bibr" target="#b27">[28]</ref>, <ref type="bibr" target="#b28">[29]</ref>, the authors explore the use of experimental design to choose the best subset of prescribed trajectories. Although there are substantial differences between these two methodologies (deterministic vs Bayesian, offline vs online design, etc.) they share a similar theoretical background with ours in that sparsity is the key underlying hypothesis. In particular, <ref type="bibr" target="#b27">[28]</ref>, <ref type="bibr" target="#b28">[29]</ref> use the Cramér-Rao bound for sparse signals <ref type="bibr" target="#b36">[37]</ref> as a tailored optimality criteria. However, such methods are computationally demanding as they try to solve a nonconvex integer programming problem. Hence, in a given time budget this limits the exploration and the potential number of prescribed trajectories.</p><p>In <ref type="bibr" target="#b29">[30]</ref>, <ref type="bibr" target="#b30">[31]</ref>, the authors proposed to step away from the theoretical consideration in CS and adopted a purely data-driven approach. The authors proposed to find an optimal subset of Cartesian sampling lines by using a greedy algorithm aimed at maximizing the SNR. This algorithm can automatically adapt to different reconstruction algorithms and optimality criteria, but its use is limited to Cartesian imaging. More recent approaches made some advance on learning gridded sampling patterns <ref type="bibr" target="#b31">[32]</ref>, <ref type="bibr" target="#b32">[33]</ref>. Additionally, to the best of our knowledge, the only works that have learned a non-Cartesian trajectory under hardware constraints are PILOT <ref type="bibr" target="#b33">[34]</ref> BJORK <ref type="bibr" target="#b37">[38]</ref> and 3D FLAT <ref type="bibr" target="#b34">[35]</ref> for 2D and 3D imaging, respectively. These works seem very promising despite significant theoretical and numerical challenges with a combinatorial number of local minimizers <ref type="bibr" target="#b38">[39]</ref>. In contrast, our work is based on clear theoretical considerations with provable convergence <ref type="bibr" target="#b39">[40]</ref> in short computing times <ref type="bibr" target="#b40">[41]</ref>. Of interest, let us notice that the sampling patterns generated by these methods resemble the SPARKLING ones very much <ref type="bibr" target="#b33">[34]</ref>, <ref type="bibr" target="#b37">[38]</ref>, suggesting that the main ideas behind are now reaching a mature and reliable state. Nonetheless, it is worth noting that none of these approaches has been prospectively validated on real 3D acquisitions. For all these reasons, these works won't be discussed any further in this paper.</p><p>In this paper, for the first time, we solve the SPARKLING optimization fully in 3 dimensions. First, in Sec II, we remind the optimization problem to be solved for generating SPARKLING trajectories. Then we focus on major computational bottlenecks that prevented us from scaling the original solution to 3D and provide detail on our main contributions. One key ingredient in SPARKLING is the setting of the right target sampling density. The latter may vary as a function of the resolution, the acceleration factor and the object to be scanned. For that purpose, we parameterize radially decaying densities by two parameters (cut-off, decay) and find the optimal density through grid search over pairs of parameters. This study can be conducted on retrospective analysis and then the sought optimal density can be used further in prospective acquisitions. In Sec. IV, we present the experimental data sets on which the numerical studies are performed later on for validation and comparison purposes. In this regard, we carry out retrospective and prospective analysis on NIST phantom data collected at 3 Tesla (3T). Then we perform prospective in vivo brain imaging acquisitions on a healthy adult volunteer still at 3T and compare the proposed full 3D SPARKLING with the existing spherical stack of 2D SPARKLING. We do not include any comparison with 3D radial sampling scheme or stack of spirals as this was already done in <ref type="bibr" target="#b26">[27]</ref>. However, we do compare our trajectories with improved 3D non-Cartesian trajectories, namely twisted projection imaging (TPI) <ref type="bibr" target="#b18">[19]</ref>. TPI trajectories have better k-space coverage as compared to full 3D radial sampling scheme as these trajectories shift to pappus spirals after a fraction of readout.</p></div>
+<div><head>II. THEORY</head><p>In this section we briefly introduce the SPARKLING algorithm as described in <ref type="bibr" target="#b14">[15]</ref>. We detail the particular steps involved in the optimization process. We point to some computational bottlenecks in each of these steps. Later, we describe the methods used to overcome these computational challenges, thereby allowing us to scale the problem to 3 dimensions. Most of the theoretical aspects are directly based on earlier works in <ref type="bibr" target="#b12">[13]</ref>, <ref type="bibr" target="#b13">[14]</ref>, <ref type="bibr" target="#b41">[42]</ref>, which can be consulted for the problem description and derivations of (4).</p></div>
+<div><head>A. 3D K-space sampling</head><p>A 3D k-space sampling pattern K is usually composed of several shots or curves, say</p><formula xml:id="formula_0">N c , K = (k i ) N c i=1 , where each 3D shot k i (t) = (k i,x (t), k i,y (t), k i,z (t)), is controlled by magnetic field gradients G i (t) = (G i,x (t), G i,y (t), G i,z (t)) as follows: k i (t) = γ 2π t 0 G i (τ)dτ ,<label>(1)</label></formula><p>with γ the gyro-magnetic ratio (γ = 42.57MHz/T for proton imaging). In practice, throughout the readout duration T obs , we sample each shot k i (t) by a time period ∆t, the gradient raster time as the scanner gradient hardware can play gradients at this pace. In the rest of the section, we refer to location of the k-space samples K as the samples on gradient raster points. Then the number of gradient time steps is given by N s = T obs ∆t and the full 3D sampling pattern K finally consists of p = N c × N s points. Additionally, we limit ourselves to a long readout (T obs 20ms) for T * 2 -weighted imaging, as this allows the trajectory to be longer and maximally explore the k-space.</p><p>The k-space domain for a 3D MR volume of size</p><formula xml:id="formula_1">N x × N y × N z over a field of view FOV x × FOV y × FOV z , is defined within [-K x max , K x max ] × [-K y max , K y max ] × [-K z max , K z max ],</formula><p>with K max = N 2FOV and = x, y, z. For the sake of simplicity, in what follows we assume the same spatial resolution along the three dimensions so K x max = K y max = K z max = K max even though we meet different matrix and FOV dimensions (N z = (N x = N y ) and FOV z = (FOV x = FOV y )). Hereafter, the 3D k-space domain will be normalized to Ω = [-1, 1] 3 .</p><p>Hardware constraints on the maximum gradient amplitude (G max ) and slew rate (S max ) induce limitations in trajectory speed and acceleration. These limits can be expressed as box constraints on the amplitude of the discrete derivatives of the k-space trajectory (k i [n]) N s -<ref type="foot" target="#foot_0">1</ref> n=0 . These hardware constraints can be applied on a per dimension basis, giving rotation variant (RV) constraints, whose resulting trajectories cannot be run on the scanner if the FOV is rotated. Due to this limitation, in this work, we focus on rotation invariant speed and acceleration constraints which can be expressed as follows: 1</p><formula xml:id="formula_2">Q N c α,β =    ∀i = 1, . . . , N c , k i ∈ R 3×N s , Ak i = v, k i ∞ ≤ 1, ki 2,∞ ≤ α, ki 2,∞ ≤ β,    (2) where ki [n] = k i [n] -k i [n -1] ∆t ki [n] = k i [n + 1] -2k i [n] + k i [n -1] ∆t 2 c 2,∞ = sup 0≤n≤N s -1 |c x [n]| 2 + |c y [n]| 2 + |c z [n]| 2 1/2 ,</formula><p>for all c ∈ Ω N s and (α, β) are obtained by normalizing hardware and Nyquist constraints to the sampling domain Ω (from <ref type="bibr" target="#b14">[15]</ref>):</p><formula xml:id="formula_3">α = 1 K max min γG max 2π , 1 FOV • δt (3a) β = γS max 2πK max (3b)</formula><p>The purpose of A and v are to model linear constraints on the trajectory, like the TE point constraint, which ensures that each trajectory passes through center of kspace at echo time (TE). More sophisticated linear constraints (e.g. gradient moment nulling) can be modeled too, see details in <ref type="bibr" target="#b41">[42]</ref>. The normalized constraint αδt ≤ 1 FOV×K max ensures that the distance between k-space locations associated with two consecutive measurements, sampled by the analog-to-digital converter (ADC) at the dwell time period δt (see Subsection IV-A for the relationship between ∆t and δt), is lower than the Nyquist rate, which is essential to discard some undesired filtering effects <ref type="bibr" target="#b42">[43]</ref>.</p></div>
+<div><head>B. 3D SPARKLING formulation</head><p>Let ρ : Ω → R denote a target sampling density, with ρ(x) ≥ 0 for all x and ρ(x) dx = 1. Following previous works <ref type="bibr" target="#b14">[15]</ref>, <ref type="bibr" target="#b43">[44]</ref>- <ref type="bibr" target="#b45">[46]</ref>, we obtain K ∈ Ω p by solving:</p><formula xml:id="formula_4">K = arg min K∈Q Nc α,β F p (K) = F a p (K) -F r p (K)<label>(4)</label></formula><p>with Q N c α,β being the constraint set for the N c shots. Here we remind that p refers to the total number of k-space samples (or particles), so p = N c × N s .</p><p>The term F a p (K) corresponds to an attraction term which ensures that the final distribution of the k-space sampling points follows the target density ρ and F r p (K) is the repulsion term to ensure that the sampling is locally uniform and that we don't have any local clusters. These terms are defined as:</p><formula xml:id="formula_5">F a p (K) = 1 p p ∑ i=1 Ω H(x -K[i])ρ(x) dx (5a) F r p (K) = 1 2p 2 ∑ 1≤i,j≤p H(K[i] -K[j])<label>(5b)</label></formula><p>where K[i] ∈ Ω describe the locations of k-space samples in a shot-based lexicographical order [k 1 , . . . k N c ]. The function H is a well chosen kernel, typically H(x) = x 2 . Note that alternative choices such as H(x) = log(x) have been also investigated in <ref type="bibr" target="#b46">[47]</ref>. The minimization problem (4) can be attacked by various nonlinear programming procedures. In this work, we propose to use a projected gradient descent as described below:</p><formula xml:id="formula_6">K (t+1) = Π Q Nc α,β K (t) -η (t) ∇F p (K (t) )<label>(6)</label></formula><p>The computational bottlenecks in (4) involve the calculation of ∇F p (K) = ∇F a p (K) -∇F r p (K), and the projection of each shot onto the constraint set Q N c α,β .</p></div>
+<div><head>C. Gradient Descent Step</head><p>In what follows, we provide details about the calculation of F p and ∇F p .</p><p>1) Evaluating F a p and its gradient: To calculate the attraction term and its gradient, we can re-write (5a) as:</p><formula xml:id="formula_7">F a p (K) = 1 p p ∑ i=1 (H ρ)(K[i])<label>(7)</label></formula><p>where denotes the convolution-product in the continuous setting. The main difficulty is thus to quickly evaluate (H ρ)(x) (optional, if we want to compute the cost function) and its derivatives. To this end, we discretize the target sampling distribution ρ as follows:</p><formula xml:id="formula_8">ρ[i, j, k] = ρ(i/N, j/N, k/N)<label>(8)</label></formula><p>where i, j, k ∈ [-N, N], and N ∈ N describes the number of discretization points. We typically take N twice as large as max(N x , N y , N z ) to define the density at a better resolution than the image size. Similarly we compute a discrete version of the filter H as:</p><formula xml:id="formula_9">H[i, j, k] = H(i/N, j/N, k/N)<label>(9)</label></formula><p>Letting * denote the discrete convolution-product, we use the following approximation</p><formula xml:id="formula_10">(H ρ)(K[i]) I(H * ρ)(K[i]), (<label>10</label></formula><formula xml:id="formula_11">)</formula><p>where I : R (2N+1) 3 → C 0 (Ω) denotes a tri-linear interpolant function. Hence, the computation of F a p (K) requires to precompute H * ρ on a discrete grid with fast Fourier transforms once for all. The computation of the sum in ( <ref type="formula" target="#formula_7">7</ref>) then has a complexity O(p), which is linear in the number of particles.</p><p>Similarly, the computation of ∇F a p (K) involves the calculation of the partial derivatives ∂ i,l F a p (K) where 1 ≤ i ≤ p is the index of a particle and 1 ≤ ≤ 3 the index of a dimension. According to <ref type="bibr" target="#b6">(7)</ref>, the partial derivative is:</p><formula xml:id="formula_12">∂ i, F a p (K) = 1 p (∂ H ρ)(K[i])<label>(11)</label></formula><p>Thus, letting ∇H ∈ R (2N+1) 3 ×3 denote a discretization of ∇H, we can precompute the discrete vector field ∇H * ρ on a Cartesian grid using fast Fourier transforms and then use a tri-linear interpolant to evaluate it off the grid.</p><p>2) Evaluating F r and its gradient: The problem addressed here is to compute F r p and ∇F r p (K). For purposes of simplification, we introduce <ref type="bibr" target="#b1">2</ref> and consider H to be a radial function depending on r ij only. Letting K denote the spatial components of K = [K 1 , K 2 , K 3 ], we get:</p><formula xml:id="formula_13">r ij = K[i] -K[j]</formula><formula xml:id="formula_14">F r p (K) = ∑ 1≤i,j≤p H(r ij ) (12a) ∂ i, F r p (K) = 1 p 2 ∑ j =i K [i] -K [j] r ij ∂ H(r ij ) (12b)</formula><p>The evaluation of all the components of the gradient require O(p<ref type="foot" target="#foot_2">2</ref> ) computations, where p can reach 10 8 for high resolution imaging. An efficient implementation is therefore critical. In this work, we explored two possibilities.</p><p>a) Brute force calculation using <software>PyKeops</software>: The computation of (12a) and (12b) can be highly parallelized, which is amenable to efficient GPU implementations. Carrying out such computations on array centric frameworks like <software>PyTorch</software> and <software>Tensorflow</software> would require the use of huge p × p-dimensional matrices. This would result in a large memory footprint, much larger than what is typically available on current modern GPUs. For the sake of efficient memory usage, we used <software>PyKeops</software>, a library that permits low cost calculations of large kernel operations <ref type="bibr" target="#b47">[48]</ref>. <software>PyKeops</software> carries out the naive and direct computations using online map reduce schemes from CUDA routines for summations. Due to this, the whole matrices are not stored in the GPU memory, but rather just the final results.</p><p>b) Fast Multipole Methods: Sums of the form (12a) and (12b) appear in many n-body problems and can be computed efficiently using Fast Multipole Methods (FMM) <ref type="bibr" target="#b48">[49]</ref>. Given a set of positions K[i], a kernel Ψ : R d × R d → R and a set of weights w ∈ R p , the FMM method allows for the efficient computation of vector v of the form</p><formula xml:id="formula_15">v[i] = p ∑ j=1 Ψ(K[i], K[j])w[j] .</formula><p>The FMM utilizes a multipole expansion of the kernel Ψ, which allows for a hierarchical grouping of closely spaced k-space points and treat them as a single source. This results in a massive acceleration of the above computation with a complexity O(p log p/ ), where is a user-prescribed precision. For our implementations, we used the Parallel Black box FMM <ref type="bibr" target="#b49">[50]</ref>, <ref type="bibr" target="#b50">[51]</ref> in 3D (PBBFMM3D 2 ), which can be run with any arbitrary kernel Ψ.</p><p>To evaluate the cost function F r p , we only need to set</p><formula xml:id="formula_16">Ψ(K[i], K[j]) = H(r ij ) and w[j] = 1, ∀j.</formula><p>To evaluate the gradient (∂ i, F r p (K)) i , we set w[j] = 1 and  computations with the FMM would be obtained with a GPU implementation. Unfortunately, we did not find any robust and efficient GPU implementation of FMM.</p><formula xml:id="formula_17">Ψ(K[i], K[j]) = K [i] -K [j] r ij ∂ H(r ij</formula><p>3) Choice of step size: In our implementation, we use a combination of two step sizes. In the first 20 iterations, we use a fixed step size: η (t) = η. As analyzed in <ref type="bibr" target="#b13">[14]</ref>, this strategy provides a convergence guarantee to a local minimizer of the cost function given that:</p><p>• The kernel H has a L-Lipschitz continuous gradient.</p><p>• The step size is inversely proportional to the Lipschitz constant. These conditions are satisfied with a regularized norm of the form H(r) = √ r 2 + 2 . We can then set η (t) proportional to (i.e. 6.25 -2 ). The value of can be chosen as a fraction of the minimal distance between two points at a stationary point.</p><p>A constant step size is too conservative and a faster convergence can be obtained using a second-order dynamics close to the minimizer. This justifies switching to a Barzilai-Borwein <ref type="bibr" target="#b51">[52]</ref> after first few iterations. Few theoretical guarantees are available for this technique, but it significantly accelerates the convergence empirically.</p></div>
+<div><head>D. Projection step</head><p>The projection step in <ref type="bibr" target="#b5">(6)</ref> for a general single k-space shot onto a given constraint set parameterized by (α, β) has been explored in <ref type="bibr" target="#b13">[14]</ref>, <ref type="bibr" target="#b41">[42]</ref>. For our implementations, we needed to extend the single shot iterative procedure called Algorithm 1 in <ref type="bibr" target="#b41">[42]</ref> to projecting N c shots (see Sec. S1 for details). Note that the actual projection of a k-space shot is independent of other shots, and thus the computation can be done in parallel. Hence, we have implemented this step both on multi-CPU and GPU. To efficiently utilize a GPU, we used the <software>CuPy</software> module <ref type="bibr" target="#b52">[53]</ref>.</p><p>The computation times with different implementations for varying N c and N s are shown in Fig. <ref type="figure" target="#fig_1">2</ref>. We found that the computation times vary linearly with N s and are drastically reduced for the GPU implementation compared to the CPU versions (single and multicore). At lower N s , we found that m-CPU and GPU implementations are latency bound, giving anomalously higher computation times. However, the speedup obtained for larger N s offsets these anomalous cases, giving an overall efficient implementation.</p></div>
+<div><head>E. Multi-resolution strategy for faster convergence</head><p>In order to allow for the algorithm to reach faster convergence and lead to a better approximation of the target density, a multi-resolution approach as described in <ref type="bibr" target="#b53">[54]</ref> was implemented. Under this methodology, the optimization of the sampling pattern was carried out on down-sampled curves. The interpolated solution was later used as a warm restart for the up-sampled problem. Our implementations involved dyadic scaling and upscaling through simple linear interpolation of k-space shots. Let the linear interpolator be of the form L 2d : Ω d → Ω 2d . We define the parameter N d as the number of decimation steps in the algorithm. Note that the constraint space needs to be equally scaled with the problem, which results in scaling the α and β constraints mentioned in (3) to:</p><formula xml:id="formula_18">α = γG max 2 N d 2πK max , β = γS max 2 N d 2πK max (<label>13</label></formula><formula xml:id="formula_19">)</formula><p>As we move through the dyadic decimation steps and up-sample the curve, these constraints are halved.</p></div>
+<div><head>F. Overall algorithm</head><p>Algorithm 1 on the following page summarizes how to concretely compute the SPARKLING solution along with multi-resolution steps described in Sec. II-E. Further, for the sake of completeness, we have briefly summarized the multi-shot projection step</p><formula xml:id="formula_20">Π Q Nc α,β</formula><p>in Sec. S1 of Supplementary Material. However, for more details on the iterative procedure involved in the projection step, the reader can refer to <ref type="bibr" target="#b41">[42]</ref>.</p></div>
+<div><head>III. NUMERICAL EXPERIMENTS AND DATA ACQUISITION</head><p>The sampling patterns were obtained by carrying out projected gradient descent as described above. With the above described improvements, the SPARKLING Generation time was just 10 minutes for 2D and nearly 6-9 hours for 3D on NVIDIA V100 with 5120 CUDA cores and 16GB DDR5X memory.</p></div>
+<div><head>A. SPARKLING: a Python package</head><p>In the ethos of reproducible research and to move forward into better optimized patterns for MRI acquisition, all the implementations as described above is  </p><formula xml:id="formula_21">Initializations: K (0) ∈ Ω Nc ×Ns 2 N d = Ω p α ← γG max 2 N d 2πK max , β ← γS max 2 N d 2πK max while N d &gt; 0 do p ← N c ×N s 2 N d for t = 1 . . . n git do K (t-1/2) = K (t-1) -η (t) ∇F p (K (t-1) ) K (t) = Π Q Nc α,β K (t-1/2) ,</formula><formula xml:id="formula_22">s ← L Ns 2 N d -1 k (n git ) s end K (0) ← k (0) 1 , . . . , k (0) N c // Scale constraints α ← α 2 , β ← β 2 N d ← N d -1 end</formula><p>present in a Python <software>package</software> at the private repository 3 . All codes in the <software>package</software> scale to 2 and 3 dimensions directly, and most codes are agnostic and can be run on CPU or GPU with some change in run parameters. All the scanner constants and trajectory specification can be provided through a configuration file, and most of the codes are modular in nature. Interested researchers are requested to contact the authors for obtaining access to this <software>package</software> 4 .</p></div>
+<div><head>B. Acquisition parameters</head><p>With a goal of 600µm isotropic resolution in 3D MRI acquisitions, we planned to obtain a volume of (N x × N y × N z ) = (384 × 384 × 208) size in order to cover the whole brain. For the sake of consistency, we used the same matrix size and resolution for our acquisitions on the NIST phantom 5 . The trajectories were generated for a clinical 3T MR system (Magnetom Prisma FIT , Siemens Healthcare, Erlangen, Germany) with maximum gradient strength G max = 40mT/m and peak slew rate S max = 180T/m/s. As the readout time was set to T obs = 20.48ms and the gradient raster time is ∆t = 10µs, the number of samples per shot k i , was N s = 2048. The number of shots N c was varied based on the study described  hereafter. For our in vivo studies, the k-space data was acquired on a Siemens 64 channel Head/Neck coil, while using 44 channels around head during acquisition. The echo time (TE) was 20ms and repetition time (TR) was 37ms. The flip angle was set to 15°, and the slice excitation was slab selective. We also obtained a reference volume collected using a 4-fold accelerated Cartesian acquisition (acquisition time or TA=15min 13sec) based on GRAPPA parallel imaging technique <ref type="bibr" target="#b54">[55]</ref> with the same TE, TR and T obs . The projected gradient descent was carried out with multi-resolution decimation steps N d = 6 for faster convergence. The algorithm was run for n git = 100 outer gradient descent iterations with n pit = 100 steps in the inner projection loop.</p><p>1) Choice of target sampling density: The target sampling density was chosen to be radially isotropic, which decays as an inverse polynomial with a constant plateau in the center of k-space. The density was defined with C, the cutoff frequency in k-space center having a constant density and D, the rate of decay for higher frequencies. Mathematically, we define the target density π C,D (x) :</p><formula xml:id="formula_23">Ω d → R + as follows: π C,D (x) =    κ |x| &lt; C κ C |x| D |x| &gt; C (<label>14</label></formula><formula xml:id="formula_24">)</formula><p>where κ is a constant obtained through normalization as κ =</p><formula xml:id="formula_25">1-D 2C(C D-1 -D)</formula><p>. The resulting density is radially symmetric and is of the form described in Fig. <ref type="figure" target="#fig_5">3</ref>. The choice of a radial density was motivated by the wish to provide rotation invariant reconstruction results. Notice that the recent learning based approaches <ref type="bibr" target="#b31">[32]</ref>, <ref type="bibr" target="#b32">[33]</ref> result in non-symmetric densities. This is probably due to the fact that brains or knees databases such as fastMRI <ref type="bibr" target="#b35">[36]</ref> used for training have boundaries which are dominantly vertical or horizontal. However, the fine details may be in arbitrary orientations.</p><p>The correct choice of density was carried out by grid searching for the optimal parameters Ĉ and D on the target sampling distribution as defined in <ref type="bibr" target="#b13">(14)</ref>. We performed retrospective reconstruction on complex Cartesian reference (with phase to account for off-resonance artifacts by phase accrue) in vivo brain data. For this study, the number of shots was set to N c = 4096. We found that Ĉ = 25% and D = 2 provided the highest and most robust SSIM score of 0.97. The SSIMs for varying values of C and D are presented in Supplementary Material (see Tab. S1). 2) Initialization and Perturbation: As the problem being solved is non-convex, different choices of initialization would lead to different solutions. In <ref type="bibr" target="#b14">[15]</ref> for 2D imaging we observed that radial initialization performed the best for exploring the k-space. Hence, here for 3D imaging we stick to 3D radial initialization too. For the sake of simplicity, and also to ensure radially symmetric initialization, we set up the trajectories with √ N c shots in x-y plane and then rotate each shot √ N c times along an inplane axis orthogonal to the shot. More generic solution can be obtained by solving for the minimum electrostatic potential energy configuration of N c electrons over the surface of a unit sphere, however this approach was not pursued in this work.</p></div>
+<div><head>Initialization</head><p>As the optimization problem in ( <ref type="formula" target="#formula_4">4</ref>) is non-convex, the resulting solution is heavily dependent on the initialization. For best reconstructed image results, we would want each k-space shot to maximally explore the kspace. The 3D radial initialization is too structured with each k-space shot traveling only from end to end of k-space. To enable a broader k-space exploration and obtain a better minimizer of the original problem, we added a perturbation to each initial shot. To achieve this, we perturbed each trajectory sample point in kspace by adding zero mean uniform random noise along each dimension. Particularly, we compared the resulting optimized trajectory obtained after a perturbation as a random motion of each k-space point with maximum amplitude set at 0.1 and 0.75 (we remind that the sampling domain is normalized to Ω = [-1, 1] 3 ). The optimized trajectory patterns are presented in Fig. <ref type="figure" target="#fig_6">4</ref>. We clearly show that with more perturbation, the k-space trajectory tends to explore a broader part of k-space giving a better coverage overall. We also notice quantitatively that with more perturbation the value of the cost function converges to a lower local minimum. Further, we would like to emphasize that these trajectories are particularly useful in cases of high receiver sampling rates, as they would then sample more of the k-space per shot and would overall prevent the presence of any hole in the sampling pattern.</p></div>
+<div><head>IV. RESULTS</head></div>
+<div><head>A. From trajectories to actual k-space data</head><p>The k-space data Y = (y i ) N c i=1 is sampled by the ADC at the dwell time period δt. In practice, the dwell-time δt is a fraction of the raster time ∆t and was set to δt = 2µs. This means that y i ∈ C m with m = N s ∆t δt the number of measurements per shot. Overall, we collect M = N c m k-space data points in Y. Consequently, during the image reconstruction process, we obtain the k-space locations of Y by linearly interpolating the optimized trajectory K originally sampled at ∆t, to the δt period.</p></div>
+<div><head>B. Assessment of point spread function</head><p>We present the full 3D SPARKLING, obtained with N c = 4096 in Fig. <ref type="figure" target="#fig_7">5</ref>. We visualize the trajectory along the mid-planes of 3 orthogonal orientations and provide an approximate sampling mask in these planes. Further, to understand why these trajectories are expected to yield good image reconstructions, we measure the 3D point spread function (PSF). Each point spread function was computed by taking a density compensated NUFFT adjoint of k-space measurements set to 1 (y i</p><formula xml:id="formula_26">[n] = 1, ∀i = 1, • • • , N c , ∀n = 0, • • • , m -1)</formula><p>as described in <ref type="bibr" target="#b55">[56]</ref>. In Fig. <ref type="figure" target="#fig_8">6</ref> we compare the PSFs with respect to earlier generated spherical stack of 2D SPARKLING (SpSOS) trajectories. Particularly, we emphasize the reduction in sidelobes along the z axis. Further, for the purpose of numerical comparison, we computed the full width at half maximum (FWHM), peak-to-sidelobe level (PSL) and peak-to-noise level (PNL) in Tab. I. The FWHM is calculated as the width of the peak of PSF at half of the maximum value and the PSL and PNL are calculated in dB as presented in Fig. <ref type="figure" target="#fig_8">6(d)</ref>.</p><p>As shown in Fig. <ref type="figure" target="#fig_8">6</ref>, we see that the full 3D pattern provides us with much higher PSL (4.15 dB more) and PNL (1.81 dB more), two quantitative indices that  demonstrate the full 3D SPARKLING methodology outperforms the spherically stacked version. In contrast, we observe that the FWHM is nearly the same for both methods, even though the FWHM along the x axis is slightly lower for the full 3D pattern. However, this minor difference in FWHMs and the slight anisotropy in FWHM can be explained by the fact that the full 3D initialization was severely perturbed (0.75) as described in Sec. III-B.2.</p></div>
+<div><head>C. Non-Cartesian MR image reconstruction</head><p>All MR images that rely on non-Cartesian k-space data in this paper were reconstructed using a self-calibrated synthesis-based CS reconstruction algorithm <ref type="bibr" target="#b56">[57]</ref>- <ref type="bibr" target="#b59">[60]</ref> whose details are provided in Supplementary Material (cf. Sec. S3). For the sake of reproducibility, the code for MR image reconstruction is made open source in <software>pysap-mri</software> <ref type="foot" target="#foot_3">6</ref> , a plugin of the <software>PySAP</software> software <ref type="bibr" target="#b60">[61]</ref>. Of course, future work will combine deep-learning based image reconstruction with full 3D SPARKLING.</p><p>In this work, we did not carry out off-resonance artifact corrections using <ref type="bibr" target="#b61">[62]</ref>, as it is beyond the scope of this manuscript. However, note that this does not require any supplementary scan for obtaining ∆B0 map as the latter can be directly estimated from phase information using <ref type="bibr" target="#b62">[63]</ref>. For the sake of completeness, we show in Supplementary Material the performance of our trajectory with off-resonance corrections for AF=10 in Fig. <ref type="figure" target="#fig_17">S6</ref>.</p></div>
+<div><head>D. Phantom</head><p>1) Retrospective studies: We proceed by carrying out a retrospective study to assess the quality of reconstructed images. We varied the acceleration factor (AF =</p><formula xml:id="formula_27">N y ×N z N c</formula><p>for 3D MR imaging, i.e. computed with respect to fully sampled data) from 10 (TA=4min 58sec) to 40 (TA=1min 16sec) compared to a fully sampled scenario or equivalently from 2.5 to 10 compared to the reference Cartesian p4 (i.e. AF=4) under-sampled acquisition, reconstructed using the GRAPPA algorithm <ref type="bibr" target="#b54">[55]</ref>. Our motivation was to understand the degradation in image quality while decreasing the number of collected spokes. Further, a study was also carried out with the TPI <ref type="bibr" target="#b18">[19]</ref>, as a comparison with a non-Cartesian reference from the literature. The results are presented in Tab. II. They clearly show that the optimized full 3D SPARKLING strategy is robust to high acceleration factors in terms of image quality as reflected by the higher SSIM scores. In contrast, the performances of the SpSOS approach start to get worse already for AF=20. Finally, the SSIM score for TPI for AF=10 is already significantly lower than that of SpSOS. The reconstructed images are presented in the supplementary material (see Fig. <ref type="figure" target="#fig_6">S4</ref>). In order to understand how the effective spatial resolution compares to the target resolution (here 0.6mm isotropic), we performed prospective acquisitions on the NIST phantom for full 3D SPARKLING and SpSOS trajectories with varying AF (AF=15 and 20 for both, AF=40 for full 3D). The results are presented in Fig. <ref type="figure" target="#fig_9">7</ref>. Particularly, we show a slice that includes the resolution insets present on the NIST phantom (coffin of plate 4). The latter can be used to estimate the effective resolution. This slice consists of 5 resolution insets, each having 2x16 circles. The diameters of these circles vary linearly from 0.8mm down to 0.4mm. The inter-circle space (measured between the centers of the circles) also reduces linearly from 1.6mm down to 0.8mm in steps of 0.2mm.  We see that the intensity profile of our reconstructed MR images does not follow that of Cartesian reference as we did not carry out coil sensitivity normalization in our reconstructions. This can be performed using the rapid pre-scan coil sensitivity measurements done in a few seconds. This point will be addressed in future works. Overall, we observe that full 3D SPARKLING trajectories provide less noisy images compared to SpSOS ones. Further, it is worth noting that at AF=10 and 20, we can distinguish in between the resolution insets down to 0.7mm, with an increasing noise level over the image for a higher acceleration factor. However, we observe some resolution loss over the images based on SPARKLING trajectories (more pronounced for SpSOS), where we see some blurring for circles of diameter 0.6mm separated by 1.2mm (taken from the center of circle). This helps us understand the expected degradation in image resolution. Therefore, the effective image resolution is estimated to be 0.6-0.7mm isotropic at AF=10 and 20 and is evolving toward 0.7-0.8mm at AF=40 for full 3D SPARKLING.</p></div>
+<div><head>E. In vivo</head><p>We collected in vivo data with full 3D SPARKLING and SpSOS trajectories for brain imaging on a healthy volunteer (male, 25 y.o.). This study was approved by a national ethics committee (CPP 100048). The volunteer signed a written informed consent form.</p><p>1) Retrospective studies: To understand how the trajectories perform for in vivo brain data, we repeat the earlier retrospective study on Cartesian p4 scans acquired on the volunteer. The results of the scans are presented in Fig. <ref type="figure" target="#fig_10">8</ref>. We see that full 3D SPARKLING trajectories outperforms the SpSOS trajectories both visually and quantitatively in SSIM metrics with maximum SSIM of 0.964 (AF=10). Moreover we show that both SPARKLING trajectories outperform TPI in Fig. <ref type="figure" target="#fig_7">S5</ref> in Supplementary Material. Additionally, the SSIM metrics follow the similar trend as seen for phantom data, with the SSIMs for SpSOS dropping off more rapidly from 0.93 (AF=10) to 0.759 (AF=20). In contrast, the full 3D SPARKLING trajectories tend to preserve the structures (SSIM scores above 0.9 at AF=15 and 20) and show some blurring artifacts only at AF=40 where SSIM drops to 0.792. Particularly, it is interesting to note that full 3D SPARKLING at AF=40 outperforms SpSOS at AF=20.</p><p>2) Prospective acquisition: Finally, we collected prospectively accelerated in vivo data at 3T on the same individual using the same SPARKLING trajectories. We present the reconstructed images for various accelerations factors in Fig. <ref type="figure" target="#fig_11">9</ref>. They clearly show superiority of the full 3D SPARKLING pattern compared to SpSOS. Image quality is well preserved for AF=10 and 15 and slightly noisy at AF=20 in full 3D strategy (Fig. <ref type="figure" target="#fig_11">9</ref>, top row), while it tends to get noisy at AF=15 and severely impaired at AF=20 for SpSOS strategy (Fig. <ref type="figure" target="#fig_11">9</ref>, bottom row). Moreover, we observed that the quality of AF=15, AF=20 and AF=40 in full 3D strategy is comparable to AF=10, AF=15 and AF=20 in SpSOS pattern respectively, allowing for an additional 2x shorter scan time. Further, we found that the full 3D SPARKLING pattern at AF=15 is comparable to GRAPPA Cartesian p4.</p><p>It is important to note that the volunteer slightly moved between some scans, hence prospective image comparisons can only be carried out qualitatively. To better understand reconstruction quality, we present zoomed in visualizations for prospective result at AF=10 in Fig. <ref type="figure" target="#fig_12">10</ref>. Further, for the sake of comparison between retrospective simulations and actual prospective scans, we also show the retrospective results for AF=10 with full 3D trajectory. We find that full 3D strategy retains better structures of the brain in the MR image than SpSOS, which is clearly visible in the cerebellum in the sagittal view.</p><p>The comparison with retrospective image allows us to directly identify some degradation and loss of small details in prospective images. Potential explanations for this effect are the T 2 * blurring and off-resonance artifacts, which drastically drop the effective SNR obtained (see Fig. <ref type="figure" target="#fig_13">S2</ref> in supplementary material). This confirms that in vivo acquisitions are more challenging.</p></div>
+<div><head>V. DISCUSSIONS</head><p>One key aspect of optimized full 3D SPARKLING trajectories is that it results in a sampling pattern that enforces variable density sampling in all the 3 dimensions. We hypothesized that this allows us to efficiently undersample the k-space acquisitions, thus making it possible to push the acceleration factor to a larger value than what was achieved earlier, while still maintaining a good image quality. The current work actually demonstrates that at fixed acceleration factor, full 3D SPARKLING significantly outperforms the stacking strategy <ref type="bibr" target="#b26">[27]</ref> in terms of image quality. Alternatively, we show that this gain can be translated into shorter scan time by a factor of one third (AF=15 for full 3D vs AF=10 for SpSOS) for a given image quality.</p><p>Further, the full 3D trajectory is constrained to pass through the center of k-space for each shot at echo time. This ensures that we obtain the lower frequency image content repeatedly, hence we can potentially use these trajectories for motion correction. Also, as the center of k-space is visited repeatedly at different time intervals in scan, this allows for easy adaptability of this trajectory for dynamic imaging like functional MRI. Such a trajectory can also be used for correcting certain artifacts causing off-resonance effects, which are due to static and dynamic B0 inhomogeneities (heart beat, breathing). A preliminary solution has been proposed for static B0 inhomogeneities estimation and correction in <ref type="bibr" target="#b62">[63]</ref>.</p><p>As the developed trajectories exploit the scanner hardware constraints nearly to the maximum, it is worth paying attention to the eddy current effects on the trajectory. To this end, we measured the trajectory with the help of a Skope field camera <ref type="bibr" target="#b63">[64]</ref> and observed in Sec. S2-C that the error between the prescribed and actual trajectories is minimal (cf. Fig. <ref type="figure" target="#fig_14">S3</ref>).</p><p>While the current SPARKLING algorithm is generic and can be applied to any imaging contrast a priori, we choose T * 2 -w imaging as it allows us to keep longer T obs hence enabling a full exploration of 3D k-space. In order to understand the effects of T * 2 blurring and offresonance, we simulated the PSF under these scenarios in Sec. S2-B. Additionally, as we interfaced a GRE pulse sequence (FLASH in the Siemens taxonomy) with the SPARKLING outputs, the adaptation of this algorithm to other contrasts (e.g. T 2 ) would potentially need the development of a turbo spin echo (TSE) sequence that is able to play arbitrary gradients. These developments are left for future work.</p><p>One limitation of SPARKLING is that the original optimization problem ( <ref type="formula" target="#formula_4">4</ref>) is non-convex and the fact we used a locally convergent optimization algorithm to compute  a minimizer. Hence the final solution heavily depends on its initialization. To overcome this issue, we introduced some perturbation (uniform random noise in the kspace locations) and illustrated in Fig. <ref type="figure" target="#fig_6">4</ref> that a larger perturbation results in a much better k-space coverage, allowing us to reach a better minimizer to the original optimization problem. However, there is no theoretical guarantee this approach provides a systematic better solution as the underlying optimization process remains rather disconnected from MR image reconstruction and the maximization of image quality.</p><p>In the same vein, another limitation of the resulting reconstructed MR images is that they heavily depend on the target sampling distribution. We obtained our results by parameterizing this distribution, thereby optimizing for its parameters using a grid search on in vivo brain data. However, these optimal parameters are not generalizable for different contrast and organs. Further, such parametrization can prevent us from using more complex target sampling densities. To overcome this limitation, ongoing work intends to couple SPARKLING with the learning of the target sampling density from the magnitude spectrum of human brain MR images <ref type="bibr" target="#b64">[65]</ref>. Akin to this work, we could also jointly optimize for the acquisition (sampling pattern) and reconstruction schemes (regularization parameters) under MR hard- ware and imaging contrast constraints, either in a bilevel optimization <ref type="bibr" target="#b32">[33]</ref> or using deep learning approaches <ref type="bibr" target="#b33">[34]</ref>, <ref type="bibr" target="#b34">[35]</ref>, <ref type="bibr" target="#b65">[66]</ref>. These extensions would help us to take some factors, like the anatomy and the imaging contrast, into account in the design of trajectories with perfectly matched target sampling densities for these cases.</p><note type="other">Cartesian Retrospective Prospective Reference Full 3D Full 3D SpSOS</note><p>In this work, we did not account for the coil geometry in the design of trajectories. This would require addressing more complex target sampling densities as input which are a function of the coil sensitivities. Optimizing over richer and more adaptive families of densities is left for our future prospects. However, we note that the proposed algorithm can automatically adapt to any future progress made in this direction.</p></div>
+<div><head>VI. CONCLUSION</head><p>In this paper, we proposed an optimization for full 3D SPARKLING k-space trajectories for accelerated high resolution 3D T 2 *-weighted imaging and demonstrated its superiority over the previously proposed stacking strategies on phantom and in vivo human brain data at 3T. We discussed the major computational bottlenecks that prevented us earlier from proceeding towards these full 3D trajectories. We then derived some implementations (GPU and multi-CPU) that helped us massively accelerate the original algorithm. Our results showed that a 600µm isotropic scan on human brain is achievable in 1min 16sec, whereas 3m 22sec is required to reach image quality comparable to GRAPPA-4 parallel imaging. Overall, this is a significant step forward for CS acquisitions in MRI. Future work will be devoted to the extension to 4D imaging, namely for fMRI. the trajectory with the SKOPE dynamic field camera <ref type="bibr" target="#b63">[64]</ref>. We used a 7T scanner for this study due to compatibility issues at 3T. However, we do not expect drastic changes in our results as the gradient system is the same for both scanners. We present the theoretical (i.e. prescribed by the 3D SPARKLING algorithm) and measured trajectories for 3 random k-space shots in Fig. <ref type="figure" target="#fig_14">S3</ref>. Further, we quantitatively measured the error as to be 0.0016 ± 0.0012 (with the k-space normalized to Ω ∈ [-1, 1] D ). </p></div>
+<div><head>S3. MR IMAGE RECONSTRUCTION</head><p>The MR image reconstruction of 3D multi-channel data acquired from phased array receiver coils was carried out using a self-calibrating compressed sensing (CS) reconstruction algorithm <ref type="bibr" target="#b59">[60]</ref> in the synthesis formulation by solving for the wavelet coefficients z in (S1):</p><formula xml:id="formula_28">z = argmin z∈C Nx ×Ny ×Nz 1 2 L ∑ =1 F Ω S Ψ * z -y 2 2 + λ z 1 (S1)</formula><p>where the number of channels was L = 44 and N x = N y = 384 and N z = 208. Here the data fidelity is enforced with SENSE operators (F Ω S ) L =1 , where F Ω is the NUFFT operator and S is sensitivity map for th channel estimated by density compensated adjoint of the 20 percent of acquired k-space center (see details in <ref type="bibr" target="#b59">[60]</ref>). λ &gt; 0 is the regularization parameter for promoting sparsity using 1 -norm regularization in the wavelet domain Ψ. For our reconstructions, we used Symlet 8 wavelet with 4 scales of decomposition for Ψ. The regularization parameter λ was grid searched between (10 -10 , 10 0 ) while maximizing for the reconstruction quality using SSIM score in retrospective reconstruction. As the sampling operator was 3D non-Cartesian, the reconstruction problem was severely ill-posed with the forward operator F Ω S l Ψ * having a large condition number, thereby impacting the convergence speed. In order to accelerate convergence, we preconditioned the k-space using density compensation. This translates to adding a preconditioner D in the classical proximal gradient descent algorithm (here we used FISTA):</p><formula xml:id="formula_29">z (k+1) = soft λτ z (k) -τ L ∑ =1 ΨS * F H Ω D F Ω S Ψ * z (k) -y</formula><p>where soft λτ is the soft threshold operator and τ is the step size. The density compensators D were obtained by 10 iterations of method described in <ref type="bibr" target="#b56">[57]</ref>. The final MR image is given by x = Ψ * z ∈ C N x ×N y ×N z as Ψ is a basis. As the raw data was large (for AF=20, p = 8, 388, 608 k-space points), we needed to utilize memory efficient methods to carry out the SENSE operation. For this, we implemented python wrappers for <software>gpuNUFFT</software> <ref type="bibr" target="#b57">[58]</ref> which implements the NUFFT operator in CUDA and utilizes <software>cuBLAS</software> and <software>cuFFT</software> libraries to be efficient in speed and memory. The implementation of the reconstruction was completely done using pysap-mri<ref type="foot" target="#foot_4">1</ref>  <ref type="bibr" target="#b58">[59]</ref>, the plugin of <software>PySAP</software> <ref type="bibr" target="#b60">[61]</ref> dedicated to MR image reconstruction. Despite being a 3D reconstruction problem, the computation time was just 15-30 minutes on a machine with the same hardware specifications as described earlier in Sec. III. TABLE S1: SSIM scores for retrospective reconstructions on in vivo brain MR images as a function of varying density parameterizations (cutoff C and decay D are varied across columns and rows, respectively). While (C=15, D=1) looks like an optimal setting, we used (C=25, D=2) as this configuration is more robust to small changes in density. Best scores appear in bold font.   We see that most of the MR signal in these areas is recovered in (c) using the approach proposed in <ref type="bibr" target="#b62">[63]</ref>.</p></div><figure xml:id="fig_0"><head>Fig. 1 :</head><label>1</label><figDesc>Fig. 1: Computation times for the repulsion term F r as a function of the number of particles p.</figDesc><graphic coords="5,334.69,54.07,205.63,156.09" type="bitmap" /></figure>
+<figure xml:id="fig_1"><head>Fig. 2 :</head><label>2</label><figDesc>Fig. 2: Computation times for varying N s and N c for the projection step Π Q Nc α,β</figDesc><graphic coords="6,48.97,157.81,123.38,96.34" type="bitmap" /></figure>
+<figure xml:id="fig_2"><head>Algorithm 1 :</head><label>1</label><figDesc>Multi-resolution implementation of SPARKLING Inputs: ρ, G max , S max , N c , N s , N d , n git , n pit Output: K, the k-space sampling pattern</figDesc></figure>
+<figure xml:id="fig_3"><head /><label /><figDesc>n pit end // Warm restart next decimation step with linear interpolation // The dimension of k is doubled at each decimation step for s = 1 . . . N c do k (0)</figDesc></figure>
+<figure xml:id="fig_4"><head>3</head><label /><figDesc>https://gitlab.com/cea-cosmic/CSMRI_sparkling 4 It cannot be made open source given patent application.5 https://www.nist.gov/programs-projects/ quantitative-mri</figDesc></figure>
+<figure xml:id="fig_5"><head>Fig. 3 :</head><label>3</label><figDesc>Fig. 3: Parameterization of variable density with cutoff C and decay D.</figDesc><graphic coords="7,334.69,54.07,205.62,109.07" type="bitmap" /></figure>
+<figure xml:id="fig_6"><head>Fig. 4 :</head><label>4</label><figDesc>Fig. 4: Effect of adding a perturbation (P) to the initial k-space trajectory in Ω = [-1, 1] 3 as zero mean uniform random noise at each trajectory sample. Trajectories are generated with maximum displacement of k-space point to (a) 0.25 and (b) 0.75 in the initialization. The left side of the figure is the initialization to SPARKLING algorithm and the right is the output of the algorithm. We also present the values of the cost obtained with (4).</figDesc><graphic coords="8,105.30,229.34,217.41,164.08" type="bitmap" /></figure>
+<figure xml:id="fig_7"><head>Fig. 5 :</head><label>5</label><figDesc>Fig. 5: Full 3D SPARKLING Trajectory for N c = 4096, N s = 2048 and the point spread function (PSF) along the mid z-plane computed from the sampling mask (measurements sampled at the dwell-time period δt).</figDesc><graphic coords="9,48.96,54.07,257.03,239.02" type="bitmap" /></figure>
+<figure xml:id="fig_8"><head>Fig. 6 :</head><label>6</label><figDesc>Fig. 6: Comparison of PSFs between full 3D SPARKLING and SpSOS sampling masks (measurements collected at the dwell-time period over the corresponding trajectories). The logarithm of 3D PSFs (in voxel units) are viewed along the mid-slices in (a) axial plane (x, y, 0), (b) sagittal plane (x, 0, z) and (c) coronal plane (0, y, z). (d) The PSFs are compared in logarithmic scale along the z direction.</figDesc><graphic coords="10,72.29,276.96,203.06,145.04" type="bitmap" /></figure>
+<figure xml:id="fig_9"><head>Fig. 7 :</head><label>7</label><figDesc>Fig. 7: Comparison of resolution insets for Full 3D SPARKLING (b) and SpSOS (c) with prospective phantom scans at (i) AF=15, (ii) AF=20 as compared to Cartesian p4 (a). Additionally, we present the results for full 3D SPARKLING trajectory at (iii) AF=40 at the bottom-left.</figDesc><graphic coords="10,-56.92,291.24,414.60,296.14" type="bitmap" /></figure>
+<figure xml:id="fig_10"><head>Fig. 8 :</head><label>8</label><figDesc>Fig. 8: Comparison of retrospective results for (i) fully optimized 3D SPARKLING (top row) and (ii) SpSOS (bottom row) for varying acceleration factors (from left to right, AF=10 (a), 15 (b) and 20 (c)) on in vivo human brain scans. Cartesian Reference (e) is provided for comparison and results for full 3D trajectory at AF 40 (d) is also presented. SSIM scores are reported for each setup.</figDesc><graphic coords="12,28.86,135.25,128.00,128.00" type="bitmap" /></figure>
+<figure xml:id="fig_11"><head>Fig. 9 :</head><label>9</label><figDesc>Fig. 9: Comparison of prospective results for (i) fully optimized 3D SPARKLING (top row) and (ii) SpSOS (bottom row) for varying acceleration factors (from left to right, AF=10 (a), 15 (b) and 20 (c)) on in vivo human brain scans. Cartesian p4 scan (e) is provided for comparison and results for full 3D trajectory at AF 40 (d) is also presented. The scan times are reported for each AF.</figDesc><graphic coords="12,29.45,391.67,124.29,124.29" type="bitmap" /></figure>
+<figure xml:id="fig_12"><head>Fig. 10 :</head><label>10</label><figDesc>Fig. 10: Comparison of prospective results for fully optimized 3D SPARKLING (right-left) and SpSOS (right most) with Cartesian reference (left) and retrospective full 3D SPARKLING (center) for AF=10 (scan time = 4min 58sec). In each panel of the top row, axial (left), sagittal (top right) and coronal (bottom right) slices are shown and a red frame is delineated in the central part of the brain for zooming purpose. Bottom row shows the magnified views with the same layout (axial, sagittal and coronal slices in the left, top-right and bottom right insets, respectively).</figDesc><graphic coords="13,-13.38,65.44,206.37,206.37" type="bitmap" /></figure>
+<figure xml:id="fig_13"><head>Fig. S2 :</head><label>S2</label><figDesc>Fig. S2: Simulated effects of T 2 * decay (of 30ms) and constant ∆B0 (of 25Hz) on the point spread function of the AF=10 full 3D SPARKLING trajectory. All the PSFs are normalized such that the maximum value is 1, for easier visual comparison.</figDesc><graphic coords="16,39.19,44.30,270.59,162.60" type="bitmap" /></figure>
+<figure xml:id="fig_14"><head>Fig. S3 :</head><label>S3</label><figDesc>Fig. S3: (a) Three random shots from theoretical and measured trajectories for AF=20 full 3D SPARKLING trajectory. (b) Zoomed in at the center of k-space.</figDesc><graphic coords="16,13.14,406.74,197.56,148.17" type="bitmap" /></figure>
+<figure xml:id="fig_15"><head>(</head><label /><figDesc>Fig. S4: Comparison of retrospective results for (i) fully optimized 3D SPARKLING (right, top row) and (ii) SpSOS (right, bottom row) for varying acceleration factors (from left to right, AF=10 (b), 15 (c) and 20 (d)) on the NIST phantom. Additionally, we present the results of a retrospective study based on (iii) TPI at AF=10 for comparison purposes with the state of the art (left, bottom row). The Cartesian reference image (AF=4, GRAPPA reconstructed) is shown in (a, left top row)<ref type="bibr" target="#b54">[55]</ref>. SSIM scores are reported for each setup. Global 3D SPARKLING gives improved results compared to the SpSOS approach which starts to get worse at AF=15 with some blurring and at AF=20 the image gets noisier. On the other hand, TPI images are extremely blurry even at AF=10.</figDesc></figure>
+<figure xml:id="fig_16"><head /><label /><figDesc>Fig. S5: Comparing the performance of full 3D SPARKLING (b) and SpSOS SPARKLING (c) with twisted projection imaging (TPI) (d) using a retrospective study at AF=10 from the Cartesian GRAPPA-4 reference (a).</figDesc><graphic coords="17,27.45,518.73,121.20,121.20" type="bitmap" /></figure>
+<figure xml:id="fig_17"><head>Fig. S6 :</head><label>S6</label><figDesc>Fig. S6: Prospective reconstruction results (axial and sagittal view only) (b) without ∆B0(r) correction and (c) with ∆B0(r) correction for full 3D SPARKLING trajectory at AF=10. Cartesian reference views (a) are also shown for comparison purpose. Red arrows in (b) refer to the regions of strong ∆B0 artifacts.We see that most of the MR signal in these areas is recovered in (c) using the approach proposed in<ref type="bibr" target="#b62">[63]</ref>.</figDesc><graphic coords="17,211.90,544.95,107.27,107.27" type="bitmap" /></figure>
+<figure type="table" xml:id="tab_1"><head>TABLE I :</head><label>I</label><figDesc>Comparing metrics of PSF with FWHM (lower is better), PSL and PNL (higher is better).</figDesc><table><row><cell>Trajectory</cell><cell cols="3">FWHM (in voxel units)</cell><cell>PSL (in dB)</cell><cell>PNL (in dB)</cell></row><row><cell /><cell>x</cell><cell>y</cell><cell>z</cell></row><row><cell>Full 3D</cell><cell cols="3">2.3 2.4 2.5</cell><cell>35.80</cell><cell>67.25</cell></row><row><cell>SpSOS</cell><cell cols="3">2.4 2.4 2.5</cell><cell>31.65</cell><cell>65.44</cell></row></table></figure>
+<figure type="table" xml:id="tab_2"><head>TABLE II :</head><label>II</label><figDesc>Comparing SSIM metrics of retrospective phantom image reconstruction.</figDesc><table><row><cell cols="4">Trajectory AF10 AF15 AF20 AF40</cell></row><row><cell>Full 3D</cell><cell cols="3">0.964 0.935 0.923 0.816</cell></row><row><cell>SpSOS</cell><cell cols="3">0.927 0.864 0.737 0.575</cell></row><row><cell>TPI</cell><cell>0.63</cell><cell>0.592 0.573</cell><cell>-</cell></row></table><note><p>2) Prospective acquisition:</p></note></figure>
+			<note place="foot" n="1" xml:id="foot_0"><p>In<ref type="bibr" target="#b41">[42]</ref>, we have also dealt with the case of RV constraints where the ∞ -norm replaces the mixed</p></note>
+			<note place="foot" xml:id="foot_1"><p>2,∞ -norm used here.</p></note>
+			<note place="foot" n="2" xml:id="foot_2"><p>see https://github.com/ruoxi-wang/PBBFMM3D.</p></note>
+			<note place="foot" n="6" xml:id="foot_3"><p>https://github.com/CEA-COSMIC/pysap-mri</p></note>
+			<note place="foot" n="1" xml:id="foot_4"><p>https://github.com/CEA-COSMIC/pysap-mri</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>ACKNOWLEDGEMENTS</head><p>Chaithya G R was supported by the <rs type="programName">CEA NUMER-ICS PhD program</rs>, which received European funding from <rs type="programName">Horizon 2020 research and innovation program</rs> under the <rs type="grantName">Marie Sklodowska-Curie</rs> grant agreement No <rs type="grantNumber">800945</rs>. We acknowledge the financial support of the <rs type="funder">Cross-Disciplinary Program</rs> <rs type="projectName">on Numerical Simulation of CEA (SILICOSMIC project</rs>, PI: P. Ciuciu), the <rs type="funder">French Alternative Energies and Atomic Energy Commission</rs>. This work was granted access to the HPC resources of <rs type="institution">TGCC in France</rs> under the allocation 2019-GCH0424 made by <rs type="funder">GENCI</rs>. <rs type="person">Pierre Weiss</rs> was supported by the <rs type="funder">ANR</rs> <rs type="projectName">JCJC Optimization on Measures Spaces</rs> <rs type="grantNumber">ANR-17-CE23-0013-01</rs> and the <rs type="funder">ANR-</rs><rs type="projectName">3IA Artificial and Natural Intelligence Toulouse Institute</rs>.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_b78D6BY">
+					<orgName type="program" subtype="full">CEA NUMER-ICS PhD program</orgName>
+				</org>
+				<org type="funded-project" xml:id="_B2yAKGF">
+					<idno type="grant-number">800945</idno>
+					<orgName type="grant-name">Marie Sklodowska-Curie</orgName>
+					<orgName type="project" subtype="full">on Numerical Simulation of CEA (SILICOSMIC project</orgName>
+					<orgName type="program" subtype="full">Horizon 2020 research and innovation program</orgName>
+				</org>
+				<org type="funded-project" xml:id="_HkKb5De">
+					<idno type="grant-number">ANR-17-CE23-0013-01</idno>
+					<orgName type="project" subtype="full">JCJC Optimization on Measures Spaces</orgName>
+				</org>
+				<org type="funded-project" xml:id="_Y4vnxvE">
+					<orgName type="project" subtype="full">3IA Artificial and Natural Intelligence Toulouse Institute</orgName>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div><head>Supplementary Material -Optimizing full 3D SPARKLING trajectories for high-resolution T 2 *-weighted Magnetic Resonance Imaging</head><p>Chaithya GR, Pierre Weiss, Guillaume Daval-Fr érot, Aur élien Massire, Alexandre Vignaud, and Philippe Ciuciu Senior Member, IEEE</p></div>
+<div><head>S1. MULTI-SHOT PROJECTION STEP</head><p>We briefly extend the single shot projection step to N c shots. Particularly, we would like to project the complete sampling pattern K = [k 1 , k 2 , . . . , k N c ] such that each shot k i complies with the hardware constraints, Q α,β defined in <ref type="bibr" target="#b1">(2)</ref>. From <ref type="bibr" target="#b41">[42]</ref>, the projection step for a single shot k is given by:</p><p>We can now further generalize above equation to project all shots as:</p><p>where, we can use accelerated proximal gradient descent algorithm as described in <ref type="bibr" target="#b41">[42]</ref> to carry out individual projections of each shot in parallel.</p></div>
+<div><head>S2. TRAJECTORY</head></div>
+<div><head>A. Gradients and Slew Rates</head><p>We present the gradients and slew rates obtained for a single shot of full 3D SPARKLING trajectory in Fig. <ref type="figure">S1</ref>. We show that the trajectory was mostly slew rate constrained, thereby making the percentage of readouts with gradient magnitude constraint active to be close to 0. The gradient waveform was never saturated but achieved its maximum nearby the center of k-space as shown in Fig. <ref type="figure">S1(a)</ref>. This is because all the trajectories pass through the center of k-space, thereby drastically increasing the sampling density of the sampling pattern. Due to this, each trajectory moves at highest velocity to achieve lesser k-space sample points here, thereby achieving the target sampling density. Note that although the scanner slew rate constraint is 200 T/m/s, the trajectories were optimized with a tighter constraint of maximum allowed slew rate of 180 T/m/s, which explains the lower slew rate limits observed in the trajectory in Fig. <ref type="figure">S1(b</ref>).</p></div>
+<div><head>B. Off-resonance and T *</head><p>2 decay We carried out off-resonance and T * 2 -decay simulations on the trajectory and analyzed the point spread functions (PSF) in Fig. <ref type="figure">S2</ref>. We systematically added a T * 2 -decay by taking a constant value of T * 2 = 30ms, and also performed off-resonance simulations by adding a constant off-resonance (∆B0) of 25Hz. In Fig. <ref type="figure">S2</ref> we observe that the noise level in the PSF is significantly increased (by 25 -30 dB) when adding ∆B0 and T * 2 decay. Further, we see an increase in sidelobe level when adding ∆B0, which however is reduced when combined with T * 2 decay. We observe that the effective PSF is spread under T * 2 and B0 inhomogeneities, leading to drop in effective resolution, which is studied in depth in the core paper in Sec. IV-D.2. This study reveals some of the reasons that explain the gap in image quality between retrospective and prospective results, especially for in vivo acquisitions, where we have spatially varying T * 2 and ∆B0 (i.e. T * 2 (r) and ∆B0(r) maps).</p></div>
+<div><head>C. Eddy Current and Trajectory Measurement</head><p>As the presented trajectory rapidly explores the kspace, it is vital to ensure that the MRI scanner is able to play the complicated gradient waveforms in Fig. <ref type="figure">S1</ref> with minimal errors. These errors could be induced by eddy currents and gradient imperfections. To this end, we ran the AF=20 full 3D SPARKLING trajectory on an Investigative 7T MR System (MAGNETOM 7T, Siemens Healthcare, Erlangen, Germany) and measured</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Sparse MRI: The application of compressed sensing for rapid MR imaging</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Lustig</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1182" to="1195" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">On variable density compressive sampling</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Puy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Signal Process. Lett</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="595" to="598" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Variable density sampling with continuous trajectories. Application to MRI</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chauffert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Imag. Sci</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1962" to="1992" />
+			<date type="published" when="2014-11">Nov. 2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Breaking the coherence barrier: A new theory for compressed sensing</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Adcock</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="s">Forum of Math., Sigma</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<date type="published" when="2017">2017</date>
+			<publisher>Cambridge University Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Compressed sensing with structured sparsity and structured acquisition</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Boyer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Appl. Comput. Harmon. Anal</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="312" to="350" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">High-speed spiral-scan echo planar NMR imaging-I</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="2" to="7" />
+			<date type="published" when="1986">1986</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Fast spiral coronary artery imaging</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">H</forename><surname>Meyer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="202" to="213" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Twisting radial lines with application to robust magnetic resonance imaging of irregular flow</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">I</forename><surname>Jackson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="128" to="139" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Multishot rosette trajectories for spectrally selective MR imaging</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">C</forename><surname>Noll</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="372" to="377" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Interleaved spiral-in/out with application to functional MRI (fMRI)</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">S</forename><surname>Law</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">62</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="829" to="834" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Faster imaging with randomly perturbed, undersampled spirals and 1 reconstruction</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Lustig</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. 13th ISMRM</title>
+		<meeting>13th ISMRM<address><addrLine>Miami Beach, FL, USA</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2005">2005</date>
+			<biblScope unit="page">685</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<title level="m" type="main">Echantillonnage compressé le long de trajectoires physiquement plausibles en irm</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chauffert</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<pubPlace>Orsay, France</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>Université Paris-Sud</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Ph.D. dissertation</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">On the generation of sampling schemes for MRI</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Boyer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Imag. Sci</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="2039" to="2072" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">A projection method on measures sets</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chauffert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Constr. Approx</title>
+		<imprint>
+			<biblScope unit="volume">45</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="83" to="111" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">SPARKLING: variable-density k-space filling curves for accelerated T2*-weighted MRI</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lazarus</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">81</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="3643" to="3661" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Improved pediatric MR imaging with compressed sensing</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Vasanawala</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Radiology</title>
+		<imprint>
+			<biblScope unit="volume">256</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="607" to="616" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Anisotropic field-of-views in radial imaging</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Larson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="47" to="57" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Fast three dimensional magnetic resonance imaging</title>
+		<author>
+			<persName><forename type="first">P</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="656" to="662" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Fast three dimensional sodium imaging</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">E</forename><surname>Boada</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="706" to="715" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Hybrid radial-cones trajectory for accelerated MRI</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">M</forename><surname>Johnson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">77</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1068" to="1081" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Optimal design of k-space trajectories using a multi-objective genetic algorithm</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">M</forename><surname>Dale</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="831" to="841" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Fast three-dimensional k-space trajectory design using missile guidance ideas</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Mir</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="329" to="336" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Durga: A heuristically-optimized data collection strategy for volumetric magnetic resonance imaging</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">Kumar</forename><surname>Anand</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Eng. Optim</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="117" to="136" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Dynamic MRI with projection reconstruction and KWIC processing for simultaneous high spatial and temporal resolution</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">K</forename><surname>Song</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="815" to="824" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Respiratory motion-compensated radial dynamic contrast-enhanced (DCE)-MRI of chest and abdominal lesions</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Other</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1135" to="1146" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Fast magnetic resonance coronary angiography with a three-dimensional stack of spirals trajectory</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Thedens</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1170" to="1179" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">3D variable-density SPARKLING trajectories for high-resolution T2*-weighted magnetic resonance imaging</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lazarus</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">NMR Biomed</title>
+		<imprint>
+			<biblScope unit="page">4349</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Oedipus: An experiment design framework for sparsity-constrained mri</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">P</forename><surname>Haldar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Kim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="1545" to="1558" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Optimization of k-space trajectories for compressed sensing by Bayesian experimental design</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Seeger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="116" to="126" />
+			<date type="published" when="2010-01">Jan 2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Learning-based compressive subsampling</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Baldassarre</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE J. Sel. Topics Signal Process</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="809" to="822" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Learning-based compressive MRI</title>
+		<author>
+			<persName><forename type="first">B</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1394" to="1406" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Deep-learning-based optimization of the under-sampling pattern in MRI</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">D</forename><surname>Bahadir</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Comput. Imaging</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="1139" to="1152" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Learning the sampling pattern for MRI</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Sherry</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<monogr>
+		<title level="m" type="main">PILOT: Physics-informed learned optimal trajectories for accelerated MRI</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Weiss</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1909.05773v4</idno>
+		<imprint>
+			<date type="published" when="2020-08">Aug. 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">3D FLAT: Feasible Learned Acquisition Trajectories for Accelerated MRI</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Vedula</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Machine Learning for Medical Image Reconstruction: 3rd Intern. WS MLMIR 2020, Held in Conjunction with MICCAI 2020</title>
+		<meeting><address><addrLine>Lima, Peru</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer Nature</publisher>
+			<date type="published" when="2020-10">Oct. 2020</date>
+			<biblScope unit="page">3</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<monogr>
+		<title level="m" type="main">fastMRI: An open dataset and benchmarks for accelerated MRI</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zbontar</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1811.08839</idno>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">The cramér-rao bound for estimating a sparse parameter vector</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Ben-Haim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">C</forename><surname>Eldar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Signal Processing</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="3384" to="3389" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<monogr>
+		<title level="m" type="main">B-spline parameterized joint optimization of reconstruction and k-space trajectories (BJORK) for accelerated 2d MRI</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Wang</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2101.11369</idno>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">Spurious minimizers in non uniform Fourier sampling optimization</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gournay</surname></persName>
+		</author>
+		<ptr target="https://hal.archives-ouvertes.fr/hal-03212145" />
+		<imprint>
+			<date type="published" when="2021-06">Jun. 2021</date>
+		</imprint>
+	</monogr>
+	<note>working paper or preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">On the Global Convergence of Gradient Descent for Over-parameterized Models using Optimal Transport</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Chizat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Bach</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Neural Information Processing Systems (NIPS)</title>
+		<meeting><address><addrLine>Montréal, Canada</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2018-12">Dec. 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<title level="m" type="main">Non-asymptotic convergence bounds for Wasserstein approximation using point clouds</title>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Merigot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Santambrogio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Sarrazin</surname></persName>
+		</author>
+		<ptr target="https://hal.archives-ouvertes.fr/hal-03256039" />
+		<imprint>
+			<date type="published" when="2021-06">Jun. 2021</date>
+		</imprint>
+	</monogr>
+	<note>working paper or preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">A projection algorithm for gradient waveforms design in MRI</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chauffert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="2026" to="2039" />
+			<date type="published" when="2016-09">Sep. 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Correcting the side effects of ADC filtering in MR image reconstruction</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lazarus</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Math. Imaging Vis</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="14" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Quadrature errors, discrepancies, and their relations to halftoning on the torus and the sphere</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Gräf</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Sci. Comput</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="2760" to="A2791" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Electrostatic halftoning</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Schmaltz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computer Graphics Forum</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="2313" to="2327" />
+			<date type="published" when="2010">2010</date>
+			<publisher>Wiley Online Library</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<monogr>
+		<title level="m" type="main">Curve based approximation of measures on manifolds by discrepancy minimization</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ehler</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1910.06124</idno>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Dithering by differences of convex functions</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Teuber</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Imag. Sci</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="79" to="108" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<monogr>
+		<title level="m" type="main">Kernel operations on the GPU, with autodiff, without memory overflows</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Charlier</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2004.11127</idno>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">The black-box fast multipole method</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Fong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Comput. Phys</title>
+		<imprint>
+			<biblScope unit="volume">228</biblScope>
+			<biblScope unit="issue">23</biblScope>
+			<biblScope unit="page" from="8712" to="8725" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">PBBFMM3D: a parallel black-box fast multipole method for non-oscillatory kernels</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Wang</surname></persName>
+		</author>
+		<idno>abs/1903.02153</idno>
+		<ptr target="http://arxiv.org/abs/1903.02153" />
+	</analytic>
+	<monogr>
+		<title level="j">CoRR</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">The black-box fast multipole method</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Fong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Comput. Phys</title>
+		<imprint>
+			<biblScope unit="volume">228</biblScope>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Two-Point Step Size Gradient Methods</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Barzilai</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IMA J. Numer. Anal</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="141" to="148" />
+			<date type="published" when="1988">1988</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<monogr>
+		<title level="m" type="main">Cupy : A numpy-compatible library for nvidia gpu calculations</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Okuta</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Optimal Transport Approximation of 2-Dimensional Measures</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Lebrat</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Imag. Sci</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="762" to="787" />
+			<date type="published" when="2019-01">Jan. 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">Generalized autocalibrating partially parallel acquisitions (GRAPPA)</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Griswold</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1202" to="1210" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<monogr>
+		<ptr target="https://users.fmrib.ox.ac.uk/∼karla/readinggroup/lecturenotes/AdvReconPaulyread.pdf" />
+		<title level="m">Advrecon pauly read.pdf</title>
+		<imprint>
+			<date type="published" when="2021-04">05/04/2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">Sampling density compensation in MRI: Rationale and an iterative numerical solution</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">G</forename><surname>Pipe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Menon</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="179" to="186" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">gpuNUFFT-An open source GPU library for 3D regridding with direct Matlab interface</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Knoll</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. 22nd ISMRM</title>
+		<meeting>22nd ISMRM</meeting>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page">4297</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">PySAP-MRI: a Python Package for MR Image Reconstruction</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">E</forename><surname>Gueddari</surname></persName>
+		</author>
+		<ptr target="https://hal.inria.fr/hal-02399267" />
+	</analytic>
+	<monogr>
+		<title level="m">ISMRM WS on Data Sampling and Image Reconstruction</title>
+		<meeting><address><addrLine>Sedona, AZ, United States</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2020-01">Jan. 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<analytic>
+		<title level="a" type="main">Self-calibrating nonlinear reconstruction algorithms for variable density sampling and parallel reception MRI</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">El</forename><surname>Gueddari</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">10th IEEE SAM Signal Processing WS</title>
+		<meeting><address><addrLine>Sheffield, UK</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2018-07">Jul. 2018</date>
+			<biblScope unit="page" from="415" to="419" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b60">
+	<analytic>
+		<title level="a" type="main">PySAP: Python Sparse Data Analysis Package for multidisciplinary image processing</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Farrens</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Astron. Comput</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="page">100402</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b61">
+	<analytic>
+		<title level="a" type="main">Fast, iterative image reconstruction for mri in the presence of field inhomogeneities</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Sutton</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imag</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="178" to="188" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b62">
+	<analytic>
+		<title level="a" type="main">Off-resonance correction non-Cartesian SWI using internal field map estimation</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Daval-Frérot</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">29th Proceedings of the ISMRM society</title>
+		<meeting><address><addrLine>virtual</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2021-05">May 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b63">
+	<analytic>
+		<title level="a" type="main">NMR probes for measuring magnetic fields and field dynamics in MR systems</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">De</forename><surname>Zanche</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Magn. Reson. Med</title>
+		<imprint>
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="page" from="176" to="186" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b64">
+	<analytic>
+		<title level="a" type="main">Learning the sampling density in 2D SPARKLING MRI acquisition for optimized image reconstruction</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">G</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">29th EUSIPCO</title>
+		<meeting><address><addrLine>Dublin, Ireland</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2021-09">Sep. 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b65">
+	<analytic>
+		<title level="a" type="main">Benchmarking MRI Reconstruction Neural Networks on Large Public Datasets</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Ramzi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Applied Sciences</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page">1816</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

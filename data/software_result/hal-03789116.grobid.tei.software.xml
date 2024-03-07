@@ -1,0 +1,604 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Space-Terrestrial Integrated Internet of Things: Challenges and Opportunities</title>
+				<funder ref="#_d5eMzBb">
+					<orgName type="full">EU</orgName>
+				</funder>
+				<funder ref="#_HQk8BbS #_t4p3Jx7">
+					<orgName type="full">unknown</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher />
+				<availability status="unknown"><licence /></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Juan</forename><forename type="middle">A</forename><surname>Fraire</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Univ Lyon</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">INSA Lyon</orgName>
+								<orgName type="institution" key="instit4">CITI</orgName>
+								<address>
+									<postCode>F-69621</postCode>
+									<settlement>Villeurbanne</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="department">Informatics Campus</orgName>
+								<orgName type="institution">Saarland University</orgName>
+								<address>
+									<addrLine>E1 3</addrLine>
+									<postCode>66123</postCode>
+									<settlement>Saarland, Saarbrücken</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution">CONICET -Universidad Nacional de Córdoba</orgName>
+								<address>
+									<country key="AR">Argentina</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Oana</forename><surname>Iova</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Univ Lyon</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">INSA Lyon</orgName>
+								<orgName type="institution" key="instit4">CITI</orgName>
+								<address>
+									<postCode>F-69621</postCode>
+									<settlement>Villeurbanne</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Fabrice</forename><surname>Valois</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Univ Lyon</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">INSA Lyon</orgName>
+								<orgName type="institution" key="instit4">CITI</orgName>
+								<address>
+									<postCode>F-69621</postCode>
+									<settlement>Villeurbanne</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Space-Terrestrial Integrated Internet of Things: Challenges and Opportunities</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date />
+						</imprint>
+					</monogr>
+					<idno type="MD5">EBE66A0C7933C29BB9C8C8624FA25496</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid" />
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Satellite Internet of Things</term>
+					<term>Satellite Constellations</term>
+					<term>NB-IoT</term>
+					<term>LoRaWAN</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div><p>Large geographical regions of our planet remain uncovered by terrestrial network connections. Sparse and dense constellations of near-Earth orbit satellites can bridge this gap by providing Internet of Things (IoT) connectivity on a worldwide scale in a flexible and cost-effective manner. This paper presents STEREO: a novel Space-Terrestrial Integrated IoT Architecture spanning direct-and indirect-to-satellite access from IoT assets on the surface. Framed on the identified requirements, we analyze NB-IoT and LoRa/LoRaWAN features to put these technologies forward as appealing candidates for future satellite IoT deployments. Finally, we list and discuss the key open research challenges to be addressed in order to achieve a successful space-terrestrial IoT integration.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div><head>I. INTRODUCTION</head><p>The recent spur in space projects <ref type="bibr" target="#b0">[1]</ref> has revamped the interest in satellite communication. This is especially observed in the Internet of Things (IoT) community that constantly seeks to diversify the application scenarios <ref type="bibr" target="#b1">[2]</ref> while providing network coverage anywhere in the world. The unique characteristics of satellites in the new space context (cheap launch and quick procurement of inexpensive nano-satellites a.k.a. CubeSats) enable architectural alternatives for IoT networks with degrees of scale and flexibility hitherto impossible <ref type="bibr" target="#b2">[3]</ref>.</p><p>Satellites deployed in Geosynchronous Orbits (GEO) exhibit a rotation period equal to that of the Earth (appearing motionless to an observer on the ground), which can offer continuous network connectivity over a specific area from 35,786 km height (Fig. <ref type="figure" target="#fig_0">1</ref> and<ref type="figure">Table I</ref>). On the other hand, Low Earth Orbit (LEO) satellites move at ∼7 km/s, at lower altitudes (between 160 km and 1,000 km), and can provide intermittent and regular network connectivity at predictable time intervals. When deployed in constellations, LEO satellites can increase the revisit frequency, but at least 60 of them are needed to ensure continuous coverage.</p><p>By embarking IoT equipment on board of these satellites, new connectivity opportunities arise. The advancement in communication technologies makes it possible today to have a direct communication between IoT devices and satellites using the same technologies as terrestrial IoT networks <ref type="bibr" target="#b3">[4]</ref>, which until recent years was unheard of. The most notable advances in such technologies involve LoRa/LoRaWAN <ref type="bibr" target="#b4">[5]</ref> and NB-IoT <ref type="bibr" target="#b5">[6]</ref>, which offer long range communication capabilities and a reduced device energy consumption (18 mA @7dBm).  The opportunities brought about by a satellite-boosted global network for IoT are immeasurable. Existing terrestrial IoT networks could take advantage of the enhanced satellite coverage for rural and out-of-reach areas, offering ubiquitous global connectivity services (especially in regions where coverage is otherwise technically and/or economically not viable for existing IoT infrastructure), and enabling a plethora of new applications opportunities. These will impact several sectors such as: (i) global asset tracking in land, sea and air, transport of vehicles, fleets, objects and materials; (ii) monitoring of environmental parameters over geographical areas where terrestrial networks are not present (inaccessible forests, large deserts, oceans); (iii) cross-border energy production management (in gas and oil extraction, renewable solar farms and offshore wind-parks). Finally, smart metering, agriculture utilities, and effective healthcare solutions already available in urbanized regions could be brought to faraway lands with isolated individuals <ref type="bibr" target="#b6">[7]</ref>.</p><p>A massive data collection will thus be possible leveraging globally connected assets with the potential of creating the largest networked ecosystem where unparalleled interaction could take place. The satellite IoT phenomena interestingly occurs in times where federated machine learning is starting to unblock secure, privacy-preserving and collaborative training approaches <ref type="bibr" target="#b6">[7]</ref>. In this context, satellite IoT could contribute with the potential of collecting and sharing world-wide data to enable future intelligent applications such as driver-less cars, automated medical care, finance, and insurance.</p><p>These opportunities come at the expense of overcoming non-trivial technical challenges due to the long spaceterrestrial channel, the orbital dynamics of satellites, and the highly constrained IoT devices on the ground. Existing IoT medium access control schemes need to be revised and/or extended to scale up to thousands of IoT devices having to simultaneously communicate with the gateway in under 10 minutes (the pass duration of a LEO satellite). Crucial IoT core network functionalities such as mobility and management need to be identified and virtualized and flexibly placed in space and/or ground elements as mandated by the time-evolving and disruptive nature of satellite IoT network topology.</p><p>This paper is the first to present a comprehensive vision of a Space-Terrestrial Integrated IoT we coined STEREO. The contribution is the first to span network architecture, applicable terrestrial technologies and related challenges in porting them to the space domain. Specifically:</p><p>1) We introduce a reference architecture for the integration of space-terrestrial networks as a whole, leveraging the state-of-the art of space and terrestrial technologies, protocols and procedures. 2) We review and we propose the set of technologies to be used in the future space-terrestrial integrated networks, focusing on the satellite IoT communication. 3) We highlight the main research challenges for realizing a world-wide IoT connectivity. Furthermore, we discuss that unprecedented solutions arise from (i) exploiting scheduling solutions based on the predictable nature of orbital mechanics, (ii) leveraging the delaytolerant nature of the IoT traffic, (iii) learning from frequent revisits to service areas by multiple passing-by satellites, and (iv) strategically deploying virtualized network functions in ground and orbit assets.</p><p>The remainder of this paper paper is organized as follows. The envisioned satellite IoT architecture to accomplish the former integration is presented in Section II. The key technologies enabling satellite IoT communication are presented in Section III. The main challenges and open research topics are identified and formulated in Section IV, Finally, Section V presents the outlook of this work.</p></div>
+<div><head>II. THE FUTURE IOT NETWORK ARCHITECTURE</head><p>In the context of enabling access equity by bringing together satellite communication and IoT technologies, we propose the STEREO architecture, depicted in Fig 2 . We claim that the future IoT networks have to take advantage of all available technologies by deploying and mixing both terrestrial and satellite networks. The decision of which specific technology to be deployed in a given area should be taken by accounting for the specificity of that geographical area, the availability of electrical power, and the density of end-devices. In this respect, besides the high accessibility in urban areas, we identified two possible deployment scenarios: indirect and direct satellite IoT. It is important to not see these different deployments as individual, but as interconnected networks belonging to the same global network.</p></div>
+<div><head>A. Indirect to Satellite IoT</head><p>Outside highly accessible, dense, urban areas, we find rural areas with a high concentration of end-devices that justifies the deployment of dedicated ground IoT gateways to serve them. However, the terrain and local conditions (i.e., lack of cellular coverage, impossibility to deploy fiber) might make it difficult to have an available infrastructure to transport data from the gateways to the core network. In this case, using satellites to serve as backhaul for these gateways placed on ground surface is a very appealing solution. The stable position in the sky of of GEO satellites makes of them a perfect fit to relay data from ground gateways equipped with fixed high-gain antennas and a suitable power source (e.g., solar or electric grid) capable of establishing long-range links to geostationary orbit.</p><p>As end-devices do not reach the satellite directly (but via gateways) this type of deployment has been named indirectto-satellite IoT communication (ItS-IoT). The protocols to be used can be based on a clearly separated ground and space domains. Specifically, terrestrial IoT (e.g., LoRa/LoRaWAN, NB-IoT) will continue to be used the same way between end-devices and gateways, with some adjustments to account for the higher delay between the gateway and the network server, as a consequence of the satellite links (e.g., adapting the times for scheduling downlink communication). Existing space-specific protocols and technologies (e.g., CCSDSbased protocols, discussed in the next section) can then be implemented on the gateway-to-satellite link. The challenge in ItS-IoT is integrating space and terrestrial protocols into an efficient end-to-end STEREO architecture, as we detail in Section IV.</p></div>
+<div><head>B. Direct to Satellite IoT</head><p>Applications that need to function in less accessible regions (i.e., oceans, mountains, poles) might not justify or even hinder the deployment of IoT gateways on ground. In such scenarios, IoT devices should rather directly access the satellite hosting an on-board IoT gateway. As GEO links are not suitable due to the large range, LEO satellites emerge as the most appealing approach. Flying at less than 1000 km above Earth, the channel with LEO satellites can be set up to meet the margins required by terrestrial IoT protocols, even with low-cost antennas on the IoT device (and without any other modification to the device). Recent in-orbit deployments including the ThingSat, FossaSat, LacunaSat, and Sateliot satellites proved the feasibility of the approach, also discussed in related research papers <ref type="bibr" target="#b4">[5]</ref>, <ref type="bibr" target="#b5">[6]</ref>. Moreover, modern and cost-effective LEO nano-satellite platforms can be leveraged to accommodate the reduced power and requirements of IoT gateways.</p><p>The main challenge with direct-to-satellite IoT (DtS-IoT) communication is that DtS-IoT enables a high-speed flying IoT gateway, with a highly varying channel, over a predictable orbital trajectory. More specifically, the duration of a typical satellite pass over a given region is in the order of 10 to 3 minutes for a perfectly zenithal pass and a pass over the horizon, respectively. Hence, during this period, the channel conditions vary drastically from more than 2,000 km to the actual satellite altitude (at the zenith position as seen from the device perspective). Since the coverage region of a LEO satellite moves at a constant speed over the surface (approx. 7 km/s), the set of served devices changes in time.</p><p>In order to improve the revisit rate, LEO satellites are deployed in constellations. In a dense constellation (e.g., Starlink, Kuiper, Iridium), as one satellite hides in the horizon, another is rising to continuously serve a given device on the surface. In these cases, Inter-satellite links (ISL) allow LEO fleets of hundreds of satellites to coordinate and relay application data with the ground station connected to the core network. Since most IoT applications are delay-tolerant, this enables so-called sparse constellations characterized by large coverage gaps, and opportunistic ISLs. This sporadic connectivity drastically reduces the fleet size requirements, to less than a dozen LEO satellites <ref type="bibr" target="#b7">[8]</ref>. In this scenario, a new challenge appears, as data must be kept temporarily stored in satellites and/or devices until the satellite link becomes available.</p><p>Finally, device-to-device communication <ref type="bibr" target="#b8">[9]</ref> can further extend the coverage of the IoT ecosystem to under-roof or underground locations leveraging repeaters and node mobility. we present our recommendations on which technologies should be used in both direct and indirect satellite IoT.</p></div>
+<div><head>III. TECHNOLOGIES ENABLING SATELLITE-IOT</head><p>Fig. <ref type="figure" target="#fig_2">3</ref> presents an overview of the technologies and protocols used for communication in terrestrial and space networks. This section presents our second contribution, which is a review and our recommendations on the technologies to be used in the STEREO architecture.</p></div>
+<div><head>A. Satellite based Communication Technologies</head><p>Traditionally, the purpose of satellite communication was to reliably convey telecommands (TC) to the satellite, and deliver telemetry (TM) of the spacecraft to the ground station. To this end, low data rate TM/TC protocols were standardized in the Consultative Committee for Space Data Systems (CCSDS) in the early 80s. S-band was (and is) the most popular TM/TC band (up to a few Mbps), over which carrier-based ranging and tracking operations also take place. Most modern datademanding missions are now leveraging larger bandwith over the X-Band and higher bands to convey hundreds of Mbps. The power consumption and volume of high-throughput X-band subsystems are typically reserved for satellite platforms tens of kilograms. CCSDS point-to-point links were also adapted for ISL applications. Protocols like Proximity-1 or the most recent Unified Space Data Link Protocol (USLP) can operate over UHF or S-band to connect spacecraft in-orbit, although at reduced data-rates due to the long distances involved (up to a few Kbps).</p><p>In the space context, multi-user application-specific low power and low data volume technologies already exist for several years, however, IoT has not been prominently addressed under such naming. Some of the most used device-to-satellite protocols are Argos, for environmental data (telemetry and telecontrol to weather stations and buoys), Satellite Automatic Identification System (S-AIS) and Satellite Automatic Dependent Surveillance-Broadcast (ADS-B), for tracking data from vessels and aircraft worldwide.</p></div>
+<div><head>B. IoT Technologies</head><p>Although a common interest, a truly global satellite IoT is more likely to be achieved if terrestrial IoT can be ported to the space domain, rather than replacing terrestrial IoT by the aforementioned space protocols. The reasons behind this strategy are three-fold: (i) satellite IoT could profit from mass production and derived lower costs already achieved by terrestrial IoT, specially concerning devices; (ii) satellite IoT would benefit from a larger ecosystem and community optimizing the attainable performance with scarce resources; and (iii) satellite IoT will seamlessly integrate with existing terrestrial deployments. We claim that proliferated space-IoT will succeed if and only if it can profit from the economies of scale and technological advances already empowering LP-WAN in terrestrial-IoT, which in turn, can significantly extend its connectivity reach to remote regions leveraging orbiting gateways From the plethora of terrestrial IoT technologies, Low Power Wide Area Networks (LPWANs) seem the best option for blending space-terrestrial IoT technologies in a worldwide scale. LPWAN enable low-volume data transmission over tens of kilometers, while keeping very low energy consumption for the end-devices. They leverage a network architecture in which all the intelligence is moved towards a central server, allowing the development of cheap end-devices. NB-IoT (developed by 3GPP) <ref type="bibr" target="#b9">[10]</ref> and LoRa/LoRaWAN (LoRa radio combined with the LoRaWAN protocol that defines the network architecture and the communication protocols <ref type="bibr" target="#b10">[11]</ref>) are by far the most representative ones. Notably, recent research proved the feasibility of extending LoRa/LoRaWAN and NB-IoT with directto-satellite links <ref type="bibr" target="#b4">[5]</ref>, <ref type="bibr" target="#b5">[6]</ref>.</p><p>One of the key differences between these two technologies is that in NB-IoT a given device is assumed associated and synchronized with an eNB, while LoRaWAN operates with a decoupled Aloha-based medium access We argue here that these technologies should both be used in the STEREO context, as needed by the application requirements. Indeed, NB-IoT is based on a connected mode with a radio resource allocation and a quality of service management, thanks to the core network, that can guarantee strict Quality of Service requirements, which is of uttermost importance to some applications. These features comes at the expense of more complex radio access negotiations and core management elements. Moreover, NB-IoT as a cellular technology uses licensed frequency bands which are operated by a given telecommunication operator. On the other hand, LoRaWAN is based on a non-connected mode, with a low-complexity and straightforward deployment that can be of more importance to some users, rather than strict latency or reliability constraints. LoRaWAN uses unlicensed frequency bands which are shared among different wireless technologies. Further background on these technologies can be found in <ref type="bibr" target="#b1">[2]</ref>.</p></div>
+<div><head>C. Satellite IoT Convergence</head><p>Fig. <ref type="figure" target="#fig_3">4</ref> presents a layout of our proposed NB-IoT and LoRaWAN network architecture elements in the context of STEREO. In all cases, IoT devices and application servers are expected to be on ground. However, gateways/eNB can be on ground (ItS-IoT) or hosted in the satellite (DtS-IoT), or both. As we discuss in Section IV, the placement of the core network elements/functionality (e.g., via virtualization) over space and ground infrastructures is still an open research question. For instance, in a sparse IoT constellation (without immediate reach to ground), the LoRa/LoRaWAN join server should be at least partially placed in the LEO satellite to autonomously allow devices to join and relay data to the network. The main takeaway from Fig. <ref type="figure" target="#fig_3">4</ref> is that the convergence of satellite and IoT is feasible, but brings a series of challenges regarding networking function placement and parameter optimization.</p></div>
+<div><head>IV. CHALLENGES</head><p>Based on the STEREO architecture, we present here the open research challenges that will need to be addressed when IoT technologies need to work in satellite context and when satellite technologies have to handle IoT particularities.</p><p>a) Cultural: First of all, one of the main challenge to be addressed in satellite IoT is cultural. Two communities from very different origins and application domain meet at STEREO. On the one hand, a space community where trajectories and actions of a very expensive and dynamic system are known in advance, and tightly controlled by a centralized mission control. On the other hand, a thriving terrestrial IoT sector where costs for end devices are negligible, and where control can be disregarded at the expense of achieving scalability. Both, however, share some common aspects, such as the great importance of the scarce energy resource. b) LEO Routing: IoT applications have different traffic characteristics and constraints than usual satellite applications. In consequence, routing protocols spanning satellite-tosatellite and satellite-to-ground links considering the specifics of LoRa/LoRaWAN and NB-IoT will need to be developed for i) dense LEO constellations with full coverage and immediate forwarding, ii) single-satellite missions where data is collected and routed in a data mule fashion, and iii) sparse LEO constellations with sporadic connectivity. Route optimization criteria should be defined according to the IoT application QoS requirements (e.g., delivery delay, delivery reliability), and the concept of operations should fit the computation/memory capabilities of space assets (e.g., centralized computation on ground, distributed computation in-orbit, route table size).</p><p>c) Space Infrastructure: Different orbits and the heterogeneity of satellite platform families complicates a straightforward assessment of the in-orbit infrastructure. Besides their pertinence for DtS-and ItS-IoT, the difference in LEO and GEO imposes constraints in launch and deployment costs: from just a few thousands of dollars per kilogram in LEO to 6 times more for the same mass in GEO. Spacecrafts in GEO are also more adverse to risk than those in LEO, and the selection of flight-tested components is mandatory, which reduces the opportunities for innovation. As a result, LEO satellites are much more attractive as test-beds for new space technology such as LoRa/LoRaWAN and NB-IoT. This is particularly true for CubeSats, mass and volume constrained nano-satellites (form factor of N×10×10×10 centimeters), but highly cost-efficient thanks to a standardized mechanical and electrical framework that motivates commercial-of-the-shelf components. The deployment of risk-prone Cube-Sat based LEO infrastructures is in contrast with legacy/conservative GEO technology; an equilibrium yet to be achieved. All these platforms will need to co-exist in constellations defined by a set of orbital parameters that will need to be studied, analyzed and optimized from a topological perspective.</p><p>d) Mobility: In DtS-IoT there is an opposite mobility scenario than in terrestrial networks: end-devices are mostly static, but gateways are mobile in orbit (with predictable trajectories). This opens two new challenges in IoT: (i) how do end-devices take into account the mobility of gateways for sending their packets uplink? (ii) how do network servers handle the scheduling of downlinks while accounting for the orbital dynamics of the satellite? Moreover, in sparse constellations designs it is of uttermost importance to cope with disconnections (i.e., periods where there is no gateway in sight).</p><p>NB-IoT offers rich mobility features inherited from cellular communications, including handover management and roaming. For instance, data transfers can be resumed after the device moved to another cell, thanks to mobility management involving radio resource control and core network protocols. In a satellite context, such an intricated core interaction will likely need to be supported by a dense constellation with persistent ISLs. LoRaWAN, on the other hand, has a much simpler and limited mobility supported as it builds on top of a multi-gateway approach where every gateway forwards all received packets without a strict device-to-gateway bonding (thus no handover required). It is then up to the network server to combine or discard the received frames and schedule a downlink packet when needed (e.g., an acknowledgment). As a result, LoRaWAN, on the one side seems a good fit for sparse constellations without handover process, but on the other side, dense constellations could exploit the multi-gateway coverage, although without a strong requirement on ISLs.</p><p>In the radio access context, it remains unclear if the tighter mobility control imposed by cellular-based NB-IoT with respect to LoRaWAN can be beneficial or detrimental to STEREO. In particular, further research is expected to understand the trade-off between energy cost and performance gain of NB-IoT and LoRaWAN mobility approaches.</p><p>e) Core Functionality Placement: The placement of network functions in STEREO is a related and open research topic. Both devices and satellites are resource-constrained platforms (i.e., energy, compute power, memory), thus, functions/roles must be allocated carefully. When mounted of a satellite, the gateway or the eNB might no longer enjoy a stable and low-latency connection with the network core. As a result, virtualization can be exploited to dynamically locate signaling functions to decrease the control load, and to locate delay-sensitive functions at the edge of the network (i.e., the satellite), while keeping delay-tolerant aspects in the core at ground. For instance, ACK, HARQ, ADR, among other handshake-based features will need to be deployed and coordinated in orbit when no direct connection with the core is present. The resulting Network Function Virtualization (NFV) strategy will need to cope with unprecedented connectivity gaps mandated by the predictable orbital mechanics. Same with authentication, authorization, and accounting (AAA) functionalities, traditionally exclusively handled at the core network. Indeed, the scalability issue highlighted in the radio access part, is also applicable the distribution of core functionalities. On a related front, multi-gateway implications in the satellite domain remains to be explored. For example, deciding which orbiting gateway should react with an ACK to a given message, or which one should send a beacon or downlink user data on a given instant depends on coherent but likely asynchronous core network procedures yet to be defined.</p><p>f) Physical Layer: A core open topic in STEREO is the selection, regulation and potential licensing of a unified global-scale frequency band. Otherwise, to support DtS-IoT technologies that work in licensed (NB-IoT) or ISM bands (LoRaWAN), the network server needs to be able to update the gateways so that the geographical area over which the LEO satellite will fly over is synchronized with the frequency and regional parameters (e.g., duty cycle, transmission power) defined for that area. Also, there is room for demonstrating the performance and implementation complexity of LoRa/LoRaWAN and NB-IoT transceivers (chirp spread spectrum and narrow-band LTE modulations, respectively) in ground-space links. In fact, while satellite-to-remote regions channels do not suffer from the severe shadowing or multipath fading from urban terrestrial environments, new channel models considering the specific DtS-IoT conditions (atmosphere, Doppler, time-dynamics etc.) will need to be studied for the available physical layer configurations. For example, LoRa/LoRaWAN flavors includes Sub-Gigahertz LoRa and 2.4GHz variants, as well as Frequency Hopping LoRa (LR-FHSS <ref type="bibr" target="#b11">[12]</ref>), which is a modulation specifically designed to cope with the interference from large number of devices under satellite coverage. Also, the proper antenna design for the gateway at the satellite requires attention, especially for beamforming or MIMO multi-antenna arrays. All of the above could leverage existing know-how from the space community.</p><p>g) Medium Access Protocols: On the MAC side, we need to be able to scale existing IoT protocols to handle hundreds of end devices that need to access the gateway in (the same) very short window, so that they fit the short-lived coverage of LEO satellites. This challenge is boosted by the very longrange on the direct satellite-to-ground links with devices in DtS-IoT. The opportunity at hand, however, is to profit from the predictable LEO satellite trajectory to determine optimal transmission spots. Either the orbital path can be computed on constrained devices, or the satellite dynamics can be estimated by means of broadcasted parameters in beacons <ref type="bibr" target="#b12">[13]</ref>, or by Doppler shift measurements on the device side. Traffic patterns can be learned from repeating satellite passes unlocking a proactive data aggregation and scheduling (both on device and gateway side) aiming at the optimal time to enhance the performance and reduce energy waste <ref type="bibr" target="#b13">[14]</ref>. Thus, new access control schemes can be derived from this combined prediction, aggregation and scheduling access approaches.</p><p>h) Synchronization and Localization: From a more general perspective, operations and network element management will rest at the core of successful STEREO systems. On the one hand, the access part of the system will need to be enabled by access schemes that consider drifting clocks on IoT devices. This can be achieved by MAC that either keep them synchronized, or that can operate without common time bases (i.e., LoRaWAN Class A vs. Class B). The trade-off among both approaches is an appealing research topic. On the other hand, the core portion of the network will need to coordinate and manage actions over asynchronous satellite-tosatellite and satellite-to-ground links. For instance, downlink data flows could be buffered in advance in LEO satellite's memory, then scheduled to overcome otherwise high-latency device-to-server handshakes and to save collision in such dense DtS-IoT network. Indeed, gateway (satellite) mobility in DtS-IoT is to be managed by these same means. This overall synchronization challenge demands novel network operation concepts at the intersection of terrestrial IoT and space. On the other hand, satellites are typically equipped with GNSS localization services, but this is not always true in constrained IoT devices. In these cases, network-based localization solutions (e.g., leveraging beacons) will need to be created for satellite-based LoRa/LoRaWAN and NB-IoT.</p><p>i) Standardization: To allow a seamless connectivity between ground and satellite IoT networks, the IoT stack provided by IETF should be used (UDP/CoAP/DTLS). Because of capacity limitations and delay constraints specific to the satellite context, this protocol stack should be extended, e.g., introducing a new convergence protocol for CoAP, and new multicast addresses for group communication (be it at the network or application layer). Also, the compression and fragmentation mechanisms provided by SCHC (RFC9011) should be adapted in this new context. For further standardization discussions including 3GPP group the reader is referred to <ref type="bibr" target="#b1">[2]</ref>. j) Evaluation: The end-to-end assessment of satellite IoT deployments, technologies and related parameters requires of new tools and metrics. While satellite and IoT-specific simulation/emulation platforms exist, a space-terrestrial integrated solution for IoT is missing. Only early simulator prototypes already enable first analysis spanning radio access and core network for LoRa/LoRaWAN <ref type="bibr" target="#b14">[15]</ref>. The novelty of satellite IoT also demands the definition of new and meaningful metrics to quantify its performance. For example, end-to-end latencies provoked by the in-orbit multi-hop forwarding needs to be closely tracked so that downlink messages fit scheduled LoRa/LoRaWAN device's reception windows.</p><p>k) Others: Other derived aspects are relevant in future satellite IoT research. Methodological-wise, the discipline can enjoy multiple approaches, from the optimization field, protocol design, model verification, among others. Finally, security topics remains a relevant research topic in this context, as link intermittency in the core and access networks complicates key distribution and hinder stable encrypted data exchange.</p></div>
+<div><head>V. OUTLOOK</head><p>The opportunities emerging from a global IoT vision are unprecedented, as they can impact traditionally strong business sector as well as currently unserved remote regions. This paper has proposed a novel space-terrestrial integrated IoT architecture and has analyzed state-of-the-art space and terrestrial IoT technologies, while detecting adaptation and integration approaches. We argued that both LoRaWAN and NB-IoT are the best IoT networks for the space-terrestrial integrated Internet of Things. Framed in this novel space IoT architecture, we were able to outline the main open research challenges laying on the path towards an IoT infrastructure with an ambitious goal of achieving a global service footprint. In particular, we believe that the key challenges emerges from adapting the existing IoT radio access and core infrastructure to cope with the specifics of orbital dynamics: extremely long communication ranges, low capacity on board, limited energy, and frequent but predictable connectivity gaps.</p></div><figure xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. LEO and GEO orbit illustration.</figDesc></figure>
+<figure xml:id="fig_1"><head>Fig. 2 .</head><label>2</label><figDesc>Fig. 2. STEREO architecture.</figDesc></figure>
+<figure xml:id="fig_2"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. Protocol ecosystem in distance, data rate and power dimensions.</figDesc></figure>
+<figure xml:id="fig_3"><head>Fig. 4 .</head><label>4</label><figDesc>Fig. 4. 3GPP NB-IoT and LoRa/LoRaWAN network architectures in the Satellite IoT context.</figDesc></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>ACKNOWLEDGMENT</head><p>This research has received support from the <rs type="funder">EU</rs> <rs type="programName">H2020 research and innovation programme</rs> under the <rs type="grantName">Marie Skłodowska-Curie</rs> grant agreement <rs type="grantNumber">101008233</rs> (<rs type="projectName">MIS-SION</rs>), the Project <rs type="projectName">STARS STICAMSUD</rs> <rs type="grantNumber">21-STIC-12 Code STIC2020003</rs>, and the Project <rs type="grantNumber">ANR-21-CE25-0002-01</rs></p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funded-project" xml:id="_d5eMzBb">
+					<idno type="grant-number">101008233</idno>
+					<orgName type="grant-name">Marie Skłodowska-Curie</orgName>
+					<orgName type="project" subtype="full">MIS-SION</orgName>
+					<orgName type="program" subtype="full">H2020 research and innovation programme</orgName>
+				</org>
+				<org type="funded-project" xml:id="_HQk8BbS">
+					<idno type="grant-number">21-STIC-12 Code STIC2020003</idno>
+					<orgName type="project" subtype="full">STARS STICAMSUD</orgName>
+				</org>
+				<org type="funding" xml:id="_t4p3Jx7">
+					<idno type="grant-number">ANR-21-CE25-0002-01</idno>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">LEO Small-Satellite Constellations for 5G and Beyond-5G Communications</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Leyva-Mayorga</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Soret</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Röper</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Wübben</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Matthiesen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Dekorsy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Popovski</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Access</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page" from="184" to="955" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">A survey on technologies, standards and open challenges in satellite IoT</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Centenaro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">E</forename><surname>Costa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Granelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Sacchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Vangelista</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Communications Surveys &amp; Tutorials</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Modern small satellites-changing the economics of space</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sweeting</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the IEEE</title>
+		<imprint>
+			<biblScope unit="volume">106</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="343" to="361" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Direct-to-satellite IoT-A survey of the state of the art and future research perspectives</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Fraire</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Céspedes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Accettura</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Int. Conf. on Ad-Hoc Networks and Wireless</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="241" to="258" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Reception of lora signals from leo satellites</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Colavolpe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Foggi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ricciulli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zanettini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-P</forename><surname>Mediano-Alameda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Aerospace and Electronic Systems</title>
+		<imprint>
+			<biblScope unit="volume">55</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="3587" to="3602" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">An ultra-low-power 4.7 ma-rx 22.4 ma-tx transceiver circuit in 65-nm cmos for m2m satellite communications</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Ouvry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lachartre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Bernier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Lepin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Dehmas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Deslandes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems II: Express Briefs</title>
+		<imprint>
+			<biblScope unit="volume">65</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="592" to="596" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Federated machine learning: Concept and applications</title>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Tong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Intelligent Systems and Technology (TIST)</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="1" to="19" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Sparse satellite constellation design for LoRa-based direct-to-satellite Internet of Things</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Fraire</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Henn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Dovis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Garello</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Taricco</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">GLOBECOM 2020-2020 IEEE Global Communications Conference</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">A secure device-to-device link establishment scheme for lorawan</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Song</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Sensors Journal</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="2153" to="2160" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">A survey on LPWA technology: LoRa and NB-IoT</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">S</forename><surname>Sinha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S.-H</forename><surname>Hwang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Ict Express</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="14" to="21" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title level="m" type="main">Lorawan specification</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sornin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Luis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Eirich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Kramp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Hersent</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<publisher>LoRa alliance</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Lr-fhss: Overview and performance analysis</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Boquet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Tuset-Peiró</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Adelantado</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Watteyne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Vilajosana</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Communications Magazine</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="30" to="36" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Uplink transmission probability functions for lora-based direct-to-satellite iot: A case study</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Vogelgesang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Fraire</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hermanns</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE GLOBECOM</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Network size estimation in direct-to-satellite iot</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Ilabaca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Céspedes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Montejo-Sánchez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2021 IEEE 8th International Conference on Space Mission Challenges for Information Technology (SMC-IT)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="page" from="107" to="111" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Simulating LoRa-Based Direct-to-Satellite IoT Networks with FLoRaSat</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Fraire</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Madoery</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mesbah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Iova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Fabrice</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2022 IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks (WoWMoM)</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">His research focuses on space networking and applications enabled by informatics techniques</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Juan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Juan is the founder and chair of the STINT Workshop and has co</title>
+		<meeting><address><addrLine>Germany</addrLine></address></meeting>
+		<imprint />
+		<respStmt>
+			<orgName>associate researcher and professor at CONICET-UNC (Argentina) and Saarland University</orgName>
+		</respStmt>
+	</monogr>
+	<note>Fraire is researcher at Inria (France). authored more than 70 papers</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">Her research is in performance evaluation, routing and MAC protocols for wireless networks, with a focus on low-power long-range technologies for the Internet of Things</title>
+		<author>
+			<persName><forename type="first">Oana</forename><surname>Iova</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Professor</surname></persName>
+		</author>
+		<imprint>
+			<pubPlace>France</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>INSA Lyon</orgName>
+		</respStmt>
+	</monogr>
+	<note>Oana is the founder and co-chair of the international NewNets Workshop and the French LPWAN Days</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<author>
+			<persName><forename type="first">Fabrice</forename><surname>Valois</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Professor</surname></persName>
+		</author>
+		<title level="m">He received a Ph.D. in computer science from</title>
+		<meeting><address><addrLine>France; France</addrLine></address></meeting>
+		<imprint />
+		<respStmt>
+			<orgName>INSA Lyon ; University of Versailles ; Co-founder and former director of the CITI research laboratory</orgName>
+		</respStmt>
+	</monogr>
+	<note>he is involved in the Agora Inria research team. His research interests are in the area of dynamic, dense and autonomous wireless networks</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

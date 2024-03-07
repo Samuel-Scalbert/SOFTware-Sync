@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Approximation-aware Task Deployment on Heterogeneous Multi-core Platforms with DVFS</title>
+				<funder ref="#_ym97qxx">
+					<orgName type="full">Jiangsu Provincial Key Research and Development Program</orgName>
+				</funder>
+				<funder ref="#_dnSbeCd">
+					<orgName type="full">Natural Science Foundation of Jiangsu Province of China</orgName>
+				</funder>
+				<funder ref="#_dJCRaWc #_67PsVp3">
+					<orgName type="full">Fundamental Research Funds for the Central Universities of China</orgName>
+				</funder>
+				<funder ref="#_sdbr72n">
+					<orgName type="full">Southeast University &quot;Zhishan Scholars&quot; Projects</orgName>
+				</funder>
+				<funder ref="#_JAaGArf">
+					<orgName type="full">National Key Research and Development Program of China</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Xinmei</forename><surname>Li</surname></persName>
+							<email>xinmeili@seu.edu.cn</email>
+						</author>
+						<author>
+							<persName><roleName>Student Member, IEEE</roleName><forename type="first">Lei</forename><surname>Mo</surname></persName>
+						</author>
+						<author>
+							<persName><roleName>Member, IEEE</roleName><forename type="first">Angeliki</forename><surname>Kritikakou</surname></persName>
+							<email>angeliki.kritikakou@irisa.fr</email>
+						</author>
+						<author>
+							<persName><roleName>Member, IEEE</roleName><forename type="first">Olivier</forename><surname>Sentieys</surname></persName>
+							<email>olivier.sentieys@irisa.fr.</email>
+						</author>
+						<author>
+							<persName><forename type="first">†</forename><forename type="middle">A</forename><surname>Kritikakou</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department">School of Automation</orgName>
+								<orgName type="institution">Southeast University</orgName>
+								<address>
+									<postCode>210096</postCode>
+									<settlement>Nanjing</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution" key="instit1">University of Rennes</orgName>
+								<orgName type="institution" key="instit2">INRIA</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">IRISA</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<address>
+									<postCode>35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Approximation-aware Task Deployment on Heterogeneous Multi-core Platforms with DVFS</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">6067DF2EF46722C23EF658944E57EC9F</idno>
+					<idno type="DOI">10.1109/TCAD.2022.3222293</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Heterogeneous multi-core</term>
+					<term>task deployment</term>
+					<term>task migration</term>
+					<term>imprecise computation</term>
+					<term>quality-of-service</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Heterogeneous multi-core platforms, such as ARM big.LITTLE are widely used to execute embedded applications under multiple and contradictory constraints, such as energy consumption and real-time execution. To fulfill these constraints and optimize system performance, application tasks should be efficiently mapped on multi-core platforms. Embedded applications are usually tolerant to approximated results but acceptable Quality-of-Service (QoS). Modeling embedded applications by using the elastic task model, namely, Imprecise Computation (IC) task model, can balance system QoS, energy consumption, and real-time performance during task deployment. However, stateof-the-art approaches seldom consider the problem of IC task deployment on heterogeneous multi-core platforms. They typically neglect task migration, which can improve the solutions due to its flexibility during the task deployment process. This paper proposes a novel QoS-aware task deployment method to maximize system QoS under energy and real-time constraints, where frequency assignment, task allocation, scheduling, and migration are optimized simultaneously. The task deployment problem is formulated as mixed-integer non-linear programming. Then, it is linearized to mixed-integer linear programming to find the optimal solution. Furthermore, based on problem structure and problem decomposition, we propose a novel heuristic with low computational complexity. The sub-problems regarding frequency assignment, task allocation, scheduling, and adjustment are considered and solved in sequence. Finally, the simulation results show that the proposed task deployment method improves the system QoS by 31.2% on average (up to 112.8%) compared to the state-of-theart methods and the designed heuristic achieves about 53.9% (on average) performance of the optimal solution with a negligible computing time.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>I. INTRODUCTION</head><p>S INGLE-core and homogeneous multi-core platforms, namely, Symmetric Multi-core Processors (SMP), cannot follow the increasing pace of requirements for high computation capabilities and low energy consumption of embedded systems. As a result, heterogeneous multi-core platforms, namely, Asymmetric Multi-core Processors (AMP), such as ARM big.LITTLE platforms are widely used <ref type="bibr" target="#b0">[1]</ref>. Applications can be executed on multiple processors simultaneously to achieve parallel and diverse processing. Energy efficiency and real-time execution are the primary concerns during system design since 1) embedded systems usually have energy constraints, especially when they are implemented on battery-powered platforms with limited energy capacity, and 2) many critical applications (e.g., target tracking or robot control) require real-time responsiveness, for an application's deadline miss can lead to serious or even disastrous consequences <ref type="bibr" target="#b1">[2]</ref>, <ref type="bibr" target="#b2">[3]</ref>.</p><p>To improve energy efficiency, platforms have been enhanced with Dynamic Voltage and Frequency Scaling (DVFS) <ref type="bibr" target="#b3">[4]</ref>, which can dynamically adjust the supply voltage and clock frequency of a processor to change task execution time and energy. In real-time application domains, approximated results obtained in time are preferred over accurate results obtained after the deadline. For example, the JPEG2000 codec <ref type="bibr" target="#b4">[5]</ref> supports low-quality images rather than simply failing the execution in a limited time. In k-means algorithm <ref type="bibr" target="#b5">[6]</ref>, 5% of classification accuracy loss can achieve 50× energy saving. In automotive systems <ref type="bibr" target="#b6">[7]</ref>, an approximate result produced by the traction control is better than an accurate result arriving too late. Such applications can be modeled by the Imprecise Computation (IC) task <ref type="bibr" target="#b7">[8]</ref>. A task can be logically decomposed into a mandatory subtask and an optional subtask in the IC model. The mandatory subtask must be completed before a deadline to generate a baseline Quality-of-Service (QoS). In contrast, the optional subtask can be incompletely executed at the cost of decreased quality. The longer the optional subtasks are executed, the better the QoS of results. However, the requirements for high system QoS, low energy consumption, and real-time task execution often conflict with each other. The more the optional subtasks are executed, the higher the QoS is, while more energy and time are consumed. To balance these contradictory requirements, we propose a novel task deployment approach that simultaneously optimizes task allocation (on which processor each task is executed), task scheduling (when each task starts and ends its execution), and task frequency assignment. By adequate IC task deployment on DVFS-enabled AMP platforms, the system QoS can be further improved under limited system sources and application constraints.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. Related Work</head><p>Table I summarizes several representative works about task deployment on multi-core platforms. Depending on the problem's objectives, the deployment approaches can be Energy-</p><formula xml:id="formula_0">Prop. √ √ √ √ √ √ √ √ √ √</formula><p>Aware (EA) or QoS-Aware (QA). The tasks can be Independent (I) or Dependent (D) and Precise (P) or Imprecise (IP). The platforms can be homogeneous (HO) or heterogeneous (HE). DVFS and task deployment can be used to manage system resources. The optimization variables include Task Migration (TM), Frequency Assignment (FA), Task Allocation (TA), and Task Scheduling (TS). These problems include Real-Time (RT) and Energy Supply (ES) constraints during the task deployment process.</p><p>1) Energy-aware Task Deployment: The majority of energyaware task deployment approaches usually aim at minimizing energy consumption under system resource and application constraints <ref type="bibr" target="#b8">[9]</ref>- <ref type="bibr" target="#b17">[18]</ref>. For the homogeneous platforms, DVFS and DPM are combined in <ref type="bibr" target="#b8">[9]</ref> and <ref type="bibr" target="#b9">[10]</ref> to enhance the energy efficiency, where task-to-processor allocation is fixed in <ref type="bibr" target="#b8">[9]</ref>. By contrast, task allocation, scheduling, and frequency assignment are jointly optimized in <ref type="bibr" target="#b9">[10]</ref>. The extensions from homogeneous platforms to heterogeneous platforms are not straightforward, as additional variables regarding the core selection and Voltage/Frequency (V/F) selection are included in the task deployment problem. These variables are usually coupled with each other nonlinearly, which increases the difficulties of solving the problem. For the heterogeneous multi-core platforms, the allocation of independent tasks and the assignment of frequency are considered in <ref type="bibr" target="#b10">[11]</ref>, and mapping the dependent tasks on the NoC platform through task allocation and task scheduling is studied in <ref type="bibr" target="#b11">[12]</ref>. Compared with <ref type="bibr" target="#b11">[12]</ref>, the approach in <ref type="bibr" target="#b10">[11]</ref> mainly focuses on system-level DVFS, and the frequency of each processor cannot be adjusted individually. In <ref type="bibr" target="#b12">[13]</ref> and <ref type="bibr" target="#b13">[14]</ref>, DVFS is combined into the task allocation process to minimize energy consumption under real-time constraints. Besides DVFS and DPM, task migration is also used in multi-core platforms to optimize energy consumption. More precisely, task migration is introduced into the allocation/scheduling process to deploy independent tasks on homogeneous platforms for optimizing energy consumption <ref type="bibr" target="#b14">[15]</ref>- <ref type="bibr" target="#b16">[17]</ref>, where <ref type="bibr" target="#b14">[15]</ref> mainly focuses on task allocation, while <ref type="bibr" target="#b15">[16]</ref> and <ref type="bibr" target="#b16">[17]</ref> consider both task allocation and task scheduling. As the processors are homogeneous and the tasks are independent, task migration in the above studies is usually used to minimize the overall energy consumption. A heterogeneous platform is considered in <ref type="bibr" target="#b17">[18]</ref>, where energyaware task deployment is performed through DVFS, task allocation, scheduling, and migration. However, the approaches mentioned above are mainly based on the precise tasks, i.e., the execution cycles of each task are fixed. Therefore, the adjustment of optional subtasks is not taken into account, and thus, the improvement of system QoS is limited.</p><p>2) QoS-aware Task Deployment: The works consider QoSaware task deployment problems adopting the IC task model and aim to maximize system QoS under real-time and/or energy constraints <ref type="bibr" target="#b4">[5]</ref>, <ref type="bibr" target="#b18">[19]</ref>- <ref type="bibr" target="#b26">[27]</ref>. The target multi-core platforms can be homogeneous <ref type="bibr" target="#b18">[19]</ref>- <ref type="bibr" target="#b23">[24]</ref> or heterogeneous <ref type="bibr" target="#b4">[5]</ref>, <ref type="bibr" target="#b24">[25]</ref>- <ref type="bibr" target="#b26">[27]</ref>. On the one hand, the reward-based (QoS-based) task allocation and scheduling problems are considered in <ref type="bibr" target="#b18">[19]</ref> to improve the overall system QoS under task deadlines. Taking energy consumption into account, an energy-adaptive and QoS-driven task mapping method is studied in <ref type="bibr" target="#b19">[20]</ref>. Compared with <ref type="bibr" target="#b18">[19]</ref> and <ref type="bibr" target="#b19">[20]</ref>, the influences of frequency adjustment and task migration are studied in <ref type="bibr" target="#b20">[21]</ref> during the reward-based task scheduling process, but the portions of task workloads are fixed during the migration process. To improve QoS with energy and time constraints, DVFS is considered in <ref type="bibr" target="#b21">[22]</ref>. However, the tasks are independent in the above studies. For dependent IC tasks, DVFS is incorporated into the task mapping process considering time and energy budgets <ref type="bibr" target="#b22">[23]</ref>, <ref type="bibr" target="#b23">[24]</ref>. On the other hand, the allocation of independent IC tasks on heterogeneous platforms with DVFS is considered in <ref type="bibr" target="#b24">[25]</ref>. For dependent tasks, <ref type="bibr" target="#b4">[5]</ref> and <ref type="bibr" target="#b25">[26]</ref> consider DVFS and optimize frequency assignment and task scheduling simultaneously to enhance the system QoS under real-time and energy supply constraints. However, the above methods mainly focus on task allocation and/or task scheduling, where task migration is not considered. The task allocation, scheduling, and migration are jointly optimized in <ref type="bibr" target="#b26">[27]</ref> to enhance QoS for heterogeneous platforms, but without considering DVFS.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Illustration Example</head><p>We use the example shown in Fig. <ref type="figure" target="#fig_1">1</ref> to describe and motivate our approach, where the deployment results from allocating and executing the dependent IC tasks on the AMP platforms without and with task migration are compared in Fig. <ref type="figure" target="#fig_1">1</ref>(b) and Fig. <ref type="figure" target="#fig_1">1(d</ref>). The AMP platform can support per-core DVFS, e.g., ARM DynamIQ big.LITTLE platform <ref type="bibr" target="#b27">[28]</ref>. As the IC tasks are dependent, a Directed Acyclic Graph (DAG) G(T, E) is used to describe these tasks, where the vertices T denote the tasks, and the edges E represent the dependencies between the tasks, as shown in Fig. <ref type="figure" target="#fig_1">1</ref>   According to the task deployment results, the system QoS with and without task migration are 6.2022 × 10 7 (cycles) and 3.2581 × 10 7 (cycles), respectively, under the same real-time and energy supply constraints. Due to the task migration, tasks τ 4 , τ 5 , and τ 8 are divided into two subtasks, i.e., τ 4 → {τ 7 , τ 8 }, τ 5 → {τ 9 , τ 10 }, and τ 8 → {τ 15 , τ 16 }. These subtasks can be executed on different processors with different V/F levels. Note that task migration is not necessary for each task, and thus, the cycles of some subtasks are 0, e.g., subtasks τ 1 , τ 4 , τ 5 , τ 11 and τ 14 in Fig. <ref type="figure" target="#fig_1">1(d</ref>). Therefore, by using task migration, we can better use system resources to execute more optional cycles to improve system QoS. For instance, without task migration, task τ 4 is executed on processor θ 4 , and the number of its optional cycles o 4 is 1.7 × 10 8 . On the contrary, when task migration is considered, the subtasks of τ 4 , namely τ 7 and τ 8 , are executed on different processors θ 2 and θ 6 , and thus, the achieved optional cycles are 4.9 × 10 8 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>C. Contributions</head><p>Complementary to the state-of-the-art, this paper proposes a joint optimization method for IC task deployment on AMP using task allocation, task scheduling, and task migration. The structure of the proposed task deployment schemes is shown in Fig. <ref type="figure" target="#fig_2">2</ref>. We aim to determine: 1) which processor the task should be executed on; 2) what voltage/frequency level should be used for each task; 3) what is the execution sequence of the tasks on each processor; 4) when should a task start its execution; and 5) how many cycles of the optional subtasks are needed to be executed, such that the system QoS is maximized, and at the same time satisfying the real-time and energy constraints. Our main contributions are summarized as follows:</p><p>(1) To improve system QoS, IC tasks and task migration are involved in the task deployment process.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>D. Paper Organization</head><p>The remainder of the paper is organized as follows. Section II presents the system models and problem formulation. Section III describes the details of the problem linearization, and Section IV presents the heuristic task deployment algorithm. Section V discusses the simulation results. Finally, Section VI concludes this paper.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>II. SYSTEM MODELS AND PROBLEM FORMULATION</head><p>A. System Model 1) Task Model: We consider a real-time task set T with N periodic IC tasks {τ 1 , . . . , τ N }.</p><p>Definition 2.1: A task τ i is defined as an IC task that can be logically decomposed into a mandatory subtask τ m i with M i cycles and an optional subtask τ o i with o i cycles. The mandatory subtask should be completed before the deadline to generate a baseline QoS. The optional subtask is to be executed after the mandatory subtask and still completed before the deadline, if there are available resources in the system to execute the optional subtasks without missing the deadlines. The more the optional subtasks are executed, the better the obtained QoS is.</p><p>For each task τ i , M i and o i are measured by the Worst-Case Execution Cycles (WCEC). The mandatory cycles M i are fixed, while the optional cycles o i are adjustable and o i has an upper bound O i , i.e., 0 ≤ o i ≤ O i . The tasks are released at time 0 and each task τ i has a deadline D i . In addition, the scheduling horizon H is also the period of task τ i . As the example shown in Fig. <ref type="figure" target="#fig_1">1</ref>(a), the tasks in the set T are described by a DAG G(T, E), where the vertices T denote the tasks, and the edges E denote the dependencies between the tasks. Each task τ i cannot start execution until the input data from all its predecessors have arrived. At the same time, the output data is concurrently available for all its successors only when it completes execution.</p><p>The system QoS is closely related to the task optional part. Usually, the more cycles of the optional subtasks are executed, the higher the generated QoS. The relationship between system QoS and optional tasks is measured by a QoS function. Linear and general concave functions are considered as the most realistic and typical QoS representation in the literature <ref type="bibr" target="#b19">[20]</ref>, <ref type="bibr" target="#b29">[30]</ref>, as they adequately capture the behavior of many application areas, such as image and speech processing, control engineering, and automatic target recognition. In this paper, we consider the linear function, f i (o i ) = k i o i + R i , describing the linear relationship between system QoS and optional cycles o i , where R i is the baseline QoS after executing mandatory cycles.</p><p>2) Platform Model: We consider a multi-core AMP platform with M processors {θ 1 , . . . , θ M }. According to the characteristics of many heterogeneous platforms (e.g., ARM big.LITTLE) <ref type="bibr" target="#b26">[27]</ref>, we introduce the concept of cluster. For instance, the big.LITTLE platform consists of two heterogeneous clusters: the big cluster and the LITTLE cluster. The processors in the same cluster are homogeneous. Without loss of generality, we describe the proposed approach considering two clusters, such as in the ARM big.LITTLE platform.</p><p>Let P {P B , P L } denote the processor set, where P B {θ 1 , . . . , θ M B } is the set of the processors in the big cluster, while P L {θ M B +1 , . . . , θ M B +M L } is the set of the processors in the LITTLE cluster. Moreover, M B and M L are the number of processors in the big and LITTLE clusters, respectively, and M = M B + M L . We assume that the processors in</p><formula xml:id="formula_1">P B have l B discrete V/F levels VF B {(V 1 , f 1 ), . . . , (V l B , f l B )}, while the processors in P L have l L discrete V/F levels VF L {(V l B +1 , f l B +1 ), . . . , (V l B +l L , f l B +l L )}.</formula><p>To indicate the heterogeneity among the processors in different clusters, we introduce a factor γ i,l ∈ (0, 1] [11], which represents the efficiency factor of heterogeneous processors executing task τ i with (V l , f l ). Therefore, when (V l , f l ) is used to execute τ i with M i + o i cycles, the task execution time is (M i + o i )/(γ i,l f l ). In addition, since the processors are connected by the high-speed data bus, the communication costs (i.e., time and energy) among the processors are negligible, compared with task execution time and energy <ref type="bibr" target="#b10">[11]</ref>. Due to the special interconnection bus designed for data transmission between the clusters, it is feasible to migrate a task from one cluster to another cluster during the task execution process <ref type="bibr" target="#b27">[28]</ref>. We consider the task migrated only between the big and LITTLE clusters, since processors in the same cluster are homogeneous. The overhead of task migration is considered in the WCEC of the mandatory part, assuming that task migration always takes place. Let τ 2i-1 and τ 2i denote the subtasks of task τ i executed on the processors of different clusters when task migration is performed. To model the workload of τ 2i-1 and τ 2i , we introduce two continuous variables µ 2i-1 and µ 2i , where we have µ 2i-1 + µ 2i = 1 and µ 2i-1 , µ 2i ∈ [0, 1]. Therefore, the workloads of τ 2i-1 and τ 2i are given by µ 2i-1 (M i + o i ) and µ 2i (M i +o i ), respectively. By adjusting the values of µ 2i-1 and µ 2i , we can change the workload proportions of task τ i executed on different processors. Due to the dependencies between the subtasks, τ 2i starts its execution only after its predecessor τ 2i-1 is completed. Therefore, we obtain a new DAG G(T , E ), as shown in Fig. <ref type="figure" target="#fig_1">1(c</ref>). Note that the task set</p><formula xml:id="formula_2">{τ 2i-1 , τ 2i } (1 ≤ i ≤ N ) can be rewritten as {τ i } (1 ≤ i ≤ 2N ).</formula><p>We consider that processors can operate in two modes: idle and active <ref type="bibr" target="#b8">[9]</ref>. A processor executes a task in active mode; if the assigned tasks are finished, the processor goes into idle mode. During this switching process, processors' energy and time consumption are very small, compared with the task execution time and energy. Therefore, the transition time and energy are considered to be incorporated into task execution time and energy <ref type="bibr" target="#b17">[18]</ref>. We assume the target platform can support percore DVFS, e.g., ARM DynamIQ big.LITTLE platform <ref type="bibr" target="#b27">[28]</ref>. Hence, the power consumption of a processor θ k working on the V/F level (V l , f l ) is given by P core,l = P sta,l + P dyn,l + P on ,</p><p>where P sta,l = L g (V l I sub + |V bs |I j ) is the static power when ready to execute tasks, P dyn,l = C ef f V l 2 f l is the dynamic power during the task execution, and P on is the inherent power which keeps processors on. The static power P sta,l is mainly contributed by the sub-threshold leakage current I sub , the reverse bias junction current I j , the number of devices in the circuit L g , and the body bias voltage V bs . For the dynamic power P dyn,l , C ef f is an effective switching capacitance. The energy model ( <ref type="formula" target="#formula_3">1</ref>) is adopted from <ref type="bibr" target="#b30">[31]</ref>- <ref type="bibr" target="#b32">[33]</ref>, where the accuracy of this model has been verified through the SPICE simulations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Problem Formulation</head><p>In this section, we consider the problem of deploying dependent IC tasks on the AMP platform, with the aim of maximizing the system QoS under energy and real-time constraints. Therefore, we need to determine: 1) task allocation, 2) frequency assignment, 3) task scheduling, 4) optional cycle adjustment, and 5) task migration. To formulate the problem, we introduce the following binary and continuous variables:</p><formula xml:id="formula_4">1) x i,k = 1, if τ i is assigned to θ k , otherwise, x i,k = 0; 2) c i,l = 1, if τ i is executed with (v l , f l ), otherwise, c i,l = 0; 3) p i,j = 1, if τ i proceeds τ j ,</formula><p>otherwise, p i,j = 0; 4) ts i denotes the start time of τ i ; 5) o i denotes the optional cycles of τ i ; 6) µ 2i-1 and µ 2i denote the proportions of τ i executed on different clusters (µ 2i-1 + µ 2i = 1). Therefore, the execution cycles of τ 2i-1 and τ 2i are (M i + o i )µ 2i-1 and (M i + o i )µ 2i , respectively. The main symbols used in the problem formulation are summarized in Table <ref type="table">II</ref>. For the sake of paper presentation, let N {1, . .</p><formula xml:id="formula_5">. , N }, N {1, . . . , 2N }, M B {1, . . . , M B }, M L {M B + 1, . . . , M B + M L }, M {M B , M L }, L B {1, . . . , l B }, L L {l B +1, . . . , l B +l L }, L {L B , L L }.</formula><p>The constraint descriptions are as follows: </p><formula xml:id="formula_6">(V l , f l ) the l th V/F level in {VFB, VFL} γ i,l</formula><p>efficient factor when τi is executed with</p><formula xml:id="formula_7">(V l , f l ) qi,j = 1 if τ i is the predecessor of τ j 0 else</formula><p>Binary Variables </p><formula xml:id="formula_8">x i,k = 1 if τ i is executed on θ k 0 else c i,l = 1 if τ i is executed with (V l , f l ) 0 else pi,j = 1 if τ i proceeds τ j 0 else λi = 1 if τ i is executed on the processor of PB 0 if τ i is</formula><formula xml:id="formula_9">x i,k = 1, ∀i ∈ N ,<label>(2)</label></formula><formula xml:id="formula_10">x 2i-1,p + x 2i,q ≤ 1, ∀i ∈ N , ∀p = q ∈ M B or M L ,<label>(3)</label></formula><p>where (2) ensures that each task τ i , i.e., τ 2i-1 or τ 2i , is assigned to a processor, and (3) ensures that τ 2i-1 and τ 2i , i.e., two parts of task τ i , cannot be executed on the different processors in the same cluster, as there is no task migration among the processors in the same cluster.</p><p>2) Frequency Assignment Constraints: We consider tasklevel DVFS, i.e., each processor θ k uses one V/F level to execute the assigned task τ i . For instance, the ARM DynamIQ technology <ref type="bibr" target="#b33">[34]</ref> supports such kind of task-level DVFS, which increases the flexibility of DVFS. Since the processors in different clusters are heterogeneous, they have different V/F levels. We need to determine the range of V/F for each task, i.e., VF B or VF L , according to the task allocation variable x i,k . Therefore, we introduce an auxiliary (binary) variable λ i . If λ i = 1 (λ i = 0), task τ i is executed on a processor of P B (P L ). Based on the definition of λ i , we have</p><formula xml:id="formula_11">λ i = k∈M B x i,k , ∀i ∈ N . (<label>4</label></formula><formula xml:id="formula_12">)</formula><p>If λ i = 1, the V/F level assigned to task τ i is selected from the big cluster V/F set VF B , otherwise (λ i = 0), the V/F level is selected from the LITTLE cluster V/F set VF L . Hence, we have</p><formula xml:id="formula_13">λ i l∈L B c i,l + (1 -λ i ) l∈L L c i,l = 1, ∀i ∈ N . (5)</formula><p>Note that, for the AMP platforms that only support clusterlevel DVFS <ref type="bibr" target="#b17">[18]</ref>, as the processors in the same cluster operate with the same V/F, additional constraints, i.e., c i,m = c j,n (∀m = n ∈ P B or P L ), should be added into the problem.</p><p>3) Real-time Constraints: When task τ 2i-1 is allocated to processor θ k , and the V/F level (v l , f l ) is used to execute τ 2i-1 , the task execution time is</p><formula xml:id="formula_14">(M i +o i )µ 2i-1 /(γ 2i-1,l f l ). Since task τ 2i-1 is executed before task τ 2i , we get te 2i-1 ≤ ts 2i , ∀i ∈ N ,<label>(6)</label></formula><p>where</p><formula xml:id="formula_15">te 2i-1 = ts 2i-1 + l∈L c 2i-1,l (M i + o i )µ 2i-1 γ 2i-1,l f l , ∀i ∈ N ,<label>(7)</label></formula><formula xml:id="formula_16">te 2i = ts 2i + l∈L c 2i,l (M i + o i )µ 2i γ 2i,l f l , ∀i ∈ N ,<label>(8)</label></formula><p>Since the end time of task τ i is equal to the end time of task τ 2i , and each task τ i must be completed within the deadline D i , we have</p><formula xml:id="formula_17">te 2i ≤ D i , ∀i ∈ N .<label>(9)</label></formula><p>4) Task Non-preemption Constraints: For the tasks without dependency, e.g., τ i and τ j , where q i,j = 0, if they are assigned to the same processor, their execution sequence should be determined, as one processor cannot execute multiple tasks at the same time. Therefore, we introduce the following constraints:</p><formula xml:id="formula_18">te i ≤ ts j + (2 -x i,k -x j,k )H + (1 -p i,j )H, ∀i = j ∈ N , q i,j = 0, ∀k ∈ M, (10) te j ≤ ts i + (2 -x i,k -x j,k )H + p i,j H, ∀i = j ∈ N , q i,j = 0, ∀k ∈ M. (11)</formula><p>If τ i and τ j are executed on the same processor, e.g., θ k , we have x i,k = x j,k = 1, and thus, <ref type="bibr" target="#b9">(10)</ref> and ( <ref type="formula">11</ref>) are meaningful. If τ i is executed before τ j , i.e., p i,j = 1, (10) is relaxed to te i ≤ ts j , which bounds the execution sequence of τ i and τ j ; and (11) is relaxed to te i ≤ ts j + H, which is always satisfied, and thus, it can be ignored. Similarly, if τ i is executed after τ j , i.e., p i,j = 0, (10) can be ignored since te i ≤ ts j + H, and ( <ref type="formula">11</ref>) is relaxed to te j ≤ ts i .</p><p>5) Task Dependency Constraints: For the dependent tasks, e.g., τ i and τ j , where q i,j = 1, no matter if they are assigned to the same processor or different processors, the execution sequence among these tasks is fixed. Hence, we have</p><formula xml:id="formula_19">te i ≤ ts j + (1 -q i,j )H, ∀i = j ∈ N ,<label>(12)</label></formula><p>where <ref type="bibr" target="#b11">(12)</ref> ensures that if τ i proceeds τ j , i.e., q i,j = 1, we have te i ≤ ts j , otherwise, ( <ref type="formula" target="#formula_19">12</ref>) is always satisfied.</p><p>6) Energy Constraints: Since the total energy consumed by M processors to execute N tasks during the hyper-period H should not exceed the energy budget E buget , we have</p><formula xml:id="formula_20">i∈N l∈L c 2i-1,l (M i + o i )µ 2i-1 γ 2i-1,l f l + c 2i,l (M i + o i )µ 2i γ 2i,l f l (P sta,l + P dyn,l ) + (M B + M L )HP on = E total ≤ E buget . (<label>13</label></formula><formula xml:id="formula_21">)</formula><p>7) Primal Problem: Based on the constraints and the objective function (maximizing system QoS) mentioned above, the task deployment problem PP is formulated as follows:</p><formula xml:id="formula_22">PP : max x,c,p,o,µ,t i∈N f i (o i )<label>(14)</label></formula><p>s.t.</p><formula xml:id="formula_23">         (2) -(13), 0 ≤ o i ≤ O i , 0 ≤ ts i ≤ H, ∀i ∈ N , µ 2i-1 + µ 2i = 1, 0 ≤ µ 2i-1 , µ 2i ≤ 1, ∀i ∈ N , x i,k , c i,l , p i,j ∈ {0, 1}, ∀i = j ∈ N , ∀k ∈ M, ∀l ∈ L.</formula><p>where the system QoS function</p><formula xml:id="formula_24">f i (o i ) = k i o i + R i , x = [x i,k ] 2N ×(M B +M L ) , c = [c i,l ] 2N ×(l B +l L ) , p = [p i,j ] 2N ×2N , o = [o i ] 1×N , µ = [µ i ] 1×2N , and t = [ts i ] 1×2N .</formula><p>Remark 2.1: Although the number of optional cycles o i is an integer variable, we consider o i a continuous variable to simplify the problem. After problem ( <ref type="formula" target="#formula_22">14</ref>) is solved, the result of o i is rounded down, which does not affect the real-time constraint <ref type="bibr" target="#b8">(9)</ref> and the energy constraint <ref type="bibr" target="#b12">(13)</ref>. The influence of this one-cycle approximation is small since a task is usually executed in hundreds and thousands of cycles.</p><p>Considering the overhead of task migration, extra energy E M i and time t M i should be added to problem <ref type="bibr" target="#b13">(14)</ref>. First, task end time is updated by te 2i-1 = te 2i-1 + α i t M i , where binary variable α i denotes task τ i is migrated or not. Then, te 2i-1 in time constraints <ref type="bibr" target="#b5">(6)</ref> and ( <ref type="formula" target="#formula_17">9</ref>)-( <ref type="formula" target="#formula_19">12</ref>) is replaced by te 2i-1 . Finally, energy constraint ( <ref type="formula" target="#formula_20">13</ref>) is rewritten as E total + i∈N α i E M i ≤ E buget . Moreover, the proposed approach can be extended to completely heterogeneous platforms by modifying the constraints in problem <ref type="bibr" target="#b13">(14)</ref>, where we assume that the platforms contain multiple clusters and each cluster has a single core.</p><p>Since x i,k and c i,l are binary variables, while o i , µ 2i-1 and µ 2i are continuous variables, and the nonlinear terms <ref type="formula" target="#formula_20">13</ref>), PP is an MINLP problem.</p><formula xml:id="formula_25">x i,k c i,l , c 2i-1,l (M i + o i )µ 2i-1 and c 2i,l (M i + o i )µ 2i are included in (5)-(</formula><p>Theorem 2.1: The QoS-aware IC-task deployment problem based on DVFS (i.e., PP) is N P-hard.</p><p>Proof: Please refer to <ref type="bibr" target="#b34">[35]</ref> for the details.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>III. PROBLEM LINEARIZATION</head><p>To find the optimal solution to PP, we equivalently transform it into an MILP problem according to the following linearization methods.</p><p>1) Nonlinear items caused by the products of continuous variables: Since o i , µ 2i-1 and µ 2i are the continuous variables, the nonlinear items o i µ 2i-1 and o i µ 2i are hard to linearize directly. Note that (M i + o i )µ 2i-1 and (M i + o i )µ 2i are the execution cycles of task τ i run on the processors of different clusters. To deal with these nonlinear items, we propose a linearization method according to the physical meaning of task execution cycles.</p><p>Let</p><formula xml:id="formula_26">ϕ 2i-1 = (M i + o i )µ 2i-1 and ϕ 2i = (M i + o i )µ 2i</formula><p>, where ϕ 2i-1 and ϕ 2i are auxiliary variables. Since 0 ≤ o i ≤ O i and 0 ≤ µ 2i-1 ≤ 1, ϕ 2i-1 has the maximum value ϕ 2i-1,max = M i + O i and the minimum value ϕ 2i-1,min = 0. Similarly, we have ϕ 2i,min = 0 ≤ ϕ 2i ≤ ϕ 2i,max = M i + O i . Since ϕ 2i-1 and ϕ 2i represent the execution cycles of task τ 2i-1 and τ 2i , we have</p><formula xml:id="formula_27">M i ≤ ϕ 2i-1 + ϕ 2i ≤ M i + O i . Therefore, the execution cycles of optional subtask τ o i is o i = ϕ 2i-1 + ϕ 2i -M i , and the QoS function is i∈N [k i (ϕ 2i-1 + ϕ 2i -M i ) + R i ].</formula><p>Taking the auxiliary variables ϕ 2i-1 and ϕ 2i into account, the end times of task τ 2i-1 and τ 2i , i.e., <ref type="bibr" target="#b6">(7)</ref> and <ref type="bibr" target="#b7">(8)</ref>, have the form</p><formula xml:id="formula_28">te 2i-1 = ts 2i-1 + l∈L c 2i-1,l ϕ 2i-1 γ 2i-1,l f l , ∀i ∈ N , (<label>15</label></formula><formula xml:id="formula_29">)</formula><formula xml:id="formula_30">te 2i = ts 2i + l∈L c 2i,l ϕ 2i γ 2i,l f l , ∀i ∈ N . (<label>16</label></formula><formula xml:id="formula_31">)</formula><p>In addition, the energy constraint ( <ref type="formula" target="#formula_20">13</ref>) can be rewritten as</p><formula xml:id="formula_32">i∈N l∈L c 2i-1,l ϕ 2i-1 γ 2i-1,l f l + c 2i,l ϕ 2i γ 2i,l f l (P sta,l + P dyn,l ) + (M B + M L )HP on ≤ E buget . (<label>17</label></formula><formula xml:id="formula_33">)</formula><p>2) Nonlinear items caused by the products of continuous and binary variables: Since c 2i-1,l is a binary variable, while ϕ 2i-1 is a continuous variable, to deal with the nonlinear items c 2i-1,l ϕ 2i-1 and c 2i,l ϕ 2i in ( <ref type="formula" target="#formula_28">15</ref>), ( <ref type="formula" target="#formula_30">16</ref>) and ( <ref type="formula" target="#formula_32">17</ref>), we introduce the following lemma.</p><p>Lemma 3.1: Assume that the constant s 1 , s 2 &gt; 0 and two constraint spaces</p><formula xml:id="formula_34">P 1 = {[t, b, x]|t = bx, -s 1 ≤ x ≤ s 2 , b ∈ {0, 1}} and P 2 = {[t, b, x]| -bs 1 ≤ t ≤ bs 2 , t + bs 1 -x -s 1 ≤ 0, t -bs 2 -x + s 2 ≥ 0, b ∈ {0, 1}}, then P 1 P 2 . Proof: P 1 ⇒ P 2 . Since t = bx and -s 1 ≤ x ≤ s 2 , we have -bs 1 ≤ t ≤ bs 2 . According to -s 1 ≤ x ≤ s 2 and b ∈ {0, 1}, we get (b -1)(x -s 2 ) ≥ 0 and (b -1)(x + s 1 ) ≤ 0. Then, t + bs 1 -x -s 1 ≤ 0 and t -bs 2 -x + s 2 ≥ 0 hold. P 2 ⇒ P 1 . If b = 0, we have t = 0 and -s 1 ≤ x ≤ s 2 . If b = 1, we get -s 1 ≤ t = x ≤ s 2 . Thus, P 1 P 2 .</formula><p>According to Lemma 3.1, two auxiliary (continue) variables Φ 2i-1,l and Φ 2i,l are introduced to replace the nonlinear terms c 2i-1,l ϕ 2i-1 and c 2i,l ϕ 2i . Since ϕ 2i-1,min ≤ ϕ 2i-1 ≤ ϕ 2i-1,max and ϕ 2i,min ≤ ϕ 2i ≤ ϕ 2i,max , we add the following constraints into PP:</p><formula xml:id="formula_35">c i,l ϕ i,min ≤ Φ i,l ≤ c i,l ϕ i,max , ∀i ∈ N , ∀l ∈ L,<label>(18)</label></formula><formula xml:id="formula_36">Φ i,l -c i,l ϕ i,min -ϕ i + ϕ i,min ≤ 0, ∀i ∈ N , ∀l ∈ L,<label>(19)</label></formula><formula xml:id="formula_37">Φ i,l -c i,l ϕ i,max -ϕ i + ϕ i,max ≥ 0, ∀i ∈ N , ∀l ∈ L. (<label>20</label></formula><formula xml:id="formula_38">)</formula><p>Substituting Φ 2i-1,l = c 2i-1,l ϕ 2i-1 and Φ 2i,l = c 2i,l ϕ 2i into (15), ( <ref type="formula" target="#formula_30">16</ref>) and ( <ref type="formula" target="#formula_32">17</ref>), we have</p><formula xml:id="formula_39">te 2i-1 = ts 2i-1 + l∈L Φ 2i-1,l γ 2i-1,l f l ,<label>(21)</label></formula><formula xml:id="formula_40">te 2i = ts 2i + l∈L Φ 2i,l γ 2i,l f l ,<label>(22)</label></formula><p>i∈N l∈L</p><formula xml:id="formula_41">Φ 2i-1,l γ 2i-1,l f l + Φ 2i,l γ 2i,l f l (P sta,l + P dyn,l ) + (M B + M L )HP on ≤ E buget . (23)</formula><p>3) Nonlinear items caused by the products of binary variables: For the nonlinear item x i,k c i,l in (4) and ( <ref type="formula" target="#formula_43">5</ref>), since x i,k and c i,l are binary variables, we propose the following lemma to deal with this nonlinear item.</p><p>Lemma 3.2: Assume that x 1 and x 2 are the binary variables. The nonlinear term x 1 x 2 can be replaced by an auxiliary (binary) variable y, where y = x 1 x 2 , and the additional constraints y ≤ x 1 , y ≤ x 2 and y ≥ x 1 + x 2 -1.</p><p>Proof: When binary variables x 1 = 1 and x 2 = 1, the additional constraint is transformed to 1 ≤ y ≤ 1, and thus, y = 1 holds. Similarly, for the cases 1) x 1 = 0 and x 2 = 0; 2) x 1 = 1 and x 2 = 0; 3) x 1 = 0 and x 2 = 1, we have y = x 1 x 2 = 0.</p><p>Based on Lemma 3.2, we introduce an auxiliary (binary) variable z i,k,l , where z i,k,l = x i,k c i,l , and add the following constraints into PP.</p><formula xml:id="formula_42">z i,k,l ≤ x i,k , z i,k,l ≤ c i,l , z i,k,l ≥ x i,k + c i,l -1, ∀i ∈ N , ∀k ∈ M, ∀l ∈ L,<label>(24)</label></formula><p>On this basis, substituting (4) into <ref type="bibr" target="#b4">(5)</ref> and recalling that</p><formula xml:id="formula_43">λ i c i,l = k∈M B x i,k c i,l = k∈M B z i,k,l ,<label>(5)</label></formula><p>can be linearized as follows:</p><formula xml:id="formula_44">k∈M B l∈L B z i,k,l - l∈L L z i,k,l + l∈L c i,l = 1, ∀i ∈ N . (<label>25</label></formula><formula xml:id="formula_45">)</formula><p>4) MILP formulation: Based on the linearization methods mentioned above, PP can be transformed into the following problem:</p><formula xml:id="formula_46">PP1 : max x,c,p,t, ϕ,Φ,z i∈N [k i (ϕ 2i-1 + ϕ 2i -M i ) + R i ]<label>(26)</label></formula><p>s.t.</p><formula xml:id="formula_47">              </formula><p>(2), ( <ref type="formula" target="#formula_10">3</ref>), ( <ref type="formula" target="#formula_14">6</ref>), ( <ref type="formula" target="#formula_17">9</ref>) -( <ref type="formula" target="#formula_19">12</ref>), ( <ref type="formula" target="#formula_35">18</ref>)</p><formula xml:id="formula_48">-(25), 0 ≤ ts i ≤ H, ∀i ∈ N , M i ≤ ϕ 2i-1 + ϕ 2i ≤ M i + O i , ∀i ∈ N , 0 ≤ ϕ 2i-1 , ϕ 2i ≤ M i + O i , ∀i ∈ N , x i,k , c i,l , p i,j , z i,k,l ∈ {0, 1}, ∀i = j ∈ N , ∀k ∈ M, ∀l ∈ L. where ϕ = [ϕ i ] 1×2N , Φ = [Φ i,l ] 2N ×(l B +l L ) , and z = [z i,k,l ] 2N ×(M B +M L )×(l B +l L ) .</formula><p>Remark 3.1: PP1 is an MILP problem, as the binary and continuous variables are coupled linearly. Hence, it is much easier to solve the MILP-based PP1 than the MINLP-based PP. Furthermore, Lemma 3.1 and Lemma 3.2 imply that the variable replacement will not change the feasible region of the problem. In addition, the objective functions of PP and PP1 are the same. Hence, PP1 is equivalent to PP (i.e., the optimal objective function values of PP and PP1 are the same).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>IV. HEURISTIC TASK DEPLOYMENT ALGORITHM</head><p>Since the MINLP-based PP is linearized to the MILP-based PP1, the optimal solution to PP1 can be found by the existing solver, e.g., CPLEX or Gurobi <ref type="bibr" target="#b8">[9]</ref>. However, finding the optimal solution is still time-consuming, especially when the size of the problem is large. The complexity of an optimization problem is related to the number of variables and constraints. Based on the idea of problem decomposition, we propose a novel heuristic method for solving PP to improve the scalability of the proposed method. The reasons for solving PP rather than PP1 are that 1) these two problems are equivalent, but the problem size of PP is smaller than PP1; and 2) the heuristic method considers the variables of PP in sequence, and thus, the coupling among variables can be avoided. According to the relationship among variables, we decompose PP into the following sub-problems and solve them in sequence: 1) Frequency Assignment (SP1), 2) Task Allocation and Task Scheduling (SP2), and 3) Optional Cycle Adjustment (SP3).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. Frequency Assignment</head><p>The task deployment problem PP is restricted by the time and energy constraints, which are influenced by the V/F level (V l , f l ) used to execute tasks. Hence, we consider frequency assignment c il at the first step. Note that the number of cycles of the optional subtask o i is coupled nonlinearly with the portion of task migration µ i in (13), i.e., c 2i-1,l (M i + o i )µ 2i-1 and c 2i,l (M i + o i )µ 2i , which makes the problem difficult to solve. We consider task migration is performed between mandatory subtask τ m i and optional subtask τ o i . Therefore, τ m i and τ o i are equivalent to τ 2i-1 and τ 2i , i.e.,</p><formula xml:id="formula_49">M i = (M i + o i )µ 2i-1 and o i = (M i + o i )µ 2i .</formula><p>Since the subtask τ m i must be executed, while the subtask τ o i is optional and the execution cycles of τ o i can be adjusted within the range 0 ≤ o i ≤ O i , we consider the frequency assignment of mandatory subtask τ m i firstly and omit optional subtask τ o i . Hence, we set o i = 0 at the current step. When (V l , f l ) is used to execute a subtask τ m i with M i cycles, the task execution time and energy are</p><formula xml:id="formula_50">t 2i-1,l = M i γ 2i-1,l f l , ∀i ∈ N ,<label>(27)</label></formula><p>E 2i-1,l = t 2i-1,l (P sta,l + P dyn,l ), ∀i ∈ N .</p><p>Note that the QoS function is given by i∈N (k i o i + R i ). The more optional cycles are executed, the higher system QoS is generated, and the more energy is consumed for the task execution. Since the system energy budget E buget is limited,</p><formula xml:id="formula_52">Algorithm 1: Frequency Assignment Input : Parameters in Table II, CP T Output : Frequency assignment c Initialization: c 2i-1,l = -1, E total = 0, tcp = 0, Emin = ∞ 1 for i ← 1 to N do 2 for l ← 1 to (lB + lL) do 3</formula><p>Calculate t 2i-1,l and E 2i-1,l through ( <ref type="formula" target="#formula_50">27</ref>) and (28); to increase the number of optional cycles at the next step, SP1 aims to minimize the execution energy of mandatory subtasks.</p><formula xml:id="formula_53">4 if E total + E 2i-1,l ≤ E buget and t 2i-1,l + tcp ≤ Di (i ∈ CP T ) then 5 if Emin &gt; E total + E 2i-1,l then 6 Emin = E total + E 2i-1,l , l * = l;</formula><p>With the fixed task execution cycles, minimizing task execution energy will increase task execution time, as a lower V/F level may be prone to use. To avoid missing the task deadline, the real-time constraint should be considered. Since the allocation of mandatory subtask τ m i , i.e., x 2i-1,k , is unknown at the current step, we focus on the real-time constraints for the tasks on the critical path. Let CP T denote the index set of the tasks on the critical path. For example in Fig. <ref type="figure" target="#fig_3">3</ref>, we have CP T = {1, 2, 3, 4, 5, 8} for the critical path of consisting of tasks τ 1 , τ 2 , τ 3 , τ 4 , τ 5 , and τ 8 . Therefore, the frequency assignment problem is formulated as follows:</p><formula xml:id="formula_54">SP1 : min c E total , s.t.      l∈L c 2i-1,l = 1, ∀i ∈ N , l∈L c 2i-1,l t e 2i-1,l ≤ D i , ∀i ∈ CP T, E total ≤ E buget .</formula><p>where E total = i∈N l∈L c 2i-1,l E 2i-1,l +(M B +M L )HP on is the total energy required to execute all the mandatory subtasks. t e 2i-1,l is the end time of subtask τ m i , and we assume that the tasks in the set CP T are executed in sequence. Thus, the start time of τ m i equals the end time of τ m i 's predecessor. Since SP1 is an ILP-based problem, based on the Greedy algorithm, we propose Algorithm 1 to solve SP1. For the sake of presentation, frequency assignment variable is initialized as c 2i-1,l = -1. Algorithm 1 firstly finds a proper frequency for each mandatory subtask τ m i , under the real-time and energy constraints (Line 4). The selected frequency should cause the minimum increase of task execution energy among the tasks that have already been assigned the frequency (Line 1-9). During this process, if the frequency assignment, e.g., c 2i-1,l = 1, violates the real-time and energy constraints, the assignment c 2i-1,l = 1 will be excluded (Line 10-15). Applying the above method for each mandatory subtask τ m i , the solution c 2i-1,l to the SP1 can be found. In Algorithm 1, the inner loop l runs l B + l L times for each outer loop i. Since the outer loop i runs N times, the time complexity is O(N (l B + l L )).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Task Allocation and Task Scheduling</head><p>At this step, we mainly consider the deployment of mandatory subtasks. Substituting frequency assignment c 2i-1,l , i.e., the solution to SP1, into ( <ref type="formula" target="#formula_50">27</ref>) and ( <ref type="formula" target="#formula_51">28</ref>), the execution time t 2i-1 and energy E 2i-1 of each mandatory subtask τ m i can be determined. According to task allocation x 2i-1,k , the time and energy of each processor used for executing tasks can be adjusted. With x 2i-1,k and t 2i-1 , the task execution time of processor</p><formula xml:id="formula_55">θ k is tp k = i∈N x 2i-1,k t 2i-1 .</formula><p>In SP2, we aim to balance the workloads of the processors, i.e., min(max k∈M {tp k }). By doing so, we can increase the idle time of each processor, i.e., H -tp k . This idle time can be used to execute the optional subtasks, which is the main purpose of the next step.</p><p>Since the tasks are dependent, the allocation and the scheduling of these tasks should be considered concurrently. Therefore, the constraints regarding task non-preemptive ( <ref type="formula">10</ref>)-( <ref type="formula">11</ref>) and task dependency <ref type="bibr" target="#b11">(12)</ref> should also be taken into account. Hence, the task allocation and scheduling problem has the form:</p><formula xml:id="formula_56">SP2 : min x,p,t max k∈M {tp k } (29) s.t.      (10) -(12), λ 2i-1 k∈M B x 2i-1,k + (1 -λ 2i-1 ) k∈M L x 2i-1,k = 1, 0 ≤ ts 2i-1 + t 2i-1 ≤ D i , ∀i ∈ N .</formula><p>Under the given frequency assignment decision c 2i-1,l , we can determine the value of λ 2i-1 according to <ref type="bibr" target="#b4">(5)</ref>. If λ 2i-1 = 1, we have k∈M B x 2i-1,k = 1, which implies that task τ 2i-1 is allocated to the big cluster P B , otherwise (i.e., λ 2i-1 = 0), we have k∈M L x 2i-1,k = 1, and thus, task τ 2i-1 is allocated to the LITTLE cluster P L .</p><p>Since ts 2i-1 is a continuous variable, while x 2i-1,k and p ij are the binary variables, SP2 is an MILP problem. Based on the problem structure, a three-step heuristic method is proposed to solve SP2. Firstly, we determine the task sequence to perform task allocation according to the dependencies among the tasks. Then, we determine the start time of the tasks. Finally, we adjust the frequency assignment as the above process may violate the real-time constraints. Based on this idea, the proposed heuristic contains three steps: 1) task layer classification, 2) task allocation and scheduling, and 3) frequency adjustment.</p><p>1) Task Layer Classification: Since the tasks are dependent, we introduce a sequence Seq to perform task allocation. To determine Seq, we set a sequence index LC i for each task τ i . a. For each entry task τ i , we assume that its sequence index is 0. In Fig. <ref type="figure" target="#fig_3">3</ref>, we have LC 1 = 0 as τ 1 is an entry task. b. For each non-entry task τ j , we find all its predecessors, e.g., task τ i with q i,j = 1. We denote the index of predecessor τ i as LC i and let LC j = max i∈N {LC i } + 1. In Fig. <ref type="figure" target="#fig_3">3</ref>, we have LC 2 = 1, LC 3 = 2, LC 4 = 3, LC 5 = 4, LC 6 = 4, LC 7 = 5 and LC 8 = 5. c. We sort all the tasks in ascending order according to their indices, and the tasks with the same index are sorted by their execution time in ascending order. Therefore, we obtain a  task sequence Seq. In Fig. <ref type="figure" target="#fig_3">3</ref>, if the execution time of τ 5 (τ 8 ) is less than τ 6 (τ 7 ), we have Seq = {1, 2, 3, 4, 5, 6, 8, 7}. 2) Task Allocation and Task Scheduling: Based on the task sequence Seq, we perform task allocation to balance the workloads of the processors. By using the sequence Seq, task allocation x i,k and task start time ts i can be considered concurrently. a. The allocation of mandatory subtask τ m i is influenced by the frequency assignment c 2i-1,l . According to <ref type="bibr" target="#b4">(5)</ref>, the value of λ 2i-1 can be determined under the given c 2i-1,l . If λ 2i-1 = 1, τ m i is assigned to the big cluster, otherwise (i.e., λ 2i-1 = 0), τ m i is assigned to the LITTLE cluster. b. On the one hand, as we follow the decisions Seq and c to allocate and execute the tasks, the end time of τ m i 's predecessors is known. Based on the task dependency p ij , the feasible start time of subtask τ m i is max i∈P re {te i }, where P re is the set of τ m i 's predecessors, and te i is the end time of corresponding task. As the DAG example shown in Fig. <ref type="figure" target="#fig_3">3</ref>, we have P re = {2, 3} for τ m 4 . If we set te 2 = 0.41 s and te 3 = 0.88 s, the feasible task start time of τ m 4 is max{te 2 , te 3 } = 0.88 s, as shown in Fig. <ref type="figure" target="#fig_5">4(a)</ref>. c. On the other hand, when dealing with τ m i , the tasks before τ m i in the sequence Seq have been allocated. Therefore, based on the end time of these tasks, the task execution time of each processor, i.e., tp k , is known. To obtain a longer time interval to execute the optional subtasks, the feasible start time of mandatory subtask τ m i can be set to max k∈M {tp k }. Therefore, taking the feasible start time from the perspectives of tasks and processors into account, τ m i is assigned to the processor with the latest feasible start time, i.e., max k∈M {max i∈P re {te i }, tp k }, under the real-time constraints. As the example shown in Fig. <ref type="figure" target="#fig_5">4</ref>(a), subtask τ m 4 is allocated to processor θ 1 , due to max{max{te 2 , te 3 } = 0.88, tp 1 = 0.88, tp 2 = 0, . . . , tp 8 = 0} = 0.88 s.</p><p>3) Frequency Adjustment: If the real-time constraints cannot be satisfied, we adjust the frequency assignment c 2i-1,l accord- ingly. a. We record the index of subtask τ m i that violates the realtime constraint, e.g., te 2i-1 &gt; D i . b. On the one hand, under the energy constraints, i.e., E total ≤ E budget , to reduce the end time of subtask τ m i , we increase the V/F levels of τ m i and its predecessors, e.g.,</p><formula xml:id="formula_57">t 𝜏 % , 𝜃 ! 𝜃 " 𝜃 # t t 𝜏 ' , 𝜏 ! , ∆𝑡 %,% ∆𝑡 !,% ∆𝑡 !,! ∆𝑡 ',% 𝜏 ! , 𝜏 ' , 𝜏 % . 𝜏 ! . 𝜏 ' . 𝜏 % , 𝐿𝐶 % = 0 𝐿𝐶 ' = 2 𝐿𝐶 $ = 2 𝐿𝐶 ! = 1 𝐿𝐶 # = 3 𝐿𝐶 &amp; = 3</formula><formula xml:id="formula_58">c 2i-1,l = 1 → c 2i-1,l+1 = 1 and c 2j-1,l = 1 → c 2j-1,l+1 = 1 (∀j = i ∈ N , q j,i = 1</formula><p>). On the other hand, to balance the energy consumed for task execution, we reduce the V/F levels of τ m i 's successors, e.g., c 2k-1,l = 1 → c 2k-1,l-1 = 1 (∀k = i ∈ N , q i,k = 1). c. With the updated V/F assignment, the above task allocation process is performed again for subtask τ m i . d. If the real-time constraints are still not satisfied, the above method is repeated until all the tasks in the sequence Seq have adjusted their V/F levels.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>C. Optional Cycle Adjustment</head><p>Based on the solutions of the SP1 and SP2, we obtain the deployment results of mandatory subtasks, the remaining energy E optl = E budget -E total , and the i th idle time interval of processor θ k : ∆t k,i = t e k,i -t s k,i , where t s k,i and t e k,i are the start time and the end time of ∆t k,i , respectively. In this step, we aim to optimize the optional execution cycles, by using the idle time interval ∆t k,i and the remaining energy E optl , in order to improve the system QoS. The details are as follows. a. According to the allocation and scheduling of each mandatory subtask τ m i , i.e., x 2i-1 , ts 2i-1 and te 2i-1 , we can calculate the idle time interval of each processor, i.e., ∆t k,i . For example, in Fig. <ref type="figure" target="#fig_5">4</ref>(a), we have ∆t 1,1 = 0.65 s and ∆t 5,1 = 4.11 s. b. Since ( <ref type="formula" target="#formula_50">27</ref>) and ( <ref type="formula" target="#formula_51">28</ref>) are the time and energy required to execute a task with M i cycles using the V/F level (V l , f l ), T C l = 1 γ i,l f l and EC l = P sta,l +P dyn,l γ i,l f l are the time and energy required to execute a task with one cycle. Thus, under the given the time ∆t k,i and energy E optl , we can execute a task with ∆t k,i T C l cycles and E optl EC l cycles, respectively. Note that the processors are heterogeneous. If θ k ∈ P B , the range of V/F level is L = L B , otherwise (i.e., θ k ∈ P L ), L = L L . Based on the type of processor θ k , the maximum optional cycles are ∆o max = max l∈L {min{</p><formula xml:id="formula_59">∆t k,i T C l , E optl</formula><p>EC l }}, and we assume that the V/F level to achieve ∆o max is (V * , f * ). Substituting (V * , f * ) into T C l and EC l , we obtain T C l * and EC l * , i.e., the optimal computation cost to achieve a longer task execution cycles. c. Based on the task sequence Seq, we determine the potential optional subtasks executed in each idle time interval ∆t k,i . Let τ m p and τ m q denote the nearest dependent tasks allocated to θ k before and after time interval ∆t k,i , respectively. As the example shown in Fig. <ref type="figure" target="#fig_6">5</ref>, the nearest dependent tasks allocated to θ 1 before and after the time interval ∆t 1,1 are τ m 1 and τ m 3 . Note that the index of τ m p is LC 2p-1 , while the index of τ m q is LC 2q-1 . In addition, τ m p and τ m q may not always exist. We have the following four cases:</p><p>• If τ m p and τ m q exist and they are allocated to θ k , we have</p><formula xml:id="formula_60">T = {τ o j |LC 2p-1 ≤ LC 2j ≤ LC 2q-1 , ∀j ∈ N },</formula><p>where T is the candidate set of optional subtasks executed during ∆t k,i , e.g., for ∆t 1,1 , as τ m 1 is the predecessor of τ m 3 , the candidate task set</p><formula xml:id="formula_61">T = {τ o j |LC 1 = 0 ≤ LC 2j ≤ LC 5 = 2, ∀j ∈ N } = {τ o 1 }. • If τ m</formula><p>p is allocated to θ k and τ m q doesn't exist, we have</p><formula xml:id="formula_62">T = {τ o j |LC 2j ≥ LC 2p-1</formula><p>, ∀j ∈ N }, e.g., for ∆t 2,2 , as τ m 2 and τ m 3 are independent, the candidate task set</p><formula xml:id="formula_63">T = {τ o j |LC 2j ≥ LC 3 = 2, ∀j ∈ N } = {τ o 2 , τ o 3 }. • If τ m</formula><p>q is allocated to θ k and τ m p doesn't exist, we have T = {τ o j |LC 2j ≤ LC 2q-1 , ∀j ∈ N }, e.g., for ∆t 2,1 , as τ m 1 is the predecessor of τ m 2 , the candidate task set</p><formula xml:id="formula_64">T = {τ o j |LC 2j ≤ LC 3 = 2, ∀j ∈ N } = {τ o 1 }. • If τ m</formula><p>p and τ m q are not exist, we assume that T contains all the optional subtasks, e.g., for ∆t 3,1 , the candidate task set is T = {τ o 1 , τ o 2 , τ o 3 }. Since no task migration is performed among the processors in the same cluster, we remove the optional subtask τ o j from the set T if τ o j and its mandatory subtask τ m j are executed on different processors in the same cluster. Based on the above method, for the idle interval ∆t 5,1 in Fig. <ref type="figure" target="#fig_5">4</ref>(a), the feasible task set</p><formula xml:id="formula_65">T = {τ o 1 , τ o 2 , τ o 3 , τ o 4 , τ o 5 , τ o 6 , τ o 7 , τ o 8 }.</formula><p>As the tasks in the set T are dependent, we follow the task sequence Seq to determine the execution cycles of each optional subtask τ o j in the set T . d. Let ts f ea,j = max{t s k,i , {te s }} denote the feasible start time of τ o j in ∆t k,i , where {te s } is the end time set of τ o j 's predecessors. In addition, let te f ea,j = min{t e k,i , D j , {ts t }} denote the feasible end time of τ o j in ∆t k,i , where {ts t } is the start time set of τ o j 's successors. Note that only when the feasible start time ts f ea,j is smaller than the feasible end time te f ea,j , i.e., ts f ea,j ≤ te f ea,j , the optional subtask τ o j exists. Taking the optimal V/F to achieve longer task execution cycles into account, i.e., (V * , f * ), the number of execution cycles can be executed during the time slot te f ea,j -ts f ea,j is te f ea,j -ts f ea,j</p><p>T C l *</p><p>. On this basis, with the consideration of the maximum execution cycles O j of τ j and the upper bound ∆o max of execution cycles in ∆t k,i , the number of execution cycles for optional subtask τ o j can be set to o j = min{O j , ∆o max , te f ea,j -ts f ea,j T C l * }. As the example in Fig. <ref type="figure" target="#fig_5">4</ref>(b), during the idle time interval ∆t 5,1 , we have ∆o max = 4.11-0 T C12 = 1.65 × 10 9 (cycles). Based on the method mentioned above, we can obtain the cycles of τ o 6 and τ o 8 , and these tasks are allocated to θ 5 , the adjustment process of optional cycles is shown in Table <ref type="table">III</ref>. e. We apply the above method for each ∆t i,k and the adjustment of optional subtasks ends until E optl = 0 or o i = O i (∀i ∈ N ). Therefore, the number of execution cycles for τ o 7 is min{O 7 , ∆o max , 3.40-2.80 T C12 } = 1.69×10 8 (cycles) and τ o 7 is allocated to θ 6 . Based on the above sub-problems, the frequency allocation variable c i,l , the task allocation variable x i,k , the task start time ts i , and the optional execution cycles o i can be determined. Thus, we can obtain the task deployment solution to maximize system QoS under real-time and energy constraints.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>D. Time Complexity</head><p>To solve the task deployment problem, the proposed heuristic method divides it into three sub-problems: SP1, SP2, and SP3, and solves these sub-problems in sequence. For SP1, the time complexity is O(N (l B + l L )). In SP2, we have three stages. Firstly, the recursive manner is adopted to decide the task layer. As the height of the top-down recursive tree is log(N ), the time complexity is O(N log(N )). Then, we use the greedy method to determine task allocation and scheduling. During this process, the outer loop i runs N times, while the inner loop k runs M times. Therefore, the time complexity is O(N M ). Finally, during the frequency adjustment process, as the maximum number of adjustments is N , the time complexity is O(N ). For SP3, we consider the worst case, where the maximum number of idle time intervals is M + N . Therefore, the calculation of feasible optional cycles is invoked O(M + N ) times. As this calculation takes O(N ) times, the time complexity is O(N (M + N )). To sum up, the total time complexity of the heuristic method is O(N (l B + l L ) + N log(N ) + N M + N + N (M + N )). Note that N denotes the total number of tasks, M denotes the number of processors, and l B + l L denotes the number of V/F levels. In addition, we have N M and N l B + l L . Therefore, the total time complexity is O(N log(N ) + N 2 ).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>V. SIMULATION RESULTS</head><p>In this section, we evaluate the performance of the proposed task deployment methods through a set of simulation experiments.</p><p>1) Simulation Setup: We consider the AMP platform inspired by the ARM DynamIQ big.LITTLE with per-core DVFS technology as a case study. The power parameters are adopted from <ref type="bibr" target="#b33">[34]</ref> and <ref type="bibr" target="#b27">[28]</ref>. The number of processors M B = 4 and M L = 4, and the number of V/F levels l B = 9 and l L = 5. The execution efficient factor γ i,l is within the range [0.4, 1] [36], which demonstrates the heterogeneity among the processors. For each task τ i , the cycles of the mandatory subtask τ m i and </p><formula xml:id="formula_66">D min = min l∈L { M i +O i γ i,l f l } Dmax = max l∈L { i∈CPT M i +O i γ i,l f l } H = Dmax f i (o i ) = 0.0313o i -9.296 D i = (Dmax -D min )β + δD min System Model E min = min l∈L { i∈N M i +O i γ i,l f l (P sta,l + P dyn,l )} Emax = max l∈L { i∈N M i +O i γ i,l f l (P sta,l + P dyn,l )} E buget = (Emax -E min )β + E min + (M B + M L )HPon</formula><p>the maximum cycles of the optional subtask τ o i , i.e., M i and O i , are assumed to be in the range of [4 × 10 7 , 6 × 10 8 ] [20], which is given by the practical applications, such as M-JPEG2000. For the QoS function, we use a T2-coder's linear QoS model f i (o i ) = 0.0313o i -9.296 <ref type="bibr" target="#b28">[29]</ref>. Under the given task number N , we randomly generate a DAG to describe the task dependency. The parameters regarding the IC tasks and the AMP platform are summarized in Table <ref type="table">IV</ref>. β and δ are the tuned parameters. D max denotes the time required to execute the tasks on the critical path (CPT) of DAG with the minimum frequency, while D min denotes the time required to execute task τ i with the maximum frequency. In addition, we set H = D max as all the tasks should be executed within the scheduling horizon H. Note that the values of these parameters do not affect the structure of the task deployment problem. Thus, the proposed method is still applicable to other system parameters.</p><p>Next, we first evaluate the influence of system parameters on task deployment results. Then, we compare the system performance (i.e., system QoS, problem schedulability, and computation time) of the proposed optimal (OPT), the heuristic (HEU) methods, and other state-of-the-art deployment schemes: i) task deployment without task migration (WTM) <ref type="bibr" target="#b23">[24]</ref>, ii) task deployment without DVFS (WDV) <ref type="bibr" target="#b19">[20]</ref>, i.e., each processor has a fixed voltage/frequency, and iii) task deployment with fixed task allocation (WTA) <ref type="bibr" target="#b4">[5]</ref>, i.e., task-to-processor allocation is fixed. The simulations are performed on a workstation with 32 processors and 64 GB RAM, and the algorithms are implemented in Matlab 2019a with optimization solver Gurobi 9.</p><p>2) Simulation Results: Fig. <ref type="figure">6</ref> compares the system QoS achieved by the OPT method under different task numbers N and system parameters β and δ. Note that β and δ will change energy supply E buget and task deadline D i , and thus, influence the system QoS. We set the requirements regarding time and energy in the intermediate level, and thus, we have β ∈ [0, 0.5] and δ ∈ [0.4, 1]. In addition, the execution efficient factors are set to γ i,l = 0.6 (l ∈ P L ) and γ i,l = 1 (l ∈ P B ) <ref type="bibr" target="#b10">[11]</ref>. Fig. <ref type="figure">6</ref> shows that the system QoS increases with β, δ, and N . Moreover, under the same task number N , with β and δ increasing, the growth rate of system QoS decreases. This is because the larger the values of β, δ, and N , the more optional subtasks are executed, and thus, a higher system QoS can be achieved. However, under the fixed task number N , although the processors can execute more optional cycles with β and δ increasing, the QoS improvement becomes limited, since the range of optional cycles o i is bounded by 0 ≤ o i ≤ O i . Fig. <ref type="figure">7</ref> evaluates the influence of DAG structure on system QoS. Let N CPT denote the number of the tasks on the critical path, and we introduce a task parallelism factor η = N CPT /N . Since N is the number of total tasks, the larger the value of η, the lower the parallelism level of task DAG. The box plot of 'OPT vs WTM' shows the statistical property of data set</p><formula xml:id="formula_67">{ f OP T (N,η)-f W T M (N,η) f OP T (N,η)</formula><p>} for all the tuned N and η parameters, where f OP T (N, η) and f W T M (N, η) are the system QoS of OPT and WTM under the given N and η parameters. On each box, the central mark indicates the median. The bottom and the top edges indicate the 25 th and the 75 th percentiles, respectively. The whiskers extend to the most extreme data points that are not considered outliers, and the outliers are plotted individually by the '+' symbol. From Fig. <ref type="figure">7</ref>, we observe that the QoS gain increases with η. When DAG has a higher parallelism task execution level (i.e., η is small), each processor has more idle time intervals to execute the optional subtasks. Therefore, the differences in system QoS achieved by OPT and WTM methods are the smallest observed. However, when the parallelism level of task execution is low (i.e., η is large), the task deployment process of OPT has higher gains. This is because OPT is more flexible due to the task migration, allowing one subtask to be executed on different (heterogeneous) processors. Thus, we can better use system resources to increase QoS under time and energy constraints.</p><p>Fig. <ref type="figure">8</ref> evaluates the influence of processor heterogeneity on the system QoS. As the processors in the same cluster are homogeneous, we introduce a heterogenous factor γ L /γ B , where γ L = γ i,l (l ∈ P L ) and γ B = γ i,l (l ∈ P B ). Thus, γ L /γ B represents the ratio of execution efficiency factor between the processors in the LITTLE and big clusters. When the V/F level (V l , f l ) is used to execute a task with M i cycles, the task execution time and energy are Mi γ i,l f l and Mi γ i,l f l (P sta,l + P dyn,l ), respectively. Hence, if we fix the parameters M i , f l , P sta,l and P dyn,l , the larger the value of γ L /γ B , the smaller the </p><formula xml:id="formula_68">f OP T (N,γ L /γ B )-f W T M (N,γ L /γ B ) f OP T (N,γ L /γ B )</formula><p>} for all the tuned N and γ L /γ B parameters, where f OP T (N, γ L /γ B ) and f W T M (N, γ L /γ B ) are the system QoS of OPT and WTM under the given N and γ L /γ B parameters. From Fig. <ref type="figure">8</ref>, we observe that when the differences of processors in big and LITTLE clusters are large (i.e., γ L /γ B is low), task migration is more efficient, and thus, OPT can achieve a higher system QoS. On the other hand, with γ L /γ B increasing (i.e., γ L /γ B is close to 1), the heterogeneity of the processors in big and LITTLE clusters is reduced. Since task execution time Mi γ i,l f l and energy Mi γ i,l f l (P sta,l + P dyn,l ) decrease, we can execute more optional cycles to improve system QoS, and thus, OPT can achieve a higher system QoS. Fig. <ref type="figure" target="#fig_10">9</ref> compares the system QoS and the problem feasibility of OPT and WTM, as both task deployment problems are solved by the optimal methods. The system QoS and problem feasibility are given by i∈N f i (o i ) and n f ea /n, respectively, where n f ea is the number of feasible solutions found during n simulations. We run the simulations n = 30 times, under the time factors β = 0.4 and δ = 0.4, execution efficient factors γ i,l = 1 (∀l ∈ P B ) and γ i,l = 0.6 (∀l ∈ P L ), and task number N ∈ <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b18">19]</ref>. From Fig. <ref type="figure" target="#fig_10">9</ref> we observe that, compared with WTM, OPT achieves a higher QoS (31.2% on average and up to 112.8%) and higher problem feasibility (72.54% on average). This is because, with task migration, a set of additional variables µ 2i-1 and µ 2i (i.e., the proportions of a task τ i executed on the processors of different clusters) are introduced into the task deployment problem, which makes this problem easier to solve, under the same constraints. The values of µ 2i-1 and µ 2i are fixed during task deployment without task migration. Note that the multi-core system is time-and energyconstrained, and the processors in big and LITTLE clusters have different performances, e.g., computation time and energy. Thus, separating a task into two parts and assigning them to different clusters can better balance energy consumption and execution time, satisfying the problem constraints. Fig. <ref type="figure" target="#fig_13">10</ref> compares the system QoS and the computation time of OPT, HEU, WDV, and WTA based on both randomly generated DAGs and the DAGs from real applications, such as Gaussian Elimination (GE) <ref type="bibr" target="#b36">[37]</ref>, Fast Fourier Transform (FFT) <ref type="bibr" target="#b36">[37]</ref>, Laplace equation (LE) <ref type="bibr" target="#b37">[38]</ref>, and Montage Workflows (MW) <ref type="bibr" target="#b38">[39]</ref>. We set γ i,l = 1 (∀l ∈ P B ), γ i,l = 0.6 (∀l ∈ P L ), and η ∈ (0, 1]. For randomly generated DAGs, N ∈ [5, 100]; while for GE, FFT, LE, and MW, the applications can be modeled as DAGs with 14, 15, 16, and 24 tasks, respec-In Fig. <ref type="figure" target="#fig_13">10</ref>(a) and Fig. the QoS gain between OPT and HEU is defined as f OP T (N )-f HEU (N )</p><formula xml:id="formula_69">f OP T (N )</formula><p>, where f OP T (N ) and f HEU (N ) are the system QoS achieved by OPT and HEU under the given N parameter, respectively. Note that WDV and WTA are based on multiple-step heuristic methods. Fig. <ref type="figure" target="#fig_13">10(a)</ref> and Fig. <ref type="figure" target="#fig_13">10(b</ref>) show that our method (HEU) outperforms WDV and WTA in terms of QoS improvement (22.89% and 27.62% on average, including randomly generated DAGs and DAGs for GE, FFT, LE, and MW), as DVFS and task allocation are taken into account and optimized in the HEU method. On the other hand, with task number N increasing, more variables and constraints are added to the task deployment method. Therefore, the computation time to find the optimal solution increases as well. Fig. <ref type="figure" target="#fig_13">10(c</ref>) shows that, compared with the OPT method, the HEU method has a negligible time (within 0.5 seconds) and achieves about 53.9% (on average) performance of the OPT method. Hence, our HEU approach suitable for applications with larger and more complex task sets, which can enhance the adaptivity and scalability of the task deployment process.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>VI. CONCLUSION</head><p>This paper addresses the problem of dependent IC task deployment on the AMP platforms to maximize system QoS. The task allocation, scheduling, migration, and frequency assignment are optimized concurrently under real-time and energy supply constraints. The joint-design task deployment problem is formulated as an MINLP problem and then is equivalently transformed into an MILP problem to find the optimal solution. To improve the scalability of the proposed method, we design a novel three-step heuristic with low computation time to solve this problem. This method decomposes the jointdesign problem into three sub-problems with fewer variables and constraints. The sub-problems regarding the assignment of task execution frequency, the allocation and scheduling of tasks, and the adjustment of optional subtasks are solved in sequence. The simulation results show that the proposed heuristic can obtain an acceptable solution with a negligible computation time. In addition, the proposed methods outperform other task deployment methods in terms of the improvement of system QoS and the usage of system resources.   </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head></head><label></label><figDesc>(a). We assume that the cycles of mandatory and optional subtasks, namely, M i and o i , are within the range [4 × 10 7 , 6 × 10 8 ] [20], and the deadlines of the tasks are set to D 1 = 3.27 s, D 2 = 3.48 s, D 3 = 3.50 s, D 4 = 4.06 s, D 5 = 3.57 s, D 6 = 3.42 s, D 7 = 3.50 s,</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. The example of task deployment results under different schemes.and D 8 = 4.11 s, which are based on the length of the critical path. The system QoS has a linear relationship with the cycles of optional subtasks<ref type="bibr" target="#b28">[29]</ref>, e.g.,f i (o i ) = k i o i + R i ,where k i and R i are constants. If task migration is performed, a task can be divided into two subtasks executed on the processors of the big and LITTLE clusters, respectively. Based on G(T, E), a new DAG G(T , E ) is generated, as shown in Fig.1(c). According to the task deployment results, the system QoS with and without task migration are 6.2022 × 10 7 (cycles) and 3.2581 × 10 7 (cycles), respectively, under the same real-time and energy supply constraints. Due to the task migration, tasks τ 4 , τ 5 , and τ 8 are divided into two subtasks, i.e., τ 4 → {τ 7 , τ 8 }, τ 5 → {τ 9 , τ 10 }, and τ 8 → {τ 15 , τ 16 }. These subtasks can be executed on different processors with different V/F levels. Note that task migration is not necessary for each task, and thus, the cycles of some subtasks are 0, e.g., subtasks τ 1 , τ 4 , τ 5 , τ 11 and τ 14 in Fig.1(d). Therefore, by using task migration, we can better use system resources to execute more optional cycles to improve system QoS. For instance, without task migration, task τ 4 is executed on processor θ 4 , and the number of its optional cycles o 4 is 1.7 × 10 8 . On the contrary, when task migration is considered, the subtasks of τ 4 , namely τ 7 and τ 8 , are executed on different processors θ 2 and θ 6 , and thus, the achieved optional cycles are 4.9 × 10 8 .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 2 .</head><label>2</label><figDesc>Fig. 2. The structure of the proposed task deployment scheme. an MILP problem to find the optimal solution. (3) Based on the idea of problem decomposition and the problem structure, we design a novel heuristic task deployment method. The proposed method decomposes the original problem into three smaller easier-to-solve problems. The first problem is an ILP problem for frequency assignment, and we utilize the Greedy algorithm to solve it. The second problem is an MILP problem for task allocation and scheduling, and we design a three-step heuristic to solve this problem. It includes task layer classification, task allocation and scheduling, and frequency adjustment. The third problem considers the adjustment of optional cycles, and we design a low-complexity algorithm to tackle it. (4) Finally, we perform extensive simulations to analyze the solution quality, computation time, and scalability of the proposed task deployment scheme. The results show that the proposed task deployment scheme outperforms other schemes regarding QoS improvement and energy efficiency. Under the resource-limited situation, the joint optimization algorithm can improve the QoS by 31.2% on average (up to 112.8%). The heuristic algorithm can obtain an acceptable suboptimal solution in a negligible time, achieving about 53.9% (on average) performance of the optimal solution.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. Example of task layer classification.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>10 if Emin ≤ E buget then 11 E</head><label>1011</label><figDesc>total = Emin, Emin = ∞, c 2i-1,l * = 1; 12 tcp = tcp + t 2i-1,l * (i ∈ CP T );</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Fig. 4 .</head><label>4</label><figDesc>Fig. 4. Example of heuristic task deployment method.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Fig. 5 .</head><label>5</label><figDesc>Fig. 5. Four cases to determine the potential optional subtasks.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>3 (d) N = 8 Fig. 6 .</head><label>386</label><figDesc>Fig.6. The system QoS achieved by OPT method with N , δ, and β varying.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>8 Fig. 7 .</head><label>87</label><figDesc>Fig. 7. The change of QoS gain (OPT vs WTM) with η and N varying.gap regarding task execution between processors of LITTLE and big clusters. We set N ∈<ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b7">8]</ref>, γ L ∈ [0.5, 1] and γ B = 1. The box plot of 'OPT vs WTM' shows the statistical property of data set { f OP T (N,γ L /γ B )-f W T M (N,γ L /γ B )</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>= 8 Fig. 8 .</head><label>88</label><figDesc>Fig. 8. The change of QoS gain (OPT vs WTM) with γ L /γ B and N varying.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>Fig. 9 .</head><label>9</label><figDesc>Fig. 9. QoS and problem feasibility comparisons of OPT with WTM.</figDesc><graphic coords="14,348.76,49.21,179.56,162.80" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head></head><label></label><figDesc>(a) QoS of four real-world task sets. (b) QoS of different task deployment methods.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head></head><label></label><figDesc>Computation time of OPT and HEU methods.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>Fig. 10 .</head><label>10</label><figDesc>Fig. 10. QoS and computation time comparisons of different task deployment methods.</figDesc><graphic coords="15,224.28,54.18,166.73,151.17" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head>Approximation-aware Task Deployment Problem Frequency Assignment Task Allocation and Scheduling Optional Cycle Adjustment MILP Problem Problem Linearization MINLP Problem Optimal Solution Heuristic Solution Task Allocation Task Scheduling Frequency Assignment Task Migration</head><label></label><figDesc></figDesc><table><row><cell>We formulate the</cell></row><row><cell>IC tasks deployment problem that simultaneously optimizes</cell></row><row><cell>task allocation, frequency assignment, task sequence, task</cell></row><row><cell>migration, task start time, and task adjustment as an MINLP</cell></row><row><cell>problem. The objective is to maximize QoS without violat-</cell></row><row><cell>ing real-time and energy constraints.</cell></row><row><cell>(2) The nonlinear items are caused by the product of optimiza-</cell></row><row><cell>tion variables related to task allocation, frequency assign-</cell></row><row><cell>ment, task migration, and task adjustment. We prove that by</cell></row><row><cell>replacing the nonlinear items with auxiliary variables and</cell></row><row><cell>additional linear constraints in the optimization problem,</cell></row><row><cell>the MINLP problem can be equivalently transformed into</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head></head><label></label><figDesc>executed on the processor of PL</figDesc><table><row><cell cols="2">Continuous Variables</cell></row><row><cell>oi</cell><cell>optional cycles of τi</cell></row><row><cell cols="2">µ2i-1, µ2i workload proportions of τ 2i-1 and τ 2i</cell></row><row><cell>tsi</cell><cell>start time of τ i</cell></row><row><cell cols="2">1) Task Allocation Constraints: The task allocation variable</cell></row><row><cell cols="2">x i,k is bounded by</cell></row><row><cell></cell><cell>k∈M</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_6"><head></head><label></label><figDesc>, O i ∈ [4 × 10 7 , 6 × 10 8 ] γ i,l ∈ [0.4, 1]</figDesc><table><row><cell>TABLE IV</cell></row><row><cell>EXPERIMENTAL SET-UP</cell></row><row><cell>Task Model</cell></row><row><cell>M i</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="6" xml:id="foot_0"><p>patents, and served in the technical committees of several international IEEE/ACM/IFIP conferences.</p></note>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>This work was supported in part by the <rs type="funder">National Key Research and Development Program of China</rs> under Grant <rs type="grantNumber">2022YFF0902800</rs>, in part by the <rs type="funder">Fundamental Research Funds for the Central Universities of China</rs> under Grants <rs type="grantNumber">2242021R10113</rs> and <rs type="grantNumber">2242022K30038</rs>, in part by the <rs type="funder">Natural Science Foundation of Jiangsu Province of China</rs> under Grant <rs type="grantNumber">BK20202006</rs>, in part by the <rs type="funder">Southeast University "Zhishan Scholars" Projects</rs> under Grant <rs type="grantNumber">2242021R40003</rs>, and in part by the <rs type="funder">Jiangsu Provincial Key Research and Development Program</rs> under Grant <rs type="grantNumber">BE2022135</rs>.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_JAaGArf">
+					<idno type="grant-number">2022YFF0902800</idno>
+				</org>
+				<org type="funding" xml:id="_dJCRaWc">
+					<idno type="grant-number">2242021R10113</idno>
+				</org>
+				<org type="funding" xml:id="_67PsVp3">
+					<idno type="grant-number">2242022K30038</idno>
+				</org>
+				<org type="funding" xml:id="_dnSbeCd">
+					<idno type="grant-number">BK20202006</idno>
+				</org>
+				<org type="funding" xml:id="_sdbr72n">
+					<idno type="grant-number">2242021R40003</idno>
+				</org>
+				<org type="funding" xml:id="_ym97qxx">
+					<idno type="grant-number">BE2022135</idno>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0" />			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">A survey of techniques for architecting and managing asymmetric multicore processors</title>
+		<author>
+			<persName><forename type="first">S</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Computing Surveys</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1" to="38" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Mapping on multi/many-core systems: survey of current and emerging trends</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Singh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shafique</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kumar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Henkel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. ACM Design Automation Conference</title>
+		<meeting>ACM Design Automation Conference</meeting>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="1" to="10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">RASA: Reliability-aware scheduling approach for FPGA-based resilient embedded systems in extreme environments</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Saha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ehsan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Majeed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Mcdonald-Maier</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Syst., Man, Cybern., Syst</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="3885" to="3899" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">An empirical validation of power-performance scaling: DVFS vs. multi-core scaling in big.LITTLE processor</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Yoo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEICE Electronics Express</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1" to="9" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Quality-driven dynamic scheduling for real-time adaptive applications on multiprocessor systems</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Ha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Veeravalli</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computers</title>
+		<imprint>
+			<biblScope unit="volume">62</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="2026" to="2040" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Scalable effort hardware design</title>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">K</forename><surname>Chippa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Mohapatra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">T</forename><surname>Chakradhar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Raghunathan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Very Large Scale Integration Systems</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="2004" to="2016" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">SLAQA: Quality-level aware scheduling of task graphs on heterogeneous distributed systems</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">K</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Devaraj</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sarkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Senapati</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Embedded Computing Systems</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1" to="31" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Imprecise computations</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W S</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">K</forename><surname>Shih</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Bettati</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">Y</forename><surname>Chung</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the IEEE</title>
+		<imprint>
+			<biblScope unit="volume">82</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="83" to="94" />
+			<date type="published" when="1994">1994</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Energy optimization for real-time multiprocessor system-on-chip with optimal DVFS and DPM combination</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Knoll</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Embedded Computing Systems</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1" to="21" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Modeling processor idle times in MPSoC platforms to enable integrated DPM, DVFS, and task scheduling subject to a hard deadline</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Esmaili</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Nazemi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Pedram</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. Asia and South Pacific Design Automation Conference</title>
+		<meeting>Asia and South Pacific Design Automation Conference</meeting>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="532" to="537" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Minimizing energy consumption for frame-based tasks on heterogeneous multiprocessor platforms</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Parallel and Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="810" to="823" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Energy-aware task scheduling on heterogeneous NoC-based MPSoCs</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ishak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><forename type="middle">U</forename><surname>Tariq</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE International Conference on Computer Design</title>
+		<meeting>IEEE International Conference on Computer Design</meeting>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="165" to="168" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Energy-aware scheduling on heterogeneous multi-core systems with guaranteed probability</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Niu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Atiquzzaman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Long</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Parallel and Distributed Computing</title>
+		<imprint>
+			<biblScope unit="volume">103</biblScope>
+			<biblScope unit="page" from="64" to="76" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Energy-aware task scheduling approach using DVFS and particle swarm optimization for heterogeneous multicore processors</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Siddesha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Jayaramaiah</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Emerging Research in Computing, Information, Communication and Applications</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page" from="943" to="955" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Energy-aware task migration for multiprocessor real-time systems</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Zeng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Matsubara</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Tomiyama</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Takada</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Future Generation Computer Systems</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="page" from="220" to="228" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Energy-aware task migration through antcolony optimization for multiprocessors</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Rupanetti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Salamy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference</title>
+		<meeting>IEEE Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference</meeting>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="page" from="901" to="0907" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Energy aware frame based fair scheduling</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Moulik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sarkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">K</forename><surname>Kapoor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Sustainable Computing: Informatics and Systems</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="66" to="77" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Energy and feasibility optimal global scheduling framework on big.LITTLE platforms</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">S</forename><surname>Chwa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Seo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yoo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Shin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE Real-Time Scheduling Open Problems Seminar</title>
+		<meeting>IEEE Real-Time Scheduling Open Problems Seminar</meeting>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="1" to="11" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Reward-based allocation of cluster and grid resources for imprecise computation model-based applications</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">H</forename><surname>Kim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Web and Grid Services</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="146" to="171" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Energy-adaptive scheduling of imprecise computation tasks for QoS optimization in real-Time MPSoC systems</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Yan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Wei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><forename type="middle">S</forename><surname>Hu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE/ACM Design, Automation and Test in Europe</title>
+		<meeting>IEEE/ACM Design, Automation and Test in Europe</meeting>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="1402" to="1407" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Energy-aware scheduling mandatory/optional tasks in multicore real-time systems</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Méndez-Díaz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Orozco</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Santos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Zabala</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Transactions in Operational Research</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">1-2</biblScope>
+			<biblScope unit="page" from="173" to="198" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Energy-quality-time optimized task mapping on DVFS-enabled multicores</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kritikakou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Sentieys</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="2428" to="2439" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Scheduling imprecise task graphs for real-time applications</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ravindran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Krishna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Koren</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Koren</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Embedded Systems</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="73" to="85" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Prepare: Power-aware approximate real-time task scheduling for energy-adaptive QoS maximization</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Chakraborty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Saha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Själander</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Mcdonald-Maier</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Embedded Computing Systems</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">5s</biblScope>
+			<biblScope unit="page" from="1" to="25" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Cost-constrained QoS optimization for approximate computation real-Time tasks in heterogeneous MPSoCs</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Wei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Cao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Cong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><forename type="middle">S</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Yan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1733" to="1746" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">An energy-efficient, QoS-aware and cost-effective scheduling approach for real-time workflow applications in cloud computing systems utilizing DVFS and approximate computations</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">L</forename><surname>Stavrinides</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">D</forename><surname>Karatza</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Future Generation Computer Systems</title>
+		<imprint>
+			<biblScope unit="volume">96</biblScope>
+			<biblScope unit="page" from="216" to="226" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Approximation-aware task deployment on asymmetric multicore processors</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kritikakou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Sentieys</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE/ACM Design, Automation and Test in Europe</title>
+		<meeting>IEEE/ACM Design, Automation and Test in Europe</meeting>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="1513" to="1518" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Executionvariance-aware task allocation for energy minimization on the big. little architecture</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Qin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Zeng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Kurachi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Matsubara</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Takada</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Sustainable Computing: Informatics and Systems</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page" from="155" to="166" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Dynamic scheduling of imprecise-computation tasks on real-time embedded multiprocessors</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Veeravalli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Ha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Luo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE International Conference on Computational Science and Engineering</title>
+		<meeting>IEEE International Conference on Computational Science and Engineering</meeting>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="770" to="777" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Quasi-static assignment of voltages and optional cycles in imprecise-computation systems with energy considerations</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">A</forename><surname>Cortés</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Eles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Peng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE transactions on very large scale integration systems</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="1117" to="1129" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Leakage aware dynamic voltage scaling for real-time embedded systems</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Jejurikar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Pereira</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Gupta</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. Design Automation Conference</title>
+		<meeting>Design Automation Conference</meeting>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="page" from="275" to="280" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Combined dynamic voltage scaling and adaptive body biasing for lower power microprocessors under dynamic workloads</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">M</forename><surname>Martin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Flautner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mudge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Blaauw</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE/ACM International Conference on Computer-Aided Design</title>
+		<meeting>IEEE/ACM International Conference on Computer-Aided Design</meeting>
+		<imprint>
+			<date type="published" when="2002">2002</date>
+			<biblScope unit="page" from="721" to="725" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Leakage-aware energy minimization using dynamic voltage scaling and cache reconfiguration in real-time systems</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mishra</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. International Conference on VLSI Design</title>
+		<meeting>International Conference on VLSI Design</meeting>
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<biblScope unit="page" from="357" to="362" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Synthesis of self-adaptable energy aware software for heterogeneous multicore embedded systems</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Deniziak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Ciopiński</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Microelectronics Reliability</title>
+		<imprint>
+			<biblScope unit="volume">123</biblScope>
+			<biblScope unit="page">114184</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Non-convex mixed-integer nonlinear programming: A survey</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Burer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">N</forename><surname>Letchford</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Surveys in Operations Research and Management Science</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="97" to="106" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Throughput maximization for periodic real-time systems under the maximal temperature constraint</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Chaturvedi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Quan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Fan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Qiu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Embedded Computing Systems</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="363" to="368" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Performance-effective and lowcomplexity task scheduling for heterogeneous computing</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Topcuoglu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Hariri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M.-Y</forename><surname>Wu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE transactions on parallel and distributed systems</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="260" to="274" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Hypertool: A programming aid for messagepassing systems</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gajski</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Parallel and Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="330" to="343" />
+			<date type="published" when="1990">1990</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Pegasus: A framework for mapping complex scientific workflows onto distributed systems</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Deelman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Singh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M.-H</forename><surname>Su</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Blythe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Gil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Kesselman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Mehta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Vahi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">B</forename><surname>Berriman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Good</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Programming</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="219" to="237" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

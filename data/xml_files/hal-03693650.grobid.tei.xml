@@ -1,0 +1,2068 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">What if we Increase the Number of Objectives? Theoretical and Empirical Implications for Many-objective Combinatorial Optimization</title>
+				<funder ref="#_BFAwUuG">
+					<orgName type="full">Agence Nationale de la Recherche</orgName>
+					<orgName type="abbreviated">ANR</orgName>
+				</funder>
+				<funder>
+					<orgName type="full">Polish Ministry of Education and Science</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Richard</forename><surname>Allmendinger</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Alliance Manchester Business School</orgName>
+								<orgName type="institution">The University of Manchester</orgName>
+								<address>
+									<addrLine>Booth Street West</addrLine>
+									<postCode>M15 6PB</postCode>
+									<settlement>Manchester</settlement>
+									<country key="GB">UK</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Andrzej</forename><surname>Jaszkiewicz</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">Institute of Computing Science</orgName>
+								<orgName type="institution">Poznan University of Technology</orgName>
+								<address>
+									<addrLine>Piotrowo 2</addrLine>
+									<postCode>60-965</postCode>
+									<settlement>Poznań</settlement>
+									<country key="PL">Poland</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Arnaud</forename><surname>Liefooghe</surname></persName>
+							<affiliation key="aff2">
+								<orgName type="laboratory">UMR 9189 CRIStAL</orgName>
+								<orgName type="institution" key="instit1">Univ. Lille</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<orgName type="institution" key="instit3">Inria</orgName>
+								<orgName type="institution" key="instit4">Centrale Lille</orgName>
+								<address>
+									<postCode>F-59000</postCode>
+									<settlement>Lille</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Christiane</forename><surname>Tammer</surname></persName>
+							<affiliation key="aff3">
+								<orgName type="department">Institut für Mathematik</orgName>
+								<orgName type="institution">Martin-Luther-Universität Halle-Wittenberg</orgName>
+								<address>
+									<postCode>06099</postCode>
+									<settlement>Halle</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">What if we Increase the Number of Objectives? Theoretical and Empirical Implications for Many-objective Combinatorial Optimization</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">8F3642310A2EE91538D30DFA0040D86B</idno>
+					<idno type="DOI">10.1016/j.cor.2022.105857</idno>
+					<note type="submission">Preprint submitted to Elsevier February 22, 2023</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Survey</term>
+					<term>theory</term>
+					<term>empirical</term>
+					<term>implications on algorithm design Multi-and many-objective optimization</term>
+					<term>problem characteristics</term>
+					<term>complexity of procedures and algorithms</term>
+					<term>survey</term>
+					<term>theoretical and empirical analysis</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The difficulty of solving a multi-objective optimization problem is impacted by the number of objectives to be optimized. The presence of many objectives typically introduces a number of challenges that affect the choice/design of optimization algorithms. This paper investigates the drivers of these challenges from two angles: (i) the influence of the number of objectives on problem characteristics and (ii) the practical behavior of commonly used procedures and algorithms for coping with many objectives. In addition to reviewing various drivers, the paper makes theoretical contributions by quantifying some drivers and/or verifying these drivers empirically by carrying out experiments on multi-objective combinatorial optimization problems (multi-objective NK-landscapes). We then make use of our theoretical and empirical findings to derive practical recommendations to support algorithm design. Finally, we discuss remaining theoretical gaps and opportunities for future research in the area of multi-and many-objective optimization.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction</head><p>Multi-objective optimization (MO) <ref type="bibr" target="#b19">(Deb, 2001;</ref><ref type="bibr" target="#b54">Miettinen, 2012)</ref> is the area looking at the development and application of algorithms to problems with multiple conflicting objectives; problems with more than three objectives have also been termed as many-objective problems <ref type="bibr" target="#b46">(Kollat et al., 2011)</ref> and are less studied. In the absence of any user preferences about desired ideal solutions, the goal of MO algorithms (MOAs) is not to identify a single optimal solution but to approximate (or compute exactly if possible) the set of best trade-off solutions to a problem, also known as the Pareto (optimal) set. We say that a solution Pareto dominates, or simply dominates, another solution if it is not worse in any objective and if it is strictly better in at least one objective. Solutions in the Pareto set are non-dominated by any other solution from the feasible solution space.</p><p>The traditional approach to tackle a MO problem is to convert it into a single-objective problem using a scalarizing function <ref type="bibr" target="#b13">(Chankong and Haimes, 1983;</ref><ref type="bibr" target="#b57">Pascoletti and Serafini, 1984;</ref><ref type="bibr" target="#b23">Eichfelder, 2008)</ref>, and then solve the problem repeatedly using different 'configurations' of the scalarizing function (e.g. different weights). A commonly used scalarizing method is to combine the objectives using a weighted sum, and then alter the weights to discover one solution per algorithmic run. However, in the non-convex case, non-linear scalarization methods are more useful, given that linear scalarization methods can generate only a subset of Pareto optimal solutions, known as supported solutions <ref type="bibr" target="#b54">(Miettinen, 2012)</ref>. An alternative approach is to use a population-based approach, such as a multi-objective evolutionary algorithm (MOEA), to evolve several solutions (a population) in one algorithmic run with the hope to also discover multiple Pareto optimal solutions in one go. MOEAs have proven to be an efficient approach, especially for problems with two and three objectives <ref type="bibr" target="#b16">(Coello et al., 2007;</ref><ref type="bibr" target="#b19">Deb, 2001)</ref>. Traditional MOEAs rely on the Pareto dominance concept combined with diversity maintenance mechanisms to drive the search (e.g. NSGA-II <ref type="bibr" target="#b20">(Deb et al., 2002)</ref>). Two further prominent concepts are indicator-based and decomposition-based methods. The former concept replaces the objectives with a unary set performance metric (indicator) and then optimizes this metric (e.g. AGA <ref type="bibr" target="#b44">(Knowles and Corne, 2003)</ref> and IBEA <ref type="bibr" target="#b82">(Zitzler and Künzli, 2004)</ref>). A commonly used indicator is the hypervolume indicator <ref type="bibr" target="#b83">(Zitzler et al., 2003)</ref>, which measures the volume of the objective space that is dominated by the image of the Pareto set (also known as the Pareto front) and bounded by a reference point. Decomposition-based approaches (e.g. MOEA/D <ref type="bibr" target="#b80">(Zhang and Li, 2007)</ref>) decompose a MO problem into several single-objective problems using a scalarizing function with different weights. Each solution in the population is then dedicated to optimize one scalarizing function.</p><p>From the literature, it is apparent that solving MO problems is known to be difficult for some problem classes; moreover, we know from the No Free Lunch theorem <ref type="bibr" target="#b79">(Wolpert and Macready, 1997)</ref> that there is no single best approach in the general case. The computational difficulty grows with an increase in the number of objectives affecting different problem characteristics, such as the number of Pareto optimal solutions, distances among solutions, and likelihood of objectives varying in complexity and evaluation times. Furthermore, it is anticipated that algorithms and procedures designed for MO problems will face difficulties as the number of objectives increases. For example, the complexity for routines such as dominance tests and updating of the Pareto archive affects Pareto dominance-based MOEAs, creating evenly distributed weight vectors impacts decomposition-based MOEAs and scalarizing methods, and computing and approximating the hypervolume can become an issue for indicator-based MOEAs and performance validation. An overview of recent developments in the area of many-objective optimization can be found, for example, in <ref type="bibr" target="#b35">Ishibuchi et al. (2008)</ref>; <ref type="bibr" target="#b1">Aguirre (2013)</ref>; <ref type="bibr" target="#b12">Chand and Wagner (2015)</ref>, and empirical work on the efficiency of MOEAs for many-objective optimization problems can be found, for example, in <ref type="bibr" target="#b59">Purshouse and Fleming (2003)</ref>; <ref type="bibr" target="#b34">Hughes (2005)</ref>; <ref type="bibr" target="#b76">Wagner et al. (2007)</ref>.</p><p>We make several contributions to support the community in gaining a better understanding about the effect of increasing the number of objectives on problem characteristics and the complexity of MO procedures and algorithms:</p><p>• We adopt a holistic approach linking theory with empirical analysis, and then we highlight how our results translate into practice.</p><p>• We theoretically investigate the key drivers attributing to an increase in computational and algorithmic challenges. In particular, we derive probabilities for a solution to be non-dominated, and propose a general formulation for scalarizing functions.</p><p>• We conduct empirical experiments on multi-objective NK-landscapes <ref type="bibr" target="#b0">(Aguirre and Tanaka, 2007;</ref><ref type="bibr" target="#b75">Verel et al., 2013)</ref> to back up our theoretical contributions and verify various published theoretical results (as summarized in Table <ref type="table">1</ref>).</p><p>• We derive practical recommendations from our analysis to support algorithm design.</p><p>Let us highlight that our focus is on understanding the impact of the number of objectives on different problem characteristics and MO procedures including exact scalarization-based methods and population-based heuristics. The review and evaluation of individual MOEAs is out of scope of this paper, and can be found, for example, in <ref type="bibr" target="#b35">Ishibuchi et al. (2008)</ref>; <ref type="bibr" target="#b12">Chand and Wagner (2015)</ref>. However, as pointed out above, we will use our theoretical and empirical findings to provide recommendations for MOEAs of different type. This paper is organized as follows. The next section defines key MO concepts and motivates the choice of the test problem (NK-landscapes) used for empirical evaluation. Section 3 investigates the influence of the number of objectives on different problem characteristics, while Section 4 investigates the complexity of commonly used procedures and algorithms for coping with multiple objectives. Section 5 presents a summary of our theoretical and empirical findings, and then uses these to make recommendations for algorithmic setup choices for MOEAs, before finally discussing directions for future research.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Background</head><p>This section provides the relevant formal definitions to understand and avoid ambiguity of the various MO concepts, which will be used in the subsequent sections. The section will also provide details of multi-objective NK-landscapes, the model we use to empirically validate our theoretical contributions and/or existing theoretical results.</p><p>Table <ref type="table">1</ref>: Overview of the topics to which this paper is making either a theoretical or empirical contribution (using NK-landscapes), and the section, equation(s) and/or figure(s) presenting the actual contribution. Sections not listed in the table perform a mini review and are included in the paper to put the work in context. The general formulation of a MO problem is to "maximize" f(x) subject to x ∈ X, where x = (x 1 , . . . , x j , . . . , x n ) is a candidate solution vector (or simply solution) consisting of n design (or decision) variables, X ⊂ R n is the search domain, and f = ( f 1 , . . . , f i , . . . , f m ) is a vector objective function f : X → R m mapping solutions to a m dimensional objective space. The term "maximize" is written in quotes to indicate that in general there is no single solution that maximizes all objectives simultaneously, and a further definition is needed to define an ordering on candidate solutions (see below).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Topic</head><p>Definition 2.2. (Pareto dominance) Consider two solutions x 1 ∈ X and x 2 ∈ X. We say that x 1 is dominated by x 2 , also written as x 1 ≺ x 2 , if and only if ∃i such that f i (x 1 ) &lt; f i (x 2 ) and ∀ j, f j (x 1 ) ≤ f j (x 2 ). This relation is also sometimes called strict Pareto dominance in contrast to the weak Pareto dominance defined below.</p><p>Definition 2.3. (Weak Pareto dominance) Consider two solutions x 1 ∈ X and x 2 ∈ X. We say that x 1 is weakly dominated by x 2 , also written as x 1 x 2 , if and only if ∀ j, f j (x 1 ) ≤ f j (x 2 ).</p><p>Definition 2.4. (Pareto optimal) A solution x 1 ∈ X is called Pareto optimal if there does not exist a solution x 2 ∈ X that dominates it. Definition 2.7. (Hypervolume indicator) Given a set of points in the objective space S ⊂ R m and a reference point r ∈ R m , the hypervolume indicator of S is the measure of the region weakly dominated by S and weakly dominating r , i.e.:</p><formula xml:id="formula_0">H(S , r) = Λ(q ∈ R m | r q ∧ ∃p ∈ S : q p)</formula><p>where Λ(.) denotes the Lebesgue measure. Alternatively, it may be interpreted as the measure of the union of boxes:</p><formula xml:id="formula_1">H(S ) = Λ p∈S ,r p [r, p]</formula><p>where [r, p] = {q ∈ R m | q p ∧ r q} denotes the hypercuboid delimited by p and r. The advantage of hypervolume indicator is its compliance with the Pareto dominance relation <ref type="bibr" target="#b83">(Zitzler et al., 2003)</ref>.</p><p>Definition 2.8. (Pareto archive) A Pareto archive is a set of mutually non-dominated solutions, i.e.:</p><formula xml:id="formula_2">A = {x ∈ X | ∀x 1 ∈ A, x 2 ∈ A : x 2 ⊀ x 1 ∧ x 1 ⊀ x 2 }.</formula><p>In the context of multi-objective algorithms, a Pareto archive is used to store potentially Pareto optimal solutions, i.e. solutions that are not dominated by any solution generated so far. The Pareto archive may be unbounded, or bounded in cardinality, i.e. it may contain only a limited number of N solutions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Multi-objective NK-Landscapes</head><p>Multi-objective NK-landscapes <ref type="bibr" target="#b0">(Aguirre and Tanaka, 2007;</ref><ref type="bibr" target="#b75">Verel et al., 2013)</ref> constitute a synthetic problemindependent model used for constructing multi-objective combinatorial optimization problems. They extend singleobjective NK-landscapes <ref type="bibr" target="#b43">(Kauffman, 1993)</ref>, describing and generalizing a large family of unconstrained binary optimization problems <ref type="bibr" target="#b33">(Heckendorn and Whitley, 1997)</ref>. Importantly, a multi-objective NK-landscape instance can be constructed with any number of objectives, making it attractive for the purpose of our study.</p><p>In particular, candidate solutions are binary strings of size n. The objective function vector f is defined as f : {0, 1} n → [0, 1] m such that each objective f i is to be maximized. As in the single-objective case, the objective value f i (x) of a solution x is the average value of the individual contributions associated with each design variable x j . Given objective f i , i ∈ {1, . . . , m}, and each variable x j , j ∈ {1, . . . , n}, a component function f i j : {0, 1} k+1 → [0, 1] assigns a real-valued contribution for every combination of x j and its k epistatic interactions x j 1 , . . . , x j k . These f i j -values are uniformly distributed in [0, 1]. Thus, the individual contribution of a variable x j depends on its value and on the values of k &lt; n variables x j 1 , . . . , x j k other than x j . The problem can be formalized as follows:</p><formula xml:id="formula_3">max f i (x) = 1 n n j=1 f i j (x j , x j 1 , . . . , x j k ) i ∈ {1, . . . , m} s.t. x j ∈ {0, 1} j ∈ {1, . . . , n}</formula><p>The epistatic interactions, i.e. the k variables that influence the contribution of x j , are typically set uniformly at random among the (n -1) variables other than x j , following the random neighborhood model from <ref type="bibr" target="#b43">Kauffman (1993)</ref>.</p><p>By increasing the number of epistatic interactions k from 0 to (n -1), problem instances can be gradually tuned from smooth to rugged. Interestingly, multi-objective NK-landscapes exhibit different characteristics and different degrees of difficulty for multi-objective optimization methods<ref type="foot" target="#foot_0">1</ref>  <ref type="bibr" target="#b18">(Daolio et al., 2017;</ref><ref type="bibr" target="#b49">Liefooghe et al., 2020)</ref>. In the following two sections, if not otherwise stated we have considered 30 randomly-generated instances of multi-objective NK-landscapes with n = 10 decision variables, and k = 0 (i.e. linear problems), but, of course, varied the number of objectives m as the impact of m is the focus of this study.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">Effect of the Number of Objectives on Problem Characteristics</head><p>In this section, we study the influence of the number of objectives on different problem characteristics as outlined in Table <ref type="table">1</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Number of Pareto Optimal Solutions</head><p>In the combinatorial case, the number of Pareto optimal solutions is known to grow exponentially with the number of objectives in the worst case, that is O(c m-1 ), where c is a constant value <ref type="bibr" target="#b7">(Bazgan et al., 2013)</ref>. Furthermore, as shown by <ref type="bibr" target="#b7">Bazgan et al. (2013)</ref>, this bound is tight for many classical multi-objective combinatorial optimization problems, such as selection, knapsack, shortest path, spanning tree, traveling salesperson, and s-t cut problems. Obviously, the number of Pareto optimal solutions is also bounded by the size of the whole feasible set. <ref type="bibr" target="#b75">Verel et al. (2013)</ref> experimentally investigate the number of Pareto optimal solutions for multi-objective NK-landscapes with 2, 3 and 5 objectives. They report that it grows exponentially with the problem size, the number of objectives and the degree of conflict among the objectives, and that it slightly decreases with the number of variable interactions. Given the aim of the current paper, we focus on the number of objectives by considering multi-objective NK-landscapes with 2 to 20 objectives. In Fig. <ref type="figure" target="#fig_2">1</ref>, we report the proportion of Pareto optimal solutions in the solution space with respect to the number of objectives. We see that less than 5% of solutions are Pareto optimal for biobjective problems (m = 2), whereas this proportion grows to about 50% for m = 7 objectives. For m = 20 objectives, more than 99% of solutions are Pareto optimal for all considered instances. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Probability for a Solution to be Non-Dominated</head><p>With a growing number of objectives, the dominance relation becomes less discriminative <ref type="bibr" target="#b1">(Aguirre, 2013)</ref>. Let us consider the comparison between two arbitrary solutions x 1 and x 2 on m objectives. Assume that the probability of equal objective values can be neglected, and that the comparison with respect to each objective is independent. For each objective there is a 1/2 probability that x 1 has a better value for this objective than x 2 , and the same probability applies for the opposite situation. Note that we do not assume any particular distribution of objective values. We just assume that the results of comparisons according to particular objectives are independent random variables. As such, given a problem with m objectives, the probability that one solution dominates the other one is 1/2 (m-1) . Thus, as m increases, it becomes more likely that two arbitrary solutions are mutually non-dominated. If the objectives are positively correlated, this probability increases, and if they are negatively correlated this probability decreases <ref type="bibr" target="#b75">(Verel et al., 2013)</ref>.</p><p>As a consequence of the reduced discriminative power of the dominance relation, the probability that a given solution is Pareto optimal increases with the number of objectives. To the best of our knowledge, there is no exact formula for the probability of a solution to be Pareto optimal within a given population, and such probability would depend on the distribution of solutions in the population. However, to get some intuition about the impact of the number of objectives on this, we derive the formula for the probability that all µ randomly selected pairs of solutions are mutually non-dominated:</p><formula xml:id="formula_4">µ i=1 1 - 1 2 m-1 = 1 - 1 2 m-1 µ (1)</formula><p>This theoretical probability is reported in Fig. <ref type="figure" target="#fig_3">2</ref> for different number of objectives, m, and number of pairs, µ. As such, the probability that all µ randomly selected pairs of solutions are mutually non-dominated increases with the number of objectives, and decreases with the number of pairs. It becomes very likely that all pairs are mutually nondominated for problems with m &gt; 15 objectives, even for large numbers of pairs. In Fig. <ref type="figure" target="#fig_4">3</ref>, we measure this proportion for multi-objective NK-landscapes using m ∈ {2, 3, . . . , 20}. In particular, we perform 30 independent samples per instance for each setting. Comparing Fig. <ref type="figure" target="#fig_3">2</ref> with Fig. <ref type="figure" target="#fig_4">3</ref>, we observe that the theoretical model fits the experimental data well, although there are some small but significant differences. Through an additional analysis we found that this is caused by small positive or negative correlations between objectives resulting from random (diss)similarities of instance parameters. Such correlations modify the probabilities that two randomly selected solutions are nondominated w.r.t. the assumed independent objectives model. Since Eq. ( <ref type="formula">1</ref>) is exponential, even very small differences of the probabilities that two randomly selected solutions are non-dominated may results in noticeable differences in the probability that all pairs are non-dominated.</p><p>Although the probability for a solution to be non-dominated in random populations might be difficult to derive theoretically due to the dependencies between solutions, we report in Fig. <ref type="figure" target="#fig_5">4</ref> empirical results on the proportional  number of times a given solution is not dominated by any of µ other solutions, all drawn at random. We consider the same set of multi-objective NK-landscapes. The probability for a solution to be non-dominated grows with the number of objectives, but the increase is steeper than that of Fig. <ref type="figure" target="#fig_4">3</ref>. It also reduces with the population size, although its effect is lower than that of the number of objectives. For 2 objectives, it ranges from about 70% when a single pair of solutions is considered, to less than 2% when the solution is compared against 1 000 others. By contrast, for problems with more than 12 objectives, there is over 90% chance that the solution is not dominated by any other, independently of the population size.</p><p>Additionally, we report in Fig. <ref type="figure" target="#fig_6">5</ref> the proportional number of non-dominated solutions in populations containing µ random solutions. The curves follow a similar trend than that of Fig. <ref type="figure" target="#fig_5">4</ref>. For small populations (µ = 10), there is about 30% of non-dominated solutions for 2-objective problems, 50% for 3-objective problems, to more than 70% for problems with 4 objectives and more, and even more than 90% for problems with 6 objectives and more. For larger populations, this proportion decreases but remains higher than 90% for problems with 12 objectives or more, independently of the population size. Multi-objective selection methods for ranking solutions from a population of mutually non-dominated solutions are discussed and compared by <ref type="bibr" target="#b17">Corne and Knowles (2007)</ref>.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Number of Preference Parameters</head><p>In numerous multi-objective optimization methods, the decision maker (DM) is expected to express his/her preferences, e.g. in the form of weighting coefficients or reference levels (aspiration levels/goals) specified for each objective <ref type="bibr" target="#b54">(Miettinen, 2012)</ref>. The number of such preference parameters grows just linearly with the number of objectives. However, for certain methods, such as AHP <ref type="bibr" target="#b61">(Saaty, 1987)</ref>, preference parameters are expressed with respect to each pair of objectives; in this case, their number grows quadratically.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Probability of Having Heterogeneous Objectives</head><p>As the number of objectives increases and one is faced with a many-objective problem, it becomes more likely that the objectives are heterogeneous meaning they differ in, for example, complexity (e.g. linear vs non-linear, unimodal vs multimodal), evaluation efforts in terms of time, costs, or resources, available information (expensive black box vs given closed-form function), or determinism (stochastic vs deterministic).</p><p>Examples of problems with heterogeneous objectives include real-world problems where some objectives must be evaluated using time-consuming physical experiments in the laboratory, while other objectives are evaluated using relatively quicker calculations on the computer. Problems that fall into this category can be found, for instance, in drug design <ref type="bibr" target="#b65">(Small et al., 2011)</ref> and engineering <ref type="bibr" target="#b72">(Terzijska et al., 2014)</ref>. In the former, the objectives related to potency and side effects of drugs need to be validated experimentally, while the cost of manufacturing a drug or number of drugs in a drug combinations can be obtained quickly.</p><p>The first work we are aware of on the topic of heterogeneous objectives was by <ref type="bibr" target="#b3">Allmendinger and Knowles (2013)</ref>. This work was motivated by a real-world scenario where the objective function components were of different "latency" (evaluation times). This initial study was then extended in <ref type="bibr" target="#b2">(Allmendinger et al., 2015)</ref>, where different strategies for coping with latencies in a bi-objective problem were proposes and analyzed. Recently, more research has been carried out on the topic of heterogeneous objectives including the application of surrogate-assisted methods <ref type="bibr" target="#b15">(Chugh et al., 2018;</ref><ref type="bibr" target="#b77">Wang et al., 2020</ref><ref type="bibr" target="#b78">Wang et al., , 2021))</ref>, transfer learning <ref type="bibr" target="#b77">(Wang et al., 2020</ref><ref type="bibr" target="#b78">(Wang et al., , 2021) )</ref> and non-evolutionary methods <ref type="bibr" target="#b73">(Thomann, 2019)</ref>. The reader is referred to <ref type="bibr" target="#b4">Allmendinger and Knowles (2021)</ref> for a more in depth review on heterogeneous objectives.</p><p>To motivate and further raise awareness of heterogeneous objectives, we investigate the relationship between the number of objectives in a problem and the degree of heterogeneity induced by them. For the purpose of this experiment, we limit ourselves to heterogeneity in form of latencies (evaluation times) across the objectives. Assuming a problem with a certain number of objectives, each being associated with an evaluation duration drawn from a given distribution, we want to know what is the mean minimum and maximum difference in evaluation times among these objectives. We repeated this experiment for different numbers of objectives (1-25 objectives as indicated on the xaxis) and four distributions to drawn the evaluation durations from. Each configuration was repeated 100 times, and the mean and standard error of the minimum and maximum differences in evaluation durations are plotted in Fig. <ref type="figure" target="#fig_7">6</ref>. As the considered distributions, we considered (i) three different Beta distributionsbeta(2, 8) (skewed to the right), beta(8, 2) (skewed to the left), and beta(5, 5) (symmetric), each defined on the interval [0,1] -allowing us to simulate conveniently skewness in the evaluation of durations of the objectives, and (ii) one uniform distribution defined on the interval <ref type="bibr">[1,</ref><ref type="bibr">50]</ref>. The Beta distribution has also been used extensively in the literature to quantify the duration of tasks (see seminal paper of <ref type="bibr" target="#b53">Malcolm et al. (1959)</ref>) in different contexts. The purpose of using the uniform distribution is to have a baseline to compare against.</p><p>It can be seen from the left plot of Fig. <ref type="figure" target="#fig_7">6</ref> that, regardless of the skewness and probability distribution, the mean minimum and maximum difference in evaluation durations of objectives starts roughly from the same level for a bi-objective problem (m = 2) with the two mean differences becoming exponentially more and more distinct as the problem becomes many-objective. This pattern is expected since it becomes more likely that the evaluation duration of a new objective (as sampled from the Beta distribution) is either more similar or distinct to the evaluation duration of an existing objective. Perhaps more surprisingly is the asymmetry between the minimum and maximum difference with increasing m: While the mean minimum difference is hardly affected by the choice of probability distribution (with the difference flattening quickly from around m &gt; 15 objectives), there is a statistical difference between the Beta  distributions when considering the mean maximum difference; in particular, the mean maximum difference associated with the symmetric distribution (beta(5, 5)) increases faster than with the two skewed distributions. This pattern stems from the fact that its more likely to sample extreme values for the evaluation duration with the symmetric distribution. Consequently, the gap between the mean minimum and maximum difference in evaluation times is even greater in the case of the uniform distribution (right plot of Fig. <ref type="figure" target="#fig_7">6</ref>), where the probability of sampling any possible evaluation time is equal within the interval <ref type="bibr">[1,</ref><ref type="bibr">50]</ref>.</p><p>Having observed that the algorithm choice is affected amongst others by latency <ref type="bibr" target="#b4">(Allmendinger and Knowles, 2021)</ref>, this experiment indicates that knowing about the distributions of latency (evaluation times) can be used in the selection and design of novel algorithms to cope with heterogeneous objectives.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Distance between Solutions</head><p>The distance between pairs of solutions randomly selected from the whole search space and from the Pareto set is reported in Fig. <ref type="figure">7</ref>. We consider multi-objective NK-landscapes with m ∈ {2, 3, . . . , 20}. For each instance, we select 30 random pairs of solutions, and we report their Hamming distance in the design space and their Euclidean distance in the objective space. The Hamming distance among random solutions does not depend on the number of objectives, of course. However, the Hamming distance among Pareto optimal solutions increases significantly with the number of objectives, m. For m &gt; 13 objectives, the expected distance among Pareto optimal solutions matches the one from random solutions. This comes as no surprise since most solutions are Pareto optimal in such highdimensional objective spaces, as already mentioned in Section 3.1. However, when few objectives are considered, Pareto optimal solutions are much closer than random solutions. As such, for many-objective problems, good-quality solutions spreading along the Pareto front are far away from each other, so that we argue that few building blocks (if any) might actually be exploited by (blind) recombination.</p><p>When looking at the objective space, the Euclidean distance among objective vectors is increasing almost linearly with the number of objectives, with the distance among Pareto optimal solutions being only slightly lower than the distance among random solutions for m &lt; 15 objectives. As can be visualized in the illustrative two-objective NK-landscapes provided in Fig. <ref type="figure">8</ref>, reproduced from <ref type="bibr" target="#b75">Verel et al. (2013)</ref>, the objective space resembles a multidimensional "ball", so that non-dominated objective vectors are not particularly closer than random ones. Given that the distance between solutions in the objective space increases with the number of objectives, we expect that identifying a high-quality representation of the Pareto front, in terms of coverage, gets more difficult for many-objective optimization problems.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Effect of the Number of Objectives on the Complexity of Multi-objective Procedures and Algorithms</head><p>In this section we report a number of computational experiments, both performed for the purpose of this paper and analyzing results reported in the literature. Note that, although a number of computational studies with the methods considered in this paper have been reported in the literature, they are usually focused on performance comparison, in most cases w.r.t. a newly-proposed method. By contrast, our goal is to more systematically study the influence of the number of objectives on the behavior of some representative algorithms. Furthermore, usually smaller numbers of objectives are used in reported experiments.</p><p>Although most studies are based on a number of pairwise comparisons of solutions, it is important to notice that the elementary operation for complexity results reported below is a pairwise comparison per objective. This choice is motivated by the fact that we want to highlight the effect of the number of objectives (m) on different multi-objective optimization tools and methods.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Dominance Test and Updating the Pareto Archive</head><p>In this section, we consider the processes of testing if a solution x is dominated or not by a Pareto archive and of updating this archive. Updating the Pareto archive A with a new solution x means that all solutions dominated by x are removed from A and x is added to A if it is not dominated by any solution in A. The complexity analysis of the two processes is the same, since the dominance test is the bottleneck part of the updating process.</p><p>The simplest data structure for the Pareto archive is a simple, unorderd list of solutions with linear time complexity of update. Several methods and related data structures aiming at efficient realization of the Pareto archive update have been proposed, e.g., Quad Tree <ref type="bibr" target="#b68">(Sun and Steuer, 1996;</ref><ref type="bibr" target="#b55">Mostaghim and Teich, 2005;</ref><ref type="bibr" target="#b66">Sun, 2006</ref><ref type="bibr" target="#b67">Sun, , 2011;;</ref><ref type="bibr" target="#b25">Fieldsend, 2020)</ref>, MFront II <ref type="bibr" target="#b21">(Drozdík et al., 2015)</ref>, BSP Tree <ref type="bibr" target="#b29">(Glasmachers, 2017)</ref>, and ND-Tree <ref type="bibr" target="#b39">(Jaszkiewicz and Lust, 2018)</ref>. <ref type="bibr" target="#b39">Jaszkiewicz and Lust (2018)</ref> reported some complexity results for ND-Tree:</p><formula xml:id="formula_5">• Worst case: O(m N); • Best case: Θ(m log(N));</formula><p>• Average case: Θ(m N b ), where N is the size of the archive, and b ∈ [0, 1] is the probability of branching (i.e.</p><p>the probability of testing more than one subnode in ND-Tree).</p><p>Note that linear time complexity in the worst case holds also for Quad Tree <ref type="bibr" target="#b68">(Sun and Steuer, 1996)</ref> and the sublinear time complexity in average case could also be obtained with BSP Tree <ref type="bibr" target="#b29">(Glasmachers, 2017)</ref>.</p><p>The Pareto archive may be either bounded in size or unbounded, i.e. contain only some or all non-dominated solutions generated so far <ref type="bibr" target="#b27">(Fieldsend et al., 2003)</ref>. In the latter case, the size of the Pareto archive may, in general, grow exponentially with the number of objectives (see Section 3.1). Assuming that N = O(c m-1 ) (see Section 3.1), the complexity of the update process of an unbounded archive becomes:</p><formula xml:id="formula_6">• Worst case: O(m N) = O(m c m-1 ); • Best case: Θ(m log(N)) = Θ(m log(c m-1 )) = Θ(m 2 log(c)); • Average case: Θ(m N b ) = Θ(m c (m-1)b ).</formula><p>In other words, in the worst case, the time grows exponentially with m, and, in the average case, the time may grow exponentially with m if c b &gt; 1.</p><p>To illustrate the above analysis, we perform the following computational experiment. We consider multi-objective NK-landscapes with n = 16, k = 0, and m ∈ {3, 4, . . . , 20}. For each setting, we generate 30 random instances. All 2 16 = 65 536 solutions are processed in random order. Note that in this experiment we use instances with n = 16 instead of n = 10 used in other places, because with n = 10 the number of solutions was too low to show significant differences between the evaluated methods. The methods used in this experiments are simple list, ND-Tree <ref type="bibr" target="#b39">(Jaszkiewicz and Lust, 2018)</ref>, Quad Tree (precisely Quad Tree 2 algorithm described by <ref type="bibr" target="#b55">Mostaghim and Teich (2005)</ref> with the corrections described by Fieldsend (2020)), and MFront II <ref type="bibr" target="#b21">(Drozdík et al., 2015)</ref> with the modifications proposed by <ref type="bibr" target="#b39">Jaszkiewicz and Lust (2018)</ref>. We used C++ implementations of these methods described by Jaszkiewicz and Lust (2018), however, implementation of the Quad Tree has been improved on both technical level and using the corrections proposed by <ref type="bibr" target="#b25">Fieldsend (2020)</ref>. Fig. <ref type="figure" target="#fig_10">9</ref> (left) presents average running times of the four methods needed to process all solutions. As could be observed, the ranking of the methods depends on the number of objectives in a non-trivial way. Overall, the two best methods are Quad Tree and ND-Tree, with Quad Tree being better for m = {12, . . . , 17} objectives, and ND-Tree being better in other cases. Somehow surprisingly, simple list performs very well for small numbers of objectives and is the best method for m = 3 and m = 4 objectives. This is related to the design of the experiment in which all solutions are used. For small numbers of objectives, there are relatively few non-dominated solutions (see Fig. <ref type="figure" target="#fig_2">1</ref>), so the list is relatively short and a new solution has a high chance to be dominated by many solutions in the list. Thus, a dominating solution is often quickly found and the update process is finished. Note also, that MFront II is the worst performing method.</p><p>It could also be observed that the running time grows exponentially with the number of objectives. This could be however, caused just by the growing size of the Pareto archive (see Section 3.1, Fig. <ref type="figure" target="#fig_2">1</ref>). Thus, in Fig. <ref type="figure" target="#fig_10">9</ref> (right) we present running times divided by the number of Pareto optimal solutions. The relative running time changes only slightly for Quad Tree and ND-Tree again with a non-trivial pattern.</p><p>Furthermore, as we discussed above in this section, methods like ND-Tree aim at ensuring sublinear time complexity w.r.t. the size of the Pareto archive. To verify this, we measure running times needed to achieve the Pareto archive of 10%, 20%, . . . , 100% of the final size. To be precise, the running time reported e.g. for 20% is the running time from the moment of achieving 10% of the final size till the moment of achieving 20% of the final size divided by the number of processed solutions (in other words, we report average time of processing a single solution in a given interval of the Pareto archive size). Ideally, this running time should be constant or grow sublinearly with the size of the Pareto archive. The results for 20 objectives are presented in Fig. <ref type="figure" target="#fig_2">10</ref>. Since the running times of the four methods differ significantly (see Fig. <ref type="figure" target="#fig_10">9</ref>), the running times of each method are normalized such that the maximum time is 1. As it can be observed, running time needed to process a single solutions for 20 objectives grows linearly with the size of the Pareto archive for all methods. Of course, the speed of this growth differs for different methods. On the other hand, for some smaller numbers of objectives the running times are indeed almost constant or clearly sublinear (see Fig. <ref type="figure" target="#fig_2">11</ref> <ref type="foot" target="#foot_1">2</ref> ). This means that for each method, for some number of objectives, we observe a switch of its behavior from sublinear to approximately linear dependence on the size of the Pareto archive. The switching point is different for different methods and is between 5 -7 objectives for the simple list and MFront II, between 6 -8 objectives for ND-tree, and between 4 -6 objectives for Quad tree. In other words, since the number of Pareto optimal solutions grows in general exponentially with the number of objectives (see Section 3.1), according to the presented experiment, for at least 8 objectives we can expect exponential growth (w.r.t. m) of updating an unbounded Pareto archive independent on the method used. In our opinion, it is caused by the reduced discriminative power of the dominance relation (see Section 3.2) for higher numbers of objectives. Although different methods are based on different ideas, all of them use some properties of dominance relation to speed-up the update process, thus all of them are affected by its reduced discriminative power. The methods tested in our experiment together with several other methods were also recently experimentally evaluated by <ref type="bibr" target="#b25">Fieldsend (2020)</ref>. The conclusion of that experiment was that ND-Tree generally performs best in long runs, but this was not a universal finding. Furthermore, the performance of the different methods can vary considerably between hardware architectures, and in a non-constant fashion. Also, our additional preliminary experiments (not reported in this paper) indicate that performance may strongly depend on the data sets used and the order in which the solutions are processed. In particular, the running time may depend on whether the new solution is dominated, non-dominated or dominating, and the pattern may be different for different methods. Thus, we encourage further experiments testing practical behavior of the methods for updating the Pareto archive, in particular using different orders of solutions, which is however, out of the scope of this paper. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Computing and Approximating Hypervolume</head><p>When assessing the performance of multi-objective optimization algorithms, or in indicator-based evolutionary multi-objective optimization, the indicator-value of a set of solutions is to be computed multiple times. One of the recommended and most-often used indicator is the hypervolume <ref type="bibr" target="#b83">(Zitzler et al., 2003;</ref><ref type="bibr" target="#b63">Shang et al., 2021)</ref>, because of its compliance with the comparison of sets of points based on the dominance relation. Note that, since dominated solutions do not influence the hypervolume, only non-dominated solutions, forming a Pareto archive of size N, need to be taken into account. Unfortunately, the exact hypervolume computation time is known to grow exponentially with the number of objectives. Although efficient algorithms exist for m = 3 <ref type="bibr" target="#b8">(Beume et al., 2009)</ref> and m = 4 <ref type="bibr" target="#b31">(Guerreiro and Fonseca, 2018)</ref>, the best known algorithm for the general case has a time complexity of O(N m/3 polylog N) <ref type="bibr" target="#b11">(Chan, 2013)</ref>.</p><p>To analyze the above theoretical results experimentally, we test the behavior of two state-of-the-art methods for exact computation of hypervolume, namely the non-incremental version of the Hypervolume Box Decomposition Algorithm (HBDA-NI) <ref type="bibr" target="#b48">(Lacour et al., 2017)</ref> and the Improved Quick Hypervolume algorithm (QHV-II) <ref type="bibr" target="#b38">(Jaszkiewicz, 2018)</ref>. The results published in these papers are used, and the running times of HBDA-NI have been divided by 2.5 to compensate processor differences as suggested in <ref type="bibr" target="#b38">(Jaszkiewicz, 2018)</ref>. The results are reported for data sets proposed by <ref type="bibr" target="#b48">Lacour et al. (2017)</ref> (concave, convex, and linear) composed of 1 000 points in m ∈ {4, 6, 8, 10} dimensional objective spaces, with objective values (and thus hypervolume) normalized to the range [0, 1]. We use 10 instances for each combination of data set type and number of objectives. The results are presented in Fig. <ref type="figure" target="#fig_12">12</ref>. Note that for the running time w.r.t. the number of objectives, a logarithmic scale is used. The running times of the exact methods grow indeed exponentially with the number of objectives, which suggests that the exponential time complexity holds not only in the worst case, but in the typical case as well. At the same time the running times grow relatively slowly with the number of points (see Fig. <ref type="figure" target="#fig_12">12,</ref><ref type="figure">right</ref>).</p><p>Alternatively, the hypervolume can be approximated by Monte Carlo sampling <ref type="bibr" target="#b6">(Bader and Zitzler, 2011)</ref>. In this case, the complexity is Θ(s m N b ), where s is the number of sampling points and the term N b relates to the dominance tests (see Section 4.1). Since Monte Carlo sampling is just a sequence of s independent experiments, each asking a yes/no question (dominated/non-dominated), the confidence interval can be derived from the binomial distribution and does not depend on the number of objectives. On the other hand, the question remains if the size of the confidence intervals should be reduced with growing number of objectives m and/or growing N.</p><p>To analyze the above question, we consider first the case where the size N of the set of points for which hypervolume is estimated is constant and only the number of objectives changes. The required precision of hypervolume estimation could be related to an average contribution of a single point to the hypervolume, i.e. the difference in the hypervolume with and without this single point. In other words, intuitively speaking, the precision of hypervolume estimation should be sufficient to distinguish addition/subtraction of a given number of points. It could be expected that the average contribution does not depend on the number of objectives. To analyze this experimentally, we use the same data sets as above. For each individual point its contribution to the hypervolume of the given set is calculated with an exact method. The results presented in Fig. <ref type="figure" target="#fig_13">13</ref> are average contributions for 10 × 1 000 = 10 000 individual points. The influence of the number of objectives depends mainly on the instance type and only in the case of convex instances the average contribution decreases with a growing number of objectives. However, note that for convex instances, the hypervolume approaches 0 as the number of objectives grows (i.e. the points are very close to the nadir point), thus the contribution of an individual point also approaches 0. On the other hand, the average contribution grows with the number of objectives for linear instances. Summarizing, no general trend for the decrease or increase of the average contribution with the growing number of objectives could be concluded from this experiment, thus we conclude that also the size of the confidence interval should not change with the number of objectives and constant N.</p><p>Additionally, as discussed above, it is often assumed that N increases with m. In this case, it could be expected that the average contribution is Θ(1/N). To test this assumption, we show the results in Fig. <ref type="figure" target="#fig_13">13</ref> for the same set of instances with 200, 400, . . . , 1 000 points. As it can be observed, the average contribution indeed decreases approximately linearly with 1/N. Since we propose to treat the average contribution as the indicator of required precision, the size of the confidence interval r (i.e. the difference between the upper and lower confidence bound) for the estimated hypervolume should be Θ(1/N). The confidence interval for binomial distribution could be calculated with Wilson score interval with continuity correction for binomial distribution <ref type="bibr" target="#b56">(Newcombe, 1998)</ref>. According to this test, r = Θ(1/ √ s), where s is the number of sampled points, so s = Θ(1/r 2 ). Thus, in order to achieve the required accuracy, the number of sampled points s should be Θ(N 2 ).</p><p>To test the above hypothesis, we perform the following experiment. Using the same data sets we run Monte Carlo sampling until it achieves size of the confidence interval lower or equal to 5/N. We use the simplest version of Monte Carlo sampling in which the hypercuboid defined by the nadir and ideal points is uniformly sampled. ND-tree is used for the dominance test. The results are presented in Fig. <ref type="figure" target="#fig_14">14</ref>. As can be observed, for linear and concave instances the running times grow slowly with the number of objectives, which is due to the increasing number of comparisons of objective values. For convex instances the running time of Monte Carlo sampling decreases with the growing number of objectives, because for this set of instances with high numbers of objectives, the hypervolume values are very close to 0 which makes the estimation task easier. We test also the influence of the number of points on the running time for 8 objective instances (Fig. <ref type="figure" target="#fig_14">14</ref>) together with quadratic trend lines which fit the data very well. Note, however, that the running times of exact methods are shorter than that of Monte Carlo sampling for 4 objectives and comparable for 6 objectives. Only for 8 and 10 objectives Monte Carlo sampling is clearly beneficial in the presented experiment. Furthermore, since the required sample size, and thus CPU time, is Θ(1/r 2 ), the running time of Monte Carlo may be much higher if a smaller confidence interval is required. For example, if the required confidence interval is 1/N (i.e. 5 times smaller), the running time of Monte Carlo sampling would grow about 25 times and the running times of exact methods would be larger only for 10 objectives. Summarizing, both the theoretical analysis and the presented experiments suggest that Monte Carlo sampling is an interesting alternative to exact methods for many-objective problems, if an approximate value of hypervolume is sufficient in a given context. Note also that recently a number of more advanced algorithms for approximate hypervolume computation have been proposed, some of them providing an approximation guarantee <ref type="bibr" target="#b36">(Ishibuchi et al., 2009;</ref><ref type="bibr" target="#b71">Tang et al., 2017;</ref><ref type="bibr" target="#b52">Ma et al., 2018;</ref><ref type="bibr" target="#b64">Shang et al., 2018;</ref><ref type="bibr" target="#b40">Jaszkiewicz et al., 2020;</ref><ref type="bibr" target="#b81">Zhang and Golovin, 2020)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Impact on Scalarization Methods</head><p>The aim of this section (see also the Appendix) is to discuss the influence of the number of objectives in the scope of scalarization procedures, which are a well-established approach to MO optimization; hence, we can afford being more technical in our discussion. Using the properties of a general scalarization function, we derive corresponding properties of some prominent scalarization techniques as special cases of the general scalarization function.</p><p>We consider a MO problem with the vector-valued objective function f and the feasible set X (see Definition 2.1). An important question is how to characterize the sets of Pareto (weakly) optimal elements of MO problems via suitable scalarization methods. In the non-convex case, especially in combinatorial MO, it is important to provide suitable non-linear scalarization functions. Depending on the monotonicity properties of the involved scalarization functions, some of the scalarization methods used for deducing characterizations of solutions to MO problems generate weakly Pareto optimal solutions (see Definition 2.3), other scalarization methods generate Pareto optimal solutions (see Definition 2.2). For an overview on scalarization methods and corresponding algorithms for solving MO problems, we refer to <ref type="bibr" target="#b23">Eichfelder (2008)</ref>; <ref type="bibr" target="#b69">Tammer and Weidner (2020)</ref> and references therein. <ref type="bibr" target="#b57">Pascoletti and Serafini (1984)</ref> introduced a scalar optimization problem that can be formulated using a general non-linear scalarizing function that we will discuss in this section. Corresponding non-linear scalarization methods, including applications in economics, are studied by <ref type="bibr" target="#b9">Bonnisseau and Cornet (1988)</ref>; <ref type="bibr" target="#b10">Bonnisseau and Crettez (2007)</ref> and <ref type="bibr">Luenberger (1992a,b)</ref>. The parameters in the scalar optimization problem by <ref type="bibr" target="#b57">Pascoletti and Serafini (1984)</ref> are elements ∈ R m and a ∈ R m , see Eq. <ref type="bibr">(A.11)</ref>. Furthermore, in the -constraint problem by <ref type="bibr" target="#b32">Haimes et al. (1971)</ref>; <ref type="bibr" target="#b13">Chankong and Haimes (1983)</ref>, parameters = ( 1 , . . . , m ) ∈ R m are involved. The scalarization method by <ref type="bibr" target="#b57">Pascoletti and Serafini (1984)</ref> and the -constraint problem are used for deriving parameter-based adaptive algorithms in <ref type="bibr" target="#b23">Eichfelder (2008)</ref>, compare also <ref type="bibr" target="#b58">Polak (1976)</ref>. By varying the parameters ∈ R m and a ∈ R m in Eq. (A.11), adaptive algorithms generate an equidistant approximation of the set of Pareto optimal elements to the MO problem by solving scalarized problems. If the number of objectives m is increasing, then the parameter vectors and a belong to higher dimensional spaces, i.e., the number of preference parameters increases linearly.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.1">A General Scalarization Method by Translation Invariant Functions</head><p>Let us consider the general class of scalarization functionals given by translation invariant functions ϕ : R m → R := R ∪ {-∞} ∪ {+∞}. The translation invariance of ϕ along a direction ∈ R m \ {0} is defined by the property ϕ(y + t ) = ϕ(y) + t for all y ∈ R m , t ∈ R. Translation invariant functions play an important role in scalarization methods for multi-objective optimization problems as well as in risk theory and mathematical finance <ref type="bibr" target="#b5">(Artzner et al., 1999;</ref><ref type="bibr" target="#b37">Jaschke and Küchler, 2001)</ref>. Translation invariant functions can be formulated using a certain set A ⊂ R m and a parameter vector ∈ R m \ {0} with the property ∈ -0 + A \ {0} (0 + A := {y ∈ R m | A + R + y ⊆ A} denotes the recession cone of A). An equivalent formulation of translation invariant functions using A and is given in Eq. (A.3).</p><p>We explain that the scalarization functions involved in the Chebyshev scalarization, the -constraint problem and other scalarization methods are special cases of the general translation invariant scalarization function (A.3). Using these results, it is possible to obtain continuity, monotonicity, convexity and other algebraic properties of the scalarization functions in the Chebyshev scalarization, the -constraint problem from the corresponding properties of the general nonlinear translation invariant function derived in <ref type="bibr">Göpfert et al. (2003, Theorem 2.3.1)</ref>. These properties are very important for a characterization of the solutions to MO problems.</p><p>In Corollary A.1, especially in Eq. (A.10), we show that the (along translation invariant) function ϕ A, := ϕ is completely defined by the parameter vectors ∈ R m \ {0} and w ∈ R m and elements a i ∈ R m (i = 1, . . . , n). These parameter vectors are involved in certain inner products of the m dimensional vectors and w included in the description of the function ϕ A, in Eq. (A.10). If we add some more objectives, then the scalarized problem is not more difficult because the number of objectives m is only involved in the inner products a i , w and a i , of the m dimensional vectors a i , , w ∈ R m taking into account Corollary A.1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.2">Scalarization Methods for Multi-objective Combinatorial Optimization</head><p>The application of scalarization methods, especially of the -constraint method, for combinatorial MO problems is discussed by <ref type="bibr" target="#b28">Figueira et al. (2017)</ref>. As explained in (a) of the Appendix, the -constraint method is a special case of a scalarization by means of translation invariant functions ϕ A, (see Eq. (A.3)) with the parameters A and given by Eqs. (A.4-A.5). Scalarizations of combinatorial MO problems with an objective function ϕ A, • f, where A and are given by Eqs. (A.4-A.5), are resource-constrained combinatorial problems. These scalar combinatorial optimization problems constitute to be NP-hard. In particular, if we consider combinatorial problems, then the additional -constraints can make the optimization problem with the objective function ϕ A, • f based on different parameters A and like in Eqs. (A.4-A.5) considerably more difficult to solve than the corresponding weighted sum scalarization of the MO problem. <ref type="bibr" target="#b28">Figueira et al. (2017)</ref> explained that the cause for this supplementary difficulty is the perturbation of the combinatorial structure of the polyhedron of feasible elements by the -constraints (see Eqs. (A.2-A.4)). Furthermore, it is mentioned in <ref type="bibr" target="#b28">Figueira et al. (2017)</ref> that there are particular cases where the property of total unimodularity is compatible with the -constraint method. There are combinatorial MO problems, where total unimodularity can be maintained during the scalarization procedure. For instance, the constraint matrix of a binary knapsack problem or the binary assignment problem is totally unimodular.</p><p>In general, it seems to be preferable to use the non-linear translation invariant function in Eq. (A.10) for scalarization. Taking into account Corollary A.1, it is possible to avoid additional -constraints.</p><p>Concerning the influence of the number of objectives:</p><p>• -constraint method: There are more -constraints in the scalarized problem in the case that we add some objectives; see Eqs. (A.2-A.4). Furthermore, the structure of the MO problem's constraints can be perturbed by the additional -constraints.</p><p>• scalarization by ϕ w+A L , : If we add some more objectives, then the problem (MO(ϕ w+A L , )) in the Appendix is not more difficult because the number of objectives m is only involved in the inner products a i , w and a i , for a i , w, ∈ R m ; see Eq. (A.10) in Corollary A.1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">Distances between Weight Vectors</head><p>In decomposition-based MOEAs, such as MOEA/D <ref type="bibr" target="#b80">(Zhang and Li, 2007)</ref> and its variants <ref type="bibr" target="#b74">(Trivedi et al., 2017)</ref>, multiple scalar sub-problems are optimized simultaneously. Each sub-problem is defined by a particular weight vector setting for the considered scalarizing function. It is often argued that the search process actually benefits from solving the sub-problems cooperatively, given that there exists a certain locality among them, the solution from one subproblem contributing to the solution of another sub-problem and vice-versa. In particular, a neighborhood is defined among sub-problems in order to limit the exchange of information between them. In this section, we investigate how the distance between uniformly-defined weight vectors is impacted by the number of objectives. We generate weight vectors following a simplex-lattice design <ref type="bibr" target="#b62">(Scheffé, 1958)</ref> as performed, e.g., in the original MOEA/D <ref type="bibr" target="#b80">(Zhang and Li, 2007)</ref>, where the number of weights is set as the population size µ. The simplex-lattice design generates µ weight vectors such that µ = H+m-1 m-1 , where H is a user-defined parameter. In our experiments, for a given number of objectives m, we take the smallest H-value such that µ ≥ 100. The neighborhood of a given weight vector is defined as the set of the T closest weight vectors, based on Euclidean distance. We consider three neighborhood sizes T ∈ {10%, 20%, 100%}, given as a proportion of the total number of weight vectors µ. When T = 100%, this means that there is no restriction on the exchange of information between solutions; i.e. the neighborhood is made of the entire population. For a given setting, we select 900 pairs of weight vectors randomly (we used the same setting in Section 3.5), each time within a given neighborhood, and we report the average Euclidean distance between them and confidence intervals in Fig. <ref type="figure" target="#fig_15">15</ref>. Note that the 'jump' between m = 13 and m = 14 results from the fact that, with the simplex-lattice design, only some sparse values of µ may be obtained, and we select the smallest H-value such that µ ≥ 100. The value of µ obtained in this way is much smaller for m = 14 (105) than for m = 13 (455) and the distances between the weight vectors become larger also due to this fact.</p><p>We observe that the distance among weight vectors increases with the number of objectives. When no neighborhood is considered (T = 100%), the distance goes from about 0.5 for m = 2 to close to 1 for m ≥ 14. Restricting the selection of weight vectors among the 10% or 20% closest ones reduces the distance to an order of magnitude. However, the trend remains similar, and the distance exceeds 0.5 for problems with more than 12 objectives, even with a small neighborhood size of T = 10%. As such, the assumption that the neighboring sub-problems share similar information becomes less accurate as the number of objective grows, and might actually affect the performance of decomposition-based MOEAs for many-objective problems.</p><p>5 Conclusions and Future Work</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1">Summary</head><p>This paper has carried out a theoretical and empirical analysis of the impact of increasing the number of objectives m on (i) the characteristics of a multi-objective (MO) problem and (ii) the complexity of commonly used MO procedures and algorithms. For the empirical analysis, we used multi-objective NK-landscapes, which allowed us to conveniently scale up the number of objectives m. Table <ref type="table">1</ref> provides an overview of the topics we have made contributions to, and where these can be found in the paper. The main findings of our analysis in terms of scaling efficiencies can be summarized as follows.</p><p>• Good scaling behavior (i.e., polynomial):</p><p>-Impact on scalarization methods: We have proposed a general non-linear scalarizing function that can be used to describe several well known scalarizing techniques including weighted Chebyshev scalarization, weighted sum scalarization, Pascoletti-Serafini problem, -constraint problem, and scalarization by Kaliszewski. Using the proposed non-linear functions, the complexity of solving the corresponding scalar problem grows linearly with m.</p><p>-Approximating hypervolume: We have shown that the complexity of computing the hypervolume exactly grows exponentially with m in the typical case (not only in the worst case). When approximating the hypervolume using Monte Carlo sampling, we demonstrated empirically that the size of the confidence interval (of the approximated hypervolume value) should not change with m assuming a constant Pareto archive size N; instead the number of sampled points should be Θ(N 2 ). Moreover, we showed that there is a switching point (m ≥ 8 in our study) beyond which the running time of a sampling-based approach outperforms an exact method, and the switching point moves to higher m as the required confidence interval reduces in width.</p><p>• Relatively good scaling behavior:</p><p>-Dominance test and updating the Pareto archive: Although, in the case of unbounded Pareto archive, the running time of updating the Pareto archive grows exponentially with m for all four considered data structures -a simple (unordered) list, ND-Tree, Quad Tree, and MFront II -, experiments reveal that ND-Tree and Quad Tree are more robust. With regards to the running time of processing single solutions w.r.t to the Pareto archive size, we observed empirically a switching point in terms of m beyond which the running time turns from sublinear to approximately linear dependence on the Pareto archive size. This switching point is between 5 -7 objectives for the simple list and MFront II, between 6 -8 objectives for ND-tree, and between 4 -6 objectives for Quad tree.</p><p>• Poor scaling behavior (i.e., exponential complexity, decreased quality):</p><p>-Number of Pareto optimal solutions: We have confirmed empirically that the number of Pareto optimal solutions grows exponentially with m, with less than 5% of solutions being Pareto optimal for m = 2 and this proportion growing to about 50% for m = 7, and more than 99% for m = 20 for the considered problems.</p><p>-Probability for a solution to be non-dominated: We derived theoretically the probability that µ random pairs of solutions are mutually non-dominated, and this probability is 1 -1 2 m-1</p><p>µ . An empirical analysis confirmed the correctness of this probability, and showed that it becomes very likely that all solutions are mutually non-dominated for m &gt; 15, even for values of µ &gt; 1 000.</p><p>-Probability of having heterogeneous objectives: We have shown experimentally that the level of heterogeneity among objectives in a many-objective problem increases with m. In particular, for the case of heterogeneous evaluation durations of objectives, with durations being drawn from a Beta distribution, we observed that the difference in the minimum and maximum difference in evaluation durations decreases and increases exponentially with m, respectively. A unskewed (symmetric) Beta distribution was associated with the largest increase in the maximum difference.</p><p>-Distance between solutions: We have shown empirically that, as m increases, the expected distance (in the design space) among Pareto optimal solutions becomes more similar to the one among random solutions, and for m ≥ 15 the distances were identical. Due to the spherical distribution of solutions in the objective space for the problems considered, the distance between Pareto optimal and random solutions in the objective space is very similar and increases linearly with m. These observations suggest that, for many-objective problems, (i) it becomes more difficult to discover a high-quality representation of the Pareto front as the Pareto optimal solutions are distant from each other, and (ii) that few building blocks (if any) might actually be exploited by (blind) recombination.</p><p>-Computing hypervolume exactly: We have shown empirically that existing theoretical results hold and that the exact hypervolume computation time growths indeed exponentially with m in the typical case (not only in the worst case).</p><p>-Distance between weight vectors: We observed empirically that the distance among uniformly-defined weight vectors increases with m. A smaller neighborhood size follows the same general trend but reduces the distance between weight vectors to an order of magnitude, with the distance exceeding 0.5 for m &gt; 12 even for a neighborhood size of 10%. This implies that, as m increases, the assumption that neighboring sub-problems share similar information becomes less accurate.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">Recommendations for MOEAs</head><p>This section will make use of our theoretical and empirical findings to provide recommendations and considerations on design choices for different multi-objective optimization paradigms when applying them to problems with many objectives.</p><p>• For all classes of MOEAs:</p><p>-Algorithm performance should be evaluated in terms of representation quality of the Pareto front. This indicates an algorithm's ability to deal efficiently with the large distances between Pareto optimal solutions when m is large.</p><p>-The distance between solutions in the objective space increases with m, causing the quality of representation to decrease and reduce coverage.</p><p>-The level of heterogeneity in a MO problem increases with m, urging the need for customized methods for coping with heterogeneity for many-objective problems.</p><p>-The distance between solutions in the design space increases with m, causing (blind) recombination to be less effective.</p><p>-When no external Pareto archive is considered, the population size shall increase to maintain the same level of coverage of the Pareto front because the number of Pareto optimal solutions increases with m.</p><p>-When an external Pareto archive is considered, a data structure such as Quad Tree or ND-Tree shall be used when m is large and in need to discover a good representation quickly.</p><p>• For dominance-based MOEAs (e.g. NSGA-II <ref type="bibr" target="#b20">(Deb et al., 2002)</ref>):</p><p>-The dominance relation becomes less discriminative as m increases, causing a reduction in the selection pressure (when selection is done based on dominance) and affect negatively the representation quality of the Pareto front.</p><p>-The diversity maintenance method employed is critical to ensure adequate selection pressure as m increases, since most solutions in the search space are mutually non-dominated.</p><p>• For decomposition/scalarization-based MOEAs (e.g. MOEA/D <ref type="bibr" target="#b80">(Zhang and Li, 2007)</ref>):</p><p>-Assuming a constant number of weight vectors (and population size), all issues mentioned above for constant population sizes hold. Moreover, the distance between weight vectors increases with m.</p><p>-Assuming that the number of weight vectors increases with m (in order to maintain the same level of coverage), the algorithm complexity increases with the number of weight vectors. It remains unclear how the number of weight vectors shall increase, e.g. polynomially or exponentially.</p><p>-The complexity of solving an individual scalar problem grows linearly with m, and the associated problem can be formulated conveniently using the general non-linear scalarizing function proposed in this work.</p><p>• For indicator-based MOEAs (e.g. IBEA <ref type="bibr" target="#b82">(Zitzler and Künzli, 2004</ref>)):</p><p>-Computing the hypervolume of a solution set exactly has a complexity that is exponential in m.</p><p>-When using Monte Carlo sampling to approximate the hypervolume combined with a constant population size, all issues mentioned above for constant population sizes hold.</p><p>-When using a constant population size, then do not change the size of the confidence interval when approximating the hypervolume through sampling as m increases.</p><p>-Account for both the desired accuracy of the hypervolume (width of the confidence interval) and m when deciding whether to compute the hypervolume exactly or approximately. Another interesting approach is to use recently proposed methods combining exact algorithms with Monte Carlo sampling <ref type="bibr" target="#b71">(Tang et al., 2017;</ref><ref type="bibr" target="#b40">Jaszkiewicz et al., 2020)</ref>.</p><p>-When assuming a population size that increases with m, it remains unclear at this stage how the number of sampling points shall be changed (or not) to reach the same level of hypervolume approximation quality.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3">Future Work</head><p>Although this study allowed us to make headwind in terms of both theoretical and empirical contributions to understanding and dealing more efficiently with many-objective optimization problems, there is much more that we as a community can do to advance this research area. We identified three main directions for future work to advance our work further that we discuss in the following.</p><p>Consider other problem setting and types to verify theoretical results: Our empirical study considered the impact of varying the number of objectives m using a combinatorial (binary) problem but we kept both the dimension of the design space and the level of correlation between objectives constant. It would be important to verify existing and new theoretical findings for other problem settings and other artificial and real problem types, such as continuous and mixed-integer and/or distance-based problems <ref type="bibr" target="#b47">(Köppen et al., 2005;</ref><ref type="bibr" target="#b26">Fieldsend et al., 2019;</ref><ref type="bibr" target="#b14">Cheng et al., 2016)</ref>. Gaining a more profound theoretical and empirical understanding of the impact of heterogeneous objectives <ref type="bibr" target="#b2">(Allmendinger et al., 2015;</ref><ref type="bibr" target="#b24">Eichfelder et al., 2015)</ref> on many-objective optimization is critical too, together with the impact of the objectives' non-linearity and the correlation between the objectives <ref type="bibr" target="#b75">(Verel et al., 2013)</ref>.</p><p>Investigate other multi-objective concepts and algorithms: Our empirical study investigated the impact of m on different problem characteristics and multi-objective concepts. Additional empirical studies could investigate if the theoretical findings hold for different multi-objective concepts and algorithms. For example, we considered the scenario where the solutions are processed in a random order, when evaluating the complexity of dominance tests and updating the Pareto archive as a function of m, while the quality of solutions generated by MOEAs should generally improve with the running time. Thus, future work can investigate the same aspects for more realistic orders of solutions or sequences of solutions generated by real MOEAs. Moreover, it would also be important to critically evaluate the impact of m on other multi-objective concepts, such as non-dominance sorting. Consequently, the findings gained from the empirical analysis could be used to develop more efficient methods for dealing with many-objective problems. This includes also more efficient scalarization methods that account for variable domination structures and special structures of the parameter sets; exploring the use of these methods for problems where the preferences of the DM change over time would be very timely given the uncertain environment we are living in.</p><p>Expand the theoretical study: Extensive contributions can be made on advancing the theoretical grounding of multiobjective concepts and algorithms as a function m. For example, our theoretical work can be extended by deriving the probability for a solution to be non-dominated given a random population; the challenge here is to account for the various dependencies between solutions. Knowing this probability would allow to predict the expected number of non-dominated solutions in a population and hence facilitate the design of more efficient initialization strategies for many-objective problems. This line of research has been considered, for example, by <ref type="bibr" target="#b45">Knowles and Corne (2007)</ref>; <ref type="bibr" target="#b41">Joshi and Deshpande (2014)</ref>. Research related to heterogeneous objectives in a many-objective setup is still in its infancy and forms another direction of future research in terms of theory and algorithms. Given a problem with heterogeneous objectives and a portfolio of algorithms, an interesting theoretical and empirical question could be to investigate whether it is possible to use information available about the heterogeneity to predict which algorithm should be selected to solve the problem. This task can also be formulated as an algorithm selection problem <ref type="bibr" target="#b60">(Rice, 1976)</ref>.</p><p>(2020, Chapter 3) and references therein). Taking into account that a Pareto optimal (maximal) solution with respect to f and C (see Definition A.1) is a Pareto optimal (minimal) solution with respect to -f and -C and vice versa, we replace the MO problem by the equivalent problem to find Pareto optimal (minimal) solutions with respect to -f and -C. Analogously, since a Pareto weakly optimal (maximal) solution with respect to f and int C is a Pareto weakly optimal (minimal) solution with respect to -f andint C and vice versa, we replace the MO problem by the equivalent problem to find Pareto weakly optimal (minimal) solutions with respect to -f andint C. For simplicity, we put f := -f and denote the corresponding minimization problem as MO problem too.</p><p>A prominent scalarization method is the well known weighted Chebyshev scalarization: subject to f i (x) ≤ i , i = 1, . . . , m, i j,</p><p>x ∈ X ⊆ R n .</p><p>(A.2)</p><p>We now explain that the scalarization functions involved in the problems (A.1) and (A.2) are special cases of a general non-linear translation invariant scalarization function given by Eq. (A.3).</p><p>For a nonempty closed subset A of R m and an element ∈ -0 + A \ {0}, we study a non-linear (along translation invariant) function ϕ := ϕ A, : R m → R := R ∪ {-∞} ∪ {+∞} defined by: If we consider a nontrivial, closed, convex and pointed cone C ⊂ R m and suppose A -C ⊆ A, then ϕ A, in (A.3) is C-monotone (i.e., y 1 ∈ y 2 + C implies ϕ A, (y 1 ) ≥ ϕ A, (y 2 )) and a solution of (MO(ϕ A, )) is a weakly optimal solution with respect to f and C, see <ref type="bibr">Göpfert et al. (2003, Theorem 2.3.1 (d)</ref> and Theorem 3.1.9). We explain that many well known scalarization methods for multi-objective optimization problems are special cases of a scalarization by means of the non-linear (along translation invariant) function in Eq. (A.3).</p><p>(a) We show that the -constraint method can be described by means of functions of type Eq. (A.3): Let some j ∈ {1, . . . , m} and some real values i ∈ R, i = 1, . . . , m, i j, be given. Then, the -constraint scalarization (see <ref type="bibr" target="#b32">Haimes et al. (1971)</ref>; <ref type="bibr" target="#b13">Chankong and Haimes (1983)</ref>; <ref type="bibr" target="#b23">Eichfelder (2008)</ref>; <ref type="bibr" target="#b22">Durea et al. (2017)</ref>), is given by the function ϕ A, in Eq. (A.3) with: Taking into account <ref type="bibr">Göpfert et al. (2003, Theorem 2.3.1 (d)</ref> and Theorem 3.1.9), solutions of the scalarized problem in (A.2) generate weakly optimal solutions of the MO problem.</p><formula xml:id="formula_7">A := b -R m + ,</formula><p>It is important to mention, if the number m of objectives is increasing, then the inner products in Eq. (A.10) are taken for parameter vectors w and in higher dimensional spaces R m . However, the scalarized problem MO(ϕ w+A L , ) is not more difficult to solve because the parameter vectors w and are only involved in certain inner products.</p><p>Furthermore, we obtain corresponding results for the well known weighted Chebyshev scalarization (see the scalar problem in (A.1) with the origin as reference point w) as special case of Eq. (A.10). An important result by <ref type="bibr">Kaliszewski (1994, Theorem 3</ref>.7) concerning the characterization of Pareto optimal elements of MO problems also follows from Eq. (A.10).</p><p>(c) In order to generate weakly optimal solutions of a MO problem, <ref type="bibr">Pascoletti and Serafini (cf. Eichfelder (2008)</ref>, <ref type="bibr" target="#b57">Pascoletti and Serafini (1984)</ref>) considered the following scalar surrogate problem: (MO(ϕ a-R m + , ))</p><formula xml:id="formula_8">min t subject to f(x) ∈ t + a -R m + , x ∈ X ⊆ R n , t ∈ R</formula><p>Taking into account <ref type="bibr">(Göpfert et al., 2003, Theorems 2.3.1 (d)</ref> and 3.1.9), solutions of (MO(ϕ a-R m + , )) generate weakly optimal solutions of the MO problem.</p><p>If the number m of objectives is increasing, then the parameter vectors a ∈ R m , ∈ int R m + belong to higher dimensional spaces. These parameter vectors are involved in the constraints in the definition of the function ϕ a-R m + , as well as of problem (A.11), such that the number of constraints is growing up. Furthermore, a perturbation of the structure of the constraints in the MO problem by the additional constraints is possible depending on the structure of the additional objectives such that the scalar problem in (A.11) could be more difficult to solve.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head></head><label></label><figDesc>1. (Multi-objective optimization (MO) problem)</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head></head><label></label><figDesc>Definition 2.5. (Pareto set) The set of all Pareto optimal solutions is said to form the Pareto set. Definition 2.6. (Pareto front) The image of the Pareto set in the objective space is known as the Pareto front.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Proportional number of Pareto optimal solutions with respect to the number of objectives m for multi-objective NK-landscapes.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 2 :</head><label>2</label><figDesc>Figure2: Probability that all µ randomly selected pairs of solutions are mutually non-dominated from the theoretical model given in Eq. (1), with respect to the number of objectives m (left), and to the number of pairs µ (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 3 :</head><label>3</label><figDesc>Figure3: Proportion from µ randomly selected pairs of solutions that are mutually non-dominated for multi-objective NK-landscapes, with respect to the number of objectives m (left), and to the number of pairs µ (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Proportion of solutions that are not dominated by any of µ random solutions for multi-objective NK-landscapes, with respect to the number of objectives m (left), and to the number of solutions µ (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Proportion of non-dominated solutions in random populations for multi-objective NK-landscapes, with respect to the number of objectives m (left), and to the number of solutions µ (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 6 :</head><label>6</label><figDesc>Figure6: Mean and standard error of minimum (circles) and maximum differences (triangle) in objective evaluation duration (y-axis) as a function of the number of objectives, m (x-axis). The left plot shows this data for three Beta distributions, and the right plot for a uniform distribution.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 7 :Figure 8 :</head><label>78</label><figDesc>Figure 7: Distance among solutions from the whole search space and from the Pareto set for multi-objective NK-landscapes with respect to the number of objectives.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>Figure 9 :</head><label>9</label><figDesc>Figure 9: Running time of four methods for updating the Pareto archive (left, logarithmic scale), and running time divided by the number of Pareto optimal solutions (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head>Figure 10 :Figure 11 :</head><label>1011</label><figDesc>Figure 10: Relative running time of Pareto archive for processing a single solution w.r.t. to the Pareto archive size for m = 20 objectives.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head>Figure 12 :</head><label>12</label><figDesc>Figure 12: Running time of exact hypervolume computation methods w.r.t. the number of objectives (left, logarithmic scale) and the number of points for instances with m = 8 objectives (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>Figure 13 :</head><label>13</label><figDesc>Figure 13: Average contribution of individual solutions to the hypervolume w.r.t. the number of objectives (left) and the number of points (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_14"><head>Figure 14 :</head><label>14</label><figDesc>Figure 14: Running time of Monte Carlo sampling for hypervolume estimation w.r.t. the number of objectives (left) and the number of points (right).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_15"><head>Figure 15 :</head><label>15</label><figDesc>Figure 15: Distance among weight vectors with respect to the number of objectives. Below each point is reported the number of weight vectors for the considered setting.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_16"><head></head><label></label><figDesc>λ * = (λ * 1 , . . . , λ * i , . . . , λ * m ) ∈ int R m + , w i ∈ R (i = 1, . . . , m).Another important scalarization method is the -constraint problem (with = ( 1 , . . . , m ) ∈ R m ), see<ref type="bibr" target="#b32">Haimes et al. (1971)</ref>:min f j (x)</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_17"><head>ϕ</head><label></label><figDesc>A, (y) := inf{t ∈ R | y ∈ t + A}. (A.3)Now, we consider the scalarized MO problem using the non-linear function ϕ A, introduced in Eq.(A.3</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_18"><head></head><label></label><figDesc>with b = ( b1 , . . . , bm ) T , bi = function in Eq. (A.3) with A and as in (A.4-A.5) by ϕ A, . With A and given by(A.4</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_19"><head></head><label></label><figDesc>(A.11) with parameter vectors a ∈ R m , ∈ int R m + . The scalar problem in (A.11) is a scalarization of the MO problem by means of a function in Eq. (A.3) with A = a -R m + and ∈ int R m + , namely: min x∈X ϕ a-R m + , (f(x)).</figDesc></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>The source code of the multi-objective NK-landscapes generator is available at the following URL: http://mocobench.sf.net.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_1"><p>The 'jump' or running time observed for Quad tree with 20% of the Pareto archive size and small number of objectives (m =</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_2"><p>in particular) is probably because the initial tree must be built before the method achieves full performance.</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><p>Acknowledgments. This paper is a product of discussions initiated in the Dagstuhl Seminar 20031: Scalability in Multiobjective Optimization. The authors would like to thank the anonymous reviewers for their valuable comments and suggestions. This research has been partially funded by the <rs type="funder">Polish Ministry of Education and Science</rs>, and by the <rs type="funder">French national research agency</rs> under Project <rs type="grantNumber">ANR-16-CE23-0013-01</rs>.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_BFAwUuG">
+					<idno type="grant-number">ANR-16-CE23-0013-01</idno>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Appendix: Scalarization methods</head><p>We study the relationships between a MO problem with the vector-valued objective function f and the feasible set X (see Definition 2.1) and a scalarization of the MO problem by translation invariant functions ϕ (see Section 4.3). Using these relationships, we explain the influence of the number of objectives in scalarization procedures.</p><p>In order to discuss a general scalarization technique (see also Section 4.3) for the characterization of solutions to MO problems, we assume a more general definition of Pareto optimality: We consider Pareto (weakly) optimal solutions defined by a nontrivial, closed, convex and pointed cone C ⊂ R m (see Definition A.1). Such more general cones C are important for deriving monotonicity properties of the scalarization functions and for the characterization of properly efficient elements.</p><p>Definition A.1. Consider a MO problem where the objective function f is to "maximize" with respect to a nontrivial, closed, convex and pointed cone C ⊂ R m . A solution x 1 ∈ X is called a Pareto optimal solution with respect to f and C if:</p><p>Furthermore, x 1 ∈ X is called a Pareto weakly optimal solution with respect to f and C if:</p><p>. . , m} : y i ≥ 0}, a Pareto optimal solution in the sense of Definition A.1 coincides with a Pareto optimal solution in the sense of Definition 2.4.</p><p>Because of technical reasons, especially because of the calculus rules concerning -∞ and +∞ for extended realvalued functions, scalarization methods are usually formulated as minimization problem (see <ref type="bibr">Tammer and Weidner</ref> If the number m of objectives is increasing, then the number of parameters i (i = 1, . . . , m) involved in the constraints (see Eq. (A.4)) in the definition of the function ϕ A, (i.e., the number of -constraints) is growing up. Furthermore, the supplementary -constraints (now involved in the constraints y ∈ t + A (see Eq. (A.3)) with A given by Eq. (A.4) and given by Eq. (A.5)) can destroy the structure of the MO problem's constraints such that the scalar optimization problem (MO(ϕ A, )) could be more difficult to solve.</p><p>(b) Let a set B L be given by a system of linear inequalities. We consider:</p><p>Using a i from this formula for B L , we define a set A L ⊂ R m by:</p><p>with the index set:</p><p>The set I is exactly the set of indices i ∈ {1, . . . , n} for which the hyperplanes a i , y = α i are active in the non-negative orthant. Let B L and the corresponding set A L defined as in Eq. (A.7), let vectors ∈ -0 + A L \ {0} and w ∈ R m be given. We consider the function ϕ A, (see Eq. (A.3)) with A = w + A L , i.e., we study the function ϕ w+A L , : R m → R of type (A.3) given by:</p><p>The function ϕ w+A L , depends on the set A L and the parameter vectors and w.</p><p>Using the non-linear function ϕ w+A L , given by Eq. (A.9), we consider the scalarized problem:</p><p>The following assertion is shown by <ref type="bibr" target="#b70">Tammer and Winkler (2003)</ref> under more restrictive assumptions. In the following corollary, we derive our results under weaker assumptions concerning the parameter involved in the scalarizing function.</p><p>Corollary A.1. We consider the set B L given by Eq. (A.6) and w ∈ R m arbitrarily chosen. Let the corresponding set A L be given by Eqs. (A.7-A.8), ∈ -0 + A L \ {0} and the function ϕ w+A L , given by (A.9). Assume that a i , 0 for all i ∈ I.</p><p>Then, the non-linear function ϕ w+A L , in Eq. (A.9) is convex and R m + -monotone (i.e., y 1 ∈ y 2 + R m + implies ϕ w+A L , (y 1 ) ≥ ϕ w+A L , (y 2 )). Furthermore, ϕ w+A L , in Eq. (A.9) has the structure: ϕ w+A L , (y) = max i∈I a i , ya i , w -α i a i , .</p><p>(A.10)</p><p>Proof. We get the assertions from <ref type="bibr">(Göpfert et al., 2003, Theorem 2.3</ref>.1) and:</p><p>= max i∈I a i , ya i , w -α i a i , .</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Working principles, behavior, and performance of MOEAs on MNK-landscapes</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aguirre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Tanaka</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Operational Research</title>
+		<imprint>
+			<biblScope unit="volume">181</biblScope>
+			<biblScope unit="page" from="1670" to="1690" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Advances on many-objective evolutionary optimization</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">E</forename><surname>Aguirre</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 15th Annual Conference Companion on Genetic and Evolutionary Computation</title>
+		<meeting>the 15th Annual Conference Companion on Genetic and Evolutionary Computation</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="641" to="666" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Multiobjective optimization: When objectives exhibit non-uniform latencies</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Handl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Knowles</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Operational Research</title>
+		<imprint>
+			<biblScope unit="volume">243</biblScope>
+			<biblScope unit="page" from="497" to="513" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Hang on a minute&apos;: Investigations on the effects of delayed objective functions in multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Knowles</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Evolutionary Multi-Criterion Optimization</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="6" to="20" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Knowles</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2103.15546</idno>
+		<title level="m">Heterogeneous objectives: State-of-the-art and future research</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Coherent Measures of Risk</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Artzner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Delbaen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Eber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Heath</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mathematical Finance</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page" from="203" to="228" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">HypE: An algorithm for fast hypervolume-based many-objective optimization</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Bader</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Zitzler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="45" to="76" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">On the number of non-dominated points of a multicriteria optimization problem</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Bazgan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Jamain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Vanderpooten</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Discrete Applied Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">161</biblScope>
+			<biblScope unit="page" from="2841" to="2850" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">On the Complexity of Computing the Hypervolume Indicator</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Beume</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Fonseca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Lopez-Ibanez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Paquete</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Vahrenhold</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="page" from="1075" to="1082" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Existence of equilibria when firms follow bounded losses pricing rules</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Bonnisseau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Cornet</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Economics</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="119" to="147" />
+			<date type="published" when="1988">1988</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">On the characterization of efficient production vectors</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Bonnisseau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Crettez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Economic Theory</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="page" from="213" to="223" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Klee&apos;s measure problem made easy</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">M</forename><surname>Chan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE 54th Annual Symposium on Foundations of Computer Science</title>
+		<imprint>
+			<date type="published" when="2013">2013. 2013</date>
+			<biblScope unit="page" from="410" to="419" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Evolutionary many-objective optimization: A quick-start guide</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Chand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wagner</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Surveys in Operations Research and Management Science</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="page" from="35" to="42" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Multiobjective decision making</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Chankong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">Y</forename><surname>Haimes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">North-Holland Series in System Science and Engineering</title>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<publisher>North-Holland Publishing Co</publisher>
+			<date type="published" when="1983">1983</date>
+			<biblScope unit="volume">8</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Test problems for large-scale multiobjective and many-objective optimization</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Cheng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Olhofer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Cybernetics</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="page" from="4108" to="4121" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Surrogate-assisted evolutionary biobjective optimization for objectives with non-uniform latencies</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Chugh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Ojalehto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Miettinen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 20th Annual Conference on Genetic and Evolutionary Computation</title>
+		<meeting>the 20th Annual Conference on Genetic and Evolutionary Computation</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="609" to="616" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">Evolutionary algorithms for solving multi-objective problems</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A C</forename><surname>Coello</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">B</forename><surname>Lamont</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Van Veldhuizen</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+			<publisher>Springer</publisher>
+			<biblScope unit="volume">5</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Techniques for highly multiobjective optimisation: Some nondominated points are better than others</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Corne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Knowles</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 9th Annual Conference on Genetic and Evolutionary Computation</title>
+		<meeting>the 9th Annual Conference on Genetic and Evolutionary Computation<address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>Association for Computing Machinery</publisher>
+			<date type="published" when="2007">2007</date>
+			<biblScope unit="page" from="773" to="780" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Problem features versus algorithm performance on rugged multiobjective combinatorial fitness landscapes</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Daolio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Liefooghe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Verel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aguirre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Tanaka</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="page" from="555" to="585" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<monogr>
+		<title level="m" type="main">Multi-objective optimization using evolutionary algorithms</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Deb</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2001">2001</date>
+			<publisher>John Wiley &amp; Sons</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">A fast and elitist multiobjective genetic algorithm: NSGA-II</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Deb</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pratap</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Agarwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Meyarivan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="182" to="197" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Computational cost reduction of nondominated sorting using the M-front</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Drozdík</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Akimoto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aguirre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Tanaka</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="659" to="678" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">On some methods to derive necessary and sufficient optimality conditions in vector optimization</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Durea</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Strugariu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Tammer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Optim. Theory Appl</title>
+		<imprint>
+			<biblScope unit="volume">175</biblScope>
+			<biblScope unit="page" from="738" to="763" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Adaptive scalarization methods in multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Eichfelder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Vector Optimization</title>
+		<meeting><address><addrLine>Berlin</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer-Verlag</publisher>
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Heterogeneous Functions (WG3)</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Eichfelder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Gandibleux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Geiger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Jahn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Jaszkiewicz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Knowles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">K</forename><surname>Shukla</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Trautmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Wessing</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Understanding Complexity in Multiobjective Optimization : report from Dagstuhl Seminar 15031</title>
+		<title level="s">Schloss Dagstuhl</title>
+		<editor>
+			<persName><forename type="first">Salvatore</forename><forename type="middle">;</forename><surname>Greco</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Kathrin</forename><forename type="middle">;</forename><surname>Klamroth</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Joshua</forename><forename type="middle">D</forename><surname>Knowles</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Günter</forename><surname>Rudolph</surname></persName>
+		</editor>
+		<editor>
+			<persName><surname>-Wadern</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Dagstuhl Zentrum für Informatik</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="121" to="129" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Data structures for non-dominated sets: Implementations and empirical assessment of two decades of advances</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Fieldsend</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 22nd Annual Conference on Genetic and Evolutionary Computation</title>
+		<meeting>the 22nd Annual Conference on Genetic and Evolutionary Computation</meeting>
+		<imprint>
+			<publisher>AMC</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="489" to="497" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">A feature rich distance-based many-objective visualisable test problem generator</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Fieldsend</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Chugh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Miettinen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 21st Annual Conference on Genetic and Evolutionary Computation</title>
+		<meeting>the 21st Annual Conference on Genetic and Evolutionary Computation</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="541" to="549" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Using unconstrained elite archives for multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Fieldsend</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Everson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Singh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page" from="305" to="323" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Easy to say they&apos;re hard, but hard to see they&apos;re easy-towards a categorization of tractable multiobjective combinatorial optimization problems</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Figueira</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Fonseca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Halffmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Klamroth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Paquete</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ruzika</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Schulze</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Stiglmayr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Willems</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Multi-Criteria Decision Analysis</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="82" to="98" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">A fast incremental BSP tree archive for non-dominated points</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Glasmachers</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Evolutionary Multi-Criterion Optimization</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="252" to="266" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Variational methods in partially ordered spaces</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Göpfert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Riahi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Tammer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Zȃlinescu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="s">CMS Books in Mathematics/Ouvrages de Mathématiques de la SMC</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<date type="published" when="2003">2003</date>
+			<publisher>Springer-Verlag</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Computing and updating hypervolume contributions in up to four dimensions</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">P</forename><surname>Guerreiro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Fonseca</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page" from="449" to="463" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">On a bicriterion formulation of the problems of integrated system identification and system optimization</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Haimes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">S</forename><surname>Lasdon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Wismer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Systems, Man, and Cybernetics</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="296" to="297" />
+			<date type="published" when="1971">1971</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">A walsh analysis of NK-landscapes</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">B</forename><surname>Heckendorn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Whitley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Genetic Algorithms</title>
+		<imprint>
+			<publisher>Morgan Kaufmann</publisher>
+			<date type="published" when="1997">1997</date>
+			<biblScope unit="page" from="41" to="48" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Evolutionary many-objective optimisation: Many once or one many?</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Hughes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Congress on Evolutionary Computation</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2005">2005</date>
+			<biblScope unit="page" from="222" to="227" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Evolutionary many-objective optimization: A short review</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ishibuchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Tsukamoto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Nojima</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Congress on Evolutionary Computation</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2008">2008</date>
+			<biblScope unit="page" from="2419" to="2426" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Hypervolume approximation using achievement scalarizing functions for evolutionary many-objective optimization</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ishibuchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Tsukamoto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Sakane</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Nojima</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Congress on Evolutionary Computation</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2009">2009. 2009</date>
+			<biblScope unit="page" from="530" to="537" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Coherent risk measures and good-deal bounds</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Jaschke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><surname>Küchler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Finance and Stochastics</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="181" to="200" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Improved quick hypervolume algorithm</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Jaszkiewicz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computers &amp; Operations Research</title>
+		<imprint>
+			<biblScope unit="volume">90</biblScope>
+			<biblScope unit="page" from="72" to="83" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">ND-Tree-based update: A fast algorithm for the dynamic nondominance problem</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Jaszkiewicz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Lust</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page" from="778" to="791" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Approximate hypervolume calculation with guaranteed or confidence bounds</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Jaszkiewicz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Susmaga</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Zielniewicz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Parallel Problem Solving from Nature</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="215" to="228" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Empirical and analytical study of many-objective optimization problems: analysing distribution of nondominated solutions and population size for scalability of randomized heuristics</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Joshi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Deshpande</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Memetic Computing</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="133" to="145" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<monogr>
+		<title level="m" type="main">Quantitative Pareto analysis by cone separation technique</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Kaliszewski</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1994">1994</date>
+			<publisher>Kluwer Academic Publishers</publisher>
+			<pubPlace>Boston, MA</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Kauffman</surname></persName>
+		</author>
+		<title level="m">The Origins of Order</title>
+		<imprint>
+			<publisher>Oxford University Press</publisher>
+			<date type="published" when="1993">1993</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Properties of an adaptive archiving algorithm for storing nondominated vectors</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Knowles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Corne</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TEVC.2003.810755</idno>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page" from="100" to="116" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Quantifying the effects of objective space dimension in evolutionary multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Knowles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Corne</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Evolutionary Multi-Criterion Optimization</title>
+		<meeting><address><addrLine>Berlin Heidelberg, Berlin, Heidelberg</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2007">2007</date>
+			<biblScope unit="page" from="757" to="771" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Many-objective groundwater monitoring network design using bias-aware ensemble kalman filtering, evolutionary optimization, and visual analytics</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Kollat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">M</forename><surname>Reed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Maxwell</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Water Resources Research</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Fuzzy-Pareto-dominance and its application in evolutionary multi-objective optimization</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Köppen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Vicente-Garcia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Nickolay</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Evolutionary Multi-Criterion Optimization</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2005">2005</date>
+			<biblScope unit="page" from="399" to="412" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">A box decomposition algorithm to compute the hypervolume indicator</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Lacour</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Klamroth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Fonseca</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computers &amp; Operations Research</title>
+		<imprint>
+			<biblScope unit="volume">79</biblScope>
+			<biblScope unit="page" from="347" to="360" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Landscape-aware performance prediction for evolutionary multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Liefooghe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Daolio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Verel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Derbel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aguirre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Tanaka</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="1063" to="1077" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Benefit functions and duality</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">G</forename><surname>Luenberger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Economics</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="page" from="461" to="481" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">New optimality principles for economic efficiency and equilibrium</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">G</forename><surname>Luenberger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Optim. Theory Appl</title>
+		<imprint>
+			<biblScope unit="volume">75</biblScope>
+			<biblScope unit="page" from="221" to="264" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">On Tchebycheff decomposition approaches for multiobjective evolutionary optimization</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Ma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Tian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Zhu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page" from="226" to="244" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Application of a technique for research and development program evaluation</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">G</forename><surname>Malcolm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">H</forename><surname>Roseboom</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">E</forename><surname>Clark</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Fazar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Operations Research</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page" from="646" to="669" />
+			<date type="published" when="1959">1959</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<monogr>
+		<title level="m" type="main">Nonlinear multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Miettinen</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2012">2012</date>
+			<publisher>Springer Science &amp; Business Media</publisher>
+			<biblScope unit="volume">12</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">Quad-trees: A data structure for storing pareto sets in multiobjective evolutionary algorithms with elitism</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mostaghim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Teich</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Evolutionary Multiobjective Optimization: Theoretical Advances and Applications</title>
+		<editor>
+			<persName><forename type="first">A</forename><surname>Abraham</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">L</forename><surname>Jain</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">R</forename><surname>Goldberg</surname></persName>
+		</editor>
+		<meeting><address><addrLine>London, London</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2005">2005</date>
+			<biblScope unit="page" from="81" to="104" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">Two-sided confidence intervals for the single proportion: Comparison of seven methods</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Newcombe</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Statistics in Medicine</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="857" to="872" />
+			<date type="published" when="1998">1998</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">Scalarizing vector optimization problems</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pascoletti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Serafini</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Optimization Theory and Applications</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="page" from="499" to="524" />
+			<date type="published" when="1984">1984</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">On the approximation of solutions to multiple criteria decision making problems</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Polak</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Multiple Criteria Decision Making</title>
+		<editor>
+			<persName><forename type="first">M</forename><surname>Zeleny</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Berlin</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="1976">1976</date>
+			<biblScope unit="page" from="271" to="282" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<analytic>
+		<title level="a" type="main">Evolutionary many-objective optimisation: An exploratory analysis</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">C</forename><surname>Purshouse</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Fleming</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Congress on Evolutionary Computation</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2003">2003</date>
+			<biblScope unit="page" from="2066" to="2073" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b60">
+	<analytic>
+		<title level="a" type="main">The algorithm selection problem</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Rice</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Computers</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="page" from="65" to="118" />
+			<date type="published" when="1976">1976</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b61">
+	<analytic>
+		<title level="a" type="main">The analytic hierarchy process-what it is and how it is used</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">W</forename><surname>Saaty</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mathematical Modelling</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page" from="161" to="176" />
+			<date type="published" when="1987">1987</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b62">
+	<analytic>
+		<title level="a" type="main">Experiments with mixtures</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Scheffé</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the Royal Statistical Society: Series B (Methodological)</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="page" from="344" to="360" />
+			<date type="published" when="1958">1958</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b63">
+	<analytic>
+		<title level="a" type="main">A survey on the hypervolume indicator in evolutionary multiobjective optimization</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Shang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ishibuchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>He</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Pang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="page" from="1" to="20" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b64">
+	<monogr>
+		<title level="m" type="main">A New R2 Indicator for Better Hypervolume Approximation</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Shang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ishibuchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">L</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Liu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<publisher>Association for Computing Machinery</publisher>
+			<pubPlace>New York, NY, USA</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b65">
+	<analytic>
+		<title level="a" type="main">Efficient discovery of anti-inflammatory small-molecule combinations using evolutionary computing</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">G</forename><surname>Small</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">W</forename><surname>Mccoll</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Pahle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>López-Castejón</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">J</forename><surname>Rothwell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Knowles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mendes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Brough</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">B</forename><surname>Kell</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature Chemical Biology</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page">902</biblScope>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b66">
+	<analytic>
+		<title level="a" type="main">A primogenitary linked quad tree data structure and its application to discrete multiple criteria optimization</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sun</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annals of Operations Research</title>
+		<imprint>
+			<biblScope unit="volume">147</biblScope>
+			<biblScope unit="page" from="87" to="107" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b67">
+	<analytic>
+		<title level="a" type="main">A primogenitary linked quad tree approach for solution storage and retrieval in heuristic binary optimization</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sun</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Operations Research</title>
+		<imprint>
+			<biblScope unit="volume">209</biblScope>
+			<biblScope unit="page" from="228" to="240" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b68">
+	<analytic>
+		<title level="a" type="main">Quad-trees and linear lists for identifying nondominated criterion vectors</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">E</forename><surname>Steuer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">INFORMS Journal on Computing</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page" from="367" to="375" />
+			<date type="published" when="1996">1996</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b69">
+	<monogr>
+		<title level="m" type="main">Scalarization and Separation by Translation Invariant Functions</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Tammer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Weidner</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b70">
+	<analytic>
+		<title level="a" type="main">A new scalarization approach and applications in multicriteria d.c. optimization</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Tammer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Winkler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Nonlinear and Convex Analysis</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="365" to="380" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b71">
+	<analytic>
+		<title level="a" type="main">A fast approximate hypervolume calculation method by a novel decomposition strategy</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Intelligent Computing Theories and Application</title>
+		<editor>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Huang</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">V</forename><surname>Bevilacqua</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">P</forename><surname>Premaratne</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">P</forename><surname>Gupta</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Cham</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="14" to="25" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b72">
+	<analytic>
+		<title level="a" type="main">Multi-objective optimization in the lorentz force velocimetry framework</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Terzijska</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Porcelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Eichfelder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Workshop on Optimization and Inverse Problems in Electromagnetism</title>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="81" to="82" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b73">
+	<monogr>
+		<author>
+			<persName><forename type="first">J</forename><surname>Thomann</surname></persName>
+		</author>
+		<title level="m">A trust region approach for multi-objective heterogeneous optimization</title>
+		<meeting><address><addrLine>Germany</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+		<respStmt>
+			<orgName>Technische Universität Ilmenau. Ilmenau</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Ph.D. thesis</note>
+</biblStruct>
+
+<biblStruct xml:id="b74">
+	<analytic>
+		<title level="a" type="main">A survey of multiobjective evolutionary algorithms based on decomposition</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Trivedi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Srinivasan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Sanyal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ghosh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="page" from="440" to="462" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b75">
+	<analytic>
+		<title level="a" type="main">On the structure of multiobjective combinatorial search space: MNK-landscapes with correlated objectives</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Verel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Liefooghe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Jourdan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Dhaenens</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Operational Research</title>
+		<imprint>
+			<biblScope unit="volume">227</biblScope>
+			<biblScope unit="page" from="331" to="342" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b76">
+	<analytic>
+		<title level="a" type="main">Pareto-, aggregation-, and indicator-based methods in many-objective optimization</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Wagner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Beume</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Naujoks</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Evolutionary Multi-Criterion Optimization</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2007">2007</date>
+			<biblScope unit="page" from="742" to="756" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b77">
+	<analytic>
+		<title level="a" type="main">Transfer learning for gaussian process assisted evolutionary bi-objective optimization for objectives with different evaluation times</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Schmitt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Olhofer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 22nd Annual Conference on Genetic and Evolutionary Computation</title>
+		<meeting>the 22nd Annual Conference on Genetic and Evolutionary Computation</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="587" to="594" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b78">
+	<analytic>
+		<title level="a" type="main">Transfer learning based surrogate assisted evolutionary bi-objective optimization for objectives with different evaluation times</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Schmitt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Olhofer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Allmendinger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Knowledge-Based Systems</title>
+		<imprint>
+			<biblScope unit="volume">227</biblScope>
+			<biblScope unit="page">107190</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b79">
+	<analytic>
+		<title level="a" type="main">No free lunch theorems for optimization</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">H</forename><surname>Wolpert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">G</forename><surname>Macready</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="67" to="82" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b80">
+	<analytic>
+		<title level="a" type="main">MOEA/D: A multiobjective evolutionary algorithm based on decomposition</title>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="page" from="712" to="731" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b81">
+	<analytic>
+		<title level="a" type="main">Random hypervolume scalarizations for provable multi-objective black box optimization</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Golovin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 37th International Conference on Machine Learning</title>
+		<meeting>the 37th International Conference on Machine Learning</meeting>
+		<imprint>
+			<publisher>PMLR</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="11096" to="11105" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b82">
+	<analytic>
+		<title level="a" type="main">Indicator-based selection in multiobjective search</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Zitzler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Künzli</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Parallel Problem Solving from Nature</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="page" from="832" to="842" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b83">
+	<analytic>
+		<title level="a" type="main">Performance assessment of multiobjective optimizers: An analysis and review</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Zitzler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Thiele</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Laumanns</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Fonseca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Grunert Da Fonseca</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Evolutionary Computation</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page" from="117" to="132" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

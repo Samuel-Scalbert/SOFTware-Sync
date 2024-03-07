@@ -20,11 +20,10 @@ if __name__ == "__main__":
             xml_path = dir_xml_path + file + '.grobid.tei.xml'
             json_path = dir_json_path + file + '.software.json'
             print(xml_path)
-            logger = setup_logger('logger', f'{xml_path}.log')
-            json_enhance_xml(xml_path, json_path,super_logger,logger)
+            json_enhance_xml(xml_path, json_path,super_logger)
 
     if sys.argv[1] == "--enhance-file":
         xml_path = sys.argv[2]
         json_path = sys.argv[3]
-        logger = setup_logger('logger', f'{xml_path}.log')
-        json_enhance_xml(xml_path, json_path,super_logger,logger)
+        print(xml_path)
+        json_enhance_xml(xml_path, json_path,super_logger)

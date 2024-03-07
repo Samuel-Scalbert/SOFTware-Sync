@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Quantum Security of the Legendre PRF</title>
+				<funder ref="#_JBWS6bj">
+					<orgName type="full">European Union</orgName>
+				</funder>
+				<funder ref="#_PkxaKZD #_HhATNqA">
+					<orgName type="full">ERC-ADG-ALSTRONGCRYPTO</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Paul</forename><surname>Frixons</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Orange Labs</orgName>
+								<address>
+									<settlement>Caen</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="institution">Inria</orgName>
+								<address>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">André</forename><surname>Schrottenloher</surname></persName>
+							<affiliation key="aff2">
+								<orgName type="department">Cryptology Group</orgName>
+								<orgName type="institution">CWI</orgName>
+								<address>
+									<settlement>Amsterdam</settlement>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Quantum Security of the Legendre PRF</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">0FE7A812DA586F3EFF168E7F7AFE60F2</idno>
+					<note type="submission">Received: August 17, 2021 | Revised: August 17, 2021 | Accepted: August 17, 2021</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Legendre PRF</term>
+					<term>quantum cryptanalysis</term>
+					<term>quantum algorithms</term>
+					<term>abelian hidden shift problem</term>
+					<term>Kuperberg&apos;s algorithm. 2010 Mathematics Subject Classification: 94A60</term>
+					<term>68Q12</term>
+					<term>81P68</term>
+					<term>11A15</term>
+					<term>11Y16</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>In this paper, we study the security of the Legendre PRF against quantum attackers, given classical queries only, and without quantum random-access memories. We give two algorithms that recover the key of a shifted Legendre symbol with unknown shift, with a complexity smaller than the exhaustive search of the key. The first one is a quantum variant of the table-based collision algorithm. The second one is an offline variant of Kuperberg's abelian hidden shift algorithm. We note that the latter, although asymptotically promising, is not currently the most efficient against practical parameters.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">INTRODUCTION</head><p>Let be a prime number and ∈ F . The Legendre symbol of modulo is defined as = 1 if is a square modulo and -1 otherwise (by convention, 0 = 1). Its use in cryptography was first proposed by Damgård in <ref type="bibr" target="#b18">[19]</ref>, who conjectured the hardness of the following problem:</p><p>Problem 1 (Legendre sequence randomness). Given a sequence of consecutive Legendre symbols starting at some given value ∈ F , of some length ∈ poly log 2 :</p><p>, + 1 , . . . , + -1 , then find</p><formula xml:id="formula_0">+ .</formula><p>That is, consecutive Legendre symbols form a pseudo-random sequence of bits. A similar problem can be defined for the Jacobi symbol, which is a generalization of the Legendre symbol to a composite basis = 1 × . . . × : := .</p><p>The Legendre PRF. The conjecture of Damgård naturally leads to the definition of a pseudo-random function based on the shifted Legendre symbol, as in <ref type="bibr" target="#b17">[18]</ref>:</p><formula xml:id="formula_1">Leg : F × F → {-1, 1} ( , ) ↦ → +</formula><p>or as in <ref type="bibr" target="#b20">[21]</ref>, by remapping {-1, 1} on {0, 1}. For a given secret , distinguishing Leg ( , ) from random values is the decisional shifted Legendre symbol problem (DSLS), the decisional version of the shifted Legendre symbol problem (SLS), which asks for the recovery of . At the moment, no separation between the SLS and the DSLS is known. In this paper, as in previous works, we will focus on solving the SLS.</p><p>Problem 2 (Shifted Legendre Symbol). Let be a prime number. Given query access to the function Leg, : ↦ → + for some secret ∈ F , find .</p><p>The Legendre symbol PRF has recently regained significant interest with the proposal of Grassi et al. <ref type="bibr" target="#b20">[21]</ref> to use it in a multi-party computation scenario. They showed precisely that there existed a simple MPC protocol to compute the PRF on secret-shared data, using the malleability of the Legendre symbol.</p><p>Since then, the PRF has been considered for use in the Ethereum blockchain, and the Ethereum foundation has proposed several challenges to encourage cryptanalysis research <ref type="bibr" target="#b19">[20]</ref>. While the Ethereum challenges are not On the use of QRACM. In the quantum setting, it was proposed <ref type="bibr" target="#b24">[25]</ref> to use a quantum version of the table-based collision search (some remarks were also made in <ref type="bibr" target="#b5">[6]</ref>). However, in the same way that the classical attack uses a large table, the quantum attack will use a table of similar size. This table requires the model of classical memory with quantum random-access (QRACM). Although this is a powerful memory model, it is required by many quantum algorithms, e.g., for BHT quantum collision search <ref type="bibr" target="#b10">[11]</ref>, which makes it theoretically worth studying.</p><p>No practical, scalable implementation of QRACM exists at the moment, and near-term quantum architectures are expected to consist only of error-corrected quantum circuits of small width. Several authors envision an advantage coming from parallel circuits rather than memory usage <ref type="bibr" target="#b2">[3,</ref><ref type="bibr" target="#b23">24]</ref>. In this context, QRACM can be seen as a conservative assumption, that cannot be always accurate. This is why, more recently, quantum cryptanalytic algorithms have been developed that aim for an advantage over classical algorithms, while using standard computing qubits only.</p><p>To our knowledge, there are two main examples of this. The first one is the technique applied in <ref type="bibr" target="#b13">[14]</ref> to collision search and <ref type="bibr" target="#b22">[23]</ref> for the subset-sum problem. In this setting, QRACM is replaced by a large classical memory, which is accessed sequentially. While QRACM essentially accesses a memory of size in time polylog( ), these algorithms access a memory of size in time O ( ). This is the technique that we apply in Section 3.</p><p>The second one, much more dependent on the structure of the problem, uses a hidden shift property, as in <ref type="bibr" target="#b9">[10]</ref>. In this setting, there is no large-scale memory anymore, neither classical nor quantum. Thus having QRACM or not becomes less of a concern. This is the technique that we apply in Section 5. Although the complexity scales differently with the number of queries, the algorithm eventually reaches the same limit as the QRACM-heavy table-based collision search when increases to 1/3 . However, it suffers from a subexponential factor in time complexity. But this factor might become competitive compared to the cost of maintaining and accessing a large QRACM.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Contributions.</head><p>We perform the first analysis of quantum algorithms for the SLS problem without QRACM. We give two techniques and we discuss their applicability: first, a quantum table-based collision search that builds over the multi-target preimage search of <ref type="bibr" target="#b13">[14]</ref>. Second, an offline decisional abelian hidden shift algorithm, or offline-DAHS for short, which is an offline adaptation of Kuperberg's algorithm <ref type="bibr" target="#b27">[28]</ref>, similar to the offline Simon's algorithm of Bonnetain et al. <ref type="bibr" target="#b9">[10]</ref>. Although <ref type="bibr" target="#b9">[10]</ref> mention this as a possibility, the authors did not perform a precise complexity analysis, leaving notably the subexponential factor to be analyzed.</p><p>With this method, the quantum attack on the SLS can reach a time complexity 2 O √ log 2 1/3 , while using = 1/3 classical queries, with a subexponential number of qubits only. The corresponding classical attack would (2</p><formula xml:id="formula_2">4 3 √ 2 log 2 3 √ log 2 1/3 ) 1/3 2 √ 2 log 2 3 √ log 2 1/3</formula><p>qubits Sec. 5.3 reach a complexity O 1/2 with a classical table of size O 1/2 . In fact, when only = 1/3 queries are given, the time-memory product of the classical methods remains at O ( ).</p><p>Despite the asymptotic efficiency of offline-DAHS, it is quite challenging to optimize. We detail a possible quantum circuit design, perform some cost estimates on small instances and compare with the table-based collision search. So far, we find that the subexponential factor makes it non-competitive for prime sizes smaller than 200 bits. But offline-DAHS seems to offer more room for improvement than the table-based attacks. We leave further optimizations as an open question.</p><p>Organization of the Paper. We give some technical preliminaries in Section 2. In Section 3, we recall the classical table-based attacks and introduce our first algorithm. In Section 4, we introduce Kuperberg's first algorithm and show how to perform its operations reversibly, which is crucial for offline-DAHS. We finally introduce the full algorithm offline-DAHS in Section 5 and apply it to the SLS problem.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">PRELIMINARIES OF QUANTUM COMPUTING</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1">QUANTUM CIRCUITS</head><p>We refer to <ref type="bibr" target="#b30">[31]</ref> for an introduction to the quantum circuit model. Our quantum algorithms are described as quantum circuits: the time complexity is counted as the number of basic quantum gates (e.g., Clifford + T gates) and the space complexity is the number of qubits. Sometimes, also, we count the classical memory used. As our considerations are mainly asymptotic, most implementation details remain out of scope of our work. For example, we consider that a modular addition of two -bit values costs O ( ) basic gates <ref type="bibr" target="#b16">[17]</ref>. Swapping two -qubit registers, comparing two -qubit registers, or comparing a given -qubit register with a classical value all cost O ( ) gates. We show in Appendix 9 that the Legendre symbol modulo can be computed with O (log 2 ) 2 gates.</p><p>Although we perform these gate counts at a rather high level, this does not prevent us from comparing two algorithms by counting the number of -qubit operations that they use (i.e., additions or comparisons). This is what we do in Appendix 11.</p><p>We use the term ancilla qubits for qubits that are initialized to the state |0 , used by the circuit and returned to their initial state. We say that a computation is performed out of place if its output is written on an additional register and in place otherwise. We routinely use the standard "ket" notation of quantum states | , and standard operators such as the -dimensional Quantum Fourier Transform:</p><formula xml:id="formula_3">| QFT ↦ -----→ 1 √ ∈Z ( ) |</formula><p>, where ( ) = exp(2 / ) , which we assume exact. When is a boolean function, we use the notation for its phase oracle which maps in place: | = (-1) ( ) | . Otherwise, we use for the standard oracle which maps:</p><formula xml:id="formula_4">| | = | | ⊕ ( ) .</formula><p>As quantum states are always normalized, and equivalent up to a global phase, we will omit common amplitude and phase factors for readability.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">QUANTUM SEARCH</head><p>In this paper, we make use of Amplitude Amplification <ref type="bibr" target="#b11">[12]</ref>, a powerful generalization of Grover's quantum search <ref type="bibr" target="#b21">[22]</ref>. It allows to speed up the search for a "good" output of any probabilistic algorithm, including another quantum algorithm. Theorem 1 <ref type="bibr">([12]</ref>, Theorem 2 and 4). Let A be a quantum algorithm that uses no measurements, let : → {0, 1} be a boolean function that tests if an output of A is "good". Let be the success probability of A. Let 0 be the "inversion around zero" operator that does: 0 | = (-1) ≠0 | and a quantum oracle for</p><formula xml:id="formula_5">: | = (-1) ( ) | . Let = arcsin √ and 0 &lt; ≤ 2 . Let = 4</formula><p>. Then by measuring</p><formula xml:id="formula_6">(A 0 A † ) A |0</formula><p>, we obtain a good result with success probability greater than max(1 -, ).</p><p>If is unknown, then an iterated version of the algorithm allows to retrieve a good result with O 1/ √ iterations on average. Next, we use another result on Grover search using an approximate test oracle. This is an important object in the context of offline search algorithms such as offline-Simon <ref type="bibr" target="#b9">[10]</ref> or offline-DAHS below.</p><p>We consider a boolean function : {0, 1} → {0, 1} and an oracle that uses an ancillary state | . This ancillary state is required by the oracle to perform its computations, and it must be preserved. So one would expect to map: | | ↦ --→ (-1) ( ) | | . However, the exact cannot be implemented, only an approximation .</p><p>Definition 1. An approximate test oracle for , denoted , is a unitary operator that maps:</p><formula xml:id="formula_7">∀ ∈ {0, 1} , | | ↦ --→ (-1) ( ) | | + |</formula><p>where | is the predefined ancillary state which must be preserved by the oracle, and max | ≤ .</p><p>That is, on each input vector, the oracle incurs a uniform error of amplitude (the same for all basis states). If this error is small enough, an Amplitude Amplification using instead of will not "see" the difference. In our case, contrary to <ref type="bibr" target="#b9">[10]</ref>, we will also start from an approximate initial state. We summarize these needs with the following.</p><p>Theorem 2 (Quantum search with approximate test). Let A, , = 4 be defined as in Theorem 1. Let be a boolean function that tests if an output of A is "good", and let be an approximate oracle for with error , using an ancillary state | , as per Definition 1. Let | be a quantum state such that | -| ≤ . We run the following algorithm:</p><formula xml:id="formula_8">(I ⊗ A)(I ⊗ 0 ) (I ⊗ A † ) | ,</formula><p>that is, iterations of "approximate" quantum search using , where I is the identity operator applied to the ancillary state | . Then measuring the output yields a good result with probability greater than (1 --) 2 max(1 -, ) .</p><p>For completeness, we give a proof of Theorem 2 in Appendix 8. It consists in bounding the euclidean distance, step by step, between the current state of the "ideal" version of the algorithm (starting from | and applying ) and the "real" one (starting from | and applying ).</p><formula xml:id="formula_9">Corollary 1. If ≤ 1 4 and ≤ 1 4</formula><p>, then the procedure of Theorem 2 succeeds with probability ≥ 1 8 . Proof. We use simply that sin 2 ((2 + 1) ) ≥ 1  2 and 1max(</p><formula xml:id="formula_10">, ) -≥ 1 -1 4 -1 4 = 1 2 .</formula><p>We stress that Theorem 2 and Corollary 1 contain two important features, that are both crucial for solving the SLS problem: • the test oracle can be imperfect, as soon as the error is uniform and exponentially small (when is exponential); • the ancillary state used by the approximate test can also be approximated, and the corresponding error can be a constant.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">TABLE-BASED ATTACKS</head><p>In this section, we first recall the classical table-based collision search of <ref type="bibr" target="#b5">[6,</ref><ref type="bibr" target="#b24">25]</ref> (Section 3.1), and the idea of early abort in a Grover search (Section 3.2), which is a folklore technique that we will use to save logarithmic factors. Next, we introduce our new quantum table-based collision search. It combines the ideas of the classical attack and the quantum collision search algorithm of <ref type="bibr" target="#b13">[14]</ref>. The notations follow those of Beullens et al. <ref type="bibr" target="#b5">[6]</ref>.</p><p>As all the attacks studied in this paper, the table-based collision attacks use chosen, but non-adaptive queries to the Legendre PRF. More precisely, we assume that we can query &lt; √ consecutive values of the Legendre PRF, of the form + where 0 ≤ ≤ -1 and is the secret. This is actually the setting of the Ethereum challenges <ref type="bibr" target="#b19">[20]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">CLASSICAL ALGORITHM</head><p>We set = 3 log 2 . The attack parses the sequential Legendre symbols to create -sequences: words of bits that allow to discriminate a guess of . The definition of -sequences is from <ref type="bibr" target="#b5">[6]</ref> and we slightly simplify it. We define:</p><formula xml:id="formula_11">= , + 1 , . . . , + -1 .</formula><p>Assuming that the Legendre PRF is "sufficiently random", and that is big enough, a collision of -sequences implies the equality of their parameters:</p><formula xml:id="formula_12">= =⇒ = .</formula><p>With our choice of , we will assume that no random collisions occur at all. This is a stronger heuristic than the one commonly used in the classical cryptanalysis of the Legendre PRF (see <ref type="bibr" target="#b5">[6]</ref>, Assumption 1). It will simplify our analysis of quantum algorithms.</p><formula xml:id="formula_13">Heuristic 1. For all , ∈ Z * , = =⇒ = .</formula><p>In order to recover the secret , one then looks for a collision between an -sequence of unknown parameter (depending on ) and an -sequence of known parameter. A basic attack could use the queries to obtain --sequences, and then, evaluate random -sequences in search for a collision. This would give a complexity O + (as two -sequences can only collide with probability 1 ). The attacks of <ref type="bibr" target="#b5">[6,</ref><ref type="bibr" target="#b24">25,</ref><ref type="bibr" target="#b25">26]</ref> improve the trade-off between and the time complexity, by extracting moresequences from the available queries. This uses the multiplicativity of the Legendre symbol. The attacks run as follows:</p><p>1. From the consecutive Legendre symbols, extract 2 -sequences of the form:</p><formula xml:id="formula_14">+ , + + , . . . , + ( -1) + = / + / , / + 1 + / , . . . , / + ( -1) + / = ( / + / ) mod .</formula><p>Since we can use ≤ and &lt; -+ 1, the number of sequences is increased quadratically with respect to the naive extraction.</p><p>2. Store all the extracted sequences ( ( / + / ) mod , , ) in a table . 
+
+3. Sample at random until ( , , ) appears in the table for some , . Such a collision yields a candidate key such that: / + / = =⇒ = mod . We can then test if this candidate is the good one with a few more computations. With Heuristic 1, there are no false positives, and is the right key. This classical attack requires 2 storage for the table, and expectedly / 2 samples must be tested in Step 3 before a collision occurs. Thus Step 3 requires O 2 / 2 Legendre symbol computations. Further optimizations allow to reduce the memory to 2 / and to amortize the cost of computing Legendre symbols in an iteration of the loop.</p><p>Quantum Version with QRACM. This procedure yields a quantum attack as proposed in <ref type="bibr" target="#b24">[25]</ref>. The precomputation stage (Step 1) is unchanged, but now Step 3 is a quantum search. Instead of running O / 2 classical iterations, we need only O ( / 2 ) iterates, each of which performs O ( ) Legendre symbol computations and a memory access. This can only be efficient if we use classical memory with quantum random-access (QRACM).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">QUANTUM SEARCH WITH EARLY ABORT</head><p>Using the same classical sequential queries, but without QRACM, the first quantum attack available is a direct quantum search of the secret . We query the -sequence (thus using only data) and search for ∈ Z * such that = . We simply apply Theorem Early-aborting. In a classical search for a sequence matching , we can stop the computation of at the first bit that does not match. This reduces the average number of Legendre symbols computed from to a constant. In the quantum setting, this folklore idea allows to amortize the factor down to log 2 .</p><p>We select a constant ≤ and define a subset of Z * : = { ∈ Z * , and match on the first bits }. We know that belongs to , and by the pseudorandomness of the Legendre PRF, that is roughly of size 2 . Furthermore, testing if a given is in requires to compute only Legendre symbols, not . This allows to filter out most of the incorrect values.</p><p>We first use Theorem 1 to create an "inner" search: an algorithm that samples from . This algorithm runs a quantum search over ∈ Z * with O ( √ 2 ) iterations, computing Legendre symbols each. Since we do not know exactly the size of , we must run the search with a fixed number of iterations, and the output state is not exactly the uniform superposition over . However, we only need to sample from with constant probability . Afterwards, the output of is "good" for us (equal to ) with probability <ref type="foot" target="#foot_0">2</ref> <ref type="foot" target="#foot_2">2</ref> , where is a constant.</p><p>We can thus use Theorem 1 again. We amplify , using O 2 iterations in total. Each iteration contains a computation of and -Legendre symbols. This gives a total complexity:</p><formula xml:id="formula_15">O 2 √ 2 ( ) + ( -)</formula><p>. Taking = 2 log 2 and simplifying gives: O log 2 √ .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">DISTINGUISHED COLLISIONS</head><p>Since we do not assume QRACM, we have to modify the table-based collision strategy if we are to beat the square-root complexity given by Grover search. We will use the strategy of <ref type="bibr" target="#b13">[14]</ref> for multi-target preimage search, and adapt the algorithm of Section 3.1 as follows:</p><p>1. From the Legendre symbols, extract √ 2 ) using an early-aborted quantum search. Again, is not exact, and if we measure its output, we get a distinguished with constant probability only. But this is enough. We next estimate the probability that returns a "good" output, that is, an such that collides with one of the stored sequences. There are on average /2 distinguished sequences, and the probability to collide on the table is roughly</p><formula xml:id="formula_16">2 /( 2 ) /2</formula><p>. Depending on the exact number of distinguished sequences, this probability also deviates from the expectation, but not more than by a constant.</p><p>Next, to test if a distinguished matches one of the stored sequences, we use a sequential circuit containing quantum gates controlled by classical values. A single can be compared to the current with a comparator using O ( ) gates; we repeat this for all distinguished sequences of our table.</p><p>Assuming that we use all the data, this yields an algorithm of complexity:</p><formula xml:id="formula_17">O 2 + 2 × 2 2 log 2 √ 2 + + 2 2</formula><p>.</p><p>Note that the outer number of iterations has been reduced, because two distinguished sequences have a higher probability to collide than two random sequences. By taking = 4 3 log 2 ( / ) we get a complexity:</p><formula xml:id="formula_18">O 2 + 2 2/3 (log 2 log 2 ) 2 = O 2 + √ 1/3 11/6 log 2 log 2 .</formula><p>Note that a memory of size is required during Step 1 (extraction), and 2/3 during Step 3 (search). Both are only classical. Also, the memory of Step 3 is accessed only once per iteration ( although we ultimately obtain the same asymptotic complexity, our presentation (from Section 4.3 onwards) is new and differs significantly from the ones of <ref type="bibr" target="#b27">[28,</ref><ref type="bibr" target="#b7">8]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">THE ABELIAN HIDDEN SHIFT PROBLEM</head><p>Quantum algorithms for hidden period or hidden shift problems have seen numerous applications in quantum cryptanalysis. As an example, Shor's algorithm <ref type="bibr" target="#b35">[36]</ref> solves the abelian hidden period (or abelian hidden subgroup) problem in polynomial time: given a function with domain ( , +), an abelian group, such that ( + ) = ( ) for some ∈ , find . But the problem becomes harder if we look for an abelian shift between two functions. Problem 3 (Abelian hidden shift). Let ( , +) be an abelian group, a set and , : → a pair of injective functions such that: ∃ , ∀ ∈ , ( ) = ( + ). Then find the shift .</p><p>As it was already remarked in <ref type="bibr" target="#b17">[18]</ref>, the SLS problem is an instance of Problem 3, where: ( ) = + , obtained by queries to the PRF Leg, , and ( ) = , obtained by computations of Legendre symbols modulo . In this paper, we will not use Kuperberg's algorithm to solve directly the SLS, but a decisional version of Problem 3.</p><p>Problem 4 (Decisional abelian hidden shift). Let , : Z 2 → be two injective functions such that either: ∃ , ∀ , ( + ) = ( ), or ( ) ∩ ( ) = ∅. Decide which is the case.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">KUPERBERG'S ALGORITHM MADE REVERSIBLE</head><p>In <ref type="bibr" target="#b27">[28]</ref>, Kuperberg designed a subexponential-time algorithm to solve Problem 3 (and so Problem 4), using quantum oracle access to and . ) with Kuperberg's collimation sieve <ref type="bibr" target="#b28">[29]</ref>. In this paper, we focus on the earliest algorithm for its simplicity, but we believe that further asymptotic improvements might come from the collimation sieve.</p><p>As we focus on Problem 4, we will work with an abelian group of the form = Z 2 for some . We note = 2 the cardinality of the group. Note that the generalization to an arbitrary abelian group would be technical, but without significant incidence on the time complexity <ref type="bibr" target="#b8">[9]</ref>. The assumption that the functions are injective is also helpful for our study, but not strictly necessary. Sample Database. We define a sample state as:</p><formula xml:id="formula_19">| , = 0≤ ≤ -1 |0 | ( ) + |1 | ( ) ) |</formula><p>, omitting the common amplitude factor for ease of notation. One creates it with a single oracle query to and . Kuperberg's algorithm starts by producing = O (2 √ ) such states, where = 2 log 2 3 is obtained from the complexity analysis. We name | , ⊗ the sample database of ( , ): it contains all the information on and that we need to solve Problem 4.</p><p>Our goal is to process this state to decide whether and are shifted, without destroying the database. Measurements can always be removed from a quantum computation. Thus, we know that we can follow the standard operations of Kuperberg's algorithm, but without performing any measurement, and obtain a quantum circuit DAHS that yields the same result.</p><p>However, the standard procedure handles a lot of classical data, and performs non-trivial memory operations. This may increase significantly the time complexity in a fully reversible variant, especially since we do not want to rely on quantum RAM. We will show that reversibility costs only at most a polynomial factor in time. Given the sample database | , ⊗ , the circuit DAHS finds whether and are shifted with constant probability of success.</p><p>This probability can then be boosted by taking a polynomial number of copies of the circuit (or it can be estimated heuristically, as we do in <ref type="bibr">Appendix 11)</ref>. All in all, we prove the following theorem.</p><p>Theorem 3. There exists a quantum circuit DAHS that maps: We devote the rest of this section to the details of this procedure. For now, we will assume that and are shifted, and we will go back to the other case at the end of this section.</p><formula xml:id="formula_20">| , ⊗ | ↦ → | , ⊗ | ⊕ DAHS( , ) + | , ,<label>where</label></formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">LABEL STATES AND LABEL QUBITS</head><p>The first step in Kuperberg's algorithm is to transform all the independent sample states into label states, by measuring a value in the second register and applying an M-dimensional QFT on the third register. In the reversible variant, we don't measure this . We don't write it either for simplicity (after the QFT, it does not intervene further in the algorithm).</p><p>Since the functions are injective, there exists a single 0 that maps to through and by assumption, 0maps to through . We obtain:</p><formula xml:id="formula_21">| , = QFT (|0 | 0 + |1 | 0 -) = 0≤ ≤ -1 ( 0 ) |0 + (( 0 -) ) |1 | = 0≤ ≤ -1 ( 0 ) |0 + (-) |1 | .</formula><p>Next, we would have measured the register | to obtain a random value and a label qubit: | = |0 + (-) |1 (up to a global phase factor). Again, we do not measure . So we simply write label states as | | , keeping in mind that there is a superposition over .</p><p>A label qubit contains some information about , but it is not immediately exploitable, unless we can obtain specific values of . For example, if = 2 -1 , then the qubit is either |0 + |1 or |0 -|1 depending on the least significant bit of . Recall that we are interested in deciding whether there is a shift or not (Problem 4). We can do that from many independent copies of | 2 -1 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Classical Combinations.</head><p>The key step in the algorithm is when we create these wanted labels from the random initial ones. In the standard procedure, the values of the labels are known. From two label qubits | 1 and | 2 , we can obtain | 1 ± 2 with a CNOT and a measurement. This destroys both qubits and returns either 1 + 2 , or 1 -2 , with probability 1  2 . The procedure then consists in combining pairs of labels ( 1 , 2 ) that maximize the expected valuation of 1 ± 2 modulo 2. We let val 2 ( ) = max{ , 2 | } denote this valuation.</p><p>Complexity. The complexity analysis in <ref type="bibr" target="#b27">[28]</ref> gives that O 2</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>√</head><p>(2 log 2 3) initial label qubits are enough. Simulations in <ref type="bibr" target="#b7">[8]</ref> showed that 2 √ (2 log 2 3) were essentially enough to solve Problem 3 with constant probability, for groups of the form Z 2 . Interestingly, the algorithm is pseudoclassical: the combination step can be easily simulated by sampling labels at random. This allows to compute precisely how many labels will be needed for a given instance of the problem, and to obtain the corresponding success probability.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">COMBINING TWO LABELS REVERSIBLY</head><p>When combining two labels, we start from the joint state:</p><formula xml:id="formula_22">| 1 | 2 | 1 | 2 = |0 + (-1 ) |1 |0 + (-2 ) |1 | 1 | 2 = |00 + (-1 ) |10 + (-2 ) |01 + (-( 1 + 2 ) ) |11 | 1 2 ,</formula><p>and we CNOT the first qubit into the second one, mapping |10 to |11 and |11 to |10 . We obtain:</p><formula xml:id="formula_23">|0 + (-( 1 + 2 ) ) |1 |0 | 1 | 2 + (-2 ) |0 + (-( 1 -2 ) ) |1 |1 | 1 | 2 .</formula><p>In order to mimic the classical recomputation of labels, we perform a controlled addition or subtraction of 2 in place, on the register that contains 1 . We obtain the state:</p><formula xml:id="formula_24">| 1 + 2 |0 | 1 + 2 + (-( 1 -2 ) ) | 1 -2 |1 | 1 -2 | 2 .</formula><p>Once this operation has been performed, we get a qubit |0 or |1 that used to indicate whether we obtained the sum 1 + 2 or the difference 1 -2 : here, it is just kept along for reversibility. The register that contains 2 has become entangled with the other and cannot be used for further combinations.</p><p>In our DAHS circuit, we will define a "combination circuit" Comb (Figure <ref type="figure">1</ref> in Appendix). We flag all the label states with additional qubits that inform us whether the label can be used for further combination or not. The circuit Comb then first tests that the two labels 1 , 2 have valuation and that their flags 1 , 2 are equal to 1 (Flag). If this is true, then it performs an addition or subtraction in place (Sub, Add), then NOTs the flag qubit 2 ( ), since 2 cannot be used for combination anymore.</p><p>Choosing which Labels to Combine. Among the pairs of labels 1 , 2 having the same valuation modulo 2, we want to select those which maximize the expected valuation of 1 ± 2 . We check whether the second to last bit of /2 val 2 ( ) is 0 or 1. If it is 0, then our hope is to add to another label that maximizes the overlap of least significant bits. If it is 1, then our hope is to subtract to another label that overlaps with 2on as many least significant bits as possible. Thus we can define a function on labels :</p><formula xml:id="formula_25">( ) =         </formula><p>(1, 0) if = 0 or cannot be combined anymore (-val 2 ( ), rev(2 -, )) if the second to last bit of /(2 val 2 ( ) ) is 1 (-val 2 ( ), rev( , )) otherwise where rev( , ) reverses the bits in (for a total of bits). By sorting the labels according to , we ensure that the best pairs, such that 1 ± 2 has the best expected valuation, are put together.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.5">COMBINING ALL LABELS</head><p>We start from a list of = 2 ℓ label states for some integer ℓ. For = 0, . . . , -2: • We perform a reversible sorting network for : we compute in ancillas, perform a sorting network, and then uncompute . We consider that the computation of can be neglected. The sorting network is a series of comparators and swaps (controlled on the results of the comparators). The labels are moved in place. For reversibility, the outcome of each comparator must be written in a new qubit.</p><p>• we apply the combination circuit Comb on each pair of labels at positions (2 , 2 + 1) for ≤ 2 ℓ-1 . It writes 2ℓ new qubits that contain carries and inform whether the combinations occurred. In practice, the combination layer at step consumes all labels of valuation and creates labels of higher valuation. The main difference with the classical process is that, although the labels are sorted to ensure a maximal number of zeroes after combination, since we take them 2 by 2 on arbitrary positions we might create a few suboptimal pairs. This does not change the asymptotic complexity of the procedure.</p><p>Note that all labels equal to 0 mod 2 , and the labels that cannot be combined anymore, are moved to the bottom of the list by sorting. The labels equal to 2 -1 will be moved to the top. Thus, we know where to look for them.</p><p>Sorting Network. We use the odd-even mergesort of Batcher <ref type="bibr" target="#b1">[2]</ref>. On input a list of 2 ℓ -bit strings, it uses a total of (2 ℓ ) = 2 ℓ-1 ℓ (ℓ-1) 2 + 2 ℓ -1 = O ℓ 2 2 ℓ comparators and controlled SWAPs. In order to be made reversible, it also needs to write O ℓ 2 2 ℓ new qubits.</p><p>The Full Circuit. The full combination circuit contains -1 layers of sorting, followed by layers of combination circuits: at layer (starting from 0), we combine only the labels having valuation . The complexity mainly depends on the sorting steps: there are in total O ( ) × O ( ) × (2 ℓ ) = O 2 ℓ 2 2 ℓ quantum gates used, mainly for comparators and SWAPs. The circuit writes (2 ℓ ) + ( -1)2 ℓ ancillas. They are uncomputed afterwards.</p><p>After the combination, we look at the first label registers, for some value to choose later. We expect them to contain copies of 2 -1 . As we have seen, in the shifted case, the corresponding qubits contain identical copies of |0 + |1 , or |0 -|1 depending on the parity of . Thus, we perform a Hadamard transform on them and test if the result is all-zero or all-one.</p><p>Note that if the first label registers do not contain the expected copies of 2 -1 , then we know that the circuit has failed. The fact that failures are detectable allows to reduce easily the probability of failure with multiple copies of the circuit: we simply take the result that hasn't failed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.6">BEHAVIOR IN THE NON-SHIFTED CASE</head><p>In the non-shifted case, by our assumptions, there is no overlap between the functions and . Thus, sample states are the sums of two independent parts:</p><formula xml:id="formula_26">| , = |0 | ( ) | | + |1 | ( ) | | ,</formula><p>and the whole sample database | , ⊗ can be rewritten as a sum of the 2 states of the form</p><formula xml:id="formula_27">| ℎ 1 ⊗ • • • ⊗ | ℎ</formula><p>where ℎ ∈ { , }. By linearity, we can focus on the output of DAHS on one of these states only.</p><p>Although we did not find its explicit definition in previous works, it appears in the simulation code of <ref type="bibr" target="#b7">[8]</ref>.</p><p>follows Grover-meet-Simon <ref type="bibr" target="#b29">[30]</ref>, combines a quantum search and a quantum circuit for Simon's algorithm. Roughly speaking, offline-DAHS is obtained by replacing Simon's algorithm by Kuperberg's (which is why we needed to define a quantum circuit for it).</p><p>Description. We use a quantum search for the right index 0 ∈ . Testing a given means finding whether is a shift of . For this, we use the circuit DAHS. Recall that DAHS takes in input the sample database of ( , ): | , ⊗ and writes a single output bit. Thus, the naive Grover search would reconstruct the database at each iteration, then compute DAHS, then return the database to |0 . However, due to the asymmetric nature of the problem, the function in the database remains the same from one iteration to the next. Let us introduce the sample database of (0, ):</p><formula xml:id="formula_28">| 0, ⊗ = |0 | |0 + |1 | | ( ) ⊗ .</formula><p>It contains all the data on that we need for the successive iterations of quantum search. The algorithm has then two steps:</p><p>• Precomputation step: Construct | 0, ⊗ .</p><p>• Search step: Run the quantum search for 0 . At each search iterate, compute inside the database to obtain the state | , ⊗ , run the circuit DAHS, then compute again to return to the state | 0, ⊗ . Due to the approximate nature of DAHS, this is a quantum search with an approximate test (Theorem 2). We have bounded the error of DAHS and given its complexity in Theorem 3. As long as the initial state | 0, ⊗ can be constructed exactly, this becomes an easy instance of Theorem 2, and we deduce: The fact that the queries to are now performed only in the precomputation step is the reason for the offline denomination. Note that the polynomial factors in the O in Proposition 1 are not negligible, and depend on log 2 and together.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">APPROXIMATE PROMISE</head><p>We now go into technical details specific to offline-DAHS and not discussed in the previous literature. So far, our analysis has assumed that we could start from an exact sample database | 0, ⊗ as defined above.</p><p>But it is not the case in the SLS problem. Here, will be the secretly shifted Legendre symbol +• . This function is defined on Z , but it is queried on an interval of length .</p><p>In particular, in order to run the algorithm as expected from Proposition 1, we would need sample states of the form:</p><formula xml:id="formula_29">| exact 0, = 0≤ ≤ -1 |0 | |0 + -≤ ≤ --1 |1 | | ( ) ,</formula><p>which would allow for a total interference between the matching values of ( ) and ( ), when querying the good . However, since we do not know the value of , such states cannot be created. Instead, we will rely on approximate sample states:</p><formula xml:id="formula_30">| approx 0, = 0≤ ≤ -1 |0 | |0 + 0≤ ≤ -1 |1 | | ( ) .</formula><p>There is an error vector | err 0, such that</p><formula xml:id="formula_31">| approx 0, = | exact 0,</formula><p>+ | err 0, :</p><formula xml:id="formula_32">| err 0, = -≤ ≤-1 |1 | | ( ) - -≤ ≤ -1 |1 | | ( ) ≤<label>2 4</label></formula><p>, and we can bound the distance between the "exact" database of (0, ) and the "approximate" one:</p><formula xml:id="formula_33">| approx 0, ⊗ -| exact 0, ⊗ 2 ≤ | err 0, 2 = 2 .</formula><p>This gives a total "starting error" = 2 . As we have seen in Theorem 2, we need this error to be constant, thus needs to be subexponentially smaller than for the algorithm to work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3">APPLICATION TO THE LEGENDRE SYMBOL</head><p>Given a sequence of = 2 successive outputs + of the Legendre PRF, we define a function ( ) = + on Z . Next, we choose an integer such that 2 &lt; and we write: = 1 + 2 2 , where 1 &lt; 2 . For a given 2 , we define ( ) = +2 2 . Then there exists a single 2 such that ( ) = ( + 1 ).</p><p>Note that we need a subexponential gap between 2 , where is the number of bits of the secret handled by the DAHS subroutine, and = 2 , the amount of data given. It is due to the approximation discussed in Section 5.2. The DAHS subroutine still runs with labels of = log 2 bits.</p><p>By taking -sequences of length ≥ 3 log 2 , our Heuristic 1 ensures that the functions are injective, and that they have distinct image sets: two -sequences cannot collide randomly. Thus, we have an instance of Problem 5 with an approximate promise, and we can apply Theorem 2.</p><p>We use the classical queries to build the approximate sample states | approx 0,</p><p>, and then, we run a Grover search over the remaining secret 2 . Building the sample database from the classical queries is costly (O ( ) quantum gates for each sample), but done only once in the precomputation step.</p><p>Let = 2 log 2 3. In order to make the starting error smaller than 1  4 , we must take labels where 2 /(2 ) ≤ </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6">CONCLUSION</head><p>In this paper, we presented two quantum algorithms for solving the Legendre hidden shift problem (SLS) when classical queries are given, and without quantum RAM. The first one (distinguished table-based collisions) allows to reach an advantage against Grover's algorithm when more data is given. The second one is the offline Kuperberg's algorithm. It is an interesting method, notably the only one reaching a time-memory product below O √ . However, some numerical estimations (see <ref type="bibr">Appendix 11)</ref> suggest that its subexponential factor renders it impractical so far.</p><p>While all algorithms studied in this paper can be applied to the Ethereum challenges, in which a sequence of successive Legendre symbols is given, they do not concern all applications of the Legendre PRF. In the signature scheme LegRoast <ref type="bibr" target="#b4">[5]</ref>, the adversary learns only the evaluation of the PRF on a few random inputs. In that case, the best classical and quantum attacks are table-based collision searches with small tables, in time O ( ) and O √ respectively.</p><p>Although a very efficient algorithm exists when superposition queries are allowed <ref type="bibr" target="#b17">[18]</ref>, it does not seem amenable to an offline version, which requires to define reduced instances of the problem (e.g., guessing part of the secret and finding the remaining bits by searching for a shift). Nevertheless, the algebraic properties of the Legendre symbol might still find a use in this context, and we leave this as an open question.</p><p>In order to have a constant probability of success in the end, we must measure a state in which a constant proportion of the amplitude is on the solution. That is, (2 + 1) must be sufficiently close to 2 to have sin 2 ((2 + 1) ) constant. This means that in the last iterations, the error term is close to . (Although in the first iterations, it was close to</p><p>). Over all the iterations, the solution and the bad elements both capture roughly (up to a constant) the same amount of amplitude, and so both terms and will have roughly the same effect.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="9">QUANTUM CIRCUIT FOR THE LEGENDRE SYMBOL</head><p>The prime is fixed. We detail a quantum circuit that given , computes . We will actually adopt the more general view of computing Jacobi symbols. We recall Algorithm 1 that uses the multiplicativity, the law of quadratic reciprocity and its supplement: ∀ , , , , = (-1)</p><formula xml:id="formula_34">-1 2 -1 2 , = mod , 2 = (-1) 2 -1 8 , = .</formula><p>The situation is similar to the extended GCD algorithm studied in <ref type="bibr" target="#b33">[34]</ref>: in the classical algorithm, the number of steps depends on the input. The corresponding quantum circuit must run for a fixed amount of iterates, thus we take the greatest possible number of iterates and control them depending on whether the algorithm has finished or not. Note that there exists asymptotically more efficient classical algorithms, such as <ref type="bibr" target="#b12">[13]</ref>, but it is not clear whether they can have an impact on the design of quantum circuits (especially for rather small prime numbers).</p><p>Algorithm 1 Computation of the Legendre symbol, through the Jacobi symbol.</p><p>1: function L (q,p) Computes:</p><p>where is prime and 1 ≤ &lt; We can easily prove that if does not start even, then in the next loop it is. Thus, the current pair ( , ) is reduced by one bit at each two loops, and after at most 2( log 2 + log 2 ) ≤ 4 log 2 loop iterations, the computation of terminates.</p><p>In order to compute the Legendre symbol modulo , we thus use a circuit of 4 log 2 iterations. We keep a "flag" qubit indicating whether the computation has finished, and a "result" qubit containing the value of Algorithm 1. At each iteration, we look at the "flag", the values of and and find which case applies:</p><p>• Case 1: we must divide by 2 ( &gt; 0 and mod 2 = 0)</p><p>• Case 2: we must swap and ( &gt; 0, ≤ and mod 2 = 1)</p><p>• Case 3: we must subtract to ( &gt; 0, &gt; and mod 2 = 1)</p><p>• Case 4: we must do nothing ( = 0)</p><p>Two new qubits indicate the case; their computation requires a comparator (O log 2 gates). Then we apply all the operations controlled on these qubits. The division by 2 is implemented as a rotation of the register (we know that the least significant bit is 0, so we do not need to write a carry). The swap is an easy operation. The subtraction does not need any carry either. Then is flipped depending on the case (this is also reversible, and costs a constant number of computations).</p><p>Since each iteration requires O log 2 gates and writes O (1) new qubits, the complete circuit requires O (log 2 ) 2 gates and O log 2 ancilla qubits.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Proposition 1 . 2 √) 2 √)</head><label>122</label><figDesc>Let = 2 log 2 3. Problem 5 can be solved within a time O (2 √ √ ) using O (qubits, with constant probability. There are O (queries to and O (2 √ √ ) queries to (in superposition for both).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head></head><label></label><figDesc>Let us analyze briefly Algorithm 1.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 :</head><label>1</label><figDesc>Lowest time complexity (in ) achieved by the known SLS algorithms and corresponding memory and queries. For ease of comparison, we dismiss polynomial factors in log 2 .</figDesc><table><row><cell>Method</cell><cell>Queries</cell><cell>Time</cell><cell>Memory</cell><cell>Source</cell></row><row><cell></cell><cell></cell><cell>Classical algorithms</cell><cell></cell><cell></cell></row><row><cell>Pollard's rho Table</cell><cell>√ 1/4</cell><cell>√ √</cell><cell>polylog( ) √</cell><cell>[27] [6, 25]</cell></row><row><cell></cell><cell></cell><cell>Quantum algorithms</cell><cell></cell><cell></cell></row><row><cell>Sup. queries</cell><cell>2</cell><cell>polylog( )</cell><cell>polylog( )</cell><cell>[18]</cell></row><row><cell>Table (QRACM) Grover search</cell><cell>1/6 polylog( )</cell><cell>1/3 √</cell><cell>1/3 QRACM polylog( ) qubits</cell><cell>[25] Sec. 3.2</cell></row><row><cell>Table (no QRACM)</cell><cell>3/14</cell><cell>3/7</cell><cell>3/14 classical + polylog( ) qubits</cell><cell>Sec. 3.3</cell></row><row><cell>Offline-DAHS</cell><cell>1/3</cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head></head><label></label><figDesc>The original algorithm ran in time O (2 √ (2 log 2 3) log 2 | | ). Multiple subsequent works have changed the value in the exponent and given trade-offs between classical and quantum computations [33, 29, 16, 7, 8, 32, 9]. If queries, classical and quantum time are counted equally, then the best complexity known to date is O (2</figDesc><table /><note><p>√ 2</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head></head><label></label><figDesc>Given a sequence of outputs of the Legendre PRF, we can solve the SLS problem using O 2</figDesc><table><row><cell cols="5">1 4 =⇒ ≤ /2 +3 . But since = O (2 + √ = log 2 = . Thus = -√ √</cell><cell cols="3">), this means the circuit DAHS can only recover bits of , where . The remaining (log 2 -) bits must be searched with Grover's</cell></row><row><cell>algorithm.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="8">Theorem 4. √</cell><cell>log 2</cell></row><row><cell cols="3">qubits, in quantum time:</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>O</cell><cell>2 √</cell><cell>log 2</cell><cell>+ O 2</cell><cell>3 2</cell><cell>√</cell><cell>log 2</cell></row><row><cell cols="8">The minimum occurs when the two terms are equal, which constrains:</cell><cell>log 2 + log 2</cell><cell>= 3 2</cell><cell>log 2 +</cell></row><row><cell>1 2 log 2 -1 2 log 2</cell><cell>√</cell><cell>=⇒ log 2</cell><cell>= 1 3</cell><cell cols="4">log 2 + 1 3 log 2 , up to the polynomial factors. We get log 2 √</cell><cell>=</cell></row><row><cell cols="8">1 3 log 2 + of order: 1/3 2 36 + 4 3 √ √ 6 = 1 3 log 2 +O (1) and log 2 = 1 3 log 2 + log 2 1/3 .</cell><cell>3</cell><cell>√ 3</cell><cell>log 2 +O (1). This gives a time complexity</cell></row></table><note><p><p><p>.</p>Proof. We use Corollary 1 and Theorem 3. We run a quantum search with an approximate test (the circuit DAHS) and an approximate starting state (the approximate sample states).</p>The analysis of DAHS assumes an exact ancillary state | 0, ⊗ . Thus, Theorem 2 is crucial here to ensure that the approximate starting state does not disrupt the algorithm.</p></note></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_0"><p>-sequences.2. Store only the 2 2 "distinguished" sequences that start with zeroes (an arbitrary choice).</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_1"><p>Sample such that is distinguished, until it matches one of the stored sequences. We use Amplitude Amplification again. First, we built a quantum algorithm that samples such that is distinguished. We can do that in time: O (log 2</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_2"><p>in total) and in a sequential way. The complexity of the classical table-based collision decreases with the available data , from O ( ) down to O 1/2 when = 1/4 . This quantum variant decreases from O 1/2 to O</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_3"><p>3/7  , reaching this minimum when = 3/14 data is available.4 A REVERSIBLE VERSION OF KUPERBERG'S ALGORITHMIn this section, we recall the abelian hidden shift problem and Kuperberg's first algorithm<ref type="bibr" target="#b27">[28]</ref>. It is usually depicted with intermediate measurements and classical postprocessing. Our goal is to make it reversible. Thus,</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>ACKNOWLEDGMENTS.</head><p>A.S. would like to thank <rs type="person">Xavier Bonnetain</rs> for discussions on Kuperberg's algorithm. Both authors would like to thank <rs type="person">Jeeun Lee</rs>, <rs type="person">Changmin Lee</rs> and the anonymous reviewers of Mathcrypt for helpful comments. This work has been supported by the <rs type="funder">European Union</rs>'s <rs type="grantNumber">H2020</rs> project No. <rs type="grantNumber">714294</rs> (<rs type="projectName">QUASYModo</rs>) and by <rs type="funder">ERC-ADG-ALSTRONGCRYPTO</rs> (project <rs type="grantNumber">740972</rs>).</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_JBWS6bj">
+					<idno type="grant-number">H2020</idno>
+				</org>
+				<org type="funded-project" xml:id="_PkxaKZD">
+					<idno type="grant-number">714294</idno>
+					<orgName type="project" subtype="full">QUASYModo</orgName>
+				</org>
+				<org type="funding" xml:id="_HhATNqA">
+					<idno type="grant-number">740972</idno>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The QFT applied to | ℎ yields a state | ( ( ) |ℎ( ) ) | where depends only on ℎ. Therefore, after performing the combination step, and after obtaining labels equal to 2 -1 , the corresponding qubits are not |0 ± |1 , but either |0 , or |1 , depending on the exact sequence of combinations performed.</p><p>Recall that in the shifted case, the qubits on which we apply the final Hadamard transform contain copies of |0 ± 1 . If the algorithm succeeds, these copies are obtained in all cases, so they are disentangled from the rest of the state. In contrast, in the non-shifted case, we obtain a single -dimensional basis state depending on the sequence of combinations. Thus after applying the Hadamard transform, the total amplitude on |0 (resp. |1 ) is equal to 2 /2 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.7">BOUNDING THE ERRORS</head><p>The circuit DAHS is not exact. In the positive (shifted) case, it maps:</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>≤</head><p>, and 2 is the (small) probability of false negative; and in the negative (non shifted) case, it maps:</p><p>and 2 is the (small) probability of false positive. We now bound both and separately, and independently of and .</p><p>False Negatives. False negatives come from all the sequences of labels = 1 , . . . , on which the combination cannot produce enough labels 2 -1 . As unitary operators preserve the euclidean norm, we can bound | FN before the combination step. Let us consider the state:</p><p>where = 1 , . . . , , ( • ) = ( ) and ( ) = ( 1 ), . . . , ( ). All the "bad" sequences contribute to the probability of false negatives, so we bound: bad , and for all :</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">THE OFFLINE-DAHS ALGORITHM</head><p>In this section, we describe an offline-DAHS algorithm that will help us solve the SLS with classical queries, based on the reversible circuit DAHS.</p><p>The algorithm looks for a pair of shifted functions (•) = (• + ) over an abelian group, when is fixed and goes through a family ( ) ∈ . We will consider a simple version of this problem, in which the group is Z 2 , all functions are injective and admit distinct image sets.</p><p>Problem 5 (Finding a shifted pair, injective case). Let : Z 2 → be a function, and : Z 2 → be a family of functions indexed by , such that: • and all are injective; • there exists a single 0 ∈ and a shift such that: ∀ ∈ Z 2 , ( ) = 0 ( + ); • ≠ 0 ( ) and ( ) are disjoint. Then find 0 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1">HIGH-LEVEL DESCRIPTION</head><p>First of all, we describe offline-DAHS in a generic way, following the layout of the offline-Simon algorithm by Bonnetain et al. <ref type="bibr" target="#b9">[10]</ref>. Note that <ref type="bibr" target="#b9">[10]</ref> already proposed to combine their algorithm with Kuperberg's, but did not analyze the resulting algorithm nor its time complexity. Originally, the offline-Simon algorithm, which itself</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>APPENDIX 7 DETAILED COMPLEXITIES</head><p>We give in Table <ref type="table">2</ref> a detailed version of Table <ref type="table">1</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="8">PROOF OF THEOREM 2</head><p>In this section, we prove Theorem 2.</p><p>Let A, , = 4 be defined as in Theorem 1. Let be a boolean function that tests if an output of A is "good", and let be an approximate oracle for with error , using an ancillary state | , as per Definition 1. Let | be a quantum state such that | -| ≤ . We run the following algorithm:</p><p>that is, iterations of "approximate" quantum search using , where I is the identity operator applied to the ancillary state | . Then measuring the output yields a good result with probability greater than (1 --) 2 max(1 -, ) .</p><p>Proof. The proof uses a "hybrid argument" as in <ref type="bibr" target="#b3">[4]</ref> or [1, <ref type="bibr">Lemma 5</ref>]. We will consider the "perfect" run of the algorithm, that starts with the initial | and applies the perfect test , and compare it with the "imperfect" one, that starts with | and applies the imperfect test . </p><p>and using the triangle inequality:</p><p>In order to bound the second term, we use the fact that induces a uniform error . More specifically, if</p><p>where | is the error induced by on the input state . Then we have</p><p>by definition of . Thus, each iteration adds an error .</p><p>After iterations, we have | = | + | err where | err ≤ + . By the Cauchy-Schwarz inequality, we have:</p><p>Measuring | , we project on | with a probability greater than:</p><p>and then, by Theorem 1, we have a probability greater than max(1 -, ) to measure a "good" element.</p><p>It can seem surprising to require a uniform error . Indeed, in a classical exhaustive search with a single solution, we can afford a constant probability of false negative (not recognizing the solution), and still obtain a constant probability of success, as we expect to look at the solution only once.</p><p>Our classical intuition then dictates that the same should be true of a quantum search: we could afford a much higher probability of false negatives than of false positives. We found that this was not the case, due to the stateful nature of the search. Indeed, taking different and changes the error term added at iteration to a term: </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="10">COMBINATION CIRCUIT</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="11">SIMULATIONS AND COST ESTIMATES</head><p>In this section, we give more precise, non-asymptotic (but heuristic) complexity estimates for offline-DAHS applied to the SLS problem. Our goal is to determine for which values of the algorithm becomes more efficient than the table-based collision search. We expect that for small , its advantage in the exponential term will be defeated by the subexponential factor.</p><p>Note that for exhaustive search and table-based collisions, the asymptotic formulas of Table <ref type="table">2</ref> are very close to the non-asymptotic costs (only by a small constant factor).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="11.1">NUMBER OF LABELS IN DAHS</head><p>As we have seen, the number of labels dictates the probability of false positives and false negatives in the DAHS circuit. This is a property of the combination step, independent from the functions , that we are actually studying.</p><p>We will first fix = 200, meaning that we want the combination step to produce 200 labels equal to 2 -1 . This reduces the probability of false positives to 2 -( -1) = 2 -199 .</p><p>Next, we will estimate how many initial label states we need to reduce the probability of false negatives below 2 -199 as well. We upper bound this probability by the probability that a given sequence of random labels 1 , . . . , , drawn at random, is "bad", i.e., does not allow to produce 200 labels equal to 2 -1 . Concretely, we choose a value of and we sample sequences of initial labels uniformly at random. We then perform the combination step as in the DAHS circuit, i.e., with layers of combination circuits and of sorting.</p><p>During this step, we actually simulate the output of DAHS when starting from the sequence of labels 1 , . . . , . This is doable because the entire circuit (except the initial QFTs, which produce the labels in the first place) contains only classical reversible operations such as CNOTs and controlled additions. We can then check how many labels equal to 2 -1 are produced.</p><p>Our goal is still to estimate the probability: Pr 1 ,..., $ ← -Z 2 1 , . . . , produce labels equal to 2 -1 .</p><p>However, we cannot estimate it experimentally, since we need it to be extremely small.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Heuristic.</head><p>The heuristic assumption that we make is that the number of labels equal to 2 -1 , that the sieve produces, follows a normal distribution. Our experiments allow then to estimate the mean and standard deviation. We estimate the probability to obtain less than 200 labels by integrating the density function on ] -∞; 200]. Since the circuit is better layout with = 2 ℓ , we increase the number of labels in powers of 2, and there is always a clear threshold. At some point, the average number of good labels exceeds 700 and the probability of failure becomes negligibly smaller than 2 -200 (by our estimate).</p><p>We display some simulation results in Table <ref type="table">3</ref> for different values of and ℓ. In general, if there are enough labels for a given , then the same circuit should work for &lt; . This is not always what we observe (see the column (60, 19)), because having a smaller can increase the number of zero-labels produced, to the detriment of good labels. In that case we must take a smaller number of labels, but we can layout the circuit as if there were 2 ℓ of them exactly (with dummy labels). The DAHS circuit will only recover bits of the secret, where &lt; 80 depends on the bound on the error , that we need to make smaller than 1  4 . This constrains:</p><p>Building a sample state requires roughly register-wise operations; this makes 2 101 in total for the first step of offline-DAHS. Next, since there remains log 2 -= 184 bits of secret, the quantum search requires 4 2 92 iterations. But each of them costs at least 80 × 21 2 × 2 21 = 2 36 -qubit operations, due to the 80 layers of sorting in DAHS. This brings the total complexity above exhaustive search.</p><p>Thus, the subexponential factor of Kuperberg's sieve, but also the polynomial factors induced by our reversible circuit, defeat the time speedup for a prime of 300 bits. With the circuit that we presented, the improvements for larger values of (400 or 500 bits) will likely remain outperformed by the table-based collision search.</p><p>In order to overturn this situation, the circuit DAHS must be made more efficient. There are different possible ways:</p><p>• Increasing the resistance of the search to the errors in DAHS. Having to produce a large number of labels is problematic for small parameters.</p><p>• Using a more involved variant of Kuperberg's algorithm, for example Kuperberg's collimation sieve <ref type="bibr" target="#b28">[29]</ref>. It is currently unclear to us if its asymptotic improvement could also translate into a non-asymptotic improvement of the circuit layout.</p><p>• Reducing the overall cost of the sorting and combination layers. It is clear that most of the work in the final layers is useless, since most of the labels have already been consumed. It might be possible to reduce this cost using a refined estimation on the number of remaining labels at each step.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Quantum Walk Algorithm for Element Distinctness</title>
+		<author>
+			<persName><forename type="first">Andris</forename><surname>Ambainis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Comput</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="210" to="239" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Sorting Networks and Their Applications</title>
+		<author>
+			<persName><forename type="first">Kenneth</forename><forename type="middle">E</forename><surname>Batcher</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="s">AFIPS Spring Joint Computing Conference</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="page" from="307" to="314" />
+			<date type="published" when="1968">1968</date>
+			<publisher>Thomson Book Company</publisher>
+			<pubPlace>Washington D.C.</pubPlace>
+		</imprint>
+	</monogr>
+	<note>AFIPS Conference Proceedings</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Efficient distributed quantum computing</title>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Beals</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</title>
+		<imprint>
+			<biblScope unit="volume">469</biblScope>
+			<biblScope unit="page">20120686</biblScope>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Strengths and Weaknesses of Quantum Computing</title>
+		<author>
+			<persName><forename type="first">Charles</forename><forename type="middle">H</forename><surname>Bennett</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Comput</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1510" to="1523" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">LegRoast: Efficient Post-quantum Signatures from the Legendre PRF</title>
+		<author>
+			<persName><forename type="first">Ward</forename><surname>Beullens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cyprien Delpech De Saint</forename><surname>Guilhem</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">PQCrypto</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="volume">12100</biblScope>
+			<biblScope unit="page" from="130" to="150" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Cryptanalysis of the Legendre PRF and Generalizations</title>
+		<author>
+			<persName><forename type="first">Ward</forename><surname>Beullens</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IACR Trans. Symmetric Cryptol</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="313" to="330" />
+			<date type="published" when="2020">2020. 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Improved Low-qubit Hidden Shift Algorithms</title>
+		<author>
+			<persName><forename type="first">Xavier</forename><surname>Bonnetain</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1901.11428</idno>
+		<ptr target="http://arxiv.org/abs/1901.11428" />
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Hidden Shift Quantum Cryptanalysis and Implications</title>
+		<author>
+			<persName><forename type="first">Xavier</forename><surname>Bonnetain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">María</forename><surname>Naya-Plasencia</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASIACRYPT</title>
+		<imprint>
+			<biblScope unit="volume">11272</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="560" to="592" />
+			<date type="published" when="2018">2018</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Quantum Security Analysis of CSIDH</title>
+		<author>
+			<persName><forename type="first">Xavier</forename><surname>Bonnetain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">André</forename><surname>Schrottenloher</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">EUROCRYPT</title>
+		<imprint>
+			<biblScope unit="volume">12106</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="493" to="522" />
+			<date type="published" when="2020">2020</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Quantum Attacks Without Superposition Queries: The Offline Simon&apos;s Algorithm</title>
+		<author>
+			<persName><forename type="first">Xavier</forename><surname>Bonnetain</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASIACRYPT</title>
+		<imprint>
+			<biblScope unit="volume">11921</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="552" to="583" />
+			<date type="published" when="2019">2019</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Quantum Cryptanalysis of Hash and Claw-Free Functions</title>
+		<author>
+			<persName><forename type="first">Gilles</forename><surname>Brassard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><surname>Høyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alain</forename><surname>Tapp</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">LATIN</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="1998">1998</date>
+			<biblScope unit="volume">1380</biblScope>
+			<biblScope unit="page" from="163" to="169" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Quantum amplitude amplification and estimation</title>
+		<author>
+			<persName><forename type="first">Gilles</forename><surname>Brassard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Contemporary Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">305</biblScope>
+			<biblScope unit="page" from="53" to="74" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">An O(M(n) logn) Algorithm for the Jacobi Symbol</title>
+		<author>
+			<persName><forename type="first">Richard</forename><forename type="middle">P</forename><surname>Brent</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Paul</forename><surname>Zimmermann</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ANTS</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2010">2010</date>
+			<biblScope unit="volume">6197</biblScope>
+			<biblScope unit="page" from="83" to="95" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">An Efficient Quantum Collision Search Algorithm and Implications on Symmetric Cryptography</title>
+		<author>
+			<persName><forename type="first">André</forename><surname>Chailloux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">María</forename><surname>Naya-Plasencia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">André</forename><surname>Schrottenloher</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASIACRYPT</title>
+		<imprint>
+			<biblScope unit="volume">10625</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="211" to="240" />
+			<date type="published" when="2017">2017</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Post-Quantum Zero-Knowledge and Signatures from Symmetric-Key Primitives</title>
+		<author>
+			<persName><forename type="first">Melissa</forename><surname>Chase</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CCS. ACM</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="1825" to="1842" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Constructing elliptic curve isogenies in quantum subexponential time</title>
+		<author>
+			<persName><forename type="first">Andrew</forename><forename type="middle">M</forename><surname>Childs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><surname>Jao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vladimir</forename><surname>Soukharev</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Math. Cryptol</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="29" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">A new quantum ripple-carry addition circuit</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Steven</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Cuccaro</surname></persName>
+		</author>
+		<idno>arXiv preprint quant-ph/0410184</idno>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Quantum Algorithms for Some Hidden Shift Problems</title>
+		<author>
+			<persName><forename type="first">Sean</forename><surname>Wim Van Dam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lawrence</forename><surname>Hallgren</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Ip</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Comput</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="763" to="778" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">On the Randomness of Legendre and Jacobi Sequences</title>
+		<author>
+			<persName><forename type="first">Ivan</forename><surname>Damgård</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CRYPTO</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="1988">1988</date>
+			<biblScope unit="volume">403</biblScope>
+			<biblScope unit="page" from="163" to="172" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<monogr>
+		<title level="m" type="main">Legendre pseudo-random function</title>
+		<author>
+			<persName><forename type="first">Dankrad</forename><surname>Feist</surname></persName>
+		</author>
+		<idno>Accessed: 2021-01-19. 2019</idno>
+		<ptr target="https://legendreprf.org" />
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">MPC-Friendly Symmetric Key Primitives</title>
+		<author>
+			<persName><forename type="first">Lorenzo</forename><surname>Grassi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CCS. ACM</title>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="page" from="430" to="443" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">A Fast Quantum Mechanical Algorithm for Database Search</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Lov</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Grover</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">STOC. ACM</title>
+		<imprint>
+			<date type="published" when="1996">1996</date>
+			<biblScope unit="page" from="212" to="219" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">The Power of Few Qubits and Collisions -Subset Sum Below Grover&apos;s Bound</title>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Helm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>May</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">PQCrypto</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="volume">12100</biblScope>
+			<biblScope unit="page" from="445" to="460" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Quantum Cryptanalysis in the RAM Model: Claw-Finding Attacks on SIKE</title>
+		<author>
+			<persName><forename type="first">Samuel</forename><surname>Jaques</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John</forename><forename type="middle">M</forename><surname>Schanck</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CRYPTO</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="volume">11692</biblScope>
+			<biblScope unit="page" from="32" to="61" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Improved key recovery on the Legendre PRF</title>
+		<author>
+			<persName><forename type="first">Novak</forename><surname>Kaluderovic</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thorsten</forename><surname>Kleinjung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dusan</forename><surname>Kostic</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IACR Cryptol. ePrint Arch</title>
+		<imprint>
+			<biblScope unit="volume">2020</biblScope>
+			<biblScope unit="page">98</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Cryptanalysis of the generalised Legendre pseudorandom function</title>
+		<author>
+			<persName><forename type="first">Novak</forename><surname>Kaluđerović</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thorsten</forename><surname>Kleinjung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dušan</forename><surname>Kostić</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ANTS</title>
+		<imprint>
+			<publisher>Mathematical Sciences Publishers</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="267" to="282" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Key recovery attacks on the Legendre PRFs within the birthday bound</title>
+		<author>
+			<persName><forename type="first">Dmitry</forename><surname>Khovratovich</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IACR Cryptol. ePrint Arch</title>
+		<imprint>
+			<biblScope unit="volume">2019</biblScope>
+			<biblScope unit="page">862</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">A Subexponential-Time Quantum Algorithm for the Dihedral Hidden Subgroup Problem</title>
+		<author>
+			<persName><forename type="first">Greg</forename><surname>Kuperberg</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Comput</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="170" to="188" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Another Subexponential-time Quantum Algorithm for the Dihedral Hidden Subgroup Problem</title>
+		<author>
+			<persName><forename type="first">Greg</forename><surname>Kuperberg</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">TQC</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page" from="20" to="34" />
+		</imprint>
+		<respStmt>
+			<orgName>Schloss Dagstuhl -Leibniz-Zentrum für Informatik</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Grover Meets Simon -Quantumly Attacking the FX-construction</title>
+		<author>
+			<persName><forename type="first">Gregor</forename><surname>Leander</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>May</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASIACRYPT</title>
+		<imprint>
+			<biblScope unit="volume">10625</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="161" to="178" />
+			<date type="published" when="2017">2017</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<monogr>
+		<title level="m" type="main">Quantum computation and quantum information</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Michael</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Isaac</forename><surname>Nielsen</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Chuang</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">He Gives C-Sieves on the CSIDH</title>
+		<author>
+			<persName><forename type="first">Chris</forename><surname>Peikert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">EUROCRYPT</title>
+		<imprint>
+			<biblScope unit="volume">12106</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="463" to="492" />
+			<date type="published" when="2020">2020</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<monogr>
+		<title level="m" type="main">A subexponential time algorithm for the dihedral hidden subgroup problem with polynomial space</title>
+		<author>
+			<persName><forename type="first">Oded</forename><surname>Regev</surname></persName>
+		</author>
+		<idno>arXiv preprint quant-ph/0406151</idno>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Quantum Resource Estimates for Computing Elliptic Curve Discrete Logarithms</title>
+		<author>
+			<persName><forename type="first">Martin</forename><surname>Roetteler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ASIACRYPT</title>
+		<imprint>
+			<biblScope unit="volume">10625</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="241" to="270" />
+			<date type="published" when="2017">2017</date>
+			<publisher>Springer</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">The Legendre Pseudorandom Function as a Multivariate Quadratic Cryptosystem: Security and Applications</title>
+		<author>
+			<persName><forename type="first">András</forename><surname>István</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Máté</forename><surname>Seres</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Péter</forename><surname>Horváth</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Burcsi</surname></persName>
+		</author>
+		<ptr target="https://eprint.iacr.org/2021/182" />
+	</analytic>
+	<monogr>
+		<title level="m">IACR Cryptol. ePrint Arch. 2021</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="page">182</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Algorithms for Quantum Computation: Discrete Logarithms and Factoring</title>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">W</forename><surname>Shor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">FOCS</title>
+		<imprint>
+			<publisher>IEEE Computer Society</publisher>
+			<date type="published" when="1994">1994</date>
+			<biblScope unit="page" from="124" to="134" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

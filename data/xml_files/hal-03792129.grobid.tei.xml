@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">From axioms to synthetic inference rules via focusing</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Sonia</forename><surname>Marin</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Dept. of Computer Science</orgName>
+								<orgName type="institution">University College London</orgName>
+								<address>
+									<country key="GB">UK</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Dale</forename><surname>Miller</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">Inria-Saclay &amp; LIX</orgName>
+								<orgName type="institution">Ecole Polytechnique</orgName>
+								<address>
+									<settlement>Palaiseau</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Elaine</forename><surname>Pimentel</surname></persName>
+							<affiliation key="aff2">
+								<orgName type="department">Dept. of Mathematics</orgName>
+								<orgName type="institution">UFRN</orgName>
+								<address>
+									<country key="BR">Brazil</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Marco</forename><surname>Volpe</surname></persName>
+							<affiliation key="aff3">
+								<orgName type="department">Dept. of Artificial Intelligence</orgName>
+								<orgName type="institution">University of Osnabrück</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">From axioms to synthetic inference rules via focusing</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">C3AFCB10571835F5B6CF915EC47A290C</idno>
+					<idno type="DOI">10.1016/j.apal.2022.103091</idno>
+					<note type="submission">Preprint submitted to Elsevier June 18, 2021</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>An important application of focused variants of Gentzen's sequent calculus proof rules is the construction of (possibly) large synthetic inference rules. This paper examines the synthetic inference rules that arise when using theories composed of bipolars, and we do this in both classical and intuitionistic logics. A key step in transforming a formula into synthetic inference rules involves attaching a polarity to atomic formulas and some logical connectives. Since there are different choices in how polarity is assigned, it is possible to produce different synthetic inference rules for the same formula. We show that this flexibility allows for the generalization of different approaches for transforming axioms into sequent rules present in the literature. We finish the paper showing how to apply these results to organize the proof theory of labeled sequent systems for several propositional modal logics.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>We start by presenting a simple, motivating example that should illustrate several key concepts we shall encounter. Let B be a formula and Γ be a multiset of formulas. Consider attempting to build a proof of the following two-sided sequent Γ,</p><formula xml:id="formula_0">A 1 ⊃ • • • ⊃ A n ⊃ A 0 B,</formula><p>in which the distinguished implication is such that n ≥ 1 and A 0 , . . . , A n are atomic formulas. In general, there are many ways to proceed with attempting to build a cut-free proof of this sequent, and we characterize them as one of the following four possibilities. This sequent can be the conclusion of 1. a structural rule (weakening or contraction) or the initial rule; 2. a right introduction rule, if B is not an atomic formula; 3. a left-introduction rule that introduces a formula in Γ; or 4. the implication-introduction rule that introduces the distinguished implication.</p><p>The number of possible choices here could be large, particularly if Γ contains a large number of formulas. If we chose the fourth of these possibilities, the proof would look as follows (at least in the intuitionistic setting):</p><formula xml:id="formula_1">Γ A 1 Γ, A 2 ⊃ • • • ⊃ A n ⊃ A 0 B Γ, A 1 ⊃ • • • ⊃ A n ⊃ A 0 B L⊃</formula><p>Note that we again have a large number of possible ways to proceed in attempting to prove the right premise: indeed, if n ≥ 2, we have all the same choices as before. Clearly, those choices-and their multiplicative effects as we search for a sequence of inference steps that terminates in a proof-are in desperate need of being structured somehow. Focused proof systems provide such structure using the following two devices.</p><p>Focused rule application If you chose to apply the implication-left introduction on the distinguished implication, then you also commit to repeat the implication-left rule on the right premise until the atomic formula A 0 results. That is, the left-introduction applied to the distinguished implication results in the following derived inference rule</p><formula xml:id="formula_2">Γ A 1 . . . Γ A n Γ, A 0 B Γ, A 1 ⊃ • • • ⊃ A n ⊃ A 0 B</formula><p>L⊃ n times.</p><p>Polarization Although the focused application of inference rules provides structure to attempts to build proofs, there are still so many remaining choices, that it is possible to impose two different "protocols" for restricting choices further. The Q-protocol insists that the first n premises above are trivial, meaning that they are proved by the initial rule. Following that protocol, we have A i ∈ Γ for 1 ≤ i ≤ n. Thus, if we set Γ to be the result of removing all occurrences of A 1 , . . . , A n from Γ, then the derived inference rule above becomes</p><formula xml:id="formula_3">Γ , A 1 , . . . , A n , A 0 B Γ , A 1 , . . . , A n , A 1 ⊃ • • • ⊃ A n ⊃ A 0 B .</formula><p>The second protocol, the T -protocol insists that the right-most premise is trivial: that is, A 0 and B are the same atomic formula. Thus, the derived inference rule above becomes</p><formula xml:id="formula_4">Γ A 1 . . . Γ A n Γ, A 1 ⊃ • • • ⊃ A n ⊃ A 0 A 0 .</formula><p>Using the Q-protocol, the proof-search semantics of the implication A 1 ⊃ • • • ⊃ A n ⊃ A 0 is given by forward-chaining: if you have assumptions A 1 , . . . , A n then you can add the assumption A 0 . Using the T -protocol, the proof-search semantics of the same implication is given by back-chaining: in order to prove the conclusion A 0 , attempt instead to prove each of A 1 , . . . , A n . The names for the Q and T protocols comes from Danos, Joinet, and Schellinx <ref type="bibr" target="#b0">[1]</ref>: in the Q protocol, the tail ("queue") of an implication yields a trivial premise while in the T protocol, the head ("tête") of an implication yields a trivial premise. A more modern and flexible presentation of the Q and T protocols speaks, instead, of the polarity of formulas: for this example, the polarity given to atomic formulas is the most relevant. In particular, if all atomic formulas have a positive polarity, the Q-protocol is enforced, while if all atomic formulas have a negative polarity, the T -protocol is enforced.</p><p>In the next section, we introduce the LKF and LJF <ref type="bibr" target="#b1">[2,</ref><ref type="bibr" target="#b2">3]</ref> focused proof systems for classical and intuitionistic logics, respectively. Those systems extend both the notion of focusing and polarity to all formulas, moving beyond the example above involving only implications and atomic formulas. In particular, focused rule applications imply that focus is transferred from conclusion to premises in derivations. This process goes on until either the focused phase ends (depending on the polarity of the focused formula), or the derivation ends. Once the focus is released, the formula is eagerly decomposed into subformulas, which are ultimately stored in the context. Reading derivations from the root upwards forces proofs to be organized into focused phases, called the synchronous and asynchronous phases.</p><p>In the area of linear logic, Andreoli's focused proof system <ref type="bibr" target="#b3">[4]</ref> described the search for cut-free proofs as alternating between these two focused phases. For Andreoli, a bipolar formula determines a pair of such focusing phases, inducing a synthetic inference rule. Later, Bruscoli and Guglielmi <ref type="bibr" target="#b4">[5]</ref>, Chaudhuri <ref type="bibr" target="#b5">[6]</ref>, and McLaughlin and Pfenning <ref type="bibr" target="#b6">[7]</ref> introduced large-scale inference rules in linear logic by identifying them with individual phases. In each of these cases, the large scale rules were seen as making proof systems more abstract and less dependent on the low-level syntactic issues involving the sequent calculus for linear logic.</p><p>In this paper, we leave behind linear logic and employ the LJF and LKF focused proof systems for intuitionistic and classical logics as the framework for developing synthetic inference rules in those logics.</p><p>A key step in transforming a formula into synthetic inference rules involves attaching a polarity to atomic formulas and to some logical connectives. Since there are different choices for assigning polarities, it is possible to produce different synthetic inference rules for the same (unpolarized) formula. In the example above, there are (at most) 2 n+1 different possible polarizations for the atomic formulas in A 1 ⊃ • • • ⊃ A n ⊃ A 0 , each of them corresponding to a different bipole. We show that this flexibility allows for the generalization of different approaches for transforming axioms into sequent rules present in the literature.</p><p>The general problem of extending standard proof-theoretical results obtained for pure logic to certain class of non-logical axioms has been focus of attention for quite some time now. The main challenge in this effort is to determine a general procedure that guarantees that such extensions preserve good proof-theoretical properties.</p><p>A remarkable step in that direction was the careful investigation of geometric axioms. Geometric axioms are first-order formulas that can be converted into (natural deduction/sequent) inference rules having "a certain simple form in which only atomic formulas play a critical part", as described by Simpson <ref type="bibr" target="#b7">[8]</ref>. And this "simple rules for atomic formulas" motto seems to be the core of success in this endurance in the approaches/extensions present in the literature <ref type="bibr" target="#b8">[9]</ref>.</p><p>It turns out that bipolars smoothly extend geometric formulas. This fact was already implicitly present in <ref type="bibr" target="#b9">[10]</ref> where Ciabattoni et al. developed a systematic procedure for transforming a class of (Hilbert) axioms (called N 2 ) into equivalent structural inference rules in substructural sequent calculi. Extended to first-order logic <ref type="bibr" target="#b10">[11]</ref>, such a procedure showed how to formalize and generalize the results in <ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b12">13,</ref><ref type="bibr" target="#b13">14]</ref>, where Negri et al. proposed methods for transforming axioms into inference rules, without affecting the admissibility of the structural rules. Bipolars are actually first-order, atomic-polarized, classical/intuitionistic versions of N 2 formulas.</p><p>Following a parallel path, Viganò presents in <ref type="bibr" target="#b14">[15]</ref> a detailed study of extensions of modal systems with Horn relational theories -a sub-class of geometric theories. Interestingly enough, the difference between Viganò and Negri's approaches is only the protocol: back-chaining versus forward-chaining, respectively. The observation that these two choices of polarity for atoms yield these two styles of inference rules was first published in the papers <ref type="bibr" target="#b15">[16,</ref><ref type="bibr" target="#b16">17]</ref>.</p><p>In this work, we come back to the inception of the axioms-as-rules problem, showing that the combination of bipolars and focusing is the real essence of "simple rules for atomic formulas". This implies that the previously mentioned works are different faces of the same coin, minted from focusing and polarization. Moreover, we address these issues with a uniform presentation in both classical and intuitionistic first-order logics.</p><p>We finish the paper by showing how to emulate precisely rules for modalities in labeled modal systems as synthetic connectives <ref type="bibr" target="#b17">[18,</ref><ref type="bibr" target="#b18">19]</ref> (Section 5). Such tight emulation means that proof search and proof checking on the focused version of the translated formulas imitates exactly proof search and proof checking in the correspondent labeled system. As a result, we are able to show that we can use focused proofs to precisely emulate modal proofs whenever Kripke frames are characterized by bipolar properties.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Background notions</head><p>The formulas of first-order classical and intuitionistic logics are built from atomic formula along with t and f (true and false), ∧ and ∨ (conjunction and disjunction), ⊃ (implication), and ∀, ∃ (universal and existential quantification). The logical units are t and f , the binary connectives are ∧, ∨, and ⊃, and the quantifiers are ∀ and ∃. Collectively, these are all called logical connectives. Here,</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction Rules</head><p>Figure <ref type="figure">1</ref>: The classical sequent calculus LK. The LJ calculus results from restricting the right-hand side of sequents to contain at most one formula. Here, A and B are arbitrary formulas, and P is an atomic formula. In the ∀ right rule and in the ∃ left rule, the eigenvariable y does not occur free in any formula of the conclusion.</p><p>we do not take negation as a logical connective, instead we write B ⊃ f to denote the negation of B.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1.">Sequent calculus proof systems for classical and intuitionistic logic</head><p>Figure <ref type="figure">1</ref> contains the sequent calculus inference rules for what we shall call LK. This system is formally different from the one of the same name given by Gentzen in <ref type="bibr" target="#b19">[20]</ref>. In particular, Gentzen's original system included the cut inference rule, but we delay until Section 3 to introduce that inference rule, and when we do it will be as an inference rule in a focused proof system. Other differences from Gentzen's original LK proof system-such as the restriction of the initial rule to atomic formulas-do not change the character of the LK proof system in any important fashion. Just as in <ref type="bibr" target="#b19">[20]</ref>, the intuitionistic system LJ is obtained by restricting the right side of each sequent to contain at most one formula. This restriction on the right-hand side of sequents is equivalent to the following two restrictions: (i) no contractions are allowed on the right side and (ii) the rule for introducing implication on the left side is restricted to have the form</p><formula xml:id="formula_5">Γ A B, Γ ∆ A ⊃ B, Γ ∆ .</formula><p>That is, the right-hand side of the conclusion must be the same as the right-hand side of the right premise.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2.">Polarized formulas</head><p>An early focused proof, given in <ref type="bibr" target="#b20">[21,</ref><ref type="bibr" target="#b21">22]</ref>, introduced a two-phase proof system-used to captured the logic programming concepts of goal-reduction and back-chaining-and proved it to be complete for a subset of intuitionistic logic. In <ref type="bibr" target="#b3">[4]</ref>, Andreoli generalized that two phase construction by extending it to all of linear logic. Subsequently, several additional proof systems appeared in which somewhat similar proof structures were given for classical and intuitionistic logics: in particular, LKT and LKQ <ref type="bibr" target="#b0">[1]</ref>, LJT <ref type="bibr" target="#b22">[23]</ref>, and LJQ <ref type="bibr" target="#b23">[24]</ref>. The focused proof systems LKF and LJF <ref type="bibr" target="#b1">[2,</ref><ref type="bibr" target="#b2">3]</ref> were designed to generalize all of those proof systems: in particular, LKF and LJF can accommodate both the Q and T protocols as well as a mix of those protocols. The proof system LKF, for first-order classical logic, and the proof system LJF, for first-order intuitionistic logic, are presented in Figures <ref type="figure">2</ref> and<ref type="figure" target="#fig_0">3</ref>, respectively. Our presentation has been adapted from the corresponding proof systems given in <ref type="bibr" target="#b2">[3]</ref>: in particular, for ease of comparison between the intuitionistic and the classical proofs, the proof system LKF is presented using two-sided sequents.</p><p>In order to obtain their flexibility in capturing various focusing regimes, the LKF and LJF proof systems use polarized formulas instead of the unpolarized formulas used in the LK and LJ proof systems of Section 2.1. A polarized classical (first-order) formula is a formula built using atomic formulas, the usual first-order quantifiers ∀ and ∃, the implication ⊃, and polarized versions of the logical connectives and constants, i.e., t -, t + ,f -, f + , ∨ -, ∨ + , ∧ -, ∧ + . A polarized intuitionistic (first-order) formula is a polarized classical formula in which the logical connectives f -and ∨ -do not occur. The positive and negative versions of connectives and constants have identical truth conditions but different inference rules inside the polarized proof systems. For example, the left introduction rule for ∧ + is invertible while the left introduction rule for ∧ - is not invertible.</p><p>We shall also find it necessary to use delays: if B is a polarized formula then we define ∂ -(B) to be (the always negative) B ∧ -t -and ∂ + (B) to be (the always positive) B ∧ + t + . Equivalently, we can take ∂ + (•) to be the 1-ary version of either the binary ∨ + or ∧ + and take ∂ -(•) to be the 1-ary version of either the binary ∨ -or ∧ -. (The 0-ary version of these four connectives correspond to the logical units f + , t + , f -, t -.)</p><p>If a formula's top-level connective is t + , f + , ∨ + , ∧ + , or ∃, then that formula is positive. If a formula's top-level connective is t -, f -, ∨ -, ∧ -, ⊃, or ∀, then it is negative. Note that in the intuitionistic system LJF, we have only one disjunction and one falsum, both of which exist only with positive polarity. The way to form the negation of the polarized formula B is with the formula B ⊃ f + : this formula has negative polarity no matter the polarity of B.</p><p>In both LKF and LJF, every polarized formula is classified as positive or negative. This means that we must also provide a polarity to atomic formulas. As it turns out, this assignment of polarity to atomic formulas can, in principle, be arbitrary. In particular, an atomic bias assignment is a function δ(•) that maps atomic formulas to the set of two tokens {pos, neg}: if δ(A) is pos then that atomic formula is positive and if δ(A) is neg then that atomic formula is negative. We may ask that all atomic formulas are positive, that they are all negative, or we can mix polarity assignments. In particular, the atomic bias assignment δ + (•) assigns all atoms a positive polarity while δ -(•) assigns all atoms a negative polarity. For this paper, we shall assume that an atomic bias assignment is also stable under substitution: that is, for all substitutions θ, δ(θA) = δ(A). In first-order logic, this is equivalent to saying that such bias assignments are predicate determined : that is, if atoms A and A have the same predicate head, then δ(A) = δ(A ).</p><p>We say that the pair δ, B is a polarization of B if δ(•) is an atomic bias assignment and if every occurrence of t, ∧, f , and ∨ in B is labeled with either the + or -annotation. If B has n occurrences of these logical connectives then there are 2 n different ways to place these + or -symbols. We shall also allow the insertion of any number of ∂ + (•) and ∂ -(•) into B as well. In other words, the polarized formula δ, C is a polarization of B if deleting all delays and all + and -annotations on logical connectives of C results in B. Note that we use ⊃, ∀, and ∃ in both unpolarized as well as polarized formulas: we can do this since the polarity of these connectives is not ambiguous. In classical logic, the polarity of t, ∧, f , and ∨ is ambiguous and all of these can be positive or negative. In intuitionistic logic, only the polarity of t and ∧ is ambiguous. In both of these logics, however, the polarity of atoms is equally ambiguous. Finally, if δ, B is a polarization of B, we shall generally drop explicit reference to δ and simply say that B is a polarization of B: often, the atomic bias assignment is either not important or can be inferred from context.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3.">Focused proof systems</head><p>The inference rules of LKF and LJF presented in Figures <ref type="figure">2</ref> and<ref type="figure" target="#fig_0">3</ref>, respectively, involve three kinds of sequents</p><formula xml:id="formula_6">Γ ⇑ Θ Ω ⇑ ∆, Γ ⇓ B ∆, and Γ B ⇓ ∆,</formula><p>where Γ, Θ, Ω and ∆ are multisets of polarized formulas and B is a polarized formula. The formula occurrence B in a ⇓-sequent is called the focus of that sequent.</p><p>The system LJF is depicted in a separate figure for the sake of clarity. However, one can notice that, similarly to what we have for LJ and LK in the original Gentzen formulations, LJF can be seen as a restriction of LKF, where the rules for f -and ∨ -are omitted and only one formula is admitted in the Asynchronous Rules</p><formula xml:id="formula_7">Γ ⇑ Θ A, B, Ω ⇑ ∆ Γ ⇑ Θ A ∨ -B, Ω ⇑ ∆ ∨ - r Γ ⇑ Θ A, Ω ⇑ ∆ Γ ⇑ Θ B, Ω ⇑ ∆ Γ ⇑ Θ A ∧ -B, Ω ⇑ ∆ ∧ - Γ ⇑ A, Θ B ⇑ • Γ ⇑ Θ A ⊃ B ⇑ • ⊃ r Γ ⇑ Θ A ⇑ • Γ ⇑ Θ B ⇑ • Γ ⇑ Θ A ∧ -B ⇑ • ∧ - C, Γ ⇑ Θ R Γ ⇑ C, Θ R S l Γ ⇑ • • ⇑ D Γ ⇑ • D ⇑ • S r</formula><p>Here, P is positive, N is negative, C is a negative formula or positive atom, D a positive formula or negative atom, N a is a negative atom, and P a is a positive atom. Other formulas are arbitrary. R denotes ∆ 1 ⇑ ∆ 2 where the union of ∆ 1 and ∆ 2 contains at most one formula. In the rules ∀ r and ∃ l the eigenvariable y does not occur free in any formula of the conclusion. succedent of sequents. In particular, this implies that (i) in the left rule for ⊃, the right context of the conclusion is not present in the left premise; (ii) in the rule D r , the formula placed under focus is not subjected to contraction; and (iii) a sequent of the form Γ B ⇓ ∆, when used in an LJF proof, is such that ∆ is empty. In that case, we write that sequent as simply Γ B ⇓ . The soundness of LKF and LJF can be stated as follows.</p><p>1. Let B be an unpolarized classical logic formula and let B be any polarization of</p><formula xml:id="formula_8">B. If • ⇑ • B ⇑ • is provable in LKF then B is provable in LK. 2.</formula><p>Let B be an unpolarized intuitionistic logic formula and let B be any</p><formula xml:id="formula_9">polarization of B. If • ⇑ • B ⇑ • is provable in LJF then B is provable in LJ.</formula><p>These claims of soundness will be proved in detail in Section 2.4. The completeness of LKF and LJF can be stated as follows.</p><p>Theorem 1 (Completeness of LKF and LJF). If B is an unpolarized classical logic theorem (i.e., B is provable in LK) and B is any polarization of B, then</p><formula xml:id="formula_10">• ⇑ • B ⇑ • is provable in LKF. Similarly, if B is an unpolarized intuition- istic logic theorem (i.e., B is provable in LJ) and B is any polarization of B, then • ⇑ • B ⇑ • is provable in LJF.</formula><p>The proofs of these completeness theorems are lengthy and are not given here: the interested reader can find them in <ref type="bibr" target="#b2">[3,</ref><ref type="bibr" target="#b24">25]</ref>. A consequence of the completeness theorem is that the choice of polarization does not affect provability (although it can have an impact on the structure of proofs). Hence, if a polarization of B is provable in LKF (LJF) then every polarization of B is provable in LKF (respectively, LJF).</p><p>We shall now make an important distinction between the terms derivation and proof. While they are both tree-structured organizations of inference rules (focused or not), we shall only use the term "proof" when all leaves of that tree are closed: that is, all leaves are justified by either an initial rule (I l , I r ) or the introduction of a logical unit (t - r , t + r , f - l , f + l ). Derivations can have zero or more leaves that are not the consequence of an inference rule.</p><p>which is justified by a derivation of the form</p><formula xml:id="formula_11">Γ 1 ⇑ • • ⇑ ∆ 1 . . . Γ n ⇑ • • ⇑ ∆ n Π Γ ⇑ • • ⇑ ∆</formula><p>Here, n ≥ 0 and the inference rules of derivation Π are such that no synchronous rule application occurs above an asynchronous rule application. We also assume that Π contains at least one inference rule.</p><p>Sequents of the form Γ ⇑ • • ⇑ ∆ are called border sequents since they form the borders (the endsequent and premises) of synthetic inference rules. We will occasionally identify a synthetic inference rule with the derivation justifying it. We can speak of such synthetic inference rules in both LKF and LJF and, in both cases, the last inference rule of (the justification) Π must be a decide rule, either D l or D r . In the case that that decide rule is D l and it selects for focus the (negative) formula B, we say that this derivation is a synthetic inference rule for B.</p><p>Our main use of focused proofs in this paper is to examine synthetic inference rules for formulas from certain theories.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4.">Encoding unfocused systems in focused systems</head><p>In the introduction, we motivated using focusing and polarization to build large-scale inference rules, such as forward-chaining or back-chaining. In this section, we start with showing that the small-scale introduction rules in Gentzen's original, unfocused proof systems can be emulated precisely using synthetic inference rules in the corresponding focused proof system. Once we develop the techniques to show that emulation, we will move to addressing larger-scale inference rules in Section 3.</p><p>Given a polarized formula B we will denote by B • the first-order formula obtained by removing the annotations on the polarized versions of conjunction, disjunction, true, and false. For example, if P , Q, and R are atoms, then</p><formula xml:id="formula_12">(P ∨ -(Q ∧ + R)) • = P ∨ (Q ∧ R)</formula><p>This translation carries ∀, ∃, ⊃, and atoms to themselves. If Γ is a set of polarized formulas, then Γ • denotes the set</p><formula xml:id="formula_13">{B • | B ∈ Γ}. It is straightforward to transform a derivation Π of Γ ⇑ • • ⇑ ∆ in LKF (or LJF) into a derivation Π • of Γ • ∆ • in LK (</formula><p>respectively, LJ) by ignoring the release and store rules and by using the contraction rule when replacing the decide rules and when transforming multiplicative rules into additive ones. For example, if P, Q, R are atomic formulas assigned positive polarity, the LKF derivation</p><formula xml:id="formula_14">P ∨ -(Q ∧ + R), P ⇑ • • ⇑ • P ∨ -(Q ∧ + R) ⇑ P • ⇑ • S l P ∨ -(Q ∧ + R) ⇓ P • R l P ∨ -(Q ∧ + R), Q, R ⇑ • • ⇑ • P ∨ -(Q ∧ + R) ⇑ Q, R • ⇑ • S l P ∨ -(Q ∧ + R) ⇑ Q ∧ + R • ⇑ • ∧ + l P ∨ -(Q ∧ + R) ⇓ Q ∧ + R • R l P ∨ -(Q ∧ + R) ⇓ P ∨ -(Q ∧ + R) • ∨ - l P ∨ -(Q ∧ + R) ⇑ • • ⇑ • D l is transformed into the LK derivation P ∨ (Q ∧ R), P P ∨ (Q ∧ R), Q, R P ∨ (Q ∧ R), Q, Q ∧ R P ∨ (Q ∧ R), Q ∧ R, Q ∧ R P ∨ (Q ∧ R), Q ∧ R P ∨ (Q ∧ R), P ∨ (Q ∧ R) P ∨ (Q ∧ R) Γ ⇓ B ∆ Γ ⇓ ∂ -(B) ∆ ∂ l - Following [2, 3],</formula><p>we define the left/right translation functions [•] l and [•] r from first-order formulas into polarized formulas recursively as follows: if P is an atom, then [P ] l = [P ] r = P ; otherwise</p><formula xml:id="formula_15">[f ] l = ∂ -(f + ) [t] l = ∂ -(t + ) [A ∧ B] l = ∂ + ([A] l ) ∧ -∂ + ([B] l ) [A ∨ B] l = ∂ -([A] l ∨ + [B] l ) [A ⊃ B] l = ∂ -([A] r ) ⊃ ∂ + ([B] l ) [∀x.A] l = ∀x.∂ + ([A] l ) [∃x.A] l = ∂ -(∃x.[A] l ) [f ] r = f + [t] r = ∂ + (t -) [A ∧ B] r = ∂ + ([A] r ∧ -[B] r ) [A ∨ B] r = ∂ -([A] r ) ∨ + ∂ -([B] r ) [A ⊃ B] r = ∂ + ([A] l ⊃ [B] r ) [∀x.A] r = ∂ + (∀x.[A] r ) [∃x.A] r = ∃x.∂ -([A] r )</formula><p>Since these translations do not use either f -or ∨ -, the resulting formulas can be used in both the LJF and LKF proof systems. These translations do not assign any polarity to atomic formulas and any atomic polarity assignment can be paired with the result of such translations. The translations are applied to multisets, say Ω, of polarized formulas in the usual way:</p><formula xml:id="formula_16">[Ω] r = {[A] r | A ∈ Ω} and [Ω] l = {[A] l | A ∈ Ω}.</formula><p>Finally, we define a translation from LK (LJ) sequents into LKF (LJF) border sequents as follows:</p><formula xml:id="formula_17">[(A 1 , . . . , A n B 1 , . . . , B m )] = [A 1 , . . . , A n ] l ⇑ • • ⇑ [B 1 , . . . , B m ] r .</formula><p>In both translation of multisets of formulas and of sequents, we shall assume that only one atomic polarity assignment is used for all formulas in these collections of polarized formulas.</p><p>Note that if B is a non-atomic unpolarized formula then [B] l is always negative while [B] r is always positive. If B is atomic, then the polarity of [B] r and [B] l is the same as the polarity given by the atomic polarity assignment.</p><p>As we show below, the delays in [•] l and [•] r break focusing phases and this allows us to mimic the small step inference rules of LK and LJ derivations in LKF and LJF, respectively (see also <ref type="bibr" target="#b2">[3]</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4.1.">Mapping unpolarized proofs to polarized proofs</head><p>One important difference between the unpolarized and polarized proofs is that the former allows contractions at nearly any point in the proof while in the latter contraction only happens during some occurrences of the decide rules. As a result, we need to introduce some flexibility in how contexts are related between an unpolarized proof and the polarized proof emulating it. Given two multisets of LKF (LJF) formulas Γ and Γ , we say that Γ extends Γ if F V (Γ) ⊆ F V (Γ ) and every formula occurring in Γ also occurs in Γ with the same or greater multiplicity -here, F V (∆) denotes the set of variables occurring free in ∆. We say that an LKF (LJF) border sequent Γ ⇑</p><formula xml:id="formula_18">• • ⇑ ∆ extends an LKF (LJF) border sequent Γ ⇑ • • ⇑ ∆ if Γ extends Γ and ∆ extends ∆. implication left-introduction rule. Γ ⇑ • • ⇑ [A] r , ∆ Γ ⇑ • [A] r ⇑ ∆ S r Γ ⇑ • ∂ -([A] r ) ⇑ ∆ ∂ r - Γ ∂ -([A] r ) ⇓ ∆ R l Γ , [B] l ⇑ • • ⇑ ∆ Γ ⇑ [B] l • ⇑ ∆ S l Γ ⇑ ∂ + ([B] l ) • ⇑ ∆ ∂ l + Γ ⇓ ∂ + ([B] l ) ∆ R l Γ ⇓ ∂ -([A] r ) ⊃ ∂ + ([B] l ) ∆ ⊃ l Γ ⇑ • • ⇑ ∆ D l Note that the border sequents Γ ⇑ • • ⇑ [A] r , ∆ and [B] l , Γ ⇑ • • ⇑ ∆ extend [Γ] l ⇑ • • ⇑ [∆ 1 ] r , [A] r and [B] l , [Γ] l ⇑ • • ⇑ [∆ 2 ] r , respectively.</formula><p>Observe that the stores in the leaves are possible since [A] r is positive (or atomic) and [B] l is negative (or atomic). A similar construction can be described for all of the other LK inference rules. Also, the proof that a similar lemma holds for intuitionistic logic proofs is proved in the same way.</p><p>Theorem 4. Let Π be an LK derivation of a sequent S from the sequents S 1 , . . . , S n . Then there exists an</p><formula xml:id="formula_19">LKF derivation Π of [S] from [S 1 ], . . . , [S n ]</formula><p>such that each application in Π of a non-structural rule corresponds to a synthetic inference rule in Π . If we replace LK with LJ and LKF with LJF, the resulting statement is also a theorem.</p><p>Proof. We proceed bottom-up by starting from the root of Π and build Π by repeatedly applying Lemma 3. Since Lemma 3 is restricted to introduction rules, we need to consider here the contraction and initial rules in LK. The contraction rules in LK do not, in fact, translate to any rule or rules in LKF: the definition of "extends" makes this possible. The initial rule of LK is P, Γ ∆, P</p><p>where P is atomic. The corresponding synthetic inference rules in LKF are either</p><formula xml:id="formula_20">Γ P ⇓ ∆ I r Γ ⇑ • • ⇑ ∆ D r or Γ ⇓ P ∆ I r Γ ⇑ • • ⇑ ∆ D l</formula><p>depending on whether P has positive or negative polarity, respectively: also, Γ and ∆ are extensions of [Γ] l and [∆] r , respectively, containing P = [P ] l = [P ] r .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4.2.">Mapping polarized proofs to unpolarized proofs</head><p>Given two multisets of LKF (LJF) formulas Γ and Γ , we say that Γ is a contraction of Γ if Γ and Γ contain the same set of formulas but Γ can have more occurrences of them than in Γ . We say that an LKF (LJF) border sequent</p><formula xml:id="formula_21">Γ ⇑ • • ⇑ ∆ is a contraction of an LKF (LJF) border sequent Γ ⇑ • • ⇑ ∆ if Γ is a contraction of Γ and ∆ is a contraction of ∆.</formula><p>The following lemma is proved by analyzing the various synthetic inference rules that result when using decide-rules (D l and D r ) on the result of using the left/right-translation on LK and LJ formulas. Lemma 5. Let S be an LKF border sequent Γ ⇑ • • ⇑ ∆ that is the left/right translation [•] of some LK sequent. Consider a synthetic inference rule in LKF with concluding sequent S and premises S 1 , . . . , S p (p ≥ 0). It is the case that 0 ≤ p ≤ 2 and that there exists 1. an LK sequent S, such that S is a contraction of [S], and 2. an LK rule application with conclusion S and premises S 1 , . . . , S p such that for all</p><formula xml:id="formula_22">0 ≤ i ≤ p, S i is a contraction of [S i ].</formula><p>If we change LK to LJ and LKF to LJF above, this lemma remains true.</p><p>Theorem 6. Let Π be a proof of a border sequent S in LKF such that S = [S] for some LK-sequent S. Then there exists an LK-proof Π of S such that each synthetic inference rule in Π corresponds to a single rule application in Π. If we change LK to LJ and LKF to LJF above, this lemma remains true.</p><p>Proof. We proceed top-down starting from the leaves of Π and build Π by repeatedly applying Lemma 5. At each step, we get as the conclusion of an LK rule application a sequent S * such that the one obtained in the corresponding step of Π is a contraction of [S * ].</p><p>As described in <ref type="bibr" target="#b26">[27]</ref>, comparing two proof systems can be done at three different levels of adequacy. Relative completeness claims that the provable formulas are the same in the two proof systems. Full completeness of proofs claims that complete proofs of theorems are in one-to-one correspondence between the two proof systems. Finally, the most demanding notion of adequacy is full completeness of derivations which claims that (open) derivations (such as inference rules themselves) are also in one-to-one correspondence between the two proof systems. What Theorems 4 and 6 imply is that we have this strongest form of adequacy on derivations, where one step in LK or in LJ corresponds to one synthetic inference rule in LKF or in LJF, respectively.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Synthetic inference rules for bipolar theories</head><p>If we limit the alternation of polarity within a negative formula to just one flip, then the synthetic inference rules for such a formula are particularly simple. In fact, such synthetic rules do not explicitly mention logical connectives.</p><p>Definition 7 (Bipole for B). Let B be a polarized negative formula in either LKF or LJF. A bipole for B is a synthetic inference rule for B (see <ref type="bibr">Definition 2)</ref> in which all formulas stored using the store rules (S l , S r among the inference rules justifying this synthetic inference rule) are atomic formulas.</p><p>Bipoles are, therefore, synthetic inference rules in which the only difference between the concluding border sequent and any one of its premises is the presence or absence of atomic formulas.</p><p>Example 8. Let P 1 (x), P 2 (x), Q(x), and R(x, y) be positive atomic formulas and assume that the polarized formula ∀x(((P 1 (x) ⊃ P 2 (x))∧ + Q(x)) ⊃ ∃yR(x, y)) is a member of Γ . The following LKF derivation justifies a synthetic inference rule for this formula.</p><formula xml:id="formula_23">Γ , P 1 (t) ⇑ • • ⇑ P 2 (t), ∆ Γ , P 1 (t) ⇑ • P 2 (t) ⇑ ∆ S r Γ ⇑ P 1 (t) P 2 (t) ⇑ ∆ S l Γ ⇑ • P 1 (t) ⊃ P 2 (t) ⇑ ∆ ⊃ r Γ P 1 (t) ⊃ P 2 (t) ⇓ ∆ R r Γ Q(t) ⇓ ∆ I r Γ (P 1 (t) ⊃ P 2 (t)) ∧ + Q(t) ⇓ ∆ ∧ + r Γ , R(t, z) ⇑ • • ⇑ ∆ Γ ⇑ R(t, z) • ⇑ ∆ S l Γ ⇑ ∃yR(t, y) • ⇑ ∆ ∃ l Γ ⇓ ∃yR(t, y) ∆ R l Γ ⇓ ((P 1 (t) ⊃ P 2 (t)) ∧ + Q(t)) ⊃ ∃yR(t, y) ∆ ⊃ l Γ ⇓ ∀x(((P 1 (x) ⊃ P 2 (x)) ∧ + Q(x)) ⊃ ∃yR(x, y)) ∆ ∀ l Γ ⇑ • • ⇑ ∆ D l</formula><p>Note that since we are assuming that atomic polarity assignments are stable under substitution, it must be the case that the atoms P 1 (t), P 2 (t), Q(t), R(t, z) are all positive. In order to apply the rule I r in this derivation, it must be the case that Q(t) ∈ Γ . Thus, the corresponding bipole in LKF is</p><formula xml:id="formula_24">P 1 (t), Q(t), Γ ⇑ • • ⇑ ∆, P 2 (t) R(t, z), Q(t), Γ ⇑ • • ⇑ ∆ Q(t), Γ ⇑ • • ⇑ ∆</formula><p>If we were to build the same kind of synthetic inference rule in LJF, the corresponding bipole would be</p><formula xml:id="formula_25">P 1 (t), Q(t), Γ ⇑ • • ⇑ P 2 (t) R(t, z), Q(t), Γ ⇑ • • ⇑ E Q(t), Γ ⇑ • • ⇑ E .</formula><p>In both rules, the variable z does not occur in the conclusion.</p><p>Inspired by the classification of formulas in the full Lambek calculus with exchange given in <ref type="bibr" target="#b9">[10]</ref>, we organize polarized first-order classical and intuitionistic formulas into a hierarchy based on the alternation of polarized connectives.</p><p>Definition 9 (Hierarchy of polarized formulas). We define the following hierarchy of negative and positive classical formulas (denoted N C and P C , respectively). The classes N C 0 and P C 0 are both equal to the set of atomic formulas. The rest of the hierarchy is defined recursively as follows:</p><formula xml:id="formula_26">N C n+1 ::= ∀xN C n+1 | N C n+1 ∧ -N C n+1 | N C n+1 ∨ -N C n+1 | P C n+1 ⊃ N C n+1 | P C n | t -| f - P C n+1 ::= ∃xP C n+1 | P C n+1 ∧ + P C n+1 | P C n+1 ∨ + P C n+1 | N C n | t + | f +</formula><p>The hierarchy of negative and positive intuitionistic formulas (denoted N I , P I , respectively) is defined analogously, by simply omitting the cases of ∨ -and f - in the definition of N I n+1 . Also, in LJF, the classes N I 0 and P I 0 are both equal to the set of atomic formulas.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Definition 10 (Bipolar formula). Any formula in the class N C</head><p>2 is a classical bipolar formula. Any formula in the class N I 2 is an intuitionistic bipolar formula.</p><p>Example 11. The formula ∀x(((P 1 (x) ⊃ P 2 (x)) ∧ + Q(x)) ⊃ ∃yR(x, y)) under focus in the conclusion of the derivation of Example 8 can be read as both a classical and an intuitionistic bipolar formula.</p><p>We make the following useful additional definitions. A formula occurrence in a sequent in LKF or in LJF is in the inner zone if that occurrence appears between either ⇑ or ⇓ and . An LKF</p><formula xml:id="formula_27">polarized formula B is level-n (for n ≥ 0) if it is a member of N C n ∪ P C n .</formula><p>An LKF-sequent is level-n if every formula in its inner zone is of level-n. (Note that a border sequent is of level-n for all natural number n.) The size of an LKF-sequent is the total number of occurrences of logical connectives in formulas appearing in that sequent's inner zone. Note that the definitions for level and size can be extended directly to the intuitionistic case by defining level-n using N I n ∪ P I n and by considering LJF sequents instead of LKF sequents.</p><p>Theorem 12. A synthetic inference rule for a bipolar formula is a bipole.</p><p>Proof. We restrict our attention first to the LJF proof system. Let B be a polarized negative formula of level-2 and consider a synthetic inference rule for B ∈ Γ of the sequent Γ ⇑ • • ⇑ ∆. The last inference rule of this synthetic inference rule is D l with premise Γ ⇓ B ∆. As we move up within the synthetic inference rule from this sequent, we first move through synchronous introduction rules until we arrive at a release rule. At that point, the single formula in that sequent is of level 1. During the asynchronous phase, any instances of store rules will store formulas of level 0: in other words, the only formulas stored in this synthetic inference rule are atomic formulas. Hence, this synthetic inference rule is a bipole. The same argument can be made for classical bipolar formulas and synthetic inference rules in LKF.</p><p>Observe that the method of transforming bipolars into bipoles is similar to the bipolarisation of executions described in <ref type="bibr" target="#b25">[26]</ref> in the linear logic setting. Moreover, as in <ref type="bibr" target="#b9">[10]</ref>, it is possible to completely characterize the class of formulas corresponding to bipoles. Theorem 13. If every synthetic inference rule for a given negative formula is a bipole then that formula is bipolar.</p><p>Proof. We first consider LJF proofs. We say that a formula has minimal level k if it has level k but does not have level k -1 (for the base case, atoms have minimal level 0). Assume that every synthetic inference rule of the negative polarized formula B is a bipole but that B is not a bipolar formula. Hence there exists k ≥ 3 such that B is of minimal level k. Consider a synthetic inference rule for B ∈ Γ of the sequent Γ ⇑ • • ⇑ ∆. During the construction of the synchronous phase (from conclusion to premise), it is possible to always pick instances of the synchronous introduction rules so that whenever the inner formula is positive, its minimal level is k and if it is negative, its minimal level is k -1. During the construction of the asynchronous phase, among the formulas stored there must be one that is negative and has minimal order k -2. Since k ≥ 2 that stored formula is not atomic, and, hence, this synthetic inference rule is not a bipole, which is a contradiction. This proof can easily be extended to handle LKF proofs.</p><p>Which synthetic rules correspond to a given bipolar formula B can be computed directly from that formula using the LKF and LJF proof systems. In general, such synthetic rules have the form</p><formula xml:id="formula_28">Γ 1 , Γ ⇑ • • ⇑ ∆, ∆ 1 • • • Γ r , Γ ⇑ • • ⇑ ∆, ∆ r Γ 0 , Γ ⇑ • • ⇑ ∆, ∆ 0 .</formula><p>Here, r ≥ 0 and 1. the schematic variables for this rule are Γ and ∆ and these range over multisets of formulas, 2. for 0 ≤ i ≤ r, the multisets Γ i , ∆ i are atomic subformulas of B, 3. all free variables in these subformulas range over first-order terms, and 4. all the eigenvariables in Γ j , ∆ j introduced in Π by ∀ r or ∃ l do not occur free in the conclusion.</p><p>The intuitionistic version of the rule above is required to satisfy the usual restriction that at most one formula is allowed on the right side of a sequent. Note that synthetic inference rules do not explicitly mention logical connectives, only atomic formulas.</p><p>In general, the computation of a synthetic inference rule from a bipole formula starts by trying to build a bipole in which the (left) focus is on the formula B. As we make choices in which rules to apply during the synchronous phase, we might need to deal with a focus on an atomic formula occurrence, say A. If A is negatively biased and focused on the left, then A must also be present on the right-hand-side, which is possible if A ∈ ∆ 0 ; dually, if A is positively biased and focused on the right, then A must also be present on the left-hand-side, which is possible if A ∈ Γ 0 . If, however, A is negatively biased and focused on the right or is positively biased and focused on the right, a release rule must be used and we transition to the asynchronous phase. As we continue constructing the asynchronous phase, all atoms appearing in the inner zone will be stored on either the left or right and, hence, they will populate either Γ i or ∆ i depending on which branch that store occurs. This iterative process for computing bipoles from bipolar formulas is easily seen to be terminating using the following measure. We assign to every LJF and LKF sequent S a triple m, n, p of natural numbers as follows: m is the total number of logical connectives occurring in formulas in the inner zone; n is the number of formulas in the inner zone; and p is 0 if the sequent is an ⇑ sequent and 1 if the sequent is a ⇓ sequent. We shall refer to this triple as the measure of a sequent and we use the usual lexicographic ordering on triples to provide a well-ordering on this measure. Notice that when moving from the conclusion to a premise for every rule except the decide rules (D l , D r ), the measure of the sequent gets smaller. In particular, the first component gets smaller for any introduction rule, the second component gets smaller for any store rule (S l , S r ), and the third component gets smaller for the release rules (R l , R r ).</p><p>Appendix A contains a λProlog <ref type="bibr" target="#b27">[28,</ref><ref type="bibr" target="#b28">29]</ref> executable specification of a predicate that relates a bipolar formula to its various bipoles. Given the nature of λProlog, this specification is both compact and explicit about the scope of bindings for schematic variables and eigenvariables. The termination of this λProlog specification is easily shown using the measure of sequents mentioned above.</p><p>Our main project in this paper is to have a general method for extending both LK and LJ with inference rules that capture certain classes of axioms. From what we have seen in this section, we can now make three observations concerning this project. The first is that by restricting to bipolar formulas, these new inference rules involve only atomic formulas (and schematic variables ranging over contexts). The second is that working with axioms as unpolarized formulas is not sufficient: in order to construct inference rules, we need to start with polarized axioms. Finally, a polarized axiom B that is a positive bipolar formula is logically equivalent to the negative bipolar ∂ -(B). Hence we may consider, without loss of generality, that axioms in any theory T are negative formulas.</p><p>Definition 14 (Rules from polarized axioms). Let δ, T be a finite set of bipolar formulas. We define LK δ, T to be the extension of LK with inference rules derived from the polarized theory δ, T as follows. For every B ∈ T and every synthetic inference rule for B, say,</p><formula xml:id="formula_29">Γ 1 ⇑ • • ⇑ ∆ 1 . . . Γ n ⇑ • • ⇑ ∆ n Γ ⇑ • • ⇑ ∆ ,</formula><p>we place in LK δ, T the inference rule</p><formula xml:id="formula_30">Γ 1 ∆ 1 . . . Γ n ∆ n Γ ∆ .</formula><p>Since Γ, Γ 1 , . . . , Γ n , ∆, ∆ 1 , . . . , ∆ n are composed of either atomic formulas or schematic (context) variables, there are no logical connectives that need to be "de-polarize" when moving from the first inference rule above to the second.</p><p>Example 15. Let δ be any atom bias assignment that assigns positive to the open atomic formulas P 1 (x), P 2 (x), Q(x), R(x, y) and all their instances (see <ref type="bibr">Example 8)</ref>. If the polarized formula</p><formula xml:id="formula_31">∀x(((P 1 (x) ⊃ P 2 (x)) ∧ + Q(x)) ⊃ ∃yR(x, y))</formula><p>is a member of T , then the following rule is contained in LK δ, T</p><formula xml:id="formula_32">P 1 (t), Q(t), Γ ∆, P 2 (t) R(t, z), Q(t), Γ ∆ Q(t), Γ ∆</formula><p>while the following rule is contained in LJ δ, T .</p><formula xml:id="formula_33">P 1 (t), Q(t), Γ P 2 (t) R(t, z), Q(t), Γ E Q(t), Γ E</formula><p>In both of these rules, the eigenvariable z does not occur in the conclusion of the corresponding rule.</p><p>We shall now prove that cut is an admissible rule in the LK δ, T and LJ δ, T proof systems, where the cut rules for these systems are, respectively,</p><formula xml:id="formula_34">Γ ∆, A A, Γ ∆ Γ ∆ cut LK and Γ A A, Γ B Γ B cut LJ .</formula><p>Our proof here will be simple since we can directly use the cut-elimination theorem for LJF and LKF given in <ref type="bibr" target="#b2">[3,</ref><ref type="bibr" target="#b24">25]</ref>.</p><p>Theorem 16 (Cut admissibility for LJ δ, T ). Let δ, T be a set of bipolar formulas. The cut rule is admissible for the proof systems LJ δ, T .</p><p>Proof. The following two cut rules (among others) are proved to be admissible for LJF in <ref type="bibr" target="#b2">[3]</ref>.</p><formula xml:id="formula_35">Γ 1 ⇑ Θ 1 • ⇑ P Γ 2 ⇑ P, Θ 2 R Γ 1 , Γ 2 ⇑ Θ 1 , Θ 2 R Cut + Γ 1 ⇑ Θ 1 C ⇑ • Γ 2 , C ⇑ Θ 2 R Γ 1 , Γ 2 ⇑ Θ 1 , Θ 2 R Cut -</formula><p>Here, P is a positive formula, C is a negative formula or a positive atom, and (as in Figure <ref type="figure" target="#fig_0">3</ref>) R denotes ∆ 1 ⇑ ∆ 2 where the union of ∆ 1 and ∆ 2 contains at most one formula. We shall apply these admissibility results for LJF to immediately yield the cut-admissibility result for LJ δ, T . Assume that we have (cut-free) proofs in LJ δ, T of the sequents Γ B and B, Γ E. Using Theorem 4 and Definition 14, we have proofs in LJF of</p><formula xml:id="formula_36">T , [Γ] l ⇑ • • ⇑ [B] r and T , [B] l , [Γ] l ⇑ • • ⇑ [E] r .</formula><p>Consider the following two cases.</p><p>Case 1: B is atomic. In this case, [B] r and [B] l are equal to B. By using the admissibility of Cut -, we know that T , [Γ] l ⇑ • • ⇑ [E] r . We cannot apply Cut -directly, but it is easy to see that for atomic formula B (of either polarity),</p><formula xml:id="formula_37">T , [Γ] l ⇑ • • ⇑ B is provable in LJF if and only if T , [Γ] l ⇑ • B ⇑ • is provable. We can now apply the admissibility of Cut -to derive the sequent T , [Γ] l ⇑ • • ⇑ [E] r .</formula><p>Case 2: B is not atomic. In this case, [B] r and [B] l are different: the first has positive polarity while the second has negative polarity. Since these formulas are different, a focused cut rule would not apply directly to them. However, using the completeness theorem for LJF mentioned in Section 2.3 and proved in <ref type="bibr" target="#b2">[3]</ref>, since B ⊃ B is provable in LJ then every polarization of B ⊃ B is provable in LJF. Thus, it must be the case that we have an LJF proof of</p><formula xml:id="formula_38">• ⇑ • [B] r ⊃ [B] l ⇑ • and (by inversion) • ⇑ [B] r [B] l ⇑ •.</formula><p>By the admissibility of Cut -, we can conclude that there is a (cut-free)</p><formula xml:id="formula_39">LJF proof of T , [Γ] l ⇑ [B] l • ⇑ [E] r</formula><p>. By the admissibility of Cut + , we can conclude that there is a (cut-free) LJF proof of</p><formula xml:id="formula_40">T , [Γ] l ⇑ • • ⇑ [E] r .</formula><p>Thus, in either case, we have T ,</p><formula xml:id="formula_41">[Γ] l ⇑ • • ⇑ [E] r</formula><p>. By Theorem 6 and Definition 14, we can conclude that Γ E has a cut-free LJ δ, T .</p><p>Theorem 17 (Cut admissibility for LK δ, T ). Let δ, T be a polarized, geometric theory. The cut rule is admissible for the proof systems LK δ, T .</p><p>Proof. Consider the following two cut rules</p><formula xml:id="formula_42">Γ 1 ⇑ Θ 1 Ω 1 ⇑ P, ∆ 1 Γ 2 ⇑ P, Θ 2 Ω 2 ⇑ ∆ 2 Γ 1 , Γ 2 ⇑ Θ 1 , Θ 2 Ω 1 , Ω 2 ⇑ ∆ 1 , ∆ 2 Γ 1 ⇑ Θ 1 C, Ω 1 ⇑ ∆ 1 Γ 2 , C ⇑ Θ 2 Ω 2 ⇑ ∆ 2 Γ 1 , Γ 2 ⇑ Θ 1 , Θ 2 Ω 1 , Ω 2 ⇑ ∆ 1 , ∆ 2</formula><p>Here, P is a positive formula, C is a negative formula or a positive atom. The admissibility of these rules in LKF follows from the cut-admissibility result in <ref type="bibr" target="#b24">[25]</ref> (these two cuts correspond to the dcut f rule in the one-sided variant of LKF used in that paper). We shall apply the cut-admissibility result for LKF to immediately yield the cut-admissibility result for LK δ, T . Assume that we have (cut-free) proofs in LK δ, T of the sequents Γ B, ∆ and B, Γ ∆. Using Theorem 4 and Definition 14, we have proofs in LKF of</p><formula xml:id="formula_43">T , [Γ] l ⇑ • • ⇑ [B] r , [∆] r and T , [B] l , [Γ] l ⇑ • • ⇑ [∆] r .</formula><p>The rest of this proof follows the same steps as the proof regarding LJ δ, T (Theorem 16).</p><p>Let B be a first-order formula. If δ, B is an LJF-polarization of B then it is also an LKF-polarization of B since there are more options for polarizing classical formulas. The converse obviously does not hold. Moreover, the set of formulas which can be polarized as a bipolar is strictly greater in the classical setting. Indeed, for any atomic bias assignment, the formula (P</p><formula xml:id="formula_44">1 ⊃ P 2 ) ∨ (Q 1 ⊃ Q 2 )</formula><p>can be polarized classically to yield the bipolar (P</p><formula xml:id="formula_45">1 ⊃ P 2 ) ∨ -(Q 1 ⊃ Q 2 )</formula><p>while there is no polarization of this formula that gives rise to an intuitionistic bipolar formula.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Synthetic inference rules for geometric theories</head><p>The quest of generating sequent proof calculi for a large class of axiomatic extensions of classical and intuitionistic logics has been focus of attention for quite some time now. As it is well-known, simply adding an axiom as a theorem in the logical system is not a solution, since the resulting system may not yield the same theorems of the extended logic <ref type="bibr" target="#b29">[30,</ref><ref type="bibr" target="#b30">31]</ref>.</p><p>Such a problem can be overcome by converting axioms of a certain shape into rules of sequent calculus in such a way that the logical content of the axiom is replaced by the meta-linguistic meaning of sequent rules <ref type="bibr" target="#b7">[8,</ref><ref type="bibr" target="#b11">12,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b12">13,</ref><ref type="bibr" target="#b13">14,</ref><ref type="bibr" target="#b31">32]</ref>. In this section, we will show how bipolar formulas and focusing provide a generalization of such a method.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.">Geometric axioms as bipolar formulas</head><p>There are many examples of geometric theories in different areas of logic and mathematics, such as topology and category theory <ref type="bibr" target="#b8">[9]</ref>. Since geometric axioms form a proper subclass of bipolars, the approach developed in this paper can be applied for translating this class of axioms into synthetic inference rules. Definition 18. A geometric implication is a first-order formula having the form</p><formula xml:id="formula_46">∀z(P 1 ∧ . . . ∧ P m ⊃ ∃x 1 M 1 ∨ . . . ∨ ∃x n M n ),</formula><p>where each P i is an atomic formula, each M j is a conjunction of atomic formulas Q j1 , . . . , Q j k j , and none of the variables in the lists x 1 , . . . , x n are free in P i . A geometric theory is a finite set of geometric implications. We shall also assume that if the list of variables xi is empty then M i is just an atom: otherwise, this formula can be written as a conjunction of geometric implications. For example, if x1 is empty, then the following equivalence holds</p><formula xml:id="formula_47">∀z(P ⊃ ( j1 l=1 Q 1l ) ∨ M) ≡ j l l=1 (∀z(P ⊃ (Q 1l ∨ M)))</formula><p>A coherent implication <ref type="bibr" target="#b8">[9]</ref> is the universal closure of implications of the form D 1 ⊃ D 2 , where D i is built up from atoms using conjunction, disjunction and existential quantification. It is routine to check that coherent implications are intuitionistically equivalent to conjunctions of geometric implications (see e.g., [9, Proposition 2.6]).</p><p>As one can expect, different polarizations of geometric implications can give rise to different bipoles. Note that if we wish to polarize the displayed formula in Definition 18, the conjunctions within M i must be polarized positively (assuming that the list of variable xi is a non-empty). Hence, the polarized geometric implication</p><formula xml:id="formula_48">∀z(P ± 1 ∧ ± . . . ∧ ± P ± n ⊃ ∃x 1 M1 ∨ ± . . . ∨ ± ∃x n Mn )</formula><p>is a bipolar formula, where X ± means that X may have any polarity and</p><formula xml:id="formula_49">Mj = Q ± j1 ∧ + . . . ∧ + Q ± j k j</formula><p>. As an example, consider the polarization of formulas such that ∧ and ∨ are replaced by their positive versions, the atoms P i (1 ≤ i ≤ n) are assigned a positive bias, and all the atoms Q j l are given any polarization (for all and 1 ≤ j ≤ n, 1 ≤ j l ≤ k j ). A synthetic rule corresponding to a bipole for this formula is</p><formula xml:id="formula_50">Q 1 [y 1 /x 1 ], P , Γ ∆ . . . Q n [y n /x n ], P , Γ ∆ P , Γ ∆ GRS</formula><p>which is justified by a derivation with the following structure:</p><formula xml:id="formula_51">P , Γ + Pi ⇓ ∆ ∧ + r , Ir Q 1 ρ1, P , Γ ⇑ • • ⇑ ∆ P , Γ ⇑ M1ρ1 • ⇑ ∆ ∧ + l , S l Q n ρn, P , Γ ⇑ • • ⇑ ∆ P , Γ ⇓ Mnρn ∆ ∧ + l , S l P , Γ ⇓ + ∃xjMj ∆ Rr, ∨ + l , ∃ l P , Γ ⇓ ∀z.( + Pi ⊃ + ∃xjMj) ∆ ∀ l , ⊃ l</formula><p>where the variable renaming substitution ρ i is equal to [y i /x i ], the symbols Q j and P denote the multisets of atomic formulas Q j1 , . . . , Q j k j and P 1 , . . . , P m , respectively, and the eigenvariables in the lists y 1 , . . . , y n do not occur free in the conclusion. In <ref type="bibr" target="#b12">[13,</ref><ref type="bibr" target="#b31">32,</ref><ref type="bibr" target="#b32">33]</ref>, the GRS synthetic inference rule is called the geometric rule scheme. Another class of formulas described in <ref type="bibr" target="#b31">[32,</ref><ref type="bibr">Chapter 5]</ref> are the co-geometric axioms, which are of the form</p><formula xml:id="formula_52">∀z (∀x 1 M 1 ∧ . . . ∧ ∀x n M n ⊃ P 1 ∨ . . . ∨ P m ),</formula><p>where M j is the disjunction of atoms Q j1 ∨ . . . ∨ Q j k j (for 1 ≤ j ≤ n). If the disjunctions on the right of the implication are polarized negatively, then the polarized axiom can be a bipolar formula. In particular, the polarized formula</p><formula xml:id="formula_53">∀z (∀x 1 M 1 ∧ ± . . . ∧ ± ∀x n M n ⊃ P 1 ∨ -. . . ∨ -P m ), with M j = Q j1 ∨ -. . . ∨ -Q j k</formula><p>j and P i polarized negatively, gives rise to the synthetic inference rule in LKF (called co-geometric rule scheme in <ref type="bibr" target="#b31">[32]</ref>)</p><formula xml:id="formula_54">Γ Q 1 [y 1 /x 1 ], P , ∆ . . . Γ Q n [y n /x n ], P , ∆ Γ P , ∆ co-GRS c</formula><p>If we restrict ourselves to the intuitionistic case, we must have m = 1 and M j = Q j for 1 ≤ j ≤ n. The synthetic rule in this case is given by</p><formula xml:id="formula_55">Γ Q 1 [y 1 /x 1 ] . . . Γ Q n [y n /x n ] Γ P co-GRS i .</formula><p>Given a (classical or intuitionistic) geometric/co-geometric theory T , a complete proof calculus for it can be obtained by adding to an appropriate base (classical or intuitionistic) proof system the rules that follow the scheme corresponding to the (polarized) axioms in T . Observe that our setting avoids the closure condition rules in <ref type="bibr" target="#b11">[12]</ref> since contraction is implicit in the focused setting. Moreover, all the structural properties of the basic sequent calculi are preserved by the addition of rules following the schemes given above.</p><p>As the following example illustrates, not all bipolar formulas are geometric or co-geometric formulas.</p><p>Example 19. In set theory, the following implication relates the subset and membership predicates:</p><formula xml:id="formula_56">∀yz.(∀x(x ∈ y ⊃ x ∈ z) ⊃ y ⊆ z).</formula><p>This formula yields a bipolar formula in both LKF and LJF under any polarization of the binary atomic predicates ∈ and ⊆. Assuming that these predicates are given positive polarity, the corresponding LJF-synthetic inference rule is</p><formula xml:id="formula_57">x ∈ y, Γ x ∈ z y ⊆ z, Γ E Γ E .</formula><p>Assuming that these predicates are given negative polarity, the corresponding LJF-synthetic inference rule is</p><formula xml:id="formula_58">x ∈ y, Γ x ∈ z Γ y ⊆ z .</formula><p>In both of these synthetic inference rules, x is an eigenvariable for that rule.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.">Universal axioms as bipoles</head><p>A universal implication is a restricted geometric formula of the form</p><formula xml:id="formula_59">∀z(P 1 ∧ . . . ∧ P m ⊃ Q 1 ∨ . . . ∨ Q n )</formula><p>where all the P i and Q i are atomic formulas. This subset of geometric implications allows for more choices in the selection of polarities while still remaining bipolar formulas. In fact, polarized universal implications (in LKF) can have the form</p><formula xml:id="formula_60">∀z(P ± 1 ∧ ± . . . ∧ ± P ± m ⊃ Q ± 1 ∨ ± . . . ∨ ± Q ± n ).</formula><p>Consider the LKF-polarized version of the universal implication with the connectives ∧ and ∨ and the atoms Q 1 , . . . , Q n all polarized negatively. The correspondent synthetic rule is</p><formula xml:id="formula_61">Γ P 1 , Q, ∆ . . . Γ P m , Q, ∆ Γ Q, ∆ RR c</formula><p>is called the right universal rule scheme in <ref type="bibr" target="#b32">[33]</ref>. In the intuitionistic setting, we can use this polarization only when n = 1, in which case the LJF synthetic inference rule is</p><formula xml:id="formula_62">Γ P 1 . . . Γ P m Γ Q RR i .</formula><p>Figure <ref type="figure" target="#fig_1">4</ref> presents four synthetic rules in the classical setting, corresponding to different possible polarity assignments. For example, RL c is given by the following polarizations: {∧ + , ∨ + , P + i , Q ± j } and {∧ + , ∨ -, P + i , Q + j }. in the Horn clause above, the resulting LJF-synthetic inference rule is the back-chaining rule Γ P 1 . . . Γ P m Γ Q BC.</p><formula xml:id="formula_63">Γ P 1 , Q, ∆ . . . Γ P m , Q, ∆ Γ Q, ∆ RR c Q 1 , P , Γ ∆ . . . Q n , P , Γ ∆ P , Γ ∆ RL c Γ P 1 , ∆ . . . Γ P m , ∆ Q 1 , Γ ∆ . . . Q n , Γ ∆ Γ ∆ SS c P , Γ Q, ∆ BB c</formula><p>On the other hand, if we polarize atoms and conjunctions positively in the Horn clause above, the resulting LJF-synthetic inference rule is the forward-chaining rule Γ, P 1 , . . . , P m , Q B Γ, P 1 , . . . , P m B F C.</p><p>Finally, it is worth noting that, in the classical setting, it is possible to extend the first-order language with new function symbols, so that any axiom can be converted to a finite set of coherent implications <ref type="bibr" target="#b8">[9]</ref>. We illustrate such a method next.</p><p>Example 20. Given a first order binary relation R, a i, j, m, n -convergency axiom (see <ref type="bibr" target="#b14">[15]</ref>) has the form</p><formula xml:id="formula_64">∀xyz((R i (x, y) ∧ R j (x, z)) ⊃ ∃u.(R m (y, u) ∧ R n (z, u)))</formula><p>where R 0 (x, y) is defined to be x = y and R i+1 (x, y) is defined to be ∃v.R(x, v) ∧ R i (v, y) for i ≥ 1. As noted before, such formulas are bipolars if and only if conjunctions in the head of the implication are polarized positively. This restriction can be bypassed using skolemization. In fact, by prenexing quantifiers and then skolemizing the remaining existential quantifiers, convergency axioms are transformed into a set of Horn (relational) formulas of the form</p><formula xml:id="formula_65">∀z(R(s 1 , t 1 ) ∧ . . . ∧ R(s m , t m ) ⊃ R(s 0 , t 0 ))</formula><p>where s i , t i are terms built from z and Skolem function constants.</p><p>Convergency axioms generalize Scott-Lemmon axioms <ref type="bibr" target="#b33">[34]</ref> (a.k.a. Geach axioms), which correspond to a "confluence" condition on the relational structure of modal logic (see Section 5).</p><p>In the next section we will shed some light on the behavior of axioms falling outside the boundary of bipolar formulas.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.">Beyond bipoles</head><p>Theorems 12 and 13 set a boundary to the process of transforming axioms into rules in the classical/intuitionistic settings, since they identify the exact class of formulas that can be seen as synthetic inference rules. 1 In this section, we illustrate how to relate non-bipolars to the systems of rules formalism, introduced in <ref type="bibr" target="#b32">[33]</ref>. Such formalism is an extension of the axioms-as-rules formalism, since it allows for different sequent rules connected by conditions on the order of their applicability and with the possibly of sharing meta-variables for formulas or sets of formulas. While in <ref type="bibr" target="#b32">[33]</ref> systems of rules were applied to the class of generalized geometric implications, in <ref type="bibr" target="#b34">[35]</ref> a connection between hypersequents and a subclass of systems of rules is shown for propositional intermediate logics.</p><p>We will only illustrate how the systems of rules method would work for some chosen examples, since a complete discussion of the subject would fall out the scope of the present paper.</p><p>Example 21. The powerset axiom in set theory, written as</p><formula xml:id="formula_66">A = ∀z∃w∀y(∀x((x ∈ y) ⊃ (x ∈ z)) ⊃ (y ∈ w)),</formula><p>is not bipolar due to the alternation of the positive and negative quantifiers. It is also not a generalized geometric implication, since it has a negative occurrence of implication. If we write B(z, w) for ∀y(∀x((x ∈ y) ⊃ (x ∈ z)) ⊃ (y ∈ w)), a focus on A would justify the following inference rule</p><formula xml:id="formula_67">B(s, w), Γ ⇑ • • ⇑ ∆ Γ ⇑ • • ⇑ ∆ decide on A, ∀ l , R l , ∃ l</formula><p>where s is the substitution instance of ∀z and w is not free in s nor in Γ, ∆. Now, B(s, w) is bipolar with corresponding bipole</p><formula xml:id="formula_68">x ∈ y, Γ ⇑ • • ⇑ x ∈ s, ∆ y ∈ w, Γ ⇑ • • ⇑ ∆ Γ ⇑ • • ⇑ ∆ decide on B(s, w), etc.</formula><p>In this compound inference rule, the assumption B(s, w) is not written as an assumption in the sequent but rather as a synthetic rule that is allowed only above the lower inference rule.</p><p>Another interesting example is the following quantificational instance of the axiom ¬α ∨ ¬¬α considered in <ref type="bibr" target="#b34">[35]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Γ ∆ Γ ∆</head><p>The system of rules above corresponds exactly to the 2-system derived in <ref type="bibr" target="#b34">[35]</ref> by translating the hypersequent rule equivalent to the (propositional version of ) B.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Labeled proof systems for propositional modal logics</head><p>In this section, we show how to similarly apply focused proof systems LKF and LJF to the proof theory of propositional modal logics.</p><p>Following the same lines as in Section 2.4 for first-order systems, we shall show how to emulate precisely rules for modalities in labeled modal systems as synthetic connectives. Such tight emulation means that if one does focused proof search or proof checking on the polarized first-order translation of modal formulas, one is modeling nothing more or less than proof search and proof checking in the corresponding modal labeled system. As a result, we are able to show that we can use focused proofs to precisely emulate modal proofs whenever Kripke frames are characterized by bipolar properties.</p><p>This section is an extended version of <ref type="bibr" target="#b17">[18]</ref>. While in that earlier work only (classical) modal systems from <ref type="bibr" target="#b13">[14]</ref> were addressed, we show here that different classical and intuitionistic modal systems present in the literature can simply be computed using both polarization and focusing. The value of using focusing for optimizing proof search in labeled modal systems was noted in <ref type="bibr" target="#b35">[36]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1.">Modal logic</head><p>The language of (propositional, normal) modal formulas consists of a denumerable set P of propositional symbols and a complete base of propositional connectives enhanced with the unary modal operators and ♦ concerning necessity and possibility, respectively.</p><p>The semantics of modal logics is often described using Kripke models. Here, we will follow the approach in <ref type="bibr" target="#b7">[8]</ref>, where a modal logic is defined directly by the first-order formulas capturing its intended Kripke semantics (called metalogical characterization). However, here, we will map modal formulas into polarized formulas in LKF/LJF by generalizing the left/right translation [•] l/r from Section 2.4.</p><p>Formally, given a first-order variable x (intended to range over worlds), we define the translations [•] r</p><p>x and [•] l x from modal formulas into polarized first-order formulas as follows: if P is propositional symbol, then [P ] r x = [P ] l x = P (x) (where P is also consider a predicate symbol in first-order logic); if the top-level symbol of A is a logical connective or quantifier, then [A] l/r x mimics the same translation as [A] l/r ; and if the top-level symbol is a modal operator, then we have</p><formula xml:id="formula_69">[ A] l x = ∀y(R(x, y) ⊃ ∂ + ([A] l y )) [ A] r x = ∂ + (∀y(R(x, y) ⊃ [A] r y )) [♦A] l x = ∂ -(∃y(R(x, y) ∧ + [A] l y )) [♦A] r x = ∃y(R(x, y) ∧ + ∂ -([A] r<label>y</label></formula><p>)) where R(x, y) is a binary predicate that encodes the accessibility relation in a Kripke frame. The meta-logical characterization in the focusing setting is given by</p><formula xml:id="formula_70">K A iff LKF ∀x.[A] r x IK A iff LJF ∀x.[A] r x</formula><p>where K/IK are proof systems for basic classical/intuitionistic modal logics. Several additional modal logics can be defined as extensions of K or IK by simply restricting the class of frames we consider. Many of the restrictions we are interested in are definable as formulas of first-order logic over the binary predicate R(x, y). Table <ref type="table">1</ref> contains some common restrictions on frames by listing the modal axiom capturing them together with the corresponding firstorder formulas used to restrict the frame relation in the classical setting <ref type="bibr" target="#b36">[37]</ref>. This is also true for any extension of LJF by path axioms plus contrapositives w.r.t. their corresponding models <ref type="bibr" target="#b37">[38,</ref><ref type="bibr" target="#b7">8]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2.">Labeled proof systems for modal logics</head><p>The idea behind labeled proof systems for modal logic is to internalize elements of the corresponding Kripke semantics (namely, the worlds of a Kripke structure and the accessibility relation between such worlds) into the syntax and proof rules. As concrete examples of such a system, here we will consider the modal systems presented in <ref type="bibr" target="#b7">[8,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b13">14]</ref>. Labeled modal formulas are either labeled formulas of the form x : A or relational atoms of the form xRy, where x and y range over a set of variables and A is a modal formula. In the following, we will use ϕ and ψ to denote labeled modal formulas. Labeled sequents have the form Γ ∆, where Γ, ∆ are multisets containing labeled modal formulas and where ∆</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Axiom Condition</head><p>First-Order Formula T: A ⊃ A Reflexivity ∀x.R(x, x)</p><formula xml:id="formula_71">4: A ⊃ A Transitivity ∀x, y, z.(R(x, y) ∧ R(y, z)) ⊃ R(x, z) 5: A ⊃ ♦A Euclideaness ∀x, y, z.(R(x, y) ∧ R(x, z)) ⊃ R(y, z) B: A ⊃ ♦A Symmetry ∀x, y.R(x, y) ⊃ R(y, x) 3: ( A ⊃ B) ∨ ( B ⊃ A) Connectedness ∀x, y, z.(R(x, y) ∧ R(x, z)) ⊃ (R(y, z) ∨ R(z, y)) D: A ⊃ ♦A Seriality ∀x∃y.R(x, y) 2: ♦ A ⊃ ♦A Directedness ∀x, y, z.(R(x, y) ∧ R(x, z)) ⊃ ∃t(R(y, t) ∧ R(z, t))</formula><p>Table <ref type="table">1</ref>: Axioms and corresponding first-order conditions on R.</p><p>has the usual restriction of containing at most one formula in the intuitionistic case.</p><p>In Figure <ref type="figure" target="#fig_2">5</ref>, we present the propositional rules and some modal rules for the core labeled classical modal calculus. The additional modal rules for systems G3K <ref type="bibr" target="#b13">[14]</ref> and S(K) <ref type="bibr" target="#b14">[15]</ref> are depicted in Figures <ref type="figure" target="#fig_3">6a</ref> and<ref type="figure" target="#fig_3">6b</ref>, respectively<ref type="foot" target="#foot_9">2</ref> . The rules of the intuitionistic modal system L ♦ <ref type="bibr" target="#b7">[8]</ref> correspond to the rules of G3K with the restriction that the consequent may have at most one labeled formula. In an intuitionistic version of S(K), sequents have the restriction of having at most one labeled modal formula (there is a brief discussion of an intuitionistic version of S(K) in <ref type="bibr" target="#b14">[15]</ref>, Sec. 6.2 end of page 148).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3.">From labeled modal formulas to polarized first-order formulas</head><p>The translation [•] l/r from labeled modal formulas into polarized first-order formulas is defined as [x : A] l/r = [A] l/r</p><p>x and [xRy] l/r = R(x, y). In the following, we will sometimes use the natural extension of this notion to multisets of labeled formulas.</p><p>Finally, we define a translation from labeled sequents into focused sequents</p><formula xml:id="formula_72">[(ϕ 1 , . . . , ϕ n ψ 1 , . . . , ψ m )] = [ϕ 1 ] l , . . . , [ϕ n ] l ⇑ • • ⇑ [ψ 1 ] r , . . . , [ψ m ] r</formula><p>with the restriction of m ≤ 1 for LJF.</p><p>The results of Lemmas 3 and 5 and Theorems 4 and 6 can be then easily transported to the modal case.</p><p>Theorem 23. Let Π be a G3K derivation of a sequent S from the sequents S 1 , . . . , S n . Assume that the predicate R(x, y) has positive polarity. Then there exists an LKF derivation Π of [S] from [S 1 ], . . . , [S n ] (such that each rule application in Π corresponds to a synthetic inference rule in Π ). The exact same statement holds for L ♦ and LJF. For S(K), it holds when R(x, y) has negative polarity.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Initial rules</head><p>x : P, Γ ∆, x : Proof. The proof proceeds exactly as in Lemma 3 and Theorem 4, so we will show only the classical cases involving modal connectives. For the modal rules in the core fragment, the translation of the R from Figure <ref type="figure" target="#fig_2">5</ref> is given by following derivation in LKF</p><formula xml:id="formula_73">P init xRy, Γ ∆, xRy init R Structural rules ϕ, ϕ, Γ ∆ ϕ, Γ ∆ C l Γ ∆, ψ, ψ Γ ∆, ψ C r Modal rules xRy, Γ ∆, y : A Γ ∆, x : A R xRy, y : A, Γ ∆ x : ♦A, Γ ∆ L♦</formula><formula xml:id="formula_74">Γ , R(x, y) ⇑ • • ⇑ [A] r y , ∆ Γ ⇑ R(x, y) [A] r y ⇑ ∆ S l , S r Γ ⇑ • ∀y(R(x, y) ⊃ [A] r y ) ⇑ ∆ ∀ r , ⊃ r Γ ∂ + (∀y(R(x, y) ⊃ [A] r y )) ⇓ ∆ ∂ r + , R r Γ ⇑ • • ⇑ ∆ D r</formula><p>where Γ is any extension of [Γ] and ∆ is any extension of [∆] containing the formula [x : A] r = ∂ + (∀y(R(x, y) ⊃ [A] r y )). Note that the condition on free variables in the definition of extension ensures that ∀ can be applied in the derivation above, as the constraint on eigenvariables is satisfied. Note also that the polarity of R(x, y) does not affect the shape of the derivation. The case for L♦ is analogous. For the distinguished modal rules in Figure <ref type="figure" target="#fig_3">6</ref>, consider the derivation Theorem 24. Let Π be a proof of a sequent S in LKF such that S = [S] for some G3K-sequent S. Assume that the predicate R(x, y) has positive polarity. Then there exists a proof Π of S in G3K such that each synthetic inference rule in Π corresponds to a single rule application in Π. The exact same statement holds for L ♦ and LJF. For S(K), it holds when R(x, y) has negative polarity.</p><formula xml:id="formula_75">π Γ R(x, y) ⇓ ∆ Γ, [A] l y ⇑ • • ⇑ ∆ Γ ⇓ ∂ + ([A] l y ) ∆ R l , ∂ l + , S l Γ ⇓ R(x</formula><p>In the view of Theorem 12, different polarizations<ref type="foot" target="#foot_11">3</ref> of the frame conditions presented in Table <ref type="table">1</ref> correspond to different synthetic inference rules, and the statements of Theorems 23 and 24 hold also for the corresponding bipolar extensions of G3K/S(K)/L ♦ .</p><p>In Figure <ref type="figure">7</ref> we present the unfocused relational rules capturing frame properties of Table <ref type="table">1</ref>, where ∧, ∨ are polarized using the positive polarity. The rules in the first column are derived when R is given a positive polarity and correspond to the geometric rule scheme presented in <ref type="bibr" target="#b7">[8,</ref><ref type="bibr" target="#b13">14]</ref>. For the rules in the second column, R was given negative polarity and they correspond to the un-skolemized version of the rules appearing in <ref type="bibr" target="#b14">[15]</ref>.</p><p>Observe that the unfocused rule corresponding to the possible bipolars for Axiom D does not depend on the polarization of R, having the form R(x, y), Γ ∆ Γ ∆ D</p><p>where y / ∈ Γ, ∆. Axiom 3 is a geometric implication but not a Horn clause, hence it is not considered in <ref type="bibr" target="#b14">[15]</ref>. Axiom 2 is also not a Horn clause, but it can be transformed, using skolemization (see <ref type="bibr">Example 20)</ref>, into a set of Horn formulas, and it is considered in <ref type="bibr" target="#b14">[15]</ref> under the name convergency. The geometric and right universal rule schemes for 2 and 3 are presented below. Their shape is determined by the polarity of the predicate R: positive for geometric, negative for right universal (see Sections 4.1 and 4. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.">Conclusion</head><p>We have described how the notion of synthetic inference rule that is provided by sequent calculus notions of polarization and focusing can be used to provide is used to introduce new typed constructors. Also, the backslash \ is an infix binding construction: for example, the expression pi x\ B denotes the universal quantification of x over the formulas B. This same backslash operator is also used to build λ-bindings within terms.</p><p>The datatype of polarized formulas is given by the following declarations.</p><p>kind i , atm , fm type . type atm atm -&gt; fm . type all , some ( i -&gt; fm ) -&gt; fm . type imp , pand , nand , por , nor fm -&gt; fm -&gt; fm . type ptrue , ntrue , pfalse , nfalse fm .</p><p>Formulas and atoms are given a polarity using the following declarations and clauses. Here, the predicate delta encodes an atomic bias assignment (see Section 2.2). The various sequents are encoded using the following declarations and clauses. </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: The focused intuitionistic sequent calculus LJF.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Synthetic (classical) rule schemes corresponding to different polarizations of universal implications.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 5 :</head><label>5</label><figDesc>Figure5: Some classical labeled rules, where P is an atomic formula and the eigenvariable y does not occur free in any formula of the conclusion of rules R and L♦.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>yFigure 6 :</head><label>6</label><figDesc>Figure 6: Labeled systems for the logic K.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head></head><label></label><figDesc>, y) ⊃ ∂ + ([A] l y ) ∆ ⊃ l Γ ⇓ ∀y(R(x, y) ⊃ ∂ + ([A] l y )) ∆ ∀ l Γ ⇑ • • ⇑ ∆ D l where Γ is any extension of [Γ] containing [x : A] l = ∀y(R(x, y) ⊃ ∂ + ([A] l y) and ∆ is any extension of[∆]. Now, if the polarity of R(x, y) is positive, then π consists of the application of I r , R(x, y) should occur in Γ and the synthetic inference rule is the translation of the rule L 3 presented in Figure6a.If R(x, y) has, instead, negative polarity, then focus is lost in π and R(x, y) is stored in the right context, producing the border sequent Γ ⇑ • • ⇑ R(x, y), ∆ . Hence the synthetic inference rule is the translation of the rule L S presented in Figure6b.Finally, the initial rulexRy, Γ ∆, xRy init R has corresponding synthetic rules in LKF Γ R(x, y) ⇓ ∆ I r Γ ⇑ • • ⇑ ∆ D r Γ ⇓ R(x, y) ∆ I l Γ ⇑ • • ⇑ ∆ D ldepending whether R(x, y) has positive or negative polarity, respectively, where Γ is any extension of [Γ] l containing R(x, y) and ∆ is any extension of [∆] r containing R(x, y).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head></head><label></label><figDesc>2). R(y, u), R(z, u), Γ ∆ R(x, y), R(x, z), Γ ∆ 2 GRS Γ ∆, R(x, y) Γ ∆, R(x, z) R(y, u), R(z, u), Γ ∆ Γ ∆ 2 RRwhere u does not occur in the conclusion.R(y, z), Γ ∆ R(z, y), Γ ∆ R(x, y), R(x, z), Γ ∆ 3 GRS R(y, z), Γ ∆ R(z, y), Γ ∆ Γ ∆, R(x, y) Γ ∆, R(x, z) Γ ∆ 3 RR</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head></head><label></label><figDesc>A ) :-delta A pp . natom ( atm A ) :-delta A nn . neg ( imp _ _ ) &amp; neg ( all _ ). neg ( nand _ _ ) &amp; neg ( nor _ _ ) &amp; neg ntrue &amp; neg nfalse . neg A :-natom A . pos ( some _ ). pos ( pand _ _ ) &amp; pos ( por _ _ ) &amp; pos ptrue &amp; pos pfalse . pos A :-patom A .</figDesc></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_0"><p>A, Γ ∆ A ∧ B, Γ ∆ B, Γ ∆ A ∧ B, Γ ∆ Γ ∆, A Γ ∆, B Γ ∆, A ∧ B Γ ∆, t A, Γ ∆ B, Γ ∆ A ∨ B, Γ ∆ Γ ∆, A Γ ∆, A ∨ B Γ ∆, B Γ ∆, A ∨ B f , Γ ∆ Γ ∆ 1 , A B, Γ 1 ∆ 2 A ⊃ B, Γ 1 , Γ 2 ∆ 1 , ∆ 2 A, Γ 2 ∆, B Γ ∆, A ⊃ B [t/x]B, Γ ∆ ∀xB, Γ ∆ Γ ∆, [y/x]B Γ ∆, ∀xB [y/x]B, Γ ∆ ∃xB, Γ ∆ Γ ∆, [t/x]B Γ ∆, ∃xBIdentity rule (the initial rule) P, Γ ∆, PStructural rules (the contraction rules)A, A, Γ ∆ A, Γ ∆ Γ ∆, A, A Γ ∆, A</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_1"><p>r Γ ⇑ A, B, Θ Ω ⇑ ∆ Γ ⇑ A ∧ + B, Θ Ω ⇑ ∆ ∧ + l Γ ⇑ A, Θ Ω ⇑ ∆ Γ ⇑ B, Θ Ω ⇑ ∆ Γ ⇑ A ∨ + B, Θ Ω ⇑ ∆ ∨ + l Γ ⇑ • [y/x]B, Ω ⇑ ∆ Γ ⇑ • ∀x.B, Ω ⇑ ∆ ∀ r Γ ⇑ [y/x]B, Θ Ω ⇑ ∆ Γ ⇑ ∃x.B, Θ Ω ⇑ ∆ ∃ l Γ ⇑ Θ, A B, Ω ⇑ ∆ Γ ⇑ Θ A ⊃ B, Ω ⇑ ∆ ⊃ r Γ ⇑ Θ Ω ⇑ ∆ Γ ⇑ t + , Θ Ω ⇑ ∆ t + l Γ ⇑ Θ Ω ⇑ ∆ Γ ⇑ Θ f -, Ω ⇑ ∆ f - r Γ ⇑ Θ t -, Ω ⇑ ∆ t - r Γ ⇑ f + , Θ Ω ⇑ ∆ f + l Synchronous Rules Γ A ⇓ ∆ Γ ⇓ B ∆ Γ ⇓ A ⊃ B ∆ ⊃ l Γ ⇓ A ∆ Γ ⇓ B ∆ Γ ⇓ A ∨ -B ∆ ∨ - l Γ ⇓ A i ∆ Γ ⇓ A 1 ∧ -A 2 ∆ ∧ - l Γ A ⇓ ∆ Γ B ⇓ ∆ Γ A ∧ + B ⇓ ∆ ∧ + r Γ A i ⇓ ∆ Γ A 1 ∨ + A 2 ⇓ ∆ ∨ + r Γ ⇓ [t/x]B ∆ Γ ⇓ ∀x.B ∆ ∀ l Γ [t/x]B ⇓ ∆ Γ ∃x.B ⇓ ∆ ∃ r Γ t + ⇓ ∆ t + r Γ ⇓ f -∆ f - l Identity rules Γ ⇓ N a N a , ∆ I l Γ, P a P a ⇓ ∆ I r Structural rules Γ, N ⇓ N ∆ Γ, N ⇑ • • ⇑ ∆ D l Γ P ⇓ P, ∆ Γ ⇑ • • ⇑ P, ∆ D r Γ ⇑ P • ⇑ ∆ Γ ⇓ P ∆ R l Γ ⇑ • N ⇑ ∆ Γ N ⇓ ∆ R r C, Γ ⇑ Θ Ω ⇑ ∆ Γ ⇑ C, Θ Ω ⇑ ∆ S l Γ ⇑ • Ω ⇑ D, ∆ Γ ⇑ • D, Ω ⇑ ∆ S rHere, P is positive, N is negative, C is a negative formula or positive atom, D a positive formula or negative atom, N a is a negative atom, and P a is a positive atom. Other formulas are arbitrary. In the rules ∀ r and ∃ l the eigenvariable y does not occur free in any formula of the conclusion. Figure 2: The focused classical sequent calculus LKF.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_2"><p>r Γ ⇑ A, B, Θ R Γ ⇑ A ∧ + B, Θ R ∧ + l Γ ⇑ A, Θ R Γ ⇑ B, Θ R Γ ⇑ A ∨ + B, Θ R ∨ + l Γ ⇑ Θ [y/x]B ⇑ • Γ ⇑ Θ ∀x.B ⇑ • ∀ r Γ ⇑ [y/x]B, Θ R Γ ⇑ ∃x.B, Θ R ∃ l Γ ⇑ Θ t -⇑ • t - r Γ ⇑ Θ R Γ ⇑ t + , Θ R t + l Γ ⇑ f + , Θ R f + l Synchronous Rules Γ A ⇓ Γ ⇓ B R Γ ⇓ A ⊃ B R ⊃ l Γ A i ⇓ Γ A 1 ∨ + A 2 ⇓ ∨ + r Γ ⇓ A i R Γ ⇓ A 1 ∧ -A 2 R ∧ - l Γ A ⇓ Γ B ⇓ Γ A ∧ + B ⇓ ∧ + r Γ ⇓ [t/x]B R Γ ⇓ ∀x.B R ∀ l Γ [t/x]B ⇓ Γ ∃x.B ⇓ ∃ r Γ t + ⇓ t + r Identity rules Γ ⇓ N a N a I l Γ, P a P a ⇓ I r Structural rules Γ, N ⇓ N R Γ, N ⇑ • • ⇑ R D l Γ P ⇓ Γ ⇑ • • ⇑ P D r Γ ⇑ P • ⇑ R Γ ⇓ P R R l Γ ⇑ • N ⇑ • Γ N ⇓ R r</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_3"><p>By observing LKF and LJF inference rules in Figures2 and 3, we notice that derivations are constructed by a repeated alternation of two phases: a synchronous phase, which (reading the derivation from the root upwards) typically starts with the application of a decide rule (D l , D r ) and consists in the application of synchronous rules, and an asynchronous phase, which starts with the application of a release rule (R l , R r ), and consists in the application of asynchronous rules, terminating with applications of a store rule (S l , S r ).The following definition is similar to what Andreoli called "bipolarisation of executions" in<ref type="bibr" target="#b25">[26]</ref>.Definition 2 (Synthetic inference rule). A synthetic inference rule is an inference rule of the formΓ 1 ⇑ • • ⇑ ∆ 1 . . . Γ n ⇑ • • ⇑ ∆ n Γ ⇑ • • ⇑ ∆</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_4"><p>It is possible to map unfocused LK proofs into LKF proofs in such a way that every rule application in LK corresponds to a synthetic inference rule in LKF.To do such an emulation, it is important to break up a sequence of negative or positive connectives, by inserting the delays ∂ + (•) and ∂ -(•). From the definitions given for delays in Section 2.2, the following additional focused inference rules can be justified.Γ B ⇓ ∆ Γ ∂ + (B) ⇓ ∆ ∂ r + Γ ⇑ Θ, B Ω ⇑ ∆ Γ ⇑ Θ, ∂ + (B) Ω ⇑ ∆ ∂ l + Γ ⇑ Θ B, Ω ⇑ ∆ Γ ⇑ Θ ∂ -(B), Ω ⇑ ∆ ∂ r -</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_5"><p>Lemma 3. Consider an application of an introduction rule in LK with concluding sequent S and premises S 1 , . . . , S p (for p = 0, 1, 2). Then for any LKF sequent S that extends [S], there exists a synthetic inference rule in LKF with conclusion S and premises S 1 , . . . , S p such that for all 1 ≤ i ≤ p, S i extends [S i ]. If we change LK to LJ and LKF to LJF above, this lemma also holds.Proof. The proof proceeds by considering all the rules of LK. For example, consider the implication left-introduction rule for LK (see Figure1)Γ ∆ 1 , A B, Γ ∆ 2 A ⊃ B, Γ ∆ 1 , ∆ 2 . Let the border sequent Γ ⇑ • • ⇑ ∆ extend [A ⊃ B] l , [Γ] l ⇑ • • ⇑ [∆ 1 ] r , [∆ 2 ] r .Thus, ∆ extends both [∆ 1 ] r and [∆ 2 ] r and Γ extends [Γ] l and contains the formula [A ⊃ B] l . The following synthetic inference rule in LKF emulates this</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_6"><p>A special case of universal implications are Horn clauses, that is, formulas of the form ∀z(P 1 ∧ . . . ∧ P m ⊃ Q), where where all the P i and Q are atomic formulas. As such, a Horn clause is also a universal implication and the various polarizations described above can be applied to them, yielding different synthetic inference rules. In particular, if we polarize atoms and conjunctions negatively</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_7"><p>Here, x is an eigenvariable of this inference: in particular, it is not free in y, s, and Γ , ∆ . The idea in<ref type="bibr" target="#b32">[33]</ref> is to combine the above rules in a system, with the decide on A occurring below any occurrences of the decide on B(s, w), and the decide on A is turned into a "silent rule" that adds the eigenvariable w to the signature of Γ ⇑ • • ⇑ ∆:x ∈ y, Γ ⇑ • • ⇑ x ∈ s, ∆ y ∈ w, Γ ⇑ • • ⇑ ∆ Γ ⇑ • • ⇑ ∆ . . . Γ ⇑ • • ⇑ ∆ Γ ⇑ • • ⇑ ∆ provided that w is new.1 The same kind of characterization is present in<ref type="bibr" target="#b9">[10]</ref> in the setting of axioms as structural rules over propositional intuitionistic linear logic.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_8"><p>Example 22. Let B be the polarized formula ∀x[(P (x)⊃ f + ) ∨ + ((P (x) ⊃ f + ) ⊃ f + )],where the atomic formula P (x) is positive. The derivationΓ P (t) ⇓ ∆ Γ ⇓ P (t) ⊃ f + ∆ . . . Γ, P (t) ⊃ f + ⇑ • • ⇑ ∆ Γ , P (t) ⇑ • • ⇑ ∆ Γ ⇓ (P (t) ⊃ f + ) ⊃ f + ∆ . . . Γ, (P (t) ⊃ f + ) ⊃ f + ⇑ • • ⇑ ∆ Γ ⇑ (P (t) ⊃ f + ) ∨ + ((P (t) ⊃ f + ) ⊃ f + ) • ⇑ ∆ Γ ⇓ ∀x(P (x) ⊃ f + ) ∨ + ((P (x) ⊃ f + ) ⊃ f + ) ∆justifies the system of rules Γ , P (t) ∆ . . .Γ ∆Γ , P (t) ∆ Γ ∆ . . .</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_9"><p>Observing that we adopt additive rules for conjunction and disjunction, multiplicative rules for implication and explicit contraction.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_10"><p>x : A, Γ ∆ x : A ∧ B, Γ ∆ L∧ 1 x : B, Γ ∆ x : A ∧ B, Γ ∆ L∧ 2 Γ ∆, x : A Γ ∆, x : B Γ ∆, x : A ∧ B R∧ x : A, Γ ∆ x : B, Γ ∆ x : A ∨ B, Γ ∆ L∨ Γ ∆, x : A Γ ∆, x : A ∨ B R∨ 1 Γ ∆, x : B Γ ∆, x : A ∨ B R∨ 2 Γ ∆ 1 , x : A x : B, Γ ∆ 2 x : A ⊃ B, Γ ∆ 1 , ∆ 2 L⊃ x : A, Γ ∆, x : B Γ ∆, x : A ⊃ B R⊃ x : f, Γ ∆ f Γ ∆, x : t t</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_11"><p>Remembering that, in the directedness axiom, ∧ in the head of the clause should necessarily be translated to ∧ + . Any polarization of the other axioms results on bipolar formulas.</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgement</head><p>We are grateful for the useful suggestions from the anonymous referee.</p></div>
+<div><head>References</head></div>
+			</div>			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Proof. Let T be a border sequent such that each formula in T is the translation of some G3K/S(K) formula and assume that T is the conclusion of a synthetic inference rule Ξ in LKF with border sequent premises T i , 1 ≤ i ≤ 2. Observe that the last rule applied in Ξ should be necessarily a decide rule. We claim that there exists G3K/S(K) sequents T, T i , 1 ≤ i ≤ 2 such that T /T i is a contraction of [T ]/[T i ] and T i are the premises of an inference rule in G3K/S(K) with conclusion T . The proof is done by case analysis on all possible G3K/S(K) formula ϕ on the translation of which a decide is applied. Suppose that one such cases is a D r rule on ϕ = x : ♦A. Assume that [x : ♦A] r ∈ ∆ . Then we have the following synthetic inference rule in LKF</p><p>If R(x, y) is positive, then π consists of the rule I r and Γ must contain the formula R(x, y), corresponding to the rule application of R♦ 3 in Figure <ref type="figure">6a</ref>. If R(x, y) has negative polarity, then focus is lost in π and R(x, y) is stored in the right context, producing the border sequent Γ ⇑ • • ⇑ R(x, y), ∆ , corresponding to an application of the rule R♦ S presented in Figure <ref type="figure">6b</ref>. Observe that decide rules in LKF carry an implicit contraction, which is discarded in G3K/S(K) by the contractions on translations.</p><p>We can now prove the theorem by proceeding top-down, starting from the leaves of Π and building Π by repeatedly applying the method above described. At each step, we get as the conclusion of a G3K/S(K) rule application a sequent S * such that the one obtained in the corresponding step of Π is a contraction of [S * ].</p><p>The strong correspondence between labeled rule applications and LKF/LJF synthetic inference rules can also be used to get an immediate proof of the completeness of G3K, S(K) and L ♦ .</p><p>Corollary 25. The systems G3K and S(K) (and L ♦ respectively) are complete with respect to modal logic K (IK respectively).</p><p>Proof. Follows from the completeness of LKF/LJF and Theorem 24.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.4.">Labeled systems for extensions of K and IK</head><p>While <ref type="bibr" target="#b14">[15]</ref> presents a detailed study of extensions of the modal system S(K) with Horn relational theories (see Section 4.2), in <ref type="bibr" target="#b7">[8,</ref><ref type="bibr" target="#b13">14]</ref> the systems G3K and L ♦ were extended in order to capture theories given by geometric frame conditions. In all such works, the idea was to modularly add, to a base modal system, rules defined from the axioms according to a proper chosen scheme.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Axiom Geometric rule scheme</head><p>Right universal rule scheme inference rules that capture certain classes of axioms. In particular, focused proof systems naturally lead to the notion of bipolar formulas and these result in synthetic inference rules that only need to mention atomic formulas. We show that geometric formulas are examples of such bipolar formulas and that polarized versions of such formulas yield known inference systems derived from geometric formulas. Certain subsets of geometric formulas admit more than one polarization and these variations explain the forward-chaining and backwardchaining variants of their synthetic inference rules. The cut-elimination theorem for focused proof systems also provides a direct proof of cut-elimination for the proof systems that arise from incorporating synthetic inference rules based on polarized formulas. Additionally, all of these results work equally well in both classical and intuitionistic logics using the corresponding LKF and LJF focused proof systems. Finally, we show how to account for and generalize labeled proof systems for propositional modal logics.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Appendix A. Computing bipoles from bipolar formulas</head><p>We briefly describe a logic program that can compute bipole inference rules from bipolar formulas: this implementation uses the λProlog programming language <ref type="bibr" target="#b27">[28,</ref><ref type="bibr" target="#b28">29]</ref>. The key novelties of the syntax of λProlog for this implementation are the following. Since this logic programming language is typed, the keyword kind is used to introduce a new primitive type, and the keyword type The following four sequent structures are encoded using the corresponding λProlog terms, all four of which are also considered to be primitive premises (using the specification for primitivep above).</p><p>8 encodes the various rules of LJF (except for the decide rules) using the binary predicate rule. Figure A.9 defines three predicates: rotate ensures that tree-structure of primitive premises is organized more as a list; red1 holds if exactly one inference rule is applied to exactly one premise in its first argument; and reduce repeatedly applies red1 until only border sequents remain. Consider proving the goal reduce ( syncL Gamma F ( atm B )) Premises .</p><p>for different instantiations of the variable F and for different polarity assumptions on atomic formulas. First, assume that all atomic formulas are positive. If F is instantiated with the term ( all u \ all v \ all w \ imp ( atm ( adj u v ))</p><p>( imp ( atm ( path v w ))( atm ( path u w )))) , which encodes the formulas ∀u∀v∀w(adj u v ⊃ path v w ⊃ path u w) then λProlog will solve this goal formula by computing the following substitution. The inference rule computed by solving this query is</p><p>Here, X, Y, and Z are schema variables of type i, L is a schema variable of type list fm, and B is a schema variable of type fm. Next, assume that all atomic formulas are negative. Executing the same goal as before (for the same instantiation for F) yields the substitution  </p><p>reduce Gs Hs :-red1 Gs Ks , rotate Ks Rs , reduce Rs Hs . reduce Gs Gs :-borders Gs . Thus, the inference rule computed by solving this query is</p><p>For a final example, consider solving this goal but where F is instantiated to the term ( all u \ all v \ imp ( all w \ imp ( atm ( in w u )) ( atm ( in w v ))) ( atm ( subset u v ))).</p><p>and where atomic formulas have negative bias. The computed substitution is then Premises = ( allp w \ andp ( async ( atm ( in w X ) :: Gamma ) nil ( rr ( atm ( in w Y )))) truep ) B = subset X Y Thus, the inference rule computed by solving this query is</p><p>Here, w is an eigenvariable for this inference figure and it corresponds to the binding allp w\ in the answer substitution for Premises above.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">sequent calculi for second order logic based upon dual linear decompositions of classical implication</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Danos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-B</forename><surname>Joinet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Schellinx</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Lkt</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Lkq</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Linear Logic</title>
+		<title level="s">London Mathematical Society Lecture Note Series</title>
+		<editor>
+			<persName><forename type="first">J.-Y</forename><surname>Girard</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Y</forename><surname>Lafont</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">L</forename><surname>Regnier</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="1995">1995</date>
+			<biblScope unit="volume">222</biblScope>
+			<biblScope unit="page" from="211" to="224" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Focusing and polarization in intuitionistic logic</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CSL 2007: Computer Science Logic</title>
+		<editor>
+			<persName><forename type="first">J</forename><surname>Duparc</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">T</forename><forename type="middle">A</forename><surname>Henzinger</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2007">2007</date>
+			<biblScope unit="volume">4646</biblScope>
+			<biblScope unit="page" from="451" to="465" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Focusing and polarization in linear, intuitionistic, and classical logics</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tcs.2009.07.041</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Theor. Comput. Sci</title>
+		<imprint>
+			<biblScope unit="volume">410</biblScope>
+			<biblScope unit="issue">46</biblScope>
+			<biblScope unit="page" from="4747" to="4768" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Logic programming with focusing proofs in linear logic</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Andreoli</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/logcom/2.3.297</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J. Log. Comput</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="297" to="347" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">On structuring proof search for first order linear logic</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bruscoli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Guglielmi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Theoretical Computer Science</title>
+		<imprint>
+			<biblScope unit="volume">360</biblScope>
+			<biblScope unit="issue">1-3</biblScope>
+			<biblScope unit="page" from="42" to="76" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Focusing strategies in the sequent calculus of synthetic connectives</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Chaudhuri</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-540-89439-1_33</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Logic for Programming, Artificial Intelligence, and Reasoning, 15th International Conference, LPAR 2008</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<editor>
+			<persName><forename type="first">I</forename><surname>Cervesato</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">H</forename><surname>Veith</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">A</forename><surname>Voronkov</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Doha, Qatar</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2008">November 22-27, 2008. 2008</date>
+			<biblScope unit="volume">5330</biblScope>
+			<biblScope unit="page" from="467" to="481" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Efficient intuitionistic theorem proving with the polarized inverse method</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mclaughlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Pfenning</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-642-02959-2_19</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 22nd International Conference on Automated Deduction</title>
+		<editor>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Schmidt</surname></persName>
+		</editor>
+		<meeting>the 22nd International Conference on Automated Deduction</meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2009">2009</date>
+			<biblScope unit="volume">5663</biblScope>
+			<biblScope unit="page" from="230" to="244" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">The proof theory and semantics of intuitionistic modal logic</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Simpson</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1994">1994</date>
+		</imprint>
+		<respStmt>
+			<orgName>College of Science and Engineering, School of Informatics, University of Edinburgh</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Ph.D. thesis</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Geometrisation of first-order logic</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Dyckhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Negri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Bulletin of Symbolic Logic</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="123" to="163" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">From axioms to analytic rules in nonclassical logics</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ciabattoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Galatos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Terui</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/LICS.2008.39</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Twenty-Third Annual IEEE Symposium on Logic in Computer Science, LICS 2008</title>
+		<meeting>the Twenty-Third Annual IEEE Symposium on Logic in Computer Science, LICS 2008<address><addrLine>Pittsburgh, PA, USA</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2008-06">June 2008. 2008</date>
+			<biblScope unit="page" from="229" to="240" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Hypersequent and labelled calculi for intermediate logics</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ciabattoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Maffezioli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Spendier</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-642-40537-2_9</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Automated Reasoning with Analytic Tableaux and Related Methods -22th International Conference, TABLEAUX 2013</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<editor>
+			<persName><forename type="first">D</forename><surname>Galmiche</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">D</forename><surname>Larchey-Wendling</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Nancy, France</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2013">September 16-19, 2013. 2013</date>
+			<biblScope unit="volume">8123</biblScope>
+			<biblScope unit="page" from="81" to="96" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Cut elimination in the presence of axioms</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Negri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Plato</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bulletin of Symbolic Logic</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="418" to="435" />
+			<date type="published" when="1998">1998</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Contraction-free sequent calculi for geometric theories with an application to Barr&apos;s theorem</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Negri</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s001530100124</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Arch. Math. Log</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="389" to="401" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Proof analysis in modal logic</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Negri</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10992-005-2267-3</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J. Philosophical Logic</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">5-6</biblScope>
+			<biblScope unit="page" from="507" to="544" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Labelled Non-Classical Logics</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Viganò</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2000">2000</date>
+			<publisher>Kluwer Academic Publishers</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<monogr>
+		<title level="m" type="main">The focused inverse method for linear logic</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Chaudhuri</surname></persName>
+		</author>
+		<idno>CMU-CS-06-162</idno>
+		<imprint>
+			<date type="published" when="2006-12">Dec. 2006</date>
+		</imprint>
+		<respStmt>
+			<orgName>Carnegie Mellon University</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">technical report</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">A logical characterization of forward and backward chaining in the inverse method</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Chaudhuri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Pfenning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Price</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10817-007-9091-0</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J. of Automated Reasoning</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">2-3</biblScope>
+			<biblScope unit="page" from="133" to="177" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Focused labeled proof systems for modal logic</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Volpe</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-662-48899-7_19</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Logic for Programming, Artificial Intelligence, and Reasoning -20th International Conference, LPAR-20 2015</title>
+		<meeting><address><addrLine>Suva, Fiji</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2015">November 24-28, 2015. 2015</date>
+			<biblScope unit="page" from="266" to="280" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">A focused framework for emulating modal proof systems</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Marin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Volpe</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Modal Logic 11, proceedings of the 11th conference on &quot;Advances in Modal Logic</title>
+		<editor>
+			<persName><forename type="first">L</forename><forename type="middle">D</forename><surname>Beklemishev</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">S</forename><surname>Demri</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">A</forename><surname>Maté</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Budapest, Hungary</addrLine></address></meeting>
+		<imprint>
+			<publisher>College Publications</publisher>
+			<date type="published" when="2016-09-02">August 30 -September 2, 2016. 2016</date>
+			<biblScope unit="page" from="469" to="488" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Investigations into logical deduction</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Gentzen</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/BF01201353</idno>
+	</analytic>
+	<monogr>
+		<title level="m">The Collected Papers of Gerhard Gentzen</title>
+		<editor>
+			<persName><forename type="first">M</forename><forename type="middle">E</forename><surname>Szabo</surname></persName>
+		</editor>
+		<meeting><address><addrLine>North-Holland, Amsterdam</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="1935">1935</date>
+			<biblScope unit="page" from="68" to="131" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Uniform proofs as a foundation for logic programming</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Nadathur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Pfenning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scedrov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annals of Pure and Applied Logic</title>
+		<imprint>
+			<biblScope unit="volume">51</biblScope>
+			<biblScope unit="issue">1-2</biblScope>
+			<biblScope unit="page" from="125" to="157" />
+			<date type="published" when="1991">1991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Hereditary Harrop formulas and uniform proof systems</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Nadathur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scedrov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="s">Symp. on Logic in Computer Science</title>
+		<editor>
+			<persName><forename type="first">D</forename><surname>Gries</surname></persName>
+		</editor>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="98" to="105" />
+			<date type="published" when="1987">1987</date>
+			<pubPlace>Ithaca, NY</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">A lambda-calculus structure isomorphic to Gentzen-style sequent calculus structure</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Herbelin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Computer Science Logic, 8th International Workshop, CSL &apos;94</title>
+		<title level="s">Lecture Notes in Computer Science</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="1995">1995</date>
+			<biblScope unit="volume">933</biblScope>
+			<biblScope unit="page" from="61" to="75" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">LJQ: a strongly focused calculus for intuitionistic logic</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Dyckhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Lengrand</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Computability in Europe 2006</title>
+		<editor>
+			<persName><forename type="first">A</forename><surname>Beckmann</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2006">2006</date>
+			<biblScope unit="volume">3988</biblScope>
+			<biblScope unit="page" from="173" to="185" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<title level="m" type="main">Focusing Gentzen&apos;s LK proof system</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2020-04">Apr. 2020</date>
+		</imprint>
+	</monogr>
+	<note>submitted</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Focussing and proof construction</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Andreoli</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/S0168-0072(00)00032-4</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Ann. Pure Appl. Log</title>
+		<imprint>
+			<biblScope unit="volume">107</biblScope>
+			<biblScope unit="issue">1-3</biblScope>
+			<biblScope unit="page" from="131" to="163" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">A framework for proof systems</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Nigam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10817-010-9182-1</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J. Autom. Reasoning</title>
+		<imprint>
+			<biblScope unit="volume">45</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="157" to="188" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<monogr>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Nadathur</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/CBO9781139021326</idno>
+		<title level="m">Programming with Higher-Order Logic</title>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">An Overview of λProlog</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Nadathur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Miller</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Fifth International Logic Programming Conference</title>
+		<meeting><address><addrLine>Seattle</addrLine></address></meeting>
+		<imprint>
+			<publisher>MIT Press</publisher>
+			<date type="published" when="1988">1988</date>
+			<biblScope unit="page" from="810" to="827" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Proof Theory and Logical Complexity</title>
+		<author>
+			<persName><forename type="first">J.-Y</forename><surname>Girard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">I of Studies in Proof Theory</title>
+		<title level="s">edizioni di filosofia e scienze</title>
+		<meeting><address><addrLine>Napoli</addrLine></address></meeting>
+		<imprint>
+			<publisher>Bibliopolis</publisher>
+			<date type="published" when="1987">1987</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">From axioms to proof rules, then add quantifiers</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ramanayake</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2nd International Workshop Automated Reasoning in Quantified Non-Classical Logics (ARQNL 2016) affiliated with the International Joint Conference on Automated Reasoning (IJCAR 2016)</title>
+		<title level="s">CEUR Workshop Proceedings, CEUR</title>
+		<editor>
+			<persName><forename type="first">C</forename><surname>Benzmüller</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">J</forename><surname>Otten</surname></persName>
+		</editor>
+		<meeting>the 2nd International Workshop Automated Reasoning in Quantified Non-Classical Logics (ARQNL 2016) affiliated with the International Joint Conference on Automated Reasoning (IJCAR 2016)<address><addrLine>Coimbra, Portugal</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2016-07-01">July 1, 2016. 2016</date>
+			<biblScope unit="volume">1770</biblScope>
+			<biblScope unit="page" from="1" to="8" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><surname>Negri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Plato</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/CBO9781139003513</idno>
+		<title level="m">Proof Analysis -a contribution to Hilbert&apos;s last problem</title>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Proof analysis beyond geometric theories: from rule systems to systems of rules</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Negri</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/logcom/exu037</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J. Log. Comput</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="513" to="537" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<monogr>
+		<title level="m" type="main">An Introduction to Modal Logic</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Lemmon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Scott</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1977">1977</date>
+			<publisher>Blackwell</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Hypersequents and systems of rules: Embeddings and applications</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ciabattoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">A</forename><surname>Genco</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3180075</idno>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Trans. Comput. Log</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="1" to="11" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<monogr>
+		<title level="m" type="main">The focused constraint inverse method for intuitionistic modal logics</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mclaughlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Pfenning</surname></persName>
+		</author>
+		<ptr target="http://www.cs.cmu.edu/fp/paper-s/inviml10.pdf" />
+		<imprint>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Completeness and correspondence in first and second order semantics for modal logic</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Sahlqvist</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Third Scandinavian Logic Symposium</title>
+		<editor>
+			<persName><forename type="first">N</forename><forename type="middle">H S</forename><surname>Kanger</surname></persName>
+		</editor>
+		<meeting>the Third Scandinavian Logic Symposium</meeting>
+		<imprint>
+			<date type="published" when="1975">1975</date>
+			<biblScope unit="page" from="110" to="143" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">A framework for intuitionistic modal logic</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">D</forename><surname>Plotkin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">P</forename><surname>Stirling</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">1st Conference on Theoretical Aspects of Reasoning About Knowledge</title>
+		<editor>
+			<persName><forename type="first">J</forename><forename type="middle">Y</forename><surname>Halpern</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Morgan Kaufmann</publisher>
+			<date type="published" when="1986">1986</date>
+			<biblScope unit="page" from="399" to="406" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

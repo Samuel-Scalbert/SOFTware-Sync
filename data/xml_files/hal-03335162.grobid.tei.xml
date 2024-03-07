@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Online Robot Trajectory Optimization for Persistent Environmental Monitoring</title>
+				<funder ref="#_txYrk4r">
+					<orgName type="full">Agence Nationale de la Recherche</orgName>
+					<orgName type="abbreviated">ANR</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><roleName>Member, IEEE</roleName><forename type="first">Gennaro</forename><surname>Notomista</surname></persName>
+							<email>gennaro.notomista@irisa.fr</email>
+						</author>
+						<author>
+							<persName><roleName>Senior Member, IEEE</roleName><forename type="first">Claudio</forename><surname>Pacchierotti</surname></persName>
+							<email>claudio.pacchierotti@irisa.fr</email>
+						</author>
+						<author>
+							<persName><roleName>Senior Member, IEEE</roleName><forename type="first">Paolo</forename><forename type="middle">Robuffo</forename><surname>Giordano</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution">CNRS</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">Univ Rennes</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution">Inria</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="institution">IRISA</orgName>
+								<address>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Online Robot Trajectory Optimization for Persistent Environmental Monitoring</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">17FC3167C3A352E3FA3D2706F6FBB505</idno>
+					<idno type="DOI">10.1109/LCSYS.2021.3110940</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Robotics</term>
+					<term>Energy systems</term>
+					<term>Constrained control</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>This paper presents a control-theoretic approach for trajectory optimization of mobile robots suitable for environmental monitoring. The method is based on the optimization of the Constructability Gramian in order to maximize the information collected while traversing a state trajectory. The maximization of the collected information is combined with energy constraints to define an optimization-based controller that achieves persistent environmental monitoring. The results of its application to the estimation of the concentration of a diffusing gas using a mobile robot are shown in simulation.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>I. INTRODUCTION</head><p>T HE use of robotic systems for environmental monitoring is becoming more and more common thanks to their suitability to collect spatial and temporally disperse data <ref type="bibr" target="#b0">[1]</ref>. However, the longer the time horizon over which robots need to remain operational to collect environmental data, the more challenging their deployment becomes. In particular, energy management and control is paramount when autonomous, untethered robotic platforms are considered <ref type="bibr" target="#b1">[2]</ref>.</p><p>In this paper, we propose an online trajectory optimization strategy for mobile robots suitable for persistent environmental monitoring tasks. The approach consists of two main components: (i) Trajectory optimization to maximize the gathered information, framed as an active sensing problem <ref type="bibr" target="#b2">[3]</ref>, and (ii) Energy control using physics-based robot battery model implemented using control barrier functions <ref type="bibr" target="#b3">[4]</ref>. These two components are combined in a single optimization-based controller which computes both the optimized trajectory and the control input required by the robot to track it.</p><p>Robots deployed for persistent environmental monitoring have been considered in <ref type="bibr" target="#b4">[5]</ref>, where a spatial information field has to be swept by the robots whose velocity is controlled over a predefined trajectory in space. The employment of autonomous agents for environmental monitoring has been recognized to be particularly useful for source localization applications <ref type="bibr" target="#b5">[6]</ref>, <ref type="bibr" target="#b6">[7]</ref>. In <ref type="bibr" target="#b7">[8]</ref>, mobile sensors are controlled to move in order to maximize the information collected required to identify the source of an advective-diffusive environmental field model, implementing, as a matter of fact, an active sensing control strategy.</p><p>Active sensing has been studied under different perspectives (see, e.g., <ref type="bibr" target="#b8">[9]</ref>- <ref type="bibr" target="#b11">[12]</ref>). In <ref type="bibr" target="#b2">[3]</ref>, the authors show how a norm of the so-called Constructability Gramian (CG) is an appropriate measure of the amount of information gathered along a given trajectory of the state of a system. Leveraging this insight, in this paper we develop a persistent environmental monitoring strategy where the estimation of environmental fields is to be achieved under limited energy resources, which characterize the mobile robotic platforms employed for such tasks. Moreover, compared to empirical methods devised to maximize robot deployment time <ref type="bibr" target="#b12">[13]</ref> or minimize energy expenditure <ref type="bibr" target="#b13">[14]</ref>, we do so in a provable fashion by employing control barrier functions to enforce energy constraints.</p><p>The main contributions of this paper with respect to existing approaches are: (i) Extending the control-theoretic method proposed in <ref type="bibr" target="#b2">[3]</ref> to online robot trajectory planning for environmental monitoring; (ii) Considering the limited energy availability on the robots using an accurate battery model; (iii) Combining (i) and (ii) in an optimization-based controller to achieve a computationally efficient persistent environmental monitoring algorithm.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>II. ACTIVE SENSING FOR ENVIRONMENTAL MONITORING</head><p>This section introduces the active sensing problem which will be extended to cover environmental monitoring scenarios. A control-theoretic approach based on the CG will be employed and combined with energy control to achieve persistent environmental monitoring. The solution proposed in this paper builds on the ideas originally proposed in <ref type="bibr" target="#b2">[3]</ref> which are briefly recalled in the next subsection for the reader's convenience.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. Active Sensing</head><p>In active sensing tasks, robot trajectories are planned with the objective of maximizing the information gathered by the robots during motion. In order to quantify the gathered information, we start by defining models for robot motion and sensor measurement, as follows:</p><formula xml:id="formula_0">ẋ = f (x, u) + x y = m(x) + y .<label>(1)</label></formula><p>Here, f : R nx × R nu → R nx is a Lipschitz continuous vector field modeling the robot dynamics. The measurement model is given by m : R nx → R ny . In the context of persistent environmental monitoring considered in this paper, measurements y will be leveraged to produce an estimate of the state x using an extended Kalman filter. The system and measurement noise are modeled by zero-mean Gaussian distributions with covariance matrices Q and R, respectively, i.e. x ∼ N (0, Q) and y ∼ N (0, R).</p><p>In <ref type="bibr" target="#b2">[3]</ref>, the authors propose a solution to the active sensing problem consisting in optimizing the state trajectory in order to maximize a norm of the CG for system <ref type="bibr" target="#b0">(1)</ref>, which is defined over a time horizon [t s , t f ] as:</p><formula xml:id="formula_1">G c (t s , t f ) = t f ts Φ(τ, t f ) T C(τ ) T W (τ )C(τ )Φ(τ, t f )dτ,<label>(2)</label></formula><p>where Φ(τ, t f ) ∈ R nx×nx is the transition matrix of the dynamical system ẋ = f (x, u), C(τ ) = ∇ x m(x(τ )) T , and W is a weight matrix set to R -1 , the inverse of the covariance matrix of the measurement noise y <ref type="bibr" target="#b2">[3]</ref>. This way, a norm of the CG is a suitable metric for quantifying the information gathered while moving along the state trajectory x :</p><formula xml:id="formula_2">[t s , t f ] → R nx .</formula><p>The infinite-dimensional trajectory optimization can be reduced to a finite-dimensional optimization problem by parameterizing the state trajectory x(t), t ∈ [t s , t f ] using a finite number of parameters x c ∈ R nx c . This can be done, for instance, by considering polynomial (such as cubic splines and B-splines) state trajectories. Then, the following gradientascent strategy can be employed to optimize the trajectory so to maximize the information gathered:</p><formula xml:id="formula_3">ẋc = K ∇ xc G c (t s , t f ),<label>(3)</label></formula><p>K being a positive gain. We refer to <ref type="bibr" target="#b2">[3]</ref> for the details about the evaluation of the gradient of the CG G c (t s , t f ) with respect to the trajectory parameters x c .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Environmental Monitoring as Active Sensing</head><p>In environmental monitoring tasks, robots are deployed to estimate an environmental field, such as temperature and gas concentration maps. In this paper, we assume the field of interest can be parameterized by a vector θ ∈ R n θ . Then, the robot and measurement model (1) can be extended as follows:</p><formula xml:id="formula_4">     ẋ = f (x, u) + x θ = g(θ, t) + θ y = m(x, θ) + y . (<label>4</label></formula><formula xml:id="formula_5">)</formula><p>The dynamics of the environmental field-which need not be static-are modeled by the vector field g : R n θ × R → R n θ assumed to be Lipschitz continuous in the first argument, θ, and continuous in its second argument, t. This choice allows us to consider dynamically evolving environmental fields (such as gas concentration, solar light intensity, and air properties), and it is suitable to represent discretized solutions of partial differential equations modeling an environmental field. The formulation in (4) allows us to treat environmental monitoring tasks as instances of active sensing. Following what has been proposed in <ref type="bibr" target="#b2">[3]</ref>, a trajectory for x can be planned in order to maximize the information gathered through the measurements y required to estimate θ.</p><p>Remark 1. In the model (4), the state is comprised of both x and θ. However, the control input u influences directly only the state of the robot, x, while θ evolves independently. Therefore, a state trajectory can be planned considering just the components x of the state of the system (4). It is worth, however, pointing out that θ is nevertheless taken into account in the state trajectory optimization through the gradient of G c (t s , t f ) which does depend on θ.</p><p>The formulation in (4) allows us to execute environmental monitoring tasks by optimizing the state trajectory. In the next section, we will present the battery charge control as a way of rendering environmental monitoring tasks persistent, so to allow robots to execute them over long time horizons.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>III. BATTERY CHARGE CONTROL</head><p>Environmental monitoring tasks may take place over long time horizons depending on the nature of the phenomenon of interest that needs to be monitored. In this paper, we present an approach to perform energy-constrained environmental monitoring which consists of an optimization-based strategy for trajectory optimization constrained by the limited availability of energy that robots can carry around.</p><p>In <ref type="bibr" target="#b14">[15]</ref> and <ref type="bibr" target="#b15">[16]</ref>, the persistification of generic robotic tasks is considered, through which the energy of the robots executing the tasks is controlled to remain about a lower bound. However, the considered battery model is conservative as it always takes into account the worst-case scenario of maximum discharge rate that the battery of the robot can undergo. In this section, we refine the persistification strategy by introducing a more faithful energy model that describes the dynamics of the state of charge (SOC) of a battery. Then, we introduce integral control barrier functions (I-CBFs) as a way of enforcing energy constraints. The SOC dynamic model will be used in conjunction with I-CBFs in order to ensure that the battery of the robots executing a task never depletes-i.e. the SOC never falls below a minimum threshold-while executing a task of interest, in this case the trajectory optimization task to realize environmental monitoring through active sensing.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. State of Charge Dynamics</head><p>The state of charge is used to describe the remaining capacity of a battery, and it is therefore a very important parameter to take into account while designing energy-aware control strategies <ref type="bibr" target="#b16">[17]</ref>. Its accurate knowledge allows us to design algorithms to protect batteries from overdischarge and overcharge, increasing their life. However, batteries store chemical energy, which cannot be directly measured and has to be, therefore, estimated. The SOC estimation still remains a fundamental challenge, as it hinges on battery models which, in turn, depend on many parameters <ref type="bibr" target="#b17">[18]</ref>. A survey of methods which have been proposed to estimate the SOC of batteries can be found in <ref type="bibr" target="#b18">[19]</ref>, <ref type="bibr" target="#b19">[20]</ref>. In the following, we present the basic SOC dynamic model (found, e.g., in <ref type="bibr" target="#b20">[21]</ref>) which can be employed to render the environmental monitoring task persistent, by preventing robot batteries from depleting.</p><p>Let e(t) denote the value of the SOC of the robot battery at time t, C its rated capacity, η its Coulombic efficiency, and i(t) the current flowing from the battery-i(t) &gt; 0 if the current is flowing out of the battery at time t, i(t) &lt; 0 if it is flowing in. Then, the value of e(t) can be evaluated as follows:</p><formula xml:id="formula_6">e(t) = e(t 0 ) -C -1 t t0 ηi(t)dt,<label>(5)</label></formula><p>where, in general, the efficiency η can be a function of the current i(t), the temperature, the SOC itself, as well as the state of health (SOH) of the battery <ref type="bibr" target="#b20">[21]</ref>.</p><p>In a large variety of robotic applications, it is reasonable to assume that the current supplied by the battery is proportional to the magnitude of the control input u supplied to the robot. This holds, for instance, in cases where electric motors and actuators-for which exerted torque is proportional to absorbed current-are employed for motion and locomotion purposes <ref type="bibr" target="#b21">[22]</ref>. Therefore, we can model the relation between current and robot input as i(t) = α i u 2 , where α i is a class K function.</p><p>Starting from (5), and using this assumption, yields the following SOC dynamic model for the battery of robot i:</p><formula xml:id="formula_7">ė = -ηC -1 α i u 2 .<label>(6)</label></formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Integral Control Barrier Functions</head><p>The model of the battery SOC dynamics in (6) depends on the control input u, and in general it does so in a noncontrol-affine fashion. As such, a straightforward application of CBF-based approaches would result in differential constraints which are not affine in u <ref type="bibr" target="#b3">[4]</ref>. As will be shown in the next section, affine input constraints are desirable in order to synthesize robot controllers under real-time constraints at high frequencies commonly used in the control loops of modern robotic platforms. To circumvent this issue, control dependent control barrier functions <ref type="bibr" target="#b22">[23]</ref> or the more general formulation of integral control barrier functions <ref type="bibr" target="#b23">[24]</ref>, defined below, can be employed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Definition 2 ( [24]</head><p>). For the system ẋ = f (x, u), with corresponding safe set S ⊂ R nx × R nu defined as the 0superlevel set of a function h : R nx × R nu → R with 0 a regular value:</p><formula xml:id="formula_8">S = {(x, u) ∈ R nx × R nu : h(x, u) ≥ 0}.</formula><p>Then, h is an integral control barrier function (I-CBF) if for any (x, u) ∈ R nx × R nu and t ≥ 0, p(x, u) = 0 ⇒ d(x, u, t) ≤ 0, where the expressions of p(x, u) and d(x, u, t) are given in <ref type="bibr" target="#b23">[24]</ref>.</p><p>Analogously to CBFs, I-CBFs are amenable to ensure the forward invariance of subsets of the product space R nx ×R nu . Therefore, they can be used to ensure that the SOC of robot batteries never falls below a desired minimum threshold. In other words, we would like the set of values of SOC, e, above a desired minimum threshold to be forward invariant, which is equivalent to saying that we would like e to be always greater than or equal to a desired minimum threshold. With this above definition of I-CBFs, Theorem 1 in <ref type="bibr" target="#b23">[24]</ref> gives sufficient conditions for the forward invariance of sets defined through an I-CBF.</p><p>In order to apply I-CBF-based control, the considered system ẋ = f (x, u) has to be dynamically extended as follows <ref type="bibr" target="#b24">[25]</ref>:</p><formula xml:id="formula_9">     ẋ = f (x, u) ė = -ηC -1 α i u 2 u = v,<label>(7)</label></formula><p>where now v is the control input, and u becomes part of the state. With these dynamically extended dynamics, the following I-CBF can be used to keep the SOC value above a minimum threshold, denoted by e min :</p><formula xml:id="formula_10">h x (x, e) = e -e min -α c ( p(x) -p c ) , (<label>8</label></formula><formula xml:id="formula_11">)</formula><p>where e is the value of the SOC of the battery of robot, p(x) denotes the position of the robot, p c is the location of a charging station, and α c is a monotonically increasing function. The term α c ( p(x) -p c ), then, represents the amount of energy required to reach the charging station. The I-CBF h x has relative degree 2 with respect to the new control input v. Therefore, following the approach in <ref type="bibr" target="#b15">[16]</ref>, we can define an following auxiliary I-CBF, h u , which explicitly depends on u, and thus has relative degree 1 with respect to v:</p><formula xml:id="formula_12">h u (x, e, u) = ḣx (x, e, u) + γ x (h x (x, e)) ,<label>(9)</label></formula><p>where γ x is a class K function. In the next section, it will be shown how to utilize the defined I-CBF in order to control the SOC of a robot battery while executing an environmental monitoring task through by solving the active sensing problem discussed in the previous section.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>IV. PERSISTENT ENVIRONMENTAL MONITORING</head><p>Combining the model required for active sensing tasks with the one that describes the dynamics of battery SOC, we can state the full model of a robot with state x, SOC e, control input u, dynamically extended control input v, and measurement model m, moving in an environment characterized by an environmental field parameterized by θ, as follows:</p><formula xml:id="formula_13">               ẋ = f (x, u) ė = -ηC -1 α i u 2 u = v θ = g(θ, t) y = m(x, θ).<label>(10)</label></formula><p>We are now ready to state the optimization-based controller used to realize persistent environmental monitoring, in the form of the following optimization nonlinear program (NLP):</p><formula xml:id="formula_14">Main NLP (11) minimize v, ẋc,δ v 2 + κδ 2 (11a) subject to ∇ xc V T sens ẋc ≥ φ(x c ) -δ (11b) v = ψ ( ẋc ) (11c) ḣu (x, e, u, v) ≥ -γ u (h u (x, e, u)),<label>(11d)</label></formula><p>where the optimization variables are the dynamically extended control input, v, the parameters x c describing the state trajectory x to optimize, and a slack variable δ, whose purpose will be explained in the following.</p><p>As discussed in Section II, environmental monitoring seen as an active sensing task can be executed by optimizing the parameters of the state trajectory, x c , to plan a path that maximizes a norm of the CG, which, in this work, is chosen to be the trace. The advantage of the trace over other norms will be clear in the next section and is discussed in more detail in Remark 5. Thus, letting V sens (x c ) = trace (G c (t s , t f ))</p><p>2 , and choosing a positive definite function φ, the inequality</p><formula xml:id="formula_15">∇ xc V T sens ẋc ≥ φ(x c</formula><p>) results in an increase of the trace of the CG, as desired.</p><p>The energy constraints are encoded by the inequality (11d) obtained starting from the auxiliary I-CBF h u defined in <ref type="bibr" target="#b8">(9)</ref>. The slack variable δ is used to prioritize the objective of keeping the SOC above a minimum threshold over the environmental monitoring task. This way, the latter will be executed as long as the former is satisfied. And, if the energy in the robot battery is depleting, the main active sensing task will be sacrificed just by the amount δ. Moreover, the slack variable δ makes the feasibility of the NLP (11) hinge on constraint (11d) only, whose satisfaction depends on the function h x , as well as the robot and energy dynamics.</p><p>Finally, ψ is a function relating the derivative of the trajectory parameters, ẋc , to the dynamically extended input v. In Section V, an example of such a mapping will be given. We conclude this section by stating the main result of the paper which allows for a persistent implementation of environmental monitoring tasks executed through active sensing trajectory optimization.</p><p>Proposition 3. If a solution to <ref type="bibr" target="#b10">(11)</ref> exists for all times, then the dynamically extended control input v allows the robot modeled by <ref type="bibr" target="#b9">(10)</ref> to execute persistent environmental monitoring.</p><p>Proof. Let v , x c , and δ be the solution of <ref type="bibr" target="#b10">(11)</ref>. Then, the following inequality holds: ḣu (x, e, u, v ) ≥ -γ u (h u (x, e, u)).</p><p>(</p><formula xml:id="formula_16">)<label>12</label></formula><p>Theorem 1 in <ref type="bibr" target="#b23">[24]</ref> ensures that h u (x(t), u(t), e(t)) ≥ 0, ∀t ≥ 0. By the definition of h u in ( <ref type="formula" target="#formula_12">9</ref>), a positive h u implies that ḣx (x, e, u) + γ x (h x (x, e)) ≥ 0. Then, by Theorem 3 in <ref type="bibr" target="#b3">[4]</ref>, h x (x(t), e(t)) ≥ 0, ∀t ≥ 0. Thus, by ( <ref type="formula" target="#formula_10">8</ref>), e ≥ e min + α c ( p(x) -p c ). Hence, since α c ( p(x) -p c ) quantifies the energy required to reach the charging station located at p c , at the charging station e ≥ e min . As a result, the SOC never falls below the desired lower threshold e min .</p><p>Setting the gradient of the Lagrangian associated with the problem <ref type="bibr" target="#b10">(11)</ref> to zero, it immediately follows that δ ∝ κ -1 . Therefore, as ∇ xc V T sens ẋc = Vsens ≥ φ(x c ) -δ, V sens increases as long as φ(x c ) &gt; δ, which can be rendered arbitrarily small by increasing the parameter κ. This condition corresponds to the execution of the environmental monitoring task by maximizing the information gathered along the state trajectory parameterized by x c .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>V. SIMULATIONS</head><p>This section shows an application of persistent monitoring in a planar environment where a gas is spreading from a source, whose location has to be identified. The environmental field is the gas concentration modeled by the following diffusive dynamics <ref type="bibr" target="#b25">[26]</ref>:</p><formula xml:id="formula_17">m : (x, θ) → θ 4 e -(p 1 (x)-θ 1 ) 2 +(p 2 (x)-θ 2 ) 2 θ 3 (13)</formula><p>where θ 1 θ 2 T is the source location to be identified, θ 3 and θ 4 determine the spread of the gas concentration, and</p><formula xml:id="formula_18">[p 1 (x), p 2 (x)] T = p(x)</formula><p>is the robot position. The dynamics of θ are as follows:</p><formula xml:id="formula_19">θ = 0 0 K 1 -K 2 t -3 2 T (<label>14</label></formula><formula xml:id="formula_20">)</formula><p>where K 1 and K 2 have been set to 0.005 and 0.01, respectively. It is worth pointing out that the model <ref type="bibr" target="#b12">(13)</ref><ref type="bibr" target="#b13">(14)</ref> represents a time-varying gas concentration model in which the unknown parameters θ(t) = const.</p><p>The robot executing the persistent environmental monitoring task has been modeled using single integrator dynamics ẋ = u, x = x 1 x 2 T ∈ R 2 . In the energy model ( <ref type="formula" target="#formula_7">6</ref>), the function α i has been chosen to be the identity function, i.e. α i (s) = s. Moreover, following the derivation in <ref type="bibr" target="#b14">[15]</ref>, the energy required to reach the charging station located at p c is evaluated as follows:</p><formula xml:id="formula_21">α c ( p(x) -p c ) = log ( p(x) -p c ) -log(d max ),<label>(15)</label></formula><p>where d max is the maximum distance from the charging station at which the robot can recharge its battery. As an example, consider wireless charging technologies: in these settings, d max represents the footprint of the wireless charging station.</p><p>The state trajectory to be optimized has been parameterized as a cubic spline using 4 parameters per each dimension of the state. Then, the parameter vector x c is given as follows: </p><formula xml:id="formula_22">x c = p x1 s p x1 f t x1 s t x1 f p x2 s p x2 f t x2 s t x2 f T<label>(16)</label></formula><formula xml:id="formula_23">v = ψ( ẋc ) = 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 ẋc<label>(17)</label></formula><p>As a result, ( <ref type="formula" target="#formula_14">11</ref>) is a convex quadratic program in v, ẋc , and δ, and, as such, it can be efficiently solved online. Algorithm 1 summarizes the control strategy employed to obtain the results presented in the following two subsections.</p><p>Remark 4 (Multi-rate estimation and planning). To improve estimation performance, the state estimation using the EKF in Algorithm 1 can be executed at a higher rate compared to the trajectory optimization implemented by solving <ref type="bibr" target="#b10">(11)</ref>. In particular, in the simulations shown in this section, the EKF runs at a rate 10 times faster than the trajectory optimization. Execute input v * solution of <ref type="bibr" target="#b10">(11)</ref> 4:</p><p>Collect measurement y 5:</p><p>Estimate x using EKF on system (4) 6:</p><p>Update trajectory using ẋ c solution of <ref type="bibr" target="#b10">(11)</ref> 7:</p><p>Re-parameterize trajectory 8: end while Remark 5 (Trajectory re-parameterization). The parameters x c of the trajectory are updated at each iteration of the control loop using the optimal ẋc , solution of the optimization problem <ref type="bibr" target="#b10">(11)</ref>. Thus, the trajectory evolves over time while the robot is tracking it using the input v = ψ( ẋc ). Letting ∆t be the time horizon used in the definition of G c -i.e., t f = t s +∆t in (2)and dt the duration of the control loop, Step 7 in Algorithm 1 ensures that at, iteration k + 1, the trajectory in the interval [t s -dt, t f -dt] is identical to the trajectory in the interval [t s , t f ] optimized at iteration k. This step is justified by the fact that the trace of G c satisfies the Bellman principle, as observed in <ref type="bibr" target="#b2">[3]</ref>.</p><p>Remark 6 (Trajectory length and input bounds). As the trace of G c defined over the time interval [t s , t f ] is a measure of the information gathered along the state trajectory from x(t s ) to x(t f ), the optimal ẋc may lead to an unbounded increase of the length of trajectory, requiring control inputs v, and therefore u, which exceed the input bounds which exist on a physical robotic platform. Therefore, in practice, enforcing maximum-length constraints on the trajectory may be required.</p><p>In the case of the cubic spline trajectory parameterization considered in this section, this is simply achieved by upperbounding the vector of parameters x c .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. Environmental monitoring</head><p>This section shows the simulation results of the execution of environmental monitoring as an active sensing task implemented using (3), and we compare them with an EKF-based estimation without trajectory optimization. Figure <ref type="figure" target="#fig_1">1</ref> shows the trajectories followed by the robot while optimizing the trace of G c (solid line), and without this optimization (dashed line). As a result of this trajectory optimization, Fig. <ref type="figure" target="#fig_3">2</ref> reports the graphs of the estimated parameters θ (Fig. <ref type="figure" target="#fig_3">2a</ref>) as well as the trace of G -1 c (Fig. <ref type="figure" target="#fig_3">2b</ref>) during the course of the simulation.  As can be seen, by optimizing the trajectory followed by the robot, the parameters θ converge to the true ones, depicted as dashed lines in Fig. <ref type="figure" target="#fig_3">2a</ref>. Moreover, Fig. <ref type="figure" target="#fig_3">2b</ref> clearly shows the advantage brought by the trajectory optimization in terms of the trace of G -1 c -lower values indicate more information collected. The solid line is obtained by updating the trajectory as in (3), while the dashed line corresponds to the case without trajectory optimization.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>B. Persistent Environmental monitoring</head><p>In this section, energy constraints are included in the scenario considered before. The system dynamics are the same, however, in this case, the trajectory is updated using ẋc solution of (11) rather than by running the gradient ascent algorithm (3). Moreover, a charging station is located at p c = 0, 0 T , where the robot is driven to by the input v solution of <ref type="bibr" target="#b10">(11)</ref> when in need of energy.</p><p>The results are reported in Figures <ref type="figure">3</ref> and<ref type="figure">4</ref>. In particular, the former shows the trajectory followed by the robot (left column) and the energy in the battery of the robot (right column) for each charging cycle (corresponding to each row). Figures <ref type="figure">4a</ref> and<ref type="figure">4b</ref> show the estimated parameters θ and the trace of G -1 c . Compared to Figures <ref type="figure" target="#fig_3">2a</ref> and<ref type="figure" target="#fig_3">2b</ref>, a slight performance detriment can be noticed as a result of the energy constraints that drive the robot away from the optimal trajectory. This corresponds to values of the slack variable δ which significantly deviate from 0 to allow energy constraints to be satisfied.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>VI. CONCLUSIONS</head><p>In this paper, we presented a control-theoretic method for online trajectory planning suitable to be combined with energy control and execute persistent environmental monitoring tasks. The trajectory optimization and the energy constraints are considered holistically in a single optimization problem which, under suitable design choices, becomes a convex quadratic program, and thus can be efficiently solved in an online fashion. We showed the results of multiple simulated scenarios of persistent environmental monitoring applied to the estimation of a gas concentration field that follows diffusive dynamics. In order to illustrate the effectiveness of the proposed approach, we compared it to the case where trajectory optimization or energy constraints are not considered.  <ref type="figure">4b</ref>, respectively. In Fig. <ref type="figure">4a</ref>, ground truth values are depicted as dashed lines. For reference, in Fig. <ref type="figure">4b</ref>, the performance of the system without energy constraints-shown in Fig. <ref type="figure" target="#fig_3">2b</ref> as a solid line-is depicted as a dashed line.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Algorithm 1 environmental monitoring 1 :</head><label>11</label><figDesc>Persistent Initialize trajectory parameters x c 2: while true do 3:</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Trajectory of the robot executing environmental monitoring obtained by optimizing the state trajectory (solid) and without optimization (dashed).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head></head><label></label><figDesc>With (solid)  and without (dashed) trajectory optimization.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 2 .</head><label>2</label><figDesc>Fig.2. Environmental monitoring simulation. The estimation of the field parameters θ and the trace of the inverse of the CG are reported in Figures2a and 2b, respectively. In Fig.2b, lower values correspond to more information collected.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 3 .Fig. 4 .</head><label>34</label><figDesc>Fig.3. Trajectory (left column) and energy (right column) of the robot executing persistent environmental monitoring by optimizing the state trajectory and tracking it using the solution of<ref type="bibr" target="#b10">(11)</ref>. A charging station located at [0, 0] T is depicted as a gray circle in the figures on the left column. The first, second, and third discharging-charging cycles are shown in Figures3a-3b, 3c-3d, and 3e-3f, respectively.</figDesc></figure>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>This works was sponsored by the <rs type="funder">ANR</rs> project <rs type="grantNumber">ANR-20-CHIA-0017</rs> "<rs type="projectName">MULTISHARED</rs>"</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funded-project" xml:id="_txYrk4r">
+					<idno type="grant-number">ANR-20-CHIA-0017</idno>
+					<orgName type="project" subtype="full">MULTISHARED</orgName>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Robots for environmental monitoring: Significant advancements and applications</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Dunbabin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Marques</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Robotics &amp; Automation Magazine</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="24" to="39" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Fundamentals of energy-constrained sensor network systems</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">M</forename><surname>Sadler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Aerospace and Electronic Systems Magazine</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="17" to="35" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Online optimal perception-aware trajectory generation</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Salaris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Cognetti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Spica</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">Robuffo</forename><surname>Giordano</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Robotics</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1307" to="1322" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Control barrier functions: Theory and applications</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">D</forename><surname>Ames</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Coogan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Egerstedt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Notomista</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Sreenath</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Tabuada</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">European Control Conference</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="3420" to="3431" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Persistent robotic tasks: Monitoring and sweeping in changing environments</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">L</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Schwager</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Rus</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Robotics</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="410" to="426" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Bacterium-inspired robots for environmental monitoring</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Dhariwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">S</forename><surname>Sukhatme</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Requicha</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE International Conf. Robotics and Automation</title>
+		<meeting>IEEE International Conf. Robotics and Automation</meeting>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="1436" to="1443" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Towards environmental monitoring with mobile robots</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Trincavelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Reggente</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Coradeschi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Loutfi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ishida</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">J</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE/RSJ International Conf. Intelligent Robots and Systems</title>
+		<imprint>
+			<date type="published" when="2008">2008</date>
+			<biblScope unit="page" from="2210" to="2215" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Model-based active source identification in complex environments</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Khodayi-Mehr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Aquino</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Zavlanos</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Robotics</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="633" to="652" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">A comparison of decision making criteria and optimization methods for active robotic sensing</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mihaylova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Lefebvre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Bruyninckx</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Gadeyne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">De</forename><surname>Schutter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conf. Numerical Methods and Applications</title>
+		<imprint>
+			<date type="published" when="2002">2002</date>
+			<biblScope unit="page" from="316" to="324" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">On a decentralized active sensing strategy using mobile sensor platforms in a network</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">H</forename><surname>Chung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Gupta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Burdick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Murray</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE Conf. Decision and Control (CDC)</title>
+		<meeting>IEEE Conf. Decision and Control (CDC)</meeting>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="1914" to="1919" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">On trajectory optimization for active sensing in gaussian process models</title>
+		<author>
+			<persName><forename type="first">J</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Le</forename><surname>Ny</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">J</forename><surname>Pappas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE Conf. Decision and Control (CDC)</title>
+		<meeting>IEEE Conf. Decision and Control (CDC)</meeting>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+			<biblScope unit="page" from="6286" to="6292" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Multi-robot active sensing of non-stationary gaussian process-based environmental phenomena</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ouyang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">H</forename><surname>Low</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Jaillet</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. International Conf. Autonomous Agents and Multiagent System</title>
+		<meeting>International Conf. Autonomous Agents and Multiagent System</meeting>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Autonomous chemical-sensing aerial robot for urban/suburban environmental monitoring</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>He</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Bourne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Steiner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mortensen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">C</forename><surname>Hoffman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Dudley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Rogers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Cropek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">K</forename><surname>Leang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Systems Journal</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="3524" to="3535" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Long-term exploration &amp; tours for energy constrained robots with online proprioceptive traversability estimation</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Martin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Corke</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. IEEE International Conf. Robotics and Automation (ICRA)</title>
+		<meeting>IEEE International Conf. Robotics and Automation (ICRA)</meeting>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="5778" to="5785" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Persistification of robotic tasks using control barrier functions</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Notomista</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">F</forename><surname>Ruf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Egerstedt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Robotics and Automation Letters</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="758" to="763" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Persistification of robotic tasks</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Notomista</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Egerstedt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Control Systems Technology</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="756" to="767" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Methods for state-of-charge determination and their applications</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Piller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Perrin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Jossen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Power Sources</title>
+		<imprint>
+			<biblScope unit="volume">96</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="113" to="120" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Dynamic models of Li-Ion batteries for diagnosis and operation: A review and perspective</title>
+		<author>
+			<persName><forename type="first">U</forename><surname>Krewer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Röder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Harinath</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Braatz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Bedürftig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Findeisen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of The Electrochemical Society</title>
+		<imprint>
+			<biblScope unit="volume">165</biblScope>
+			<biblScope unit="issue">16</biblScope>
+			<biblScope unit="page">3656</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The state of charge estimating methods for battery: A review</title>
+		<author>
+			<persName><forename type="first">W.-Y</forename><surname>Chang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Scholarly Research Notices</title>
+		<imprint>
+			<biblScope unit="volume">2013</biblScope>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">A closer look at state of charge (SOC) and state of health (SOH) estimation techniques for batteries</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Murnane</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ghazel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Analog Devices</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="426" to="436" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Least-squares based Coulomb counting method and its application for state-of-charge (SOC) estimation in electric vehicles</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Energy Research</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="1389" to="1399" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">A</forename><surname>Toliyat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">B</forename><surname>Kliman</surname></persName>
+		</author>
+		<title level="m">Handbook of electric motors</title>
+		<imprint>
+			<publisher>CRC press</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page">120</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Guaranteed vehicle safety control using control-dependent barrier functions</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">Z</forename><surname>Yong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">American Control Conference</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="983" to="988" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Integral control barrier functions for dynamically defined control laws</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">D</forename><surname>Ames</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Notomista</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wardi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Egerstedt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Control Systems Letters</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="887" to="892" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<title level="m" type="main">Long-duration robot autonomy: From control algorithms to robot design</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Notomista</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+		<respStmt>
+			<orgName>Georgia Institute of Technology</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Ph.D. dissertation</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<author>
+			<persName><forename type="first">J</forename><surname>Crank</surname></persName>
+		</author>
+		<title level="m">The mathematics of diffusion</title>
+		<imprint>
+			<publisher>Oxford university press</publisher>
+			<date type="published" when="1979">1979</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

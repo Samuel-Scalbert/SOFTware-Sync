@@ -1,0 +1,1169 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:space="preserve" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Nonlinear dimension reduction for surrogate modeling using gradient information</title>
+				<funder ref="#_EgYjbpJ">
+					<orgName type="full">US Department of Energy, Office of Advanced Scientific Computing Research</orgName>
+				</funder>
+				<funder>
+					<orgName type="full">CIROQUO consortium</orgName>
+				</funder>
+				<funder>
+					<orgName type="full">Inria</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher />
+				<availability status="unknown"><licence /></availability>
+				<date type="published" when="2021-02-20">February 20, 2021</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Daniele</forename><surname>Bigoni</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Center for Computational Science &amp; Engineering</orgName>
+								<orgName type="institution" key="instit1">Massachusetts Institute of Technology † Univ. Grenoble Alpes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">Grenoble INP</orgName>
+								<orgName type="institution" key="instit5">LJK</orgName>
+								<address>
+									<postCode>38000</postCode>
+									<settlement>Grenoble</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Youssef</forename><surname>Marzouk</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Center for Computational Science &amp; Engineering</orgName>
+								<orgName type="institution" key="instit1">Massachusetts Institute of Technology † Univ. Grenoble Alpes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">Grenoble INP</orgName>
+								<orgName type="institution" key="instit5">LJK</orgName>
+								<address>
+									<postCode>38000</postCode>
+									<settlement>Grenoble</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><surname>Cl Émentine Prieur</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Center for Computational Science &amp; Engineering</orgName>
+								<orgName type="institution" key="instit1">Massachusetts Institute of Technology † Univ. Grenoble Alpes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">Grenoble INP</orgName>
+								<orgName type="institution" key="instit5">LJK</orgName>
+								<address>
+									<postCode>38000</postCode>
+									<settlement>Grenoble</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author role="corresp">
+							<persName><forename type="first">Olivier</forename><surname>Zahm</surname></persName>
+							<email>olivier.zahm@inria.fr</email>
+							<affiliation key="aff0">
+								<orgName type="department">Center for Computational Science &amp; Engineering</orgName>
+								<orgName type="institution" key="instit1">Massachusetts Institute of Technology † Univ. Grenoble Alpes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">Grenoble INP</orgName>
+								<orgName type="institution" key="instit5">LJK</orgName>
+								<address>
+									<postCode>38000</postCode>
+									<settlement>Grenoble</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Nonlinear dimension reduction for surrogate modeling using gradient information</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2021-02-20">February 20, 2021</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">2F28CA0D1550B388C45024E2D6837313</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid" />
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>high-dimensional approximation</term>
+					<term>nonlinear dimension reduction</term>
+					<term>feature map</term>
+					<term>Poincaré inequality</term>
+					<term>adaptive polynomial approximation</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div><p>We introduce a method for the nonlinear dimension reduction of a high-dimensional function u : R d → R, d 1. Our objective is to identify a nonlinear feature map g : R d → R m , with a prescribed intermediate dimension m d, so that u can be well approximated by f • g for some profile function f : R m → R. We propose to build the feature map by aligning the Jacobian ∇g with the gradient ∇u, and we theoretically analyze the properties of the resulting g. Once g is built, we construct f by solving a gradient-enhanced least squares problem. Our practical algorithm makes use of a sample {x (i) , u(x (i) ), ∇u(x (i) )} N i=1 and builds both g and f on adaptive downwardclosed polynomial spaces, using cross validation to avoid overfitting. We numerically evaluate the performance of our algorithm across different benchmarks, and explore the impact of the intermediate dimension m. We show that building a nonlinear feature map g can permit more accurate approximation of u than a linear g, for the same input data set.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div><head n="1">Introduction</head><p>Computational models from a wide range of fields, such as physics, biology, and finance, involve large numbers of uncertain input parameters. Quantifying uncertainty is essential to improving the reliability of these models. Most uncertainty quantification analyses, however, require a large number of model evaluations. When a single evaluation is computationally expensive, a common practice is therefore to replace the model with a surrogate-meaning an approximation that can be evaluated cheaply, without further evaluations of the original model. Yet constructing accurate</p></div>
+<div><head n="1.1">Contribution</head><p>The main contribution of this paper is to propose and analyze a nonlinear parameter space dimension reduction method, for the purpose of function approximation, using gradients of the model. We assume here that the implementation of the computational model permits computing the gradient of x → u(x) with respect to the parameters x. Recent advances in computational science permit computing such gradients at a complexity comparable to that of evaluating the model itself, for instance using automatic differentiation <ref type="bibr" target="#b18">[19]</ref> and/or adjoint state methods <ref type="bibr" target="#b34">[35]</ref>. Having access to gradient evaluations is a valuable workaround in small-data regimes, as ∇u(X) constitutes additional information for learning the model; see <ref type="bibr" target="#b25">[26]</ref>. In this paper we propose to build g by minimizing the loss function J(g) = E ∇u(X) -Π range(∇g(X) T ) ∇u(X) 2 ,</p><p>where Π range(∇g(X) T ) denotes the orthogonal projector onto the range of the Jacobian ∇g(X) T . Intuitively, minimizing this loss yields a feature map whose Jacobian ∇g(X) tends to be aligned with the gradient ∇u(X). Based on the same heuristic, the authors of <ref type="bibr" target="#b46">[47]</ref> introduce a different loss function to align ∇g(X) with ∇u(X) (see Appendix A for more details) but without proposing a deeper mathematical or computational analysis. In the present paper, we prove that, under some assumptions, the loss J(g) yields an upper bound on the mean squared error that can be obtained after constructing f ; that is min</p><formula xml:id="formula_0">f :R m →R E[(u(X) -f • g(X)) 2 ] ≤ C J(g),</formula><p>for some Poincaré-type constant C associated with X. We propose a quasi-Newton algorithm to minimize J(g) and show that this algorithm is similar to the power iteration used to compute an eigendecomposition in the active subspace method.</p><p>In practice, we make use of a data set {x (i) , u(x (i) ), ∇u(x (i) )} N i=1 , to estimate the loss J(g) and the mean squared error E[(u(X) -f • g(X)) 2 ]. We assume that the computational cost is dominated by the N evaluations of u(x (i) ) and ∇u(x (i) ), such that the cost for constructing f and g is relatively negligible. Borrowing ideas from <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b29">30,</ref><ref type="bibr" target="#b9">10]</ref>, we represent both f and g on adaptive downward-closed polynomial spaces which are built using a greedy algorithm. In order to avoid overfitting, a cross validation procedure is used to determine when to stop the adaptive polynomial enrichment. We show that building a nonlinear feature map g permits more accurate approximation of u than a linear g, for the same input data set.</p><p>We emphasize that our method is a two step procedure: we first build the feature map g by minimizing J(g), and we then build f by minimizing the mean squared error E[(u(X) -f • g(X)) 2 ]. Another strategy would consist of minimizing the mean squared error jointly over f and g. For instance, in <ref type="bibr" target="#b19">[20]</ref> the authors build a linear g and polynomial f by employing dedicated optimization algorithms on Grassmann manifolds, without using gradients of the model. Nonlinear g are also built in <ref type="bibr" target="#b24">[25]</ref> by joint minimization over f and g. However, the structure of such optimization problems, and of the algorithms they employ, remain not well understood.</p><p>The rest of this paper is organized as follows. In Section 2 we analyze the problem of approximating a function u by a composition f • g. In particular, we give sufficient conditions on ∇g and ∇u so that there exists an f such that f • g = u. We then introduce the loss J(g) and describe its properties regarding the approximation problem. In Section 3 we present algorithms for constructing g and f on adaptive polynomial spaces. Then, in Section 4, we illustrate the method on numerical examples.</p></div>
+<div><head n="2">Dimension reduction via smooth feature maps 2.1 Problem statement</head><p>Let u : X → R be a scalar-valued function defined on an open set X ⊆ R d with d 1. Our goal is to construct a feature map g : X → R m with m d such that, given a prescribed tolerance ε &gt; 0, there exists a function f : R m → R for which E (u(X) -f (g(X))) 2 ≤ ε 2 .</p><p>(1)</p><p>Here, X denotes a random vector with probability density function π such that supp(π) = X , and E[•] denotes the mathematical expectation. The function f is called the profile function and m the intermediate dimension. The construction of the profile function is postponed to Section 3.3, and we focus here on how to find a suitable feature map g such that (1) is attainable for some f . We note that the f which minimizes the above mean squared error is the conditional expectation f : z → E[u(X)|g(X) = z]. This well-known result will be used later. We now give two trivial solutions to (1) which help to understand the problem:</p><p>• With g = Id, the identity function on X , the profile function f = u yields f • g = u. In this case we have m = d.</p><p>• With g = u, the profile f = Id also yields f • g = u with an intermediate dimension m = 1.</p><p>Those two trivial solutions are not satisfactory either because m = d 1 is large or because the computation of g = u is untractable. The balance between the intermediate dimension m and the complexity of the feature map g appears as a central question in dimension reduction. Our goal is to construct g in a tractable space G m of functions from X to R m . For instance, G m could be a space of multivariate polynomial functions, a reproducing kernel Hilbert space, etc. We emphasize the necessity of constraining the function g to belong to a space of tractable functions; otherwise problem (1) makes no sense, as it admits a trivial solution with g = u.</p></div>
+<div><head n="2.2">Aligned gradients</head><p>From now on, we assume that u : X → R is continuously differentiable over the open set X ⊆ R d and that all the functions in G m are also continuously differentiable.</p><formula xml:id="formula_1">Assumption 2.1. u ∈ C 1 (X ; R) and g ∈ G m ⊆ C 1 (X ; R m ).</formula><p>Let us assume for a moment that u is exactly of the form u = f • g for some g : X → R m and f : R m → R. Denoting by ∇f (z) ∈ R m the gradient of f at point z ∈ R m , and by</p><formula xml:id="formula_2">∇g(x) =    ∇g 1 (x) T . . . ∇g m (x) T    ∈ R m×d ,</formula><p>the Jacobian<ref type="foot" target="#foot_0">1</ref> of g at point x ∈ X , the chain rule allows writing ∇u(x) = ∇g(x) T ∇f (g(x)) for any x ∈ X . In this case, ∇u(x) lies in the subspace range(∇g(x) T ) for any x ∈ X . In short, we have Conversely, one can ask whether a function u which satisfies ∇u(x) ∈ range(∇g(x) T ) for some vector-valued differentiable function g is necessarily of the form of u = f • g for some f . The following proposition gives a positive answer to this question, under additional assumptions on g.</p><formula xml:id="formula_3">u = f • g =⇒ ∇u(x) ∈ range(∇g(x) T ), ∀x ∈ X .</formula><p>Assumption 2.2. The pre-image under g of any point is smoothly pathwise-connected ; that is, for any z ∈ Im(g) ⊆ R m and for any points x, y in the preimage g -1 (z) = {s ∈ X : g(s) = z}, there exists a continuously differentiable function γ</p><formula xml:id="formula_4">: [0, 1] → g -1 (z) such that γ(0) = x and γ(1) = y. Proposition 2.3. Under Assumptions 2.1 and 2.2, if u : X → R and g : X → R m satisfy ∇u(x) ∈ range(∇g(x) T ),<label>(2)</label></formula><p>for any x ∈ X , then u = f • g for some function f : R m → R.</p><p>Proof. We first show that relation (2) implies the following property: if g(x) = g(y) for some x, y ∈ X , then u(x) = u(y). Thus, let x, y ∈ X be any two points such that g(x) = g(y). By Assumption 2.2, the pre-image g -1 (z), z = g(x), is smoothly pathwise-connected so that there exsits a continuously differentiable path γ :</p><formula xml:id="formula_5">[0, 1] → X from x = γ(0) to y = γ(1) such that g(γ(t)) = z for any t ∈ [0, 1]. For any 1 ≤ i ≤ m the function g i • γ : [0, 1] → R is con- stant so that (g i • γ) (t) = ∇g i (γ(t)) T γ (t) = 0 for any t ∈ [0, 1]</formula><p>, where γ (t) ∈ R d denotes the derivative of γ at point t. This means that, for any t ∈ [0, 1], the vector γ (t) is orthogonal to span{∇g 1 (γ(t)), . . . , ∇g m (γ(t))} = range(∇g(γ(t)) T ). By (2) we then have</p><formula xml:id="formula_6">(u • γ) (t) = ∇u(γ(t)) T γ (t) = 0, which implies that the continuous function u • γ : [0, 1] → R is constant. Then u(x) = u(γ(0)) = u(γ(1)) = u(y).</formula><p>Now we build a function f : R m → R such that u = f • g. Such a function needs to be defined only on the image g(X ) ⊆ R m and can be set to zero on the complement of g(X ) in R m . We define f such that for any z ∈ g(X ), f (z) = u(x) where x ∈ X is any point such that g(x) = z. Even if this x is not unique, f (z) is uniquely defined because u(x) = u(y) whenever g(y) = g(x). By construction we have f (g(x)) = u(x) for any x ∈ X , which concludes the proof.</p><p>Let us note that Assumption 2.2 is a necessary condition in Proposition 2.3. Indeed, if the pre-images of g are not smoothly pathwise-connected, as in the right plot of Figure <ref type="figure" target="#fig_0">1</ref>, one can build a function u which satisfies (2) without being of the form f • g. For example, think of a smooth function u which is constant on each of the connected parts of g -1 (z) (so that (2) is satisfied) but which takes different values on each of those connected parts (so that u = f • g).</p><p>Here are some examples where Assumption (2.2) is satisfied.</p><p>Example 2.4 (Affine feature map). Any function g(x) = Ax + b with A ∈ R m×d and b ∈ R m satisfies Assumption 2.2, provided X is a convex set. Indeed, for any z ∈ R m , x, y ∈ g -1 (z), and t ∈ [0, 1], the quantity γ(t) := tx + (1 -t)y belongs to X and it satisfies g(γ(t)) = t(Ax + b) + (1t)(Ay + b) = z, which shows that γ is a continuously differentiable path in g -1 (z) from x to y.</p><p>Example 2.5 (Feature map following from a C 1 -diffeomorphism). Assume X is convex. One way to build functions which satisfy Assumption 2.2 is to consider a C 1 -diffeomorphism φ : X → X , meaning a continuously differentiable invertible function whose inverse is continuously differentiable, and to define g(x) = (φ 1 (x), . . . , φ m (x)) where φ i (x) is the i-th component of φ(x). Such a g satisfies Assumption 2.2: for any x, y ∈ X such that g(x) = g(y) = z, the function</p><formula xml:id="formula_7">γ(t) = φ -1 tφ(y) + (1 -t)φ(x) , defined for t ∈ [0, 1] is a smooth path from x = γ(0) to y = γ(1)</formula><p>as a composition of smooth functions. It is well defined because tφ(y) + (1 -t)φ(x) is in X by convexity. By construction we have φ(γ(t)) = tφ(y) + (1 -t)φ(x) and the m first components of that relation yield g(γ(t)) = tg(y) + (1 -t)g(x) = z. This shows that γ(t) ∈ g -1 (z), so that g satisfies Assumption 2.2.</p><p>Example 2.6 (Polynomial feature map). Consider the case where g is a polynomial function on X = R d . Assumption 2.2 is satisfied if and only if for any z ∈ g(X ), the zeros of the polynomial x → g(x) -z are pathwise-connected. Calculating the number of connected components (i.e., the zeroth Betti number) of an algebraic set like {x : g(x) -z = 0} is a difficult question, commonly encountered in algebraic geometry. Unfortunately, there is no easy answer to this question; see <ref type="bibr" target="#b36">[37]</ref>. Still, we show later in Section 4 that polynomials work well from a numerical point of view, even though Assumption 2.2 is not checked in practice.</p></div>
+<div><head n="2.3">Aligning the gradients</head><p>Motivated by Proposition 2.3, we propose to build g by minimizing a cost function which measures how "aligned" are the gradient ∇u(x) and the subspace range(∇g(x) T ). For any g : X → R m we introduce the cost function</p><formula xml:id="formula_8">J(g) = E ∇u(X) -Π range(∇g(X) T ) ∇u(X) 2 ,<label>(3)</label></formula><p>where Π range(∇g(X) T ) ∈ R d×d denotes the orthogonal projector onto range(∇g(X) T ) and • is the Euclidean norm on R d . Obviously we have J(g) ≥ 0. The following proposition shows that if J(g) = 0 then there exists a profile function f such that u = f • g.</p><p>Proposition 2.7. Let u : X → R and g : X → R m be continuously differentiable functions such that J(g) = 0. If g satisfies Assumption 2.2 and if</p><formula xml:id="formula_9">rank(∇g(x) T ) = m,<label>(4)</label></formula><p>for any x ∈ X , then there exists a function f : R m → R such that u = f • g.</p><p>Before we give the proof of Proposition 2.7, let us comment on condition (4). This condition is commonly encountered in implicit function theory. It ensures that, for all z ∈ g(X ), the level set g -1 (z) is a smooth manifold of dimension d -m; see for instance Theorem 4.3.1 in <ref type="bibr" target="#b21">[22]</ref>. One can easily check that (4) is satisfied in the case of affine feature maps g(x) = Ax + b with rank(A) = m, but also in the case of feature maps following from a C 1 -diffeomorphism; see Example 2.5.</p><p>Proof of Proposition 2.7. Let us assume for a moment that x → Π range(∇g(x) T ) is a continuous function from X to R d×d . Then x → ∇u(x) -Π range(∇g(x) T ) ∇u(x) is a continuous function, via products and sums of continuous functions. As J(g) = 0, then ∇u(x) -Π range(∇g(x) T ) ∇u(x) is equal to zero π-almost surely. By continuity, we have that ∇u(x) -Π range(∇g(x) T ) ∇u(x) is equal to zero for all x ∈ supp(π) = X , so that ∇u(x) ∈ range(∇g(x) T ) holds for any x ∈ X . Together with Assumption 2.2, Proposition 2.3 ensures the existence of f : R m → R such that u = f • g.</p><p>It remains to show that x → Π range(∇g(x) T ) is continuous. Let M (x) = ∇g(x)∇g(x) T ∈ R m×m . By Assumption (4) M (x) is invertible and we can write Π range(∇g(x) T ) = ∇g(x) T M (x) -1 ∇g(x) for any x ∈ X . For any δ ∈ R d we can write</p><formula xml:id="formula_10">M (x) -1 -M (x + δ) -1 sp ≤ M (x + δ) -1 sp M (x + δ)M (x) -1 -I d sp = λ min (M (x + δ)) -1 M (x + δ)M (x) -1 -I d sp ,</formula><p>where • sp denotes the spectral norm and where λ min (M (x + δ)) denotes the smallest eigenvalue of M (x + δ). Because the eigenvalues are continuous with respect to the matrix entries (see <ref type="bibr" target="#b37">[38]</ref>) and by Assumption (4), we have λ min (M (x + δ)) → λ min (M (x)) &gt; 0 as δ → 0. Therefore we have</p><formula xml:id="formula_11">λ min (M (x+δ)) -1 M (x+δ)M (x) -1 -I d sp → λ min (M (x)) -1 I d -I d sp = 0</formula><p>. This shows the continuity of x → M (x) -1 and therefore the continuity of x → Π range(∇g(x) T ) = ∇g(x) T M (x) -1 ∇g(x). This concludes the proof.</p><p>Next we consider the minimization problem min g∈Gm J(g),</p><p>where G m ⊆ C 1 (X ; R m ) is a set of tractable functions. In general, given some choice of G m , the minimum of the cost function will not be exactly zero, and thus an assumption of Proposition 2.7 will not hold. Using arguments based on Poincaré inequalities, Proposition 2.9 below shows that, under specific assumptions, there exists at least one function f :</p><formula xml:id="formula_13">R m → R such that E[(u(X) -f (g(X))) 2 ]</formula><p>is of the same order of magnitude as J(g). In other words, we will be able to control the L 2 -error in an approximation of u by making J(g) small. Let us first introduce the Poincaré inequality associated with a random variable.</p><p>Definition 2.8 (Poincaré inequality). Given a continuous random variable X M taking values in a smooth manifold M, the Poincaré constant C(X M ) ∈ [0, +∞] is defined as the smallest constant such that</p><formula xml:id="formula_14">E h(X M ) -E[h(X M )] 2 ≤ C(X M ) E ∇h(X M ) 2<label>(6)</label></formula><p>holds for any continuously differentiable function h : M → R. Here, the gradient ∇h(z) is a vector in T z (M), the tangent space of M at point z ∈ M. We say that X M satisfies the Poincaré inequality (6) if C(X M ) &lt; +∞.</p><p>We refer to <ref type="bibr" target="#b3">[4]</ref> for a simple proof of the Poincaré inequality for a large class of probability measures.</p><p>Proposition 2.9. Assume that the set of functions G m ⊆ C 1 (X ; R m ) is such that rank(∇g(x) T ) = m for all g ∈ G m and all x ∈ X . Furthermore, assume that G m satisfies</p><formula xml:id="formula_15">C(X|G m ) := sup g∈Gm sup z∈g(X ) C(X | g(X) = z) &lt; ∞,<label>(7)</label></formula><p>where X | g(X) = z denotes the random variable obtained by conditioning X on the event g(X) = z. Then, for any g ∈ G m , there exists a measurable f : R m → R such that</p><formula xml:id="formula_16">E u(X) -f (g(X)) 2 ≤ C(X|G m )J(g),<label>(8)</label></formula><p>where J(g) is defined as in <ref type="bibr" target="#b2">(3)</ref>.</p><p>Proof of Proposition 2.9. Let g ∈ G m . Because rank(∇g(x) T ) = m for any x ∈ X , the level set M = g -1 (z) for some z ∈ g(X ) is a smooth manifold of dimension d -m; see Theorem 4.3.1 in <ref type="bibr" target="#b21">[22]</ref>. Let u M : M → R be the restriction of u to M. Together with <ref type="bibr" target="#b6">(7)</ref>, the Poincaré inequality (6) with h = u M and X M = (X|g(X) = z) permits writing</p><formula xml:id="formula_17">E[(u(X M ) -E[u(X M )]) 2 ] = E[(u M (X M ) -E[u M (X M )]) 2 ] (6)&amp;(7) ≤ C(X|G m ) E[ ∇u M (X M ) 2 ]. (<label>9</label></formula><formula xml:id="formula_18">)</formula><p>Because M is a smooth manifold embedded in R d , the gradient ∇u M can be expressed by means of the gradient ∇u as follows</p><formula xml:id="formula_19">∇u M (x) = Π Tx(M) ∇u(x)<label>(10)</label></formula><p>for all x ∈ M, where Π Tx(M) ∈ R d×d is the orthogonal projector onto T x (M), the tangent space of M at x. Since M is a level set of g, we have T x (M) = ker(∇g(x)) = (range(∇g(x) T )) ⊥ (see for instance [1, Section 3.5.7]) so that</p><formula xml:id="formula_20">Π Tx(M) = Π ker(∇g(x)) = I d -Π range(∇g(x) T ) .<label>(11)</label></formula><p>Combining ( <ref type="formula" target="#formula_17">9</ref>) with ( <ref type="formula" target="#formula_19">10</ref>) and <ref type="bibr" target="#b10">(11)</ref> we obtain</p><formula xml:id="formula_21">E[(u(X M ) -E[u(X M )]) 2 ] ≤ C(X|G m ) E[ (I d -Π range(∇g(X M ) T ) )∇u(X M ) 2 ].<label>(12)</label></formula><p>Now, because X M is the conditional random variable X|g(X) = z, we can interpret any expectation E[φ(X M )] as a conditional expectation E[φ(X)|g(X) = z] for any integrable function φ : X → R. This manipulation permits rewriting the inequality ( <ref type="formula" target="#formula_21">12</ref>) as</p><formula xml:id="formula_22">E[(u(X)-E[u(X)|g(X)]) 2 | g(X) = z] ≤ C(X|G m ) E (I d -Π range(∇g(X) T ) )∇u(X) 2 g(X) = z</formula><p>Replacing z by the random variable Z = g(X) and taking the expectation on both sides, we obtain</p><formula xml:id="formula_23">E (u(X) -E[u(X)|g(X)]) 2 ≤ C(X|G m ) E (I d -Π range(∇g(X) T ) )∇u(X) 2 .</formula><p>Finally we define the measurable function</p><formula xml:id="formula_24">f : R m → R such that f (z) = E[u(X)|g(X) = z] for any z ∈ R m . We can write E[u(X)|g(X)] = f (g(X)</formula><p>) which yields <ref type="bibr" target="#b7">(8)</ref> and concludes the proof.</p><p>Proposition 2.9 ensures that, for any g ∈ G m , there exists a function f : R m → R such that the mean squared error between u and f • g is bounded by C(X|G m )J(g). This remarkable property justifies the use of the cost function J for the construction of g. Remark 2.10 (Linear feature maps and the Gaussian distribution). When X ∼ N (0, I d ) is a standard Gaussian random vector and when G m = {x → U x : U ∈ R m×d , U U T = I m } contains linear features, the constant C(X|G m ) is equal to 1. Indeed, the level sets g -1 (z) are affine subspaces and any conditional random variable of the form X|g(X) = z is Gaussian with identity covariance. Theorem 3.20 in <ref type="bibr" target="#b5">[6]</ref> ensures that C(X|g(X) = z) = 1 for any g ∈ G m and z ∈ g(X ), which yields C(X|G m ) = 1.</p><p>We conclude this section with an important property of J.</p><formula xml:id="formula_25">Consider a C 1 -diffeomorphism φ : R m → R m . Since ∇φ(x) ∈ R m×m is invertible for all x ∈ X , it holds that range(∇φ • g(X) T ) = range(∇g(X) T ∇φ(g(X)) T ) = range(∇g(X) T ). Thus we have J(φ • g) = J(g). (<label>13</label></formula><formula xml:id="formula_26">)</formula><p>This invariance reflects the following property of our initial dimension reduction problem (1): any composed function f • g can be written as the composition of f • φ -1 with φ • g so that the feature maps g and φ • g are equivalent with regard to the problem (1). The invariance (13) offers the possibility to arbitrarily impose the probability law of g(X). Indeed, under natural assumptions on g, there exists a C 1 -diffeomorphism φ = φ g depending on g so that φ g • g(X) follows, for instance, the standard normal distribution N (0, I d ); see <ref type="bibr" target="#b40">[41]</ref>. Replacing g by ḡ = φ g • g yields the same value of J(ḡ) = J(g) with ḡ(X) ∼ N (0, I d ). However, constructing φ g can be numerically expensive in practice. A more pragmatic way to exploit ( <ref type="formula" target="#formula_25">13</ref>) is simply to consider the affine transformation</p><formula xml:id="formula_27">φ g (z) = Cov(g(X)) -1/2 (z -E[g(X)]), which ensures that φ g • g(X)</formula><p>is centered with identity covariance. This affine map is readily computable and allows one to normalize the feature map g.</p><p>In the following, we will consider the constrained minimization problem</p><formula xml:id="formula_28">min g∈Gm E[g(X)]=0 Cov(g(X))=I d J(g).<label>(14)</label></formula><p>The constraints E[g(X)] = 0 and Cov(g(X)) = I d will be useful to stabilize the minimization algorithms, as described in the next section.</p></div>
+<div><head n="3">Algorithms</head><p>Based on the previous section, an approximation f • g of u can be obtained by first minimizing J(g) over some prescribed feature map space G m , and then by minimizing the mean squared error</p><formula xml:id="formula_29">E[(u(X) -f • g(X)) 2 ] over f ∈ F m .</formula><p>In this section we propose adaptive algorithms to construct a feature map space G m of the form</p><formula xml:id="formula_30">G m =      g : x →    g 1 (x) . . . g m (x)    where g i ∈ span{Φ 1 , . . . , Φ K }     <label>(15)</label></formula><p>and a profile function space F m of the form</p><formula xml:id="formula_31">F m = span{Ψ 1 , . . . , Ψ P },<label>(16)</label></formula><p>where Φ 1 , . . . , Φ K and Ψ 1 , . . . , Ψ P are polynomials defined on R d and R m , respectively. In practice we make use of a sample {(x (i) , u(x (i) ), ∇u(x (i) )} N i=1 of size N , which allows estimating J(g) by</p><formula xml:id="formula_32">J(g) := 1 N N i=1 ∇u(x (i) ) -Π range(∇g(x (i) ) T ) ∇u(x (i) ) 2 ,<label>(17)</label></formula><p>and the mean squared error E</p><formula xml:id="formula_33">[(u(X) -f • g(X)) 2 ] by 1 N N i=1 (u(x (i) ) -f • g(x (i) )) 2 .</formula><p>First we present in Section 3.1 an algorithm for the minimization of J(g) over a given (fixed) space G m . Then in Section 3.2 we propose a greedy procedure to enrich the space G m adaptively. A similar procedure will be presented in Section 3.3 for the construction of the polynomial space F m . For those adaptive algorithms, a cross-validation error analysis determines when to stop the enrichment procedures, as described in Section 3.4.</p></div>
+<div><head n="3.1">Maximizing the expectation of a Rayleigh quotient</head><p>Assume the basis {Φ 1 , . . . , Φ K } of the feature map space ( <ref type="formula" target="#formula_30">15</ref>) is given, with K ≥ m. We show that minimizing J(g) (or J(g)) over g ∈ G m boils down to the maximization of the expectation of a generalized Rayleigh quotient. We then propose a quasi-Newton algorithm to solve the problem.</p><p>With the notation Φ(x) = (Φ 1 (x), . . . , Φ K (x)) ∈ R K , any feature map g in the space G m defined by ( <ref type="formula" target="#formula_30">15</ref>) can be written as</p><formula xml:id="formula_34">g(x) = G T Φ(x),</formula><p>for some matrix G ∈ R K×m . In order to account for the constraints E[g(X)] = 0 and Cov(g(X)) = I d in ( <ref type="formula" target="#formula_28">14</ref>), we assume that E[Φ(X)] = 0 and we impose the constraint that G satisfy</p><formula xml:id="formula_35">G T Cov(Φ(X))G = I d .<label>(18)</label></formula><p>Assuming the Jacobian ∇g(X) = G T ∇Φ(X) has rank m almost surely, the orthogonal projector Π range(∇g(X) T ) can be expressed as</p><formula xml:id="formula_36">Π range(∇g(X) T ) = ∇g(X) T ∇g(X)∇g(X) T -1 ∇g(X),</formula><p>and the cost function J(g) becomes</p><formula xml:id="formula_37">J(g) = E ∇u(X) -Π range(∇g(X) T ) ∇u(X) 2 = E ∇u(X) 2 -E Π range(∇g(X) T ) ∇u(X) 2 = E ∇u(X) 2 -E ∇u(X) T ∇g(X) T ∇g(X)∇g(X) T -1 ∇g(X)∇u(X) = E ∇u(X) 2 -E trace G T A(X)G G T B(X)G -1 .</formula><p>Here, A(X) ∈ R K×K and B(X) ∈ R K×K are two symmetric positive semidefinite matrices given by</p><formula xml:id="formula_38">A(X) = ∇Φ(X)∇u(X)∇u(X) T ∇Φ(X) T , B(X) = ∇Φ(X)∇Φ(X) T .</formula><p>Minimizing g → J(g) over G m is the same as maximizing</p><formula xml:id="formula_39">R(G) = E trace G T A(X)G G T B(X)G -1 ,<label>(19)</label></formula><p>over G ∈ R K×m . Similarily, minimizing g → J(g) over G m is the same as maximizing</p><formula xml:id="formula_40">R(G) = 1 N N i=1 trace G T A(X (i) )G G T B(X (i) )G -1 ,<label>(20)</label></formula><p>over G ∈ R K×m . The quantity R(G) corresponds to the expectation of the generalized Rayleigh quotient associated with the matrix pair (A(X), B(X)), and R(G) to its Monte Carlo estimate. It is easier to recognize the generalized Rayleigh quotient when m = 1, since</p><formula xml:id="formula_41">G ∈ R K becomes a vector so that R(G) = E[ G T A(X)G G T B(X)G ] and R(G) = 1 N N i=1 G T A(x (i) )G G T B(x (i) )G .</formula><p>Generalized Rayleigh quotients are ubiquitous in dimension reduction; see <ref type="bibr" target="#b20">[21]</ref>. However, the expectations or sums of generalized Rayleigh quotients as in <ref type="bibr" target="#b18">(19)</ref> and <ref type="bibr" target="#b19">(20)</ref> are not common and appear to be much more difficult to maximize. As shown in <ref type="bibr" target="#b41">[42,</ref><ref type="bibr" target="#b47">48,</ref><ref type="bibr" target="#b48">49]</ref>, maximizing the sum of two generalized Rayleigh quotients is already a difficult task, which requires dedicated algorithms. In the particular case where the feature map is linear, however, maximizing R(G) can be done analytically, as shown by the next remark.</p><p>Remark 3.1 (Linear feature maps and active subspaces). The space of linear feature maps <ref type="bibr" target="#b14">(15)</ref> with Φ(x) = x, the identity map. In this case ∇Φ(x) = I d is independent of x so that A(X) = ∇u(X)∇u(X) T and B(X) = I d . The expected generalized Rayleigh quotient <ref type="bibr" target="#b18">(19)</ref> becomes the standard (matrix</p><formula xml:id="formula_42">G m = {x → G T x : G ∈ R d×m } corresponds to</formula><formula xml:id="formula_43">) Rayleigh quotient R(G) = trace((G T HG)(G T G) -1</formula><p>) where</p><formula xml:id="formula_44">H = E[∇u(X)∇u(X) T ].</formula><p>The maximum of G → R(G) is known to be attained by any matrix G ∈ R K×m whose columns span the m-dimensional dominant eigenspace of H. This subspace is sometimes called the active subspace; see <ref type="bibr" target="#b10">[11,</ref><ref type="bibr" target="#b11">12,</ref><ref type="bibr" target="#b44">45]</ref>. When considering the sample approximation R(G) in <ref type="bibr" target="#b19">(20)</ref>, the matrix H is simply replaced by its approximation H = 1 N N i=1 ∇u(x (i) )∇u(x (i) ) T . The accuracy of the active subspace recovery from H depends on the sample size N , on the active subspace dimension m, and on the spectrum of H; see <ref type="bibr" target="#b22">[23]</ref> for more details.</p><p>So far we have seen that, provided the basis Φ(x) = (Φ 1 (x), . . . , Φ K (x)) satisfies E[Φ(X)] = 0, the minimization problem ( <ref type="formula" target="#formula_28">14</ref>) can be rewritten as</p><formula xml:id="formula_45">min g∈Gm E[g(X)]=0 Cov(g(X))=I d J(g) g(x)=G T Φ(x) ⇐⇒ max G∈R K×m G T Cov(Φ(X))G=I d R(G).<label>(21)</label></formula><p>Next we propose a quasi-Newton method to solve this problem. The following proposition gives the expression for the gradient of G → R(G). The proof is given in Appendix B.</p><p>Proposition 3.2. Let A(X), B(X) ∈ R K×K be two random symmetric positive semidefinite matrices. Assume that for a given G ∈ R K×m , there exists ε &gt; 0 such that (G + δG) T B(X)(G + δG) is almost surely invertible for any δG ≤ ε. Then R(•) defined by ( <ref type="formula" target="#formula_39">19</ref>) is differentiable at G and its gradient</p><formula xml:id="formula_46">∇R(G) ∈ R K×m is such that (∇R(G)) ij = ∂R(G)</formula><p>∂G ij can be written as</p><formula xml:id="formula_47">∇R(G) = 2 H(G) -Σ(G) G vec mat ,<label>(22)</label></formula><p>where H(G) and Σ(G) are two symmetric positive semidefinite matrices in R (Km)× (Km) given by</p><formula xml:id="formula_48">H(G) = E (G T B(X)G) -1 ⊗ A(X)<label>(23)</label></formula><formula xml:id="formula_49">Σ(G) = E (G T B(X)G) -1 G T A(X)G(G T B(X)G) -1 ⊗ B(X) .<label>(24)</label></formula><p>Here, the notation (•) vec denotes the vectorization of a matrix, such that G vec ∈ R Km is the vertical concatenation of the columns of G ∈ R K×m . The matricization (•) mat is the reverse operation, such that (G vec ) mat = G. The notation ⊗ denotes the Kronecker product.</p><p>Starting at an initial guess G (0) ∈ R K×m , a quasi-Newton method for maximizing</p><formula xml:id="formula_50">G → R(G) is an iterative procedure G (k+1) = G (k) -(H (k) ) -1 ∇R(G (k)</formula><p>) where H (k) : R K×m → R K×m is an approximation to the Hessian of R(•) at point G (k) ; see <ref type="bibr" target="#b14">[15]</ref>. Because our goal is to maximize R(•), the operator H (k) should be chosen symmetric negative definite. We propose to use H (k) = -2Σ(G (k) ). This matrix naturally appears in the expression of the Hessian ∇ 2 R(G (k) ) when differentiating the relation <ref type="bibr" target="#b21">(22)</ref>. Assuming Σ(G (k) ) is invertible (we observe in practice that it is non-singular) the quasi-Newton iteration in vectorized form is</p><formula xml:id="formula_51">G (k+1) vec = G (k) vec -H (k) -1 ∇R(G (k) ) vec (22) = G (k) vec --2Σ(G (k) ) -1 2H(G (k) ) -2Σ(G (k) ) G (k) vec = Σ(G (k) ) -1 H(G (k) )G (k) vec . (<label>25</label></formula><formula xml:id="formula_52">)</formula><p>To account for the constraint</p><formula xml:id="formula_53">G T Cov(Φ(X))G = I m in (21), notice that, by the definition (19) of R(•), we have R(GM ) = R(G) for any invertible matrix M ∈ R m×m . By letting M = (G T Cov(Φ(X))G) -1/2 , the matrix G = GM satisfies the constraint G T Cov(Φ(X)) G = I m and yields the same Rayleigh quotient R( G) = R(G).</formula><p>Following this reasoning, we modify the iterations ( <ref type="formula" target="#formula_51">25</ref>) by adding a normalization step:</p><formula xml:id="formula_54">G (k+1/2) = Σ(G (k) ) -1 H(G (k) )G (k) vec mat ,<label>(26)</label></formula><formula xml:id="formula_55">G (k+1) = G (k+1/2) G (k+1/2)T Cov(Φ(X))G (k+1/2) -1/2 . (<label>27</label></formula><formula xml:id="formula_56">)</formula><p>Interestingly, this quasi-Newton procedure is very similar to a power iteration for solving eigenvalue problems; see the next remark.</p><p>Remark 3.3 (Quasi-Newton method and power iteration). Let us continue Remark 3.1, where G m is the space of linear feature maps. Recall that Φ(x) = x, A(X) = ∇u(X)∇u(X) T , B(X) = I d , and assume for simplicity that Cov(Φ(X)) = I d . Given an iterate G (k) such that G (k) G (k)T = I d , the matrices H(G (k) ) and Σ(G (k) ) introduced in ( <ref type="formula" target="#formula_48">23</ref>) and <ref type="bibr" target="#b23">(24)</ref> become</p><formula xml:id="formula_57">H(G (k) ) = I d ⊗H and Σ(G (k) ) = (G (k)T HG (k) ) ⊗ I d , where H = E[∇u(X)∇u(X) T ]. Using the relation ((S 2 ⊗ S 1 )G vec ) mat = S 1 GS 2</formula><p>for any symmetric matrices S 1 , S 2 , the quasi-Newton iteration <ref type="bibr" target="#b25">(26)</ref> becomes</p><formula xml:id="formula_58">G (k+1/2) = G (k)T HG (k) -1 ⊗ H G (k) vec mat = HG k G (k)T HG (k) -1 .<label>(28)</label></formula><p>Thus, the relation range(G (k+1) )</p><p>= range(G (k+1/2) )</p><p>= range(HG</p><formula xml:id="formula_61">(k) ) = range(H k+1 G (0) )</formula><p>holds and shows that the quasi-Newton iteration <ref type="bibr" target="#b25">(26)</ref> with the normalization step ( <ref type="formula" target="#formula_55">27</ref>) is precisely a power iteration method which aims to compute the m-dimensional dominant eigenspace of the matrix H.</p><p>In practice, the quasi-Newton method ( <ref type="formula" target="#formula_54">26</ref>) and ( <ref type="formula" target="#formula_55">27</ref>) can be used to maximize R(G) (20) by replacing H(G) and Σ(G) with their sample approximations:</p><formula xml:id="formula_62">H(G) = 1 N N i=1 (G T B(x (i) )G) -1 ⊗ A(x (i) ) Σ(G) = 1 N N i=1 (G T B(x (i) )G) -1 G T A(x (i) )G(G T B(x (i) )G) -1 ⊗ B(x (i) ).</formula><p>The procedure is summarized in Algorithm 1. In the next section, we propose a relevant choice for the initialization G 0 of Algorithm 1. We emphasize that assembling these Km-by-Km matrices would require the storage of K 2 m 2 scalars, which is obviously not affordable when K (and m) are large. In practice, we never assemble these matrices explicitly. Using the formulas</p><formula xml:id="formula_63">H(G)x = 1 N N i=1 A(x (i) )x mat (G T B(x (i) )G) -1 vec (29) Σ(G)x = 1 N N i=1 B(x (i) )x mat (G T B(x (i) )G) -1 G T A(x (i) )G(G T B(x (i) )G) -1 vec ,<label>(30)</label></formula><p>the matrix-vector products x → H(G)x and x → Σ(G)x are computationally tractable. In this sense, the matrices H(G) and Σ(G) are implicit matrices. For the calculation of x → Σ(G) -1 x, as required in <ref type="bibr" target="#b25">(26)</ref>, iterative solvers are well suited because they rely only on matrix-vector products; see <ref type="bibr" target="#b16">[17]</ref>. Here we use a conjugate gradient solver preconditioned with the diagonal matrix containing the diagonal of Σ(G).</p><p>Algorithm 1: Quasi-Newton method to maximize G → R(G).</p><p>Require: Computing the matrix-vector products x → H(G)x and x → Σ(G)x as in ( <ref type="formula">29</ref>) and <ref type="bibr" target="#b29">(30)</ref>.</p><formula xml:id="formula_64">Data: Training sample Input: Feature map space G m , initial guess G (0) ∈ R K×m , tolerance ε &gt; 0, max iteration K max Initialize k = 0 and stepsize = ε + 1 while k &lt; K max and stepsize ≥ ε do Compute b = H(G (k) )G (k) vec ∈ R Km Solve Σ(G (k) )x = b using preconditioned conjugate gradient Matricize x mat = (x) mat ∈ R K×m and update G (k+1/2) = G (k) -x mat Normalize G (k+1) = G (k+1/2) M -1/2 with M = G (k+1/2)T Cov(Φ(X))G (k+1/2) ∈ R m×m Update k ← k + 1 and stepsize ← x end Output: final iterate G (k)</formula></div>
+<div><head n="3.2">Adaptive polynomial feature map space</head><p>In the previous section we proposed an algorithm for minimizing g → J(g) over a given feature map space G m , as in <ref type="bibr" target="#b14">(15)</ref>. In this section, we borrow ideas from <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b29">30,</ref><ref type="bibr" target="#b9">10]</ref> to construct G m adaptively using multivariate polynomials.</p><p>We assume that the probability density function π of X is a product density π(x) = π 1 (x 1 ) . . . π d (x d ). For any 1 ≤ ν ≤ d we denote by {Φ ν 0 , Φ ν 1 , . . .} an orthonormal polynomial basis, with the degree of Φ ν i equal to i, such that</p><formula xml:id="formula_65">Φ ν i (x)Φ ν j (x)π ν (x)dx = δ ij ,</formula><p>holds for any i, j ≥ 0. For any multi-index α = (α 1 , . . . , α d ) ∈ N d , we define the multivariate polynomial Φ α as</p><formula xml:id="formula_66">Φ α (x) = d ν=1 Φ ν αν (x ν ),</formula><p>and, for a given multi-index set Λ K ⊆ N d of cardinality #Λ K = K, we introduce</p><formula xml:id="formula_67">G Λ K m =      x →    g 1 (x) . . . g m (x)    , g i ∈ span{Φ α ; α ∈ Λ K }      . (<label>31</label></formula><formula xml:id="formula_68">)</formula><p>This feature map space parametrized by Λ K is, up to a change of notation, of the form of G m in <ref type="bibr" target="#b14">(15)</ref>. The optimal multi-index set Λ K is that which minimizes the minimum of J(g) over g ∈ G Λ K m , meaning arg min</p><formula xml:id="formula_69">Λ K ⊆N d #Λ K =K min g∈G Λ K m J(g).<label>(32)</label></formula><p>This best K-term approximation problem is combinatorial and not tractable in practice. We propose a suboptimal solution to (32) using a greedy procedure of the form</p><formula xml:id="formula_70">Λ K+1 = Λ K ∪ {α K+1 },</formula><p>where α K+1 ∈ N d is a multi-index to determine. Suppose we are given Λ K and that the corresponding optimal feature map</p><formula xml:id="formula_71">g Λ K ∈ argmin g∈G Λ K m J(g)</formula><p>has been computed (for instance using Algorithm 1). The optimal multi-index α K+1 to add would be the one which minimizes α → J(g Λ K ∪{α} ). This would require the computation of g Λ K ∪{α} for many α ∈ N d , which is not affordable in practice. Instead we choose the multi-index α K+1 as the one which yields the steepest gradient of the function v → J(g</p><formula xml:id="formula_72">Λ K + vΦ α ) around v = 0, meaning α K+1 ∈ arg max α∈N d ∇ v J(g Λ K + vΦ α ) v=0 .<label>(33)</label></formula><p>The rationale behind <ref type="bibr" target="#b32">(33)</ref> is to select the polynomial Φ α which, once added to the feature map space G m , yields the best immediate improvement of J(•) when moving away from g Λ K in the direction Φ α . Maximization over the entire N d as in <ref type="bibr" target="#b32">(33)</ref> is not feasible in practice. A standard workaround is to search for the maximum over an arbitrary subset of N d with finite cardinality. The subset  {α ∈ N d , d i=1 α i ≤ p} is commonly used, as it corresponds to the polynomials Φ α with total degree bounded by p. However the cardinality of this subset is d+p d = (d+p)! p!d! which can still be very large. Borrowing ideas from <ref type="bibr" target="#b29">[30,</ref><ref type="bibr" target="#b30">31]</ref>, we propose an alternative strategy which relies on the notion of downward-closed sets; see <ref type="bibr" target="#b7">[8,</ref><ref type="bibr" target="#b9">10]</ref>. We assume that the set Λ K is downward-closed, meaning that</p><formula xml:id="formula_73">α ∈ Λ K and α ≤ α ⇒ α ∈ Λ K ,<label>(34)</label></formula><p>where α ≤ α means α i ≤ α i for all 1 ≤ i ≤ d. Intuitively, <ref type="bibr" target="#b33">(34)</ref> means that Λ K has a pyramidal shape that contains no hole. We denote by M(Λ K ) the reduced margin of Λ K , defined by</p><formula xml:id="formula_74">M(Λ K ) = {α ∈ N d \Λ K such that α -e i ∈ Λ K for all 1 ≤ i ≤ d with α i = 0}</formula><p>where e i denotes the i-th canonical vector of N d . By construction, any set of the form Λ K ∪ {α} with α ∈ M(Λ K ) remains downward closed, which is the fundamental property of the reduced margin. By searching for the new multi-index in the reduced margin of Λ K , as in</p><formula xml:id="formula_75">α K+1 ∈ argmax α∈M(Λ K ) ∇ v J(g Λ K + vΦ α ) v=0 ,</formula><p>we ensure that Λ K+1 remains downward closed. This is illustrated on Figure <ref type="figure" target="#fig_2">2</ref>. As pointed out in <ref type="bibr" target="#b29">[30,</ref><ref type="bibr" target="#b9">10]</ref> in the context of least-squares regression, adding multiple multi-indices at each greedy iteration could yield better performance compared to adding only one multi-index at a time. Instead of the enrichment Λ K+1 = Λ K ∪ {α K+1 }, we consider the so-called bulk chasing procedure</p><formula xml:id="formula_76">Λ K+1 = Λ K ∪ λ K+1 , where λ K+1 ⊆ M(Λ K ) is the smallest set of multi-indices such that   α∈λ K+1 ∇ v J(g Λ K + vΦ α ) v=0 2   ≥ θ   α∈M(Λ K ) ∇ v J(g Λ K + vΦ α ) v=0 2   ,<label>(35)</label></formula><p>for some parameter 0 &lt; θ ≤ 1. That is, λ K+1 contains the #λ K+1 largest values of ∇ v J(g Λ K + vΦ α ) v=0 which capture a prescribed fraction θ of the norm of the gradient of J on the reduced margin. With the bulk chasing procedure we have #Λ K = K in general. This procedure is summarized in Algorithm 2. We choose to start the algorithm with the set</p><formula xml:id="formula_77">Λ K = Λ d = {α ∈ N d : d i=1 α i = 1}</formula><p>. This corresponds to the space of linear feature maps and, as explained in Remark 3.3, Algorithm 1 boils down to a power iteration for which a random initialization works well. Later, we initialize Algorithm 1 by adding a row of zeros to G Λ K to account for the newly added basis terms. Notice that Algorithm 2 stops after K max iterations. We will explain in Section 3.4 how to use cross validation to determine K max .</p><p>Algorithm 2: Construction of feature map g on a downward-closed polynomial space Data: Training sample Input: Intermediate dimension m, max iteration K max , parameter θ</p><formula xml:id="formula_78">Initialize K = d and Λ K = {α ∈ N d : d i=1 α i = 1} Compute G Λ K ∈ R d×m using Algorithm 1 with random initialization. Define g Λ K (x) = G T Λ K x for K = d, . . . , K max -1 do Compute ∇ v J(g Λ K + vΦ α )| v=0 for all α ∈ M(Λ K ) Select λ K+1 as in (35) Update Λ K+1 = Λ K ∪ λ K+1 and G Λ K+1 m Compute G Λ K+1 ∈ G Λ K+1 m</formula><p>using Algorithm 1 initialized with</p><formula xml:id="formula_79">G (0) Λ K+1 = G Λ K [0, . . . , 0] ∈ R (K+1)×m Define g Λ K+1 (•) = G T Λ K+1 Φ(•), where Φ = [Φ 1 , . . . , Φ α K+1 ] : R d → R K+1 end Output: final iterate g Λ Kmax</formula><p>Remark 3.4. The greedy procedure of Algorithm 2 can get stuck because it "doesn't see" behind the reduced margin. For instance, if a relevant index is located above M(Λ K ) and if the gradient vanishes on the reduced margin, the algorithm will never activate that index. <ref type="bibr" target="#b30">[31]</ref> suggests a safeguard mechanism to avoid this: arbitrarily activate the most ancient index from the reduced margin every n-th iteration. In our numerical tests, however, we never needed such a safeguard mechanism.</p></div>
+<div><head n="3.3">Adaptive polynomial profile function space</head><p>In this section we assume the feature map g has been computed using Algorithm 2. We now build the profile function f in a polynomial space F m . As in the previous section, we propose to greedily enrich F m so that the minimum of the empirical mean squared error</p><formula xml:id="formula_80">E g (f ) = 1 N N i=1 (u(x (i) )-f •g(x (i) )) 2 over f ∈ F m is minimized.</formula><p>Since the gradients u(x (1) ), . . . , u(x (N ) ) are available, we instead consider the gradient-enhanced empirical mean squared error,</p><formula xml:id="formula_81">E ∇ g (f ) = 1 N N i=1 (u(x (i) ) -f • g(x (i) )) 2 + ∇u(x (i) ) -∇f • g(x (i) ) 2 . (<label>36</label></formula><formula xml:id="formula_82">)</formula><p>Using E ∇ g (f ) instead of E g (f ) is known to yield better mean squared error in the small sample regime; see <ref type="bibr" target="#b32">[33]</ref>. This will be illustrated in the next section. Given a finite multi-index set Γ L ⊆ N m we introduce</p><formula xml:id="formula_83">F Γ L m = span{Ψ α ; α ∈ Γ L },<label>(37)</label></formula><p>where Ψ α denotes the α-th multivariate Hermite polynomial. These polynomials form an orthogonal basis of L 2 N (0,Im) . In the present context it would have been preferable to work with a L 2 g µorthogonal basis, but such a basis is not readily obtainable as it would require computing expensive high-dimensional integrals (e.g., for a Gram-Schmidt procedure). We justify the use of Hermite basis by the fact that, since g(X) is centered and has identity covariance (recall the constraints in ( <ref type="formula" target="#formula_28">14</ref>)), {Ψ α } α∈N d is a relatively well conditioned basis in L 2 g µ . We show numerically in Section 4 that Hermite polynomials perform well.</p><p>As in the previous section, we propose to build a sub-optimal solution to the best L-term approximation problem min</p><formula xml:id="formula_84">Γ L ⊆N d #Γ L =L min f ∈F Γ L m E ∇ g (f )</formula><p>by greedily constructing the multi-index set as follows:</p><formula xml:id="formula_85">Γ L+1 = Γ L ∪ λ L+1 , where λ L+1 ⊆ M(Γ L ) is the smallest multi-index set such that   α∈λ L+1 d dt E ∇ g (f Γ L + tΨ α ) t=0 2   ≥ θ   α∈M(Γ L ) d dt E ∇ g (f Γ L + tΨ α ) t=0 2   . (<label>38</label></formula><formula xml:id="formula_86">)</formula><p>Here, f Γ L denotes the minimizer of E ∇ g (f ) over f ∈ F Γ L m and M(Γ L ) the reduced margin of Γ L . This is summarized in Algorithm 3. Since E ∇ g (f ) is quadratic in f , this algorithm corresponds to an Orthogonal Matching Pursuit (OMP) approach, as explained in the next remark. m with w = (w 1 , . . . , w L ) T ∈ R L , the gradient-enhanced empirical mean squared error <ref type="bibr" target="#b35">(36)</ref> can be written as E ∇ g (f ) = y -Aw 2 , where y ∈ R N (d+1) is given by 1) ) . . . u(x (N ) ) ∇u(x (1) ) . . . ∇u(x (N ) ) vec and the α-th column of the matrix 1) ) . . . Ψ α (z (N ) ) ∇g(x (1) )∇Ψ α (z (1) ) . . . ∇g(x (N ) )∇Ψ α (z (N ) ) vec with z (i) = g(x (i) ). Recall that the subscript "vec" stands for the vectorization of a matrix. Thus we have</p><formula xml:id="formula_87">y = 1 √ N u(x<label>(</label></formula><formula xml:id="formula_88">A = [A α 1 • • • A α L ] ∈ R N (d+1)×L is A α = 1 √ N Ψ α (z<label>(</label></formula><formula xml:id="formula_89">| d dt E ∇ g (f + tΨ α )| t=0 | = |A T α (y -Ax L )|</formula><p>, which shows that the selection procedure (38) corresponds to choosing the (nonactive) column of A α which is most correlated with the residual y -Ax L . This is similar to the OMP algorithm <ref type="bibr" target="#b39">[40]</ref>; the difference is that, instead of seeking α in a prescribed set, Algorithm <ref type="bibr" target="#b37">(38)</ref> seeks α in M(Γ L ), which evolves during the iteration process.</p></div>
+<div><head n="3.4">Cross-validation</head><p>Algorithms 2 and 3 need to be stopped before they begin overfitting the data. We employ the ν-fold cross-validation procedure decribed in Algorithm 4. It consists of partitioning the initial sample Ξ = {(x (i) , u(x (i) ), ∇u(x (i) )} N i=1 into ν subsets Ξ train </p><formula xml:id="formula_90">f Γ 0 = min{ E ∇ g (f ); f ∈ F Γ 0 m } for L = 0, . . . , L max -1 do Compute | d dt E ∇ g (f + tΨ α )| t=0 | for all α ∈ M(Γ L ) Select λ L+1 as in (38) Update Γ L+1 = Γ L ∪ λ L+1 and F Γ L+1 m Solve the least-squares problem f Γ L+1 = min{ E ∇ g (f ); f ∈ F Γ L+1 m } end Output: final iterate f Γ Lmax</formula><p>3) are those which minimize the test error averaged over the ν folds. With these numbers in hand, we then run K * and L * iterations of the algorithms on the entire sample.</p><p>In Algorithm 4, we use the same sample to train both f and g. Alternatively, we can build f and g using two independent samples. We tried this alternative without obtaining significant improvement. Thus, in the context where the model u is expensive to evaluate, we recommend training f and g on the same sample.</p><p>Algorithm 4: Learning a composed model f • g ≈ u using values and gradients of u</p><formula xml:id="formula_91">Data: Sample {(x (i) , u(x (i) ), ∇u(x (i) )} N i=1</formula><p>Input: Intermediate dimension m, max iteration K max and L max , number of folds ν Partition the data set Ξ = {(x (i) , u(x (i) ), ∇u(x (i) )} N i=1 for cross validation Partition Ξ into ν subsets of equal cardinality:</p><p>i-th test set:</p><formula xml:id="formula_92">Ξ test i is the i-th subset of Ξ -i-th training set: Ξ train i = Ξ\Ξ test i</formula><p>Construction of the feature map for i = 1, . . . , ν do Run K max iterations of Algorithm 2 on the i-th training set Store the iterates g (1) , . . . , g (Kmax)  Monitor the loss J i,j = J(g (j) ), 1 ≤ j ≤ K max , on the i-th test set end Define K * as the minimum of the mean j → 1 ν ν i=1 J i,j Run K * iterations of Algorithm 2 using the whole sample Ξ return feature map g = g (K * ) Construction of the profile for i = 1, . . . , ν do Run L max iterations of Algorithm 3 on the i-th training set Store the iterates f (1) , . . . , f (Lmax)  Monitor the mean squared error E i,j = E g (f (j) ), 1 ≤ j ≤ L max , on the i-th test set end Define L * as the minimum of the mean j → 1 ν ν i=1 E i,j Run L * iterations of Algorithm 3 using the whole sample Ξ return profile function f = f (L * )</p><p>Output: Composed approximation f • g</p></div>
+<div><head n="4">Numerical examples</head><p>Source code for the algorithms above and numerical experiments below is freely available<ref type="foot" target="#foot_1">2</ref> so that all results presented here are entirely reproducible. Our implementation uses the toolbox Approxi-mationToolbox <ref type="bibr" target="#b2">[3]</ref>.</p></div>
+<div><head n="4.1">Isotropic function</head><p>We first consider the function u : R d → R with d = 20 defined by  and we let µ = N (0, I d ) be the standard normal distribution. This function is isotropic: it cannot be well approximated by f •g with a linear feature map g. However, if one allows g to be a quadratic polynomial, the function g(x) = x 2 1 + . . . + x 2 20 = x 2 2 allows one to write u = f • g with a rather simple one-dimensional profile function, f (z) = cos( √ z). First we assess the performance of the quasi-Newton method (Algorithm 1) for the minimization of g → J(g) over a fixed space of feature maps G m . Results are reported in Figure <ref type="figure" target="#fig_6">3</ref>. During the first 20 iterations, G m is chosen to be the space of linear feature maps; after the 21st iteration, G m is enlarged to contain linear and quadratric feature maps. During the first period, we observe a rapid convergence of J(g) towards a plateau which decreases with m. Once the quadratic terms are activated, J(g) converges toward zero at an exponential rate. This shows the efficiency of the quasi-Newton approach in Algorithm 1 for building g on a fixed function space G Λ K m . We observe that the convergence rates are not the same for m = 1, m = 5, and m = 10.</p><formula xml:id="formula_93">u(x) = cos( x 2 ),</formula><p>Figure <ref type="figure" target="#fig_11">4a</ref> shows the behavior of the adaptive Algorithm 2 for constructing a feature map g. Recall that Algorithm 2 is initialized with Λ K = {α ∈ N 20 : d i=1 α i = 1}, which corresponds to the space of linear feature maps. For this experiment, we enrich Λ K with only one multi-index at a time, i.e., Λ K+1 = Λ K ∪ {α K+1 } with α K+1 as in <ref type="bibr" target="#b32">(33)</ref>. We observe that the algorithm is always capable of building a polynomial g such that J(g) = 0 with very few greedy iterations. Note that for large m, J(g) = 0 is attained earlier, i.e., for smaller #Λ K . To explain this phenomenon, Table <ref type="table">1</ref> lists a few exact decompositions u = f • g, where we see that a large intermediate dimension m compensates for a small feature map space #Λ K .</p><p>Figure <ref type="figure" target="#fig_11">4b</ref> shows the performance of Algorithm 3. We set the bulk chasing parameter to θ = 0.3 and we run a cross-validation procedure (Algorithm 4) with ν = 5 folds to determine when to stop the enrichment process. With m = 1, the algorithm is capable of recovering a very accurate approximation to u (error below 10 -4 ) with only N = 100 samples. In contrast, using the same sample, a full dimensional polynomial approximation (black curves in Figure <ref type="figure" target="#fig_11">4b</ref>) can barely attain errors below 10 -1 . With intermediate dimensions m = 5 and m = 10, we still outperform the full dimensional approach d = m, but the error does not reach 10 -2 . This example nicely illustrates the fundamental issue of balancing the complexity between f and g:     . First, we construct g using Algorithm 2 (left plot) and then, given g, we construct f using Algorithm 3 (right plot). Both J(g) and E[(u(X) -f • g(X)) 2 ] are computed here on a large validation sample of size 2000.</p><formula xml:id="formula_94">#Γ L E[(u(X) -f • g(X)) 2 ] m = 1 m = 5 m = 10 m = d</formula><p>• With m = 1, we obtain a complex g ∈ G Λ K m with #Λ K ≥ 40 and a simple f ∈ F Γ L m with #Γ L ≤ 5. Error is below 10 -4 .</p><p>• With m = 5 or m = 10, we obtain a simpler g ∈ G Λ K m with 30 ≤ #Λ K ≤ 40 and a more complex</p><formula xml:id="formula_95">f ∈ F Γ L m with 20 ≤ #Γ L ≤ 100. Error is around 2 × 10 -2 . • With m = d, (no dimension reduction) g(x) = x is linear and f ∈ F Γ L</formula><p>m with #Γ L ≥ 300. Error barely falls below 10 -1 .</p><p>Clearly, for the considered isotropic function, the optimal choice of intermediate dimension is m = 1. We will see in the next examples that this is not always the case.</p></div>
+<div><head n="4.2">Borehole function</head><p>Our second example is the commonly used Borehole function <ref type="bibr" target="#b38">[39]</ref>, which models water flow through a borehole. It is a function of d = 8 variables defined by</p><formula xml:id="formula_96">u(X) = 2πT u (H u -H l ) ln(r/r w ) 1 + 2LTr ln(r/rw)r 2 w Kw + Tr T l ,</formula><p>where X is a random vector in R d with independent components given by</p><formula xml:id="formula_97">X 1 = r w ∼ N (0.10, 0.0161812), X 5 = r ∼ log N (7.71, 1.0056), X 2 = T u ∼ U[63070, 115600], X 6 = H u ∼ U[990, 1110], X 3 = T l ∼ U[63.1, 116], X 7 = H l ∼ U[700, 820], X 4 = L ∼ U[1120, 1680], X 8 = K w ∼ U[9855, 12045]. m = 1 f (z) = cos( √ z) g(x) = (x 2 1 + . . . + x 2 20 ) #Λ K = 40 m = 2 f (z 1 , z 2 ) = cos( z 2 1 + z 2 ) g(x) = x 1 x 2 2 + . . . + x 2 20 #Λ K = 39 . . . . . . . . . . . . m = 19 f (z 1 , . . . , z 19 ) = cos( z 2 1 + . . . + z 2 18 + z 19 ) g(x) =      x 1 . . . x 18 x 2 19 + x 2 20      #Λ K = 22 m = 20 f (z 1 , . . . , z 20 ) = cos( z 2 1 + . . . + z 2 20 ) g(x) =    x 1 . . . x 20    #Λ K = 20 Table 1: Isotropic function. List of exact decompositions u = f •g with polynomials g ∈ G Λ K m</formula><p>with #Λ K ranging from 40 (and m = 1) to 20 (and m = 20). This explains why, in Figure <ref type="figure" target="#fig_11">4a</ref>, J(g) drops to zero earlier in #Λ K when m is large.</p><p>We first numerically illustrate Proposition 2.9. Recall that this proposition states that, given g ∈ G m , there exists a function f such that the mean squared error E[(u(X) -f (g(X))</p><p>2 ] is bounded by J(g) multiplied by the Poincaré-type constant C(X|G m ). In general, C(X|G m ) is unknown. We build three feature maps g: a linear map, a quadratic map, and a cubic map defined as the minimizers of J(g) over the polynomial spaces</p><formula xml:id="formula_98">G Λ lin m where Λ lin = α ∈ N 8 : 1 ≤ 8 i=1 α i ≤ 1 , #Λ lin = 8, G Λ quad m where Λ quad = α ∈ N 8 : 1 ≤ 8 i=1 α i ≤ 2 , #Λ quad = 44, G Λ cub m where Λ cub = α ∈ N 8 : 1 ≤ 8 i=1 α i ≤ 3 , #Λ cub = 164,</formula><p>respectively. To compute these feature maps, we estimate J(g) with N = 30, 60, or 150 samples. The dashed curves in Figure <ref type="figure" target="#fig_13">5</ref> are the resulting J(g) (computed on a validation set of size N = 2000) as a function of m. Once g is built, we construct the profile f using Algorithm 3 on the same sample. The continuous lines in Figure <ref type="figure" target="#fig_13">5</ref> represent E[(u(X) -f • g(X)) 2 ] (computed on the validation set).</p><p>As the sample size N increases, we obtain a better profile function f , and the mean squared error decreases until it falls below J(g). We also observe that the larger m is, the higher N must be to obtain a mean squared error below J(g). Domination of the mean squared error by J(g) is consistent with Proposition 2.9 with a Poincaré-type constant C(X|G m ) that seems to be close to one for this benchmark.</p><p>In the limit N → ∞, g converges towards the optimal linear/quadratic/cubic feature map while the profile function f , built adaptively in Algorithm 3, converges towards the solution of min</p><formula xml:id="formula_99">f :R m →R E[(u(X) -f • g(X)) 2 ].</formula><p>With a larger polynomial degree for g, the best achievable error min f :R m →R E[(u(X) -f • g(X)) 2 ] is smaller and so we obtain a better approximation f • g to u. Notice, however, that when the mean  </p><formula xml:id="formula_100">[(u(X) -f • g(X)) 2 ],</formula><p>Dashed lines: cost function J(g). The width of the shaded region corresponds to the standard deviation over 20 experiments. The feature map g is built by minimizing J(g) using Algorithm 1 on samples of size N ∈ {30, 60, 150}. To build f , we employ Algorithm 3 on the same sample with bulk-chasing parameter θ = 0.3 and a five-fold cross-validation procedure to stop the iterations.</p><p>squared error is far above J(g) (typically for large m), increasing the polynomial degree of g does not significantly improve the approximation f • g. The interpretation is that if we cannot build a sufficiently accurate profile function f (either because m is too large or N is too small), there is no benefit in having a complex (i.e., high polynomial degree) feature map g.</p><p>We now build both g and f adaptively using Algorithm 4 with parameters θ = 0.3 and ν = 5 (from now on we use these parameters by default). Compared to the previous experiments where the polynomial degree of g was fixed, the mean squared errors shown in Figure <ref type="figure" target="#fig_14">6a</ref> go to zero when N → ∞, even for small m. Figure <ref type="figure" target="#fig_14">6b</ref> shows the cardinalities of Λ K and Γ L as functions of the intermediate dimension m. We clearly see that, for small m, our adaptive algorithm builds complex feature maps and simple profile functions. For large m, it is the other way around.</p><p>From Figure <ref type="figure" target="#fig_14">6a</ref>, it seems that the optimal intermediate dimension m depends on N : for small sample size N = 30 or N = 60, the best intermediate dimension is m = 2 or m = 3. For N = 150, however, one clearly obtains better results with m = d, meaning without dimension reduction, i.e., u(x) ≈ f (x) with g(x) = x.</p></div>
+<div><head n="4.3">Composed function</head><p>We consider now the benchmark introduced in <ref type="bibr" target="#b17">[18]</ref> defined as a deep composition of functions. We consider the function u of d = 16 variables defined by u(x) = h h h(h(x 1 , x 2 ), h(x 3 , x 4 )), h(h(x 5 , x 6 ), h(x 7 , x 8 )) , h h(h(x 9 , x 10 ), h(x 11 , x 12 )), h(h(x 13 , x 14 ), h(x 15 , x 16 )) , where h(s, t) = 9 -1 (1 + st) 2 and we let X be the random vector with uniform measure on [-1, 1] 16 . This function u is a polynomial (as a composition of polynomials) and can readily be written as u = f • g for m = 2, 4, 8 with polynomials f and g. Numerical results are reported in Figure <ref type="figure" target="#fig_16">7</ref>. For each choice of N and m, after constructing the feature map g via Algorithm 2 and the cross-validation procedure in the first half of Algorithm 4, we illustrate the benefits of the gradient-enhanced construction of the profile function f by building it either with gradient-free least squares (i.e., by minimizing</p><formula xml:id="formula_101">E g (f ) = 1 N N i=1 (u(x (i) ) -f • g(x (i) )) 2 )</formula><p>or with gradient-enhanced least squares (i.e., by minimizing E ∇ g (f ) in <ref type="bibr" target="#b35">(36)</ref>). For large m, the gradient-enhanced approach clearly outperforms the gradient-free approach, but for small m, both approaches perform equally. It seems that, for small m, the profile can be estimated accurately using evaluations of u(x (i) ) only. Since gradients are needed to construct g regardless, our recommendation is always to use the gradient-enhanced approach to construct f , as it makes better use of the available information.</p><p>For this benchmark, it seems that m = 2 is the best intermediate dimension for the considered range of sample sizes N . With this choice, the mean squared error can be reduced by around a factor of 10 over a full-dimensional function approximation scheme that simply uses g = Id with the same sample.</p></div>
+<div><head n="4.4">Resonance frequency of a bridge</head><p>Our last numerical experiment is a PDE-based model where the quantity of interest u(x) is the smallest resonance frequency of a 2D structure which has the shape of a bridge, as shown in Figure <ref type="figure" target="#fig_17">8</ref>. Here, x parameterizes the Young modulus field of the structure. An important feature of this problem is that, while it relies on a complex numerical model, one can evaluate the gradient ∇u(x) with the same computational cost as that of an evaluation of u(x), as we shall explain below.</p><p>To model the structure, we consider a linear elasticity problem in two spatial dimensions under plane stress assumption. After finite element discretization, the smallest resonance frequency u(x)  The line (resp. the width of the shades) corresponds to the mean (resp. the variance) over 20 experiments. Figure <ref type="figure" target="#fig_16">7a</ref>: f is built by minimizing the gradient-free mean square <ref type="figure" target="#fig_16">7b</ref>: f is built by minimizing by minimizing E g (f ), see <ref type="bibr" target="#b35">(36)</ref>. Figure <ref type="figure" target="#fig_16">7c</ref>: cardinalities of Λ K and of Γ L (with the gradient-enhanced construction of f ).</p><formula xml:id="formula_102">E g (f ) = 1 N N i=1 (u(x (i) ) -f • g(x (i) )) 2 . Figure</formula><p>is defined as the minimum of a Rayleigh quotient</p><formula xml:id="formula_103">u(x) = min v∈R n v T K(x)v v T M v ,</formula><p>where K(x) ∈ R n×n and M ∈ R n×n are the stiffness and the mass matrices given by</p><formula xml:id="formula_104">K ij (x) = Ω E(x) 1 + ν ε(φ i ) + νE(x) 1 -ν 2 trace(ε(φ i ))I 2 , ε(φ j ) F dΩ, M ij = Ω φ i , φ j dΩ.</formula><p>Here, n = 960 is the number of nodes in the finite element mesh,</p><formula xml:id="formula_105">φ i : Ω → R 2 is the i-th finite element function, ε(v) = 1 2 (∇v + ∇v T ) ∈ R 2×2 is the strain tensor, •, • F is the Frobenius scalar product in R 2×2 , and •, • the canonical scalar product in R 2 . The Poisson coefficient is set to ν = 0.3 and the Young modulus field E(x) : Ω → R is parameterized by a d = 32-dimensional parameter x ∈ R d as follows, E(x) = exp 32 i=1 x i √ σ i ψ i ,</formula><p>where ψ i : Ω → R and σ i are the i-th leading eigenfunctions and eigenvalues of the Gaussian kernel c(s, t) = √ 5 exp(-s -t 2 2 /20). We endow the parameter X with the standard normal distribution on R 32 .</p><p>We denote by </p><formula xml:id="formula_106">v(x) = argmin v∈R n v T K(x)v v T M v ,</formula><formula xml:id="formula_107">∂ x i u(x) = v(x) T ∂ x i K(x) v(x) v(x) T M v(x) .<label>(39)</label></formula><p>To show this, let us write u <ref type="bibr" target="#b38">(39)</ref>. By definition of E(x) and K(x), the matrix ∂ x i K(x) is given by</p><formula xml:id="formula_108">(x) = R(v(x), x) where R(v, x) = v T K(x)v v T M v is the Rayleigh quotient. By definition of v(x) we have ∇ v R(v(x), x) = 0 so that a chain rule derivative yields ∂ x i u(x) = ∇ v R(v(x), x) T ∂ x i v(x) + ∂ x i R(v(x), x) = ∂ x i R(v(x), x), which is</formula><formula xml:id="formula_109">∂ x i K kl (x) = Ω √ σ i ψ i E(x) 1 + ν ε(φ k ) + νE(x) 1 -ν 2 trace(ε(φ k ))I 2 , ε(φ l ) F dΩ.</formula><p>The cost of assembling ∂ x i K for 1 ≤ i ≤ d is negligible compared to the cost of computing the eigenmode v(x), which requires an expensive inverse power iteration method. In other words, once v(x) is computed, one can evaluate both u(x) and ∇u(x) almost for free.</p><p>In Table <ref type="table" target="#tab_1">2</ref> we report the performance of Algorithm 4 on this benchmark, for a sample size N = 100 and a range of values of m. The best performance is obtained with an intermediate dimension of m = 3. For m = 8 or m = 16, the mean squared error is slightly higher than for m = d, meaning when we don't reduce the dimension. As before, we observe that a small intermediate dimension m yields complex feature maps g (i.e., large #Λ K ) and simple profiles f (i.e., small #Γ L ). 1.6 1.5  </p><formula xml:id="formula_110">[(u(X) -f • g(X)) 2</formula><p>] is computed on a (fixed) validation set of size 1000. The last two lines of the table give the mean(± std) of the cardinalities #Λ K and #Γ L , which represent the complexity of g and f , respectively.</p></div>
+<div><head n="5">Conclusion</head><p>We have proposed and analyzed a novel framework for the dimension reduction of multivariate functions. Our approach relies on gradient evaluations of the model u : R d → R and is a twostep procedure. First, we build a feature map g : R d → R m in a function space G m by aligning the Jacobian of g with the gradients of u. Second, we build a profile function f : R m → R by minimizing the mean squared error between u and f • g. We prove that having a finite Poincaré constant C(X|G m ) ensures good theoretical properties of the feature map-namely that the objective used to identify g bounds the L 2 error between u and its approximation. The Poincaré constant depends both on the probability measure of the inputs X and on the feature space G m . In practice we observe good approximation performance using polynomial spaces G m , constructed via a greedy adaptive procedure, but we cannot easily check that C(X|G m ) &lt; ∞ for this case. Indeed, theoretically guaranteeing that C(X|G m ) &lt; ∞ for a computationally feasible space of nonlinear feature maps G m remains a challenge.</p><p>Our numerical experiments also illustrate the role of the intermediate dimension m in this setting. It is natural to ask what is the intrinsic intermediate dimension m of a model u? From a theoretical perspective, we argue that this question is void without specifying a function class G m for g. For instance, we can talk about the linear or quadratic intrinsic intermediate dimension of u as the smallest m such that there exists a linear or a quadratic g so that the error E[(u(X)-f •g(X)) 2 ] is less than a prescribed tolerance for some f : R m → R. The OMP-type algorithm we propose, which adapts the complexity of G m to the sample size, then makes the interpretation of m more complicated.</p><p>A useful alternative question is how to optimally select the intermediate dimension m in practice? For now, we have no way to select it a priori. In our numerical tests, we run the algorithm for all possible values of m = 1, . . . , d and select the intermediate dimension which yields the lowest cross-validation error. We have observed that the intermediate dimension which yields the smallest reconstruction error depends on the sample size N : for instance, in the small sample size regime, an intermediate dimension of m = 2 or 3 might yield better approximation while, in the large sample size regime, no dimension reduction, i.e., m = d, could be a better choice. This trend depends very much on the target function u, and we show examples where an intermediate value of m is best over a range of sample sizes.</p><p>The minimization of the function J(g) turns out to be quite a challenging task. While the quasi-Newton method proposed here is generally effective, recent work <ref type="bibr" target="#b23">[24]</ref> may offer a novel optimization perspective to address the essential problem of minimizing sums of generalized Rayleigh quotients.</p><p>Another interesting direction motivated by the present work is the recursive construction of approximations of the form f k • f k-1 • . . . • f 1 , where each f i is built using gradients of u. This composition is related to deep neural network architectures for function approximation, and may offer a perspective on the choice of latent space and internal dimension in such methods.</p><p>A Link with the loss function introduced in <ref type="bibr" target="#b46">[47]</ref> As in Example 2.5, let φ : X → X be a C 1 -diffeomorphism and let g : X → R m be a feature map defined by g(x) = (φ 1 (x), . . . , φ m (x)). In <ref type="bibr" target="#b46">[47]</ref>, the diffeomorphism φ is built by minimizing the loss function</p><formula xml:id="formula_111">L ω (φ) := E d i=1 ω i ∇φ i (X) ∇φ i (X) , ∇u(X) 2 ,</formula><p>where ω = (ω 1 , . . . , ω d ) ∈ R d ≥0 are non-negative weights which are arbitrarily chosen. To link this loss function with the proposed cost function J(g), let us assume that the orthogonality condition ∇φ i (x) T ∇φ j (x) = 0, <ref type="bibr" target="#b39">(40)</ref> holds for any i = j and for any x ∈ X . Under this assumption, the cost function J(g) can be written as J(g) = E (I d -Π range(∇g(X) T ) )∇u(X) ).</p><p>In <ref type="bibr" target="#b46">[47]</ref>, the loss function L ω (φ) is used without ensuring the orthogonality condition <ref type="bibr" target="#b39">(40)</ref> and no theoretical justification is provided. For instance, without condition <ref type="bibr" target="#b39">(40)</ref>, it is unclear whether L ω (φ) = 0 implies u(x) = f • g(x) or, more critically, if u(x) = f • g(x) implies L ω (φ) = 0. = (G T B(X)G) -1 -2(G T B(X)G) -1 (δG T B(X)G) sym (G T B(X)G) -1 + O( δG 2 ).</p><p>Multiplying the two above quantities yields (G+δG) T A(X)(G + δG) (G + δG) T B(X)(G + δG)</p><formula xml:id="formula_112">-1 = (G T A(X)G)(G T B(X)G) -1 + 2(δG T A(X)G) sym (G T B(X)G) -1 -2(G T A(X)G)(G T B(X)G) -1 (δG T B(X)G) sym (G T B(X)G) -1 + O( δG 2 ).</formula><p>Taking the expectation of the trace yields</p><formula xml:id="formula_113">R(G + δG) = R(G) + E trace 2δG T A(X)G(G T B(X)G) -1 -E trace 2(G T A(X)G)(G T B(X)G) -1 (δG T B(X)G)(G T B(X)G) -1 + O( δG 2 ).</formula><p>Here we used the fact that trace(M sym S) = trace(M S) holds for any square matrix M and any symmetric matrix S. Using the notation M, N = trace(M N T ), we can write R(G + δG) = R(G) + ∇R(G), δG + O( δG 2 ) where</p><formula xml:id="formula_114">∇R(G) = 2E A(X)G(G T B(X)G) -1 -2E B(X)G(G T B(X)G) -1 G T A(X)G(G T B(X)G) -1 .</formula><p>This shows that R(•) is differentiable at G. Finally, the expression <ref type="bibr" target="#b21">(22)</ref> of ∇R(G) is obtained by using the definitions of H(G) and Σ(G) (see <ref type="bibr" target="#b22">(23)</ref> and ( <ref type="formula" target="#formula_49">24</ref>)) and by using the fact that (S 1 GS 2 ) vec = (S 2 ⊗ S 1 )G vec for any symmetric matrices S 1 , S 2 . Both H(G) and Σ(G) are symmetric positive semidefinite, as the expectations of the Kronecker products of symmetric positive semidefinite matrices.</p></div><figure xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Illustration of Assumption 2.2: the black line represents the parameter space X and the blue lines represent different pre-images of two candidate functions g. On the left, the function g satisfies Assumption 2.2, but on the right, the level sets of the function g are not pathwise-connected.</figDesc></figure>
+<figure xml:id="fig_1"><head>x</head><label /><figDesc>(a) Λ K , M(Λ K ) and α K+1 .(b) Λ K+1 and M(Λ K+1 ).</figDesc></figure>
+<figure xml:id="fig_2"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Greedy construction of the downward closed set Λ K ⊆ N d with d = 2. Adding α K+1 (the cross on the left) to Λ K (gray boxes on the left) yields Λ K+1 and the new reduced margin M(Λ K+1 ) (right plot).</figDesc></figure>
+<figure xml:id="fig_3"><head>Remark 3 . 5 .</head><label>35</label><figDesc>Using the expansionf = L l=1 w l Ψ α l ∈ F Γ L</figDesc></figure>
+<figure xml:id="fig_4"><head>i , i = 1 , 3 :</head><label>13</label><figDesc>. . . , ν of equal cardinality N/ν, then running the algorithms on each subset Ξ train i while monitoring the error on the corresponding test set Ξ test i = Ξ\Ξ train i . The optimal number of iterations K * (for Algorithm 2) and L * (for Algorithm Algorithm Construction of profile function f on downward-closed polynomial space Data: Training sample Input: Feature map g with intermediate dimension m, max iteration L max , parameter θ Initialize Γ 0 = {(0, . . . , 0)} Solve the least-squares problem</figDesc></figure>
+<figure xml:id="fig_6"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Isotropic function. Evolution of J(g) during the quasi-Newton algorithm 1 using N = 100 gradients of u (10 different realizations). For the first 20 iterations, G Λ K m contains linear functions only (#Λ K = 20). At the 21st iteration, G Λ K m is enlarged to include all quadratic functions (#Λ K = 20 + 210 = 230).</figDesc></figure>
+<figure xml:id="fig_7"><head>20</head><label>20</label><figDesc /></figure>
+<figure xml:id="fig_8"><head /><label /><figDesc>Evolution of J(g) during the greedy enrichment process of Algorithm 2.</figDesc></figure>
+<figure xml:id="fig_10"><head /><label /><figDesc>(b) Evolution of the mean squared error during the greedy Algorithm 3. The black curve m = d is obtained by running Algorithm 3 with g(x) = x, the identity map.</figDesc></figure>
+<figure xml:id="fig_11"><head>Figure 4 :</head><label>4</label><figDesc>Figure4: Isotropic function. Performances of Algorithms 2 and 3 using N = 100 samples (5 realizations). First, we construct g using Algorithm 2 (left plot) and then, given g, we construct f using Algorithm 3 (right plot). Both J(g) and E[(u(X) -f • g(X)) 2 ] are computed here on a large validation sample of size 2000.</figDesc></figure>
+<figure xml:id="fig_13"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Borehole. Continuous lines: mean squared error E[(u(X) -f • g(X)) 2 ],Dashed lines: cost function J(g). The width of the shaded region corresponds to the standard deviation over 20 experiments. The feature map g is built by minimizing J(g) using Algorithm 1 on samples of size N ∈ {30, 60, 150}. To build f , we employ Algorithm 3 on the same sample with bulk-chasing parameter θ = 0.3 and a five-fold cross-validation procedure to stop the iterations.</figDesc></figure>
+<figure xml:id="fig_14"><head>Figure 6 :</head><label>6</label><figDesc>Figure6: Borehole. Same settings as for Figure5but with a feature map g built using the adaptive Algorithm 2. The plots on the right show the complexity of g and f through the cardinalities of Λ K and Γ L , respectively (mean over 20 experiments).</figDesc></figure>
+<figure xml:id="fig_15"><head /><label /><figDesc>Mean cardinality of Λ K (top) and of Γ L (bottom).</figDesc></figure>
+<figure xml:id="fig_16"><head>Figure 7 :</head><label>7</label><figDesc>Figure 7: Composed function. Mean squared error E[(u(X) -f • g(X)) 2 ] (computed on a validation set of size 1000) where g and f obtained by Algorithm 4 (θ = 0.3 and ν = 5).The line (resp. the width of the shades) corresponds to the mean (resp. the variance) over 20 experiments. Figure7a: f is built by minimizing the gradient-free mean square E g (f ) = 1</figDesc></figure>
+<figure xml:id="fig_17"><head>Figure 8 :</head><label>8</label><figDesc>Figure 8: Resonance frequency of a bridge. Four realizations of the Young modulus field E(X) (color of the elements) and the associated resonance mode v(X) (displacement of the mesh).</figDesc><graphic coords="27,93.45,189.22,210.60,116.22" type="bitmap" /></figure>
+<figure xml:id="fig_19"><head>2 =</head><label>2</label><figDesc>L ω (φ), where the last equality is obtained by letting ω = (0, . . . , 0 m times , 1, . . . , 1 d-m times</figDesc></figure>
+<figure xml:id="fig_20"><head>B 1 =</head><label>1</label><figDesc>Proof of Proposition 3.2We use the notation M sym = (M + M T )/2 for the symmetric part of a square matrix M . For any δG ≤ ε we can write(G + δG) T A(X)(G + δG) = G T A(X)G + 2(δG T A(X)G) sym + O( δG 2 ), and (G+δG) T B(X)(G + δG) -G T B(X)G + 2(δG T B(X)G) sym + O( δG 2 ) -1</figDesc></figure>
+<figure type="table" xml:id="tab_1"><head>Table 2 :</head><label>2</label><figDesc>Bridge. Mean and standard deviation (std) of the mean squared error E[(u(X)f • g(X)) 2 ] over 20 experiments, where g and f are constructed using Algorithm 4 with N = 100 samples. The error E</figDesc><table /></figure>
+			<note place="foot" n="1" xml:id="foot_0"><p>We use the standard convention that each row of the Jacobian matrix is the transpose of the gradient of each component.</p></note>
+			<note place="foot" n="2" xml:id="foot_1"><p>https://gitlab.inria.fr/ozahm/nonlinear-dimension-reduction-for-surrogate-modeling.git</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgment</head><p>The authors gratefully acknowledge support from the <rs type="funder">Inria</rs> associate team UNQUESTIONABLE. CP and OZ also acknowledge support from <rs type="funder">CIROQUO consortium</rs>. DB and YMM also acknowledge support from the <rs type="funder">US Department of Energy, Office of Advanced Scientific Computing Research</rs>, <rs type="projectName">AEOLUS</rs> project.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funded-project" xml:id="_EgYjbpJ">
+					<orgName type="project" subtype="full">AEOLUS</orgName>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<author>
+			<persName><forename type="first">P.-A</forename><surname>Absil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Mahony</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Sepulchre</surname></persName>
+		</author>
+		<title level="m">Optimization algorithms on matrix manifolds</title>
+		<imprint>
+			<publisher>Princeton University Press</publisher>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Sufficient dimension reduction and prediction in regression</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">P</forename><surname>Adragni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Cook</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</title>
+		<imprint>
+			<biblScope unit="volume">367</biblScope>
+			<biblScope unit="page" from="4385" to="4405" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<author>
+			<persName><forename type="first">N</forename><surname>Anthony</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Erwan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Loic</surname></persName>
+		</author>
+		<title level="m">Approximationtoolbox</title>
+		<imprint>
+			<date type="published" when="2020-02">Feb. 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">A simple proof of the poincaré inequality for a large class of probability measures</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Bakry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Barthe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Cattiaux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Guillin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Electronic Communications in Probability</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="page" from="60" to="66" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Sparsity constrained nonlinear optimization: Optimality conditions and algorithms</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Beck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">C</forename><surname>Eldar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Optimization</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="1480" to="1509" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><surname>Boucheron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Lugosi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Massart</surname></persName>
+		</author>
+		<title level="m">Concentration inequalities: A nonasymptotic theory of independence</title>
+		<imprint>
+			<publisher>Oxford university press</publisher>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C</forename><surname>Brennan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Bigoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Zahm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Spantini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Marzouk</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1906.00031</idno>
+		<title level="m">Greedy inference with structure-exploiting lazy maps</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Breaking the curse of dimensionality in sparse polynomial approximation of parametric pdes</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Chkifa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Cohen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Schwab</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal de Mathématiques Pures et Appliquées</title>
+		<imprint>
+			<biblScope unit="volume">103</biblScope>
+			<biblScope unit="page" from="400" to="428" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Capturing ridge functions in high dimensions from point queries</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Cohen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Daubechies</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Devore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Kerkyacharian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Picard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Constructive Approximation</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="225" to="243" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Multivariate approximation in downward closed polynomial spaces</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Cohen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Migliorati</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Contemporary Computational Mathematics-A celebration of the 80th birthday of Ian Sloan</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="233" to="282" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Active subspaces: Emerging ideas for dimension reduction in parameter studies</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">G</forename><surname>Constantine</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM</title>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Active subspace methods in theory and practice: applications to kriging surfaces</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">G</forename><surname>Constantine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Dow</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Scientific Computing</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="page" from="1500" to="A1524" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Discussion of sliced inverse regression for dimension reduction</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Cook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Weisberg</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Statistical Association</title>
+		<imprint>
+			<biblScope unit="volume">86</biblScope>
+			<biblScope unit="page" from="328" to="332" />
+			<date type="published" when="1991">1991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<title level="m" type="main">Data-free likelihood-informed dimension reduction of bayesian inverse problems</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Cui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Zahm</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Quasi-newton methods, motivation and theory</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Dennis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jr</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J</forename><surname>Moré</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM review</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="46" to="89" />
+			<date type="published" when="1977">1977</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Learning functions of few arbitrary linear parameters in high dimensions</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Fornasier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Schnass</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Vybiral</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Foundations of Computational Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page" from="229" to="262" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">H</forename><surname>Golub</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">F</forename><surname>Van Loan</surname></persName>
+		</author>
+		<title level="m">Matrix computations</title>
+		<imprint>
+			<publisher>JHU press</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="volume">3</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<author>
+			<persName><forename type="first">E</forename><surname>Grelier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Nouy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Chevreuil</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1811.04455</idno>
+		<title level="m">Learning with tree-based tensor formats</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">On automatic differentiation</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Griewank</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mathematical Programming: recent developments and applications</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="83" to="107" />
+			<date type="published" when="1989">1989</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Data-driven polynomial ridge approximation using variable projection</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Hokanson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">G</forename><surname>Constantine</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Scientific Computing</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="page" from="1566" to="A1589" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Trace optimization and eigenproblems in dimension reduction methods</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Kokiopoulou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Saad</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Numerical Linear Algebra with Applications</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="565" to="602" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">G</forename><surname>Krantz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">R</forename><surname>Parks</surname></persName>
+		</author>
+		<title level="m">The implicit function theorem: history, theory, and applications</title>
+		<imprint>
+			<publisher>Springer Science &amp; Business Media</publisher>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Multifidelity dimension reduction via active subspaces</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">R</forename><surname>Lam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Zahm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">M</forename><surname>Marzouk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">E</forename><surname>Willcox</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Scientific Computing</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="page" from="A929" to="A956" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Lasserre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Magron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Marx</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Zahm</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2012.05793</idno>
+		<title level="m">Minimizing rational functions: a hierarchy of approximations via pushforward measures</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Extending classical surrogate modeling to high dimensions through supervised dimensionality reduction: a data-driven approach</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lataniotis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Marelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Sudret</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal for Uncertainty Quantification</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">An overview of gradientenhanced metamodels with applications</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Laurent</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Le Riche</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Soulier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P.-A</forename><surname>Boucard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Archives of Computational Methods in Engineering</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="page" from="61" to="106" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">A general theory for nonlinear sufficient dimension reduction: Formulation and estimation</title>
+		<author>
+			<persName><forename type="first">K.-Y</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Chiaromonte</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annals of Statistics</title>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="page" from="221" to="249" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<monogr>
+		<title level="m" type="main">Sufficient dimension reduction: Methods and applications with R</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Li</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<publisher>CRC Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Sliced inverse regression for dimension reduction</title>
+		<author>
+			<persName><forename type="first">K.-C</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Statistical Association</title>
+		<imprint>
+			<biblScope unit="volume">86</biblScope>
+			<biblScope unit="page" from="316" to="327" />
+			<date type="published" when="1991">1991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Adaptive polynomial approximation by means of random discrete least squares</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Migliorati</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Numerical Mathematics and Advanced Applications-ENUMATH 2013</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="547" to="554" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Adaptive approximation by optimal weighted least-squares methods</title>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Numerical Analysis</title>
+		<imprint>
+			<biblScope unit="volume">57</biblScope>
+			<biblScope unit="page" from="2217" to="2245" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Generalized bounds for active subspaces</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">T</forename><surname>Parente</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wallin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Wohlmuth</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Electronic Journal of Statistics</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page" from="917" to="943" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">On polynomial chaos expansion via gradientenhanced 1-minimization</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Peng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hampton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Doostan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Computational Physics</title>
+		<imprint>
+			<biblScope unit="volume">310</biblScope>
+			<biblScope unit="page" from="440" to="458" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<monogr>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pinkus</surname></persName>
+		</author>
+		<title level="m">Ridge functions</title>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="volume">205</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">A review of the adjoint-state method for computing the gradient of a functional with geophysical applications</title>
+		<author>
+			<persName><forename type="first">R.-E</forename><surname>Plessix</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Geophysical Journal International</title>
+		<imprint>
+			<biblScope unit="volume">167</biblScope>
+			<biblScope unit="page" from="495" to="503" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<monogr>
+		<title level="m" type="main">Global sensitivity analysis: the primer</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Saltelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ratto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Andres</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Campolongo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Cariboni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gatelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Saisana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Tarantola</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2008">2008</date>
+			<publisher>John Wiley &amp; Sons</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">On the complexity of deciding connectedness and computing betti numbers of a complex algebraic variety</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Scheiblechner</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Complexity</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="359" to="379" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<monogr>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">W</forename><surname>Stewart</surname></persName>
+		</author>
+		<title level="m">Matrix perturbation theory</title>
+		<imprint>
+			<date type="published" when="1990">1990</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><surname>Surjanovic</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Bingham</surname></persName>
+		</author>
+		<title level="m">Virtual library of simulation experiments</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Signal recovery from random measurements via orthogonal matching pursuit</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Tropp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">C</forename><surname>Gilbert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on information theory</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="page" from="4655" to="4666" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<author>
+			<persName><forename type="first">C</forename><surname>Villani</surname></persName>
+		</author>
+		<title level="m">Optimal transport: old and new</title>
+		<imprint>
+			<publisher>Springer Science &amp; Business Media</publisher>
+			<date type="published" when="2008">2008</date>
+			<biblScope unit="volume">338</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">An efficient global optimization algorithm for maximizing the sum of two generalized rayleigh quotients</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Xia</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational and Applied Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="page" from="4412" to="4422" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Kernel sliced inverse regression with applications to classification</title>
+		<author>
+			<persName><forename type="first">H.-M</forename><surname>Wu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Computational and Graphical Statistics</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="590" to="610" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Nonlinear dimension reduction with kernel sliced inverse regression</title>
+		<author>
+			<persName><forename type="first">Y.-R</forename><surname>Yeh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S.-Y</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y.-J</forename><surname>Lee</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE transactions on Knowledge and Data Engineering</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="page" from="1590" to="1603" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Gradient-based dimension reduction of multivariate vector-valued functions</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Zahm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">G</forename><surname>Constantine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Prieur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">M</forename><surname>Marzouk</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Scientific Computing</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="page" from="534" to="A558" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<monogr>
+		<author>
+			<persName><forename type="first">O</forename><surname>Zahm</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Cui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Law</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Spantini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Marzouk</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1807.03712</idno>
+		<title level="m">Certified dimension reduction in nonlinear bayesian inverse problems</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Learning nonlinear level sets for dimensionality reduction in function approximation</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hinkle</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="13199" to="13208" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">On optimizing the sum of the rayleigh quotient and the generalized rayleigh quotient on the unit sphere</title>
+		<author>
+			<persName><forename type="first">L.-H</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational Optimization and Applications</title>
+		<imprint>
+			<biblScope unit="volume">54</biblScope>
+			<biblScope unit="page" from="111" to="139" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">On a self-consistent-field-like iteration for maximizing the sum of the rayleigh quotients</title>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Computational and Applied Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">257</biblScope>
+			<biblScope unit="page" from="14" to="28" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

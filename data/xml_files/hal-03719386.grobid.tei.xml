@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Generating Very Large RNS Bases</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Jean</forename><forename type="middle">Claude</forename><surname>Bajard</surname></persName>
+							<email>jean.bajard@inria.fr</email>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Sorbonne Universit é</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<orgName type="institution" key="instit3">INRIA</orgName>
+								<orgName type="institution" key="instit4">IMJ-PRG</orgName>
+								<address>
+									<settlement>Ouragan, Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Kazuhide</forename><surname>Fukushima</surname></persName>
+							<email>ka-fukushima@kddi-research.jp</email>
+							<affiliation key="aff1">
+								<orgName type="laboratory">Information Security Laboratory of KDDI Research</orgName>
+								<orgName type="institution">Inc</orgName>
+								<address>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Thomas</forename><surname>Plantard</surname></persName>
+							<email>thomas.plantard@gmail.com</email>
+						</author>
+						<author>
+							<persName><forename type="first">Arnaud</forename><surname>Sipasseuth</surname></persName>
+							<email>ar-sipasseuth@kddi-research.jp</email>
+							<affiliation key="aff1">
+								<orgName type="laboratory">Information Security Laboratory of KDDI Research</orgName>
+								<orgName type="institution">Inc</orgName>
+								<address>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Generating Very Large RNS Bases</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">8EC1F074687C732F13352E7F51DC5533</idno>
+					<idno type="DOI">10.1109/TETC.2022.3187072</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Residue Number Systems</term>
+					<term>Setwise Coprime</term>
+					<term>Modular Arithmetic</term>
+					<term>Cryptography. !</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Residue Number Systems (RNS) are proven to be effective in speeding up computations involving additions and products. For these representations, there exists efficient modular reduction algorithms that can be used in the context of arithmetic over finite fields or modulo large numbers, especially when used in the context of cryptographic engineering. Their independence allows random draws of bases, which also makes it possible to protect against side-channel attacks, or even to detect them using redundancy. These systems are easily scalable, however the existence of large bases for some specific uses remains a difficult question. In this paper, we present four techniques to extract RNS bases from specific sets of integers, giving better performance and flexibility to previous works in the litterature. While our techniques do not allow to solve efficiently every possible case, we provide techniques to provably and efficiently find the largest possible available RNS bases in several cases, improving the state-of-the-art on various works of the recent literature.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">INTRODUCTION</head><p>Scientifc Context: Unconventional arithmetic offers original and effective approaches in various domains of application <ref type="bibr" target="#b0">[1]</ref>. The use of Residue Number System (RNS) appeared in the 1950s as arithmetic <ref type="bibr" target="#b1">[2]</ref>, <ref type="bibr" target="#b2">[3]</ref>. This representation is directly inspired by the Chinese remainder theorem <ref type="bibr" target="#b3">[4]</ref>, <ref type="bibr" target="#b4">[5]</ref>. The main interest lies in the speed of the addition and multiplication operations which are distributed on small values that are the modular remainders on a set of pairwise coprime numbers named RNS base. Despite a conversion cost which in the worst case is quadratic in the size of the base, calculations involving additions and products become extremely profitable (i.e. the inner product, convolution products, operations on large numbers, etc.). However, division and comparison remain costly operations in RNS, recent works propose interesting approaches <ref type="bibr" target="#b5">[6]</ref>, <ref type="bibr" target="#b6">[7]</ref>, <ref type="bibr" target="#b7">[8]</ref>. The three main areas of application are signal processing <ref type="bibr" target="#b8">[9]</ref>, <ref type="bibr" target="#b9">[10]</ref>, <ref type="bibr" target="#b10">[11]</ref>, cryptography but also in theoretical computer science to reach complexity bounds <ref type="bibr" target="#b11">[12]</ref>, <ref type="bibr" target="#b12">[13]</ref>. The work in this paper is relevant for all applications on large numbers including cryptography since the 90's <ref type="bibr" target="#b13">[14]</ref> with RSA, DH, ECC <ref type="bibr" target="#b14">[15]</ref>, <ref type="bibr" target="#b15">[16]</ref>, pairing <ref type="bibr" target="#b16">[17]</ref>, Euclidean lattices, homomorphic protocols <ref type="bibr" target="#b17">[18]</ref>, <ref type="bibr" target="#b18">[19]</ref>, etc.</p><p>In a domain such as cryptography, arithmetic operations are performed modulo large numbers that are often prime, the use of RNS becomes more complicate as modular reduction requires a conversion of RNS bases <ref type="bibr" target="#b19">[20]</ref>, <ref type="bibr" target="#b20">[21]</ref>, <ref type="bibr" target="#b21">[22]</ref>, <ref type="bibr" target="#b22">[23]</ref>. This last point has generated a rich literature, in particular around the choice of bases for efficient implementations <ref type="bibr" target="#b14">[15]</ref>, <ref type="bibr" target="#b23">[24]</ref>, <ref type="bibr" target="#b24">[25]</ref>, <ref type="bibr" target="#b25">[26]</ref>. RNS are also particularly interesting for countering attacks by faults, as the addition of redundancy elements at the base level makes it possible to set up fault detection <ref type="bibr" target="#b26">[27]</ref>. Finally, the random drawing of bases ensures that the same calculation produces different patterns at each evaluation, making learning possible leakage of information more difficult <ref type="bibr" target="#b27">[28]</ref>.</p><p>Implementations are constrained by the limitations of the architectures we deals with. The question we are faced with is what sizes can be reached. This is very dependent on the operators of the target architecture which limit the size of the elements of the RNS base. Finding the largest possible base with this constraint on its elements thus becomes a major issue <ref type="bibr" target="#b28">[29]</ref>, <ref type="bibr" target="#b29">[30]</ref>. In order to answer this challenge, an approach proposes after a filtering to build a co-primality graph and to perform a brute force search of maximal cliques <ref type="bibr" target="#b28">[29]</ref>. This problem is known to be NP-complete <ref type="bibr" target="#b30">[31]</ref>, <ref type="bibr" target="#b31">[32]</ref>.</p><p>In order to achieve larger RNS base sizes, considering the cost of finding a maximal clique, filtering to reduce the graph size becomes crucial.</p><p>Main results: In this paper, we introduce four filtering methods that reduce the size of the graph. Our approach significantly improves the one of <ref type="bibr" target="#b28">[29]</ref>. The RNS bases we are able to build are larger than those proposed in the literature by maintaining the same constraints. One can find in <ref type="bibr" target="#b25">[26]</ref> a large overview of RNS bases with their advantages. The first algorithm is targeted towards intervals. The second algorithm is targeted towards random sets. The third algorithm is an adaptation of the first algorithm for "non-interval semirandom" sets. The fourth one is a heuristic approach, aimed to accelerate computations.</p><p>In the literature: Different approaches found in the literature deal with obtaining an easy reduction for each modulo and an efficient RNS base extension. Most of them use classical pseudo-Mersenne or Solinas moduli. We mention here some particular approaches that condition the moduli. In the Cox-Rover algorithm <ref type="bibr" target="#b20">[21]</ref> authors suggest to use pseudo-Mersenne coprimes with an interdependence between the number of moduli, their pseudo-Mersenne form and the truncation error of the computation. This could reduce significantly the possibilities depending on the target architecture. With the double Montgomery approach <ref type="bibr" target="#b28">[29]</ref>, the authors use a Montgomery reduction at the modulo level, they relax the constraints which allows to significantly increase the number of moduli. Then quadratic RNS <ref type="bibr" target="#b25">[26]</ref> offers an efficient bases exchange but adding a quadratic property of the moduli. Finally, a recent approach suggest friendly Montgomery numbers <ref type="bibr" target="#b32">[33]</ref> to increase the number of coprimes while keeping an efficient base extension. We will illustrate how our methods allow to build large RNS bases for each case.</p><p>Organization of the paper: After introducing some useful background for the understanding of this article, we introduce in Section 3 four filtering approaches. We present two basic alternatives to <ref type="bibr" target="#b28">[29]</ref> for intervals and random sets, then specialize those basic alternatives to propose another two alternatives to deal with specialized sets for a total of four filtering techniques. Then, we propose new bases for the most relevant cases of families of moduli used in the state of the art of RNS optimization <ref type="bibr" target="#b25">[26]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">BACKGROUND</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1">Residue Number Systems and notations</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Definition 1 (RNS). A Residue Number</head><p>System is defined by a set of pairwise coprime integers M = {m 1 , .., m d } ∈ (N * ) d named RNS base of size d. We denote M = m i the product size. For x ∈ Z, we denote x M = x 1 , ..., x d the RNS representation of x, where x i = x mod m i and call the set of x i the residues of x in M.</p><p>The Chinese remainder theorem (CRT) ensures that there is an isomorphism between d i=1 Z mi to Z M . Thus, for each x ∈ Z, x M is unique and corresponds to x M = x mod M . Sometimes the same notation is used for both M and M . Note that the search for a large RNS base, i.e. reaching large sizes for M , often means increasing d, as the elements of an RNS base are limited in size depending on the architectures used. If the machine words are of a given size n in binary, then each element of the database is smaller than 2 n . In practice, we would like to have the same size for all residues, in order to balance the load between all computing units.</p><p>We start by introducing some specific notations.</p><p>Notation 1. We note P the set of prime numbers. For any set I, we note I min its smallest element, I max its largest element. We note I P the set of primes that can divide at least one nonzero element of I (e.g. to simplify in some algorithms, I P can be replaced by the set of primes smaller than I max ).</p><p>Notation 2 (Sets of maximum possible pairwise coprimes).</p><p>We denote Φ(S, I) the set of all sets of pairwise coprime numbers of maximal size containing elements of S ∪ I. I is the initial set of numbers considered, and S is a set of filtered values. Almost all the values of S are pairwise coprimes.</p><p>Example 1. Let S = {} and I = {2, 3, 4, 11, 17, 121}:</p><formula xml:id="formula_0">• M 1 = {121, 17, 2, 3} ∈ Φ(S, I) • M 2 = {11, 17, 4, 3, 2} / ∈ Φ(S, I) as gcd(2, 4) = 1 • M 3 = {11, 17, 3} / ∈ Φ(S, I): |M 3 | &lt; |M 1 | • M 4 = {11, 17, 2, 3} ∈ Φ(S, I) • M 5 = {11, 17, 4, 3} ∈ Φ(S, I) • M 6 = {121, 17, 4, 3} ∈ Φ(S, I)</formula><p>By bruteforce, we can easily see that {M 1 , M 4 , M 5 , M 6 } = Φ(S, I).</p><p>The goal of this paper is to find at least one element of Φ({}, I) for specific I. Thus, we try to reduce the problem by finding smaller sets S ⊆ I and I ⊆ I such that Φ(S , I ) ⊆ Φ({}, I). In the previous example, If S = {121} and I = {2, 3, 4, 17} then Φ(S , I ) = {M 1 , M 6 } ⊆ Φ({}, I). At the end of the process of filtering we could obtain S = {2, 3, 4, 17, 121} and I = {}. The work of <ref type="bibr" target="#b28">[29]</ref> proposed a solution when I is an interval.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Maximum RNS bases are maximum cliques</head><p>In <ref type="bibr" target="#b28">[29]</ref>, methods were proposed to find a maximum size RNS base within an interval of consecutive numbers. The authors of <ref type="bibr" target="#b28">[29]</ref> saw the problem of finding an element of Φ({}, I) as a graph problem. The approach is the following: 1) ∀a ∈ I, create a node tagged with a.</p><p>2) ∀a 1 , a 2 ∈ I s.t gcd(a 1 , a 2 ) = 1, add an edge (a 1 , a 2 ).</p><p>3) A maximum size RNS base from I is a clique from the resulting graph.</p><p>Example 2. Let I = [2, 13] be a set of 12 consecutive numbers. On the left is the graph constructed as per the above described process, and on the right is a maximum clique of the left graph, i.e., a subgraph of the largest possible size where every node is connected: it is also a graph that can be constructed from an element of Φ({}, I). Note that the solution is not unique: for example, node 2 can be replaced by node 4 or 8 and 3 by 9, thus Φ({}, I) has at least six elements. Φ({2, 3}, I) however, is a singleton. A clique, maximal or not, will always represent a set of pairwise coprime numbers in this model.</p><p>As also pointed by <ref type="bibr" target="#b28">[29]</ref>, one issue with this initial approach is that the maximum clique problem is known to be NP-complete, thus before tackling the graph problem, <ref type="bibr" target="#b28">[29]</ref> proposes to simplify the search space by "filtering" Φ(∅, I) into a smaller set. It is very clear from the above examples, that given a set I, we have Φ(I ∩P, I) ⊆ Φ(∅, I), thus part of the problem in finding an element of Φ(∅, I) can be reduced to find an element of Φ(I ∩ P, I), the difficulty comes from filtering Φ(I ∩ P, I) even further. Thus, they propose some solutions to ease the computations. Their main observation is the following lemma: In other words, <ref type="bibr" target="#b28">[29]</ref> can construct a subset where there is at least one maximum RNS base containing this set S, reducing the search space. After constructing S, the search space can be even further simplified: one only needs to replace I with the set I S = {x ∈ I|∀m ∈ S, gcd(m, x) = 1} i.e the elements of I coprime to S. we thus have Φ(S, I S ) = Φ(S, I) ⊆ Φ({}, I), and finding an element of Φ(S, I S ) is computationally much easier.</p><p>As pointed by <ref type="bibr" target="#b28">[29]</ref> the set S is easily computable. In fact, for some small parameters, <ref type="bibr" target="#b28">[29]</ref> reduce I S to an empty set, outputting S ∈ Φ({}, I) as a solution. The approach however can have some limitations after computing S:</p><p>• For large I, I S can be too large to be reasonably processed and a clique algorithm might still be required.</p><p>• For large I, I S can be itself expensive to compute.</p><p>• If I is not an interval, the approach cannot be used.</p><p>To alleviate the first issue, <ref type="bibr" target="#b28">[29]</ref> propose to heuristically prune the graph: constructing S was essentially pruning the graph from elements containing only one or two distinct primes, thus their suggestion was to continue further by pruning combinations of 3 distinct prime factors, then 4, etc... However, as they also pointed out, this heuristic pruning method beyond S does no longer guarantee a maximal size RNS base.</p><p>In our work, we propose upgraded pruning methods to help alleviate all three issues. Those methods, while not proven to be able to avoid the resolution of an NPcomplete problem, are sure to provide an optimal solution. We also provide a highly efficient greedy version of our methods which do not guarantee optionality, even if often achieved. They do simplify the computations by essentially giving a graph of a much lower size as an input to the maximum clique algorithm. Interestingly, in many of our applications, our methods transform our original input into a graph already corresponding to a clique, thus avoiding the necessity to call a maximum clique algorithm in the first place.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">TWO NOVEL BASIC FILTERING TECHNIQUES</head><p>Here we propose two alternatives filtering techniques, initially proposed at <ref type="bibr" target="#b33">[34]</ref>, that directly improve over the theoretical work of <ref type="bibr" target="#b28">[29]</ref>. Similarly to <ref type="bibr" target="#b28">[29]</ref>, the aim is to minimize the size of the set we give as an input to a graph algorithm, while relying on a same principle of picking a provably optimal choice at each iteration to guarantee the maximality of the output.</p><p>The first method modifies <ref type="bibr" target="#b28">[29]</ref> in a way such that computing gcd is never necessary, and that the initial set I is never stored, only prime numbers are (i.e. I P ). This number of primes can be significantly smaller than the size of the initial set I. The second method is not a direct improvement of <ref type="bibr" target="#b28">[29]</ref> but rather an alternative method to deal with sets that were not intervals: Lemma 1 can only applies if the initial set given as an entry is an interval. It is also more efficient than the other methods for sets of small size, even intervals, as it does not require any knowledge of the prime numbers.</p><p>Important note: These filtering techniques give at least one RNS base with the maximum number of moduli extracted from an initial set, they do not select the best base according to particular criteria (for example the size of the product of the moduli), among the, potentialy numerous, bases with the maximum number of moduli.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">First method: filtering by factors recomposition</head><p>Constructing coprime moduli sets within an interval by analyzing their factorization was the core idea of <ref type="bibr" target="#b28">[29]</ref>. Their method call a clique algorithm over all remaining possible numbers, constructing S and I S beforehand. Our first improvement over <ref type="bibr" target="#b28">[29]</ref> is the following: when dealing with an interval, there is no need to store the interval at all. We just need the list of any prime number that can be found in a decomposition of an integer within the interval. Prime lists and code to compute them can be found in various places on the internet ( <ref type="bibr" target="#b34">[35]</ref>, <ref type="bibr" target="#b35">[36]</ref>, <ref type="bibr">[37]</ref>) if primes required are not overly large (i.e beyond 2 64 ), and checking whether an integer is within an interval can be done with the help of only two values: I min and I max .</p><p>Here, the first method we present is essentially the following: we thin the leftover primes, thus lowering the possible combinations, accelerating the process. This algorithm can ensure a maximum RNS base after a call to a clique algorithm to leftover conflicting combinations, similarly to <ref type="bibr" target="#b28">[29]</ref>. In <ref type="bibr" target="#b28">[29]</ref>, their core observation is that any integer prime p &gt; δ (with δ = I max -I min ) can only appear once in the decomposition of integers of I. We add a generalized observation, which severely limits the amount of prime numbers we have to consider.</p><p>Knowing that any prime p &gt; √ I max cannot be powered in a said decomposition, we can further limit the amount of primes to consider. Let us denote β = max(δ, I max ). We explain below our method to compute E 1 the set of prime powers within I with the algorithm FirstStep, keeping information about the primes not being used for E 1 as those are necessary later.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Algorithm 1 FirstStep</head><p>Input: P all the primes smaller than β Here we reduced the problem to Φ(E 1 , I ) ⊆ Φ({}, I), where I is I minus all the primes or power of primes. Note that we do not store I nor I , this is one of the main advantage compared to the approach of <ref type="bibr" target="#b28">[29]</ref>.</p><formula xml:id="formula_1">E 1 ← P ∩ I for p ∈ P do if there is a k ≥ 1, such that p k ∈ I then Put the largest p k into E 1 Eliminate p from P Output: E 1 , P . Example 3. If I = [2 16 -2 8 , 2 16 ] then 1 P = {2, 3, 5, ..., 251} and E 1 = {65287, ..., 65521}<label>2</label></formula><p>After FirstStep, if E 1 is not a solution by itself (most often not), then we can continue our process using the leftover primes within P to find candidates to expand E 1 .</p><p>In a SecondStep, we then construct E 2 the set of products of two distinct primes taking one prime factor as large as possible, and fill in a set RES product of two integers that lie outside <ref type="bibr" target="#b28">[29]</ref>'s proof (lemma 1), but we wish to keep information on the primes we pick for E 2 and those we will not pick as those represent the necessary information to complete the missing elements of a RNS base of maximal size. When a product of two primes does not satisfy lemma 1, if this product belongs to I then we store it in a set RES, and if one of this two primes could appear in a product of three primes, which belongs to I, we store them in a set R. RES and R are used in the ThirdStep.</p><p>Construction of E 2 , R, RES is done with Algorithm Sec-ondStep. Note that in the case δ = √ I max , RES is empty at the end of SecondStep. We have now simplified the problem to Φ(E 1 ∪ E 2 , I) ⊆ Φ({}, I), and the only elements we need to check are now combinations of elements of R and elements of RES. <ref type="figure">,</ref><ref type="figure">I</ref>). However, we still need to further process the remaining candidates in the case RES and/or R are not empty. We basically reconstruct I S by bruteforce for S = E 1 ∪ E 2 in order to reduce the search to Φ(E 1 ∪ E 2 , I) = Φ(S, I S ) where I S is essentially composed of the integers within I coprime to S which should be exactly RES and the missing combinations involving primes in R. Constructing I S , if not proven to be empty, is done by algorithm ThirdStep, which stores in RES any possible product combination of the powers of the remaining primes within R fitting I.</p><formula xml:id="formula_2">After SecondStep we have constructed E 2 such that Φ(E 1 ∪ E 2 , I) ⊆ Φ(E 1 , I) ⊆ Φ({}</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Algorithm 3 ThirdStep Input</head><formula xml:id="formula_3">: I min , I max , k, R,RES if k ≤ I max then if k ≥ I min then RES = RES ∪ {k} else if R = ∅ then p ← min(R) R ← R\{p} while k ≤ I max do RES ←ThirdStep(I min , I max , k, R,RES) k ← k * p Output: RES</formula><p>ThirdStep can have a very large complexity for large R. However, the recursion falls short when the elements of R are large: the level of recursion excluding calls to K = 1 is bounded by log r (I max ) for r = min(R). Thus it is very important that previous steps eliminate as many small primes as possible before ThirdStep.</p><p>Note that the output of ThirdStep does not theoretically guarantee a set of pairwise coprime integers since given primes p, q, x, w, integers a = p × q × z and b = p × x × w could be valid integers within I. While this scenario has never occurred in our tests, we do not have any proof showing its impossibility. Thus, in theory, a maximum clique algorithm could still be needed. The entire process is thus the concatenation of the three above algorithms, described in Algorithm 4 FactorFilter. Do note that at the end of Algorithm SecondStep, if both R and RES are empty, then C is a maximum clique and ThirdStep would actually do nothing as there is nothing to search within, as E 1 and E 2 have been constructed using only "proven picks" that do not reduce the size of an optimal solution.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Algorithm 4 FactorFilter</head><p>Input: I min , I max the interval range. Output: C a set of pairwise coprime numbers, RES potential additions to grow C</p><formula xml:id="formula_4">1: E 1 , P ← FirstStep(I min , I max ) 2: E 2 , R, RES ← SecondStep(I min , I max , P ) 3: C ← E 1 ∪ E 2 4: RES← ThirdStep(I min , I max , R, 1, RES) 5: return C, RES If RES is empty, then C is maximal</formula><p>During the whole process, not a single gcd has been computed, nor was any value of I beyond its extremities needed. The remainder set I S can also be emptied early i.e not constructed at all. Also note that the function Previous-Prime, while expensive in theory for arbitrary numbers in arbitrary applications, can be very efficiently called in our case if we already have access to the list of all necessary primes: we will never need a prime larger than I min beyond the construction of E 1 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Second method: generalizing filtering for any set</head><p>This second proposed method works for any set, and is better than the first method on intervals anytime the set of integers I we need to manage is lower than the set of primes I P we have to manage. To the best of our knowledge, there is no other comparable preexisting technique besides the direct clique method.</p><p>This second method relies on the following lemma:</p><p>Lemma 2 (Divisor pick for general sets).</p><p>If ∃y = ab ∈ I and {gcd(y, x), x ∈ S} = {1}, s.t ∃a &gt; 1, ∀x ∈ I, a| gcd(x, y) or gcd(x, y) = 1.</p><p>Then Φ(S ∪ {y}, I) ⊆ Φ(S, I)</p><p>This lemma can be understood by seeing that if such y exists, then for any element M ∈ Φ(S, A), either there is an element divisible by a which can then be replaced by y without changing pairwise coprimality relations, either there is not and thus M is not maximal as you could include y (a contradiction). The method to find an element of Φ(S, I) is then the following: The full process is described by Algorithm 5. Note that this filter can also be applied after the previous filter since the output of ThirdStep is also a set, thus our two algorithms are not mutually exclusive. After this filtering algorithm over I, to further increase the set size of S, we would need to call a maximum clique algorithm over the leftover I S : however, in our experiments, I S is often empty, leaving S as the final base. Unlike algorithm  f ← gcd(d, f )</p><formula xml:id="formula_5">10: if f = 1 then Break #divisors ≥ 2 11: if f = 1 then #divisors &lt; 2 12:</formula><p>S ← S ∪ {m} 13:</p><formula xml:id="formula_6">I S ← {m ∈ I S |gcd(m, m ) = 1} 14:</formula><p>Break 15: return S, I S</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">FITERING NON-INTERVAL SPECIFIC SETS</head><p>We propose here another two filtering methods to complement those presented above, in case the target set is neither an interval, nor is it a completely random set. First, one called in this paper the third method, which introduces a modification of the first method. This third method adapted to work on any set of integers, which can replace the above two methods for very large sets (but does not outperform the previous methods otherwise). We will show that this method also guarantees maximality of the result. The second one, called fourth method, is a simpler, but distinct, method for extracting a RNS base from any random set. This method does not guarantee maximality of the result and therefore cannot replace any of the algorithms we propose nor the original work of <ref type="bibr" target="#b28">[29]</ref>. However, the interesting part of this technique is its efficiency and simplicity and the possibility to prove ad-hoc maximality under certain conditions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">General Idea</head><p>Those new algorithms were designed to address some of the shortcomings of the previous two algorithms: one is effective for any given small set, the other starts to be effective for any given large interval but when the bounds have a similar binary size. Both algorithms do not give satisfactory results when the bounds of the interval have a different size, or when the set is a large combination of disjoint intervals. Note, that solving the problem efficiently under any set is difficult: any "maximum clique problem" can be transformed into an equivalent instance of a "largest pairwise coprime subset problem" in polynomial time, thus an efficient algorithm for any set is an efficient algorithm for a general NP-hard problem. However, we present here adapted algorithms when the entry sets are neither intervals nor completely random. Thus those supplementary algorithms are designed following two observations:</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>•</head><p>The efficiency of the first method is limited when the small factors have many possibilities, failing to pick a choice and resorts to exhaustive search in the final steps of the algorithm.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>•</head><p>The efficiency of the second algorithm is limited by the fact that processing the factorization of each element of the entry set has to be done, thus limiting the size of the sets that can be reasonably be processed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Thus we alleviate those issues with the following:</head><p>• Instead of just iterating on small factors, it might be better to also start with the largest factors, which are guaranteed to have very limited choices no matter how wide are the bounds. Choosing large factors first will also eliminate some small factors that could have had many solutions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>•</head><p>If we have a low-cost function (in memory and speed) which determines whether an integer is part of the initial set or not, we could recompose by factors and use that function without ever storing the set. Whenever this is possible, we can achieve an efficiency gain on any large structured set over the generic method.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Third method: generalizing the recomposition technique</head><p>The third method reuses the philosophy of the intervalbased algorithm. However as some properties on intervals might no longer hold on generic sets we have to make some generalizations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.1">Properties to justify maximality</head><p>As we are managing more diverse sets, we also need more general properties to justify our algorithms will still output a maximum size RNS.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Property 1 (Prime powers can always included).</head><p>Let a ∈ P, ∀x ∈ S gcd(a, x) = 1, and ∃k ≥ 1, a k ∈ I. Then ∀k ≥ 1 such that a k ∈ I, Φ(S ∪ {a k }, I\{x, gcd(x, a) &gt; 1}) ⊆ Φ(S, I). Consequently, ∀M ∈ Φ(S, I), ∃m ∈ M such that a|m.</p><p>The above property while obvious is necessary when filtering. The property below is a generalization of this and the lemma 1 of <ref type="bibr" target="#b28">[29]</ref>:</p><formula xml:id="formula_7">Property 2 (Primes with limited representations). Let a, b ∈ P, (∀x ∈ S, gcd(ab, x) = 1), k, k ≥ 1 s.t a k b k ∈ I and (∀m ∈ I, a|m =⇒ b|m). Then Φ(S ∪ {a k b k }, I\{x s.t gcd(x, ab) &gt; 1}) ⊆ Φ(S, I)</formula><p>Property 2 does not make any size arguments nor does it require unicity of a representation: in a sense it is also a specialization of lemma 2 for prime recompositions.</p><p>The two above properties does not make use of the strongest feature of the first method which is being able to exclude primes per size argument. However, we can have a close version of it since any finite set has a lower and upper bound. Let P = {p 1 , ..., p s } where p 1 &lt; ... &lt; p s be the remaining primes factors we can use to construct new elements of I that are coprime to our previously selected integers. Then Property 3 (Excluding large elements). p s can be excluded whenever:</p><formula xml:id="formula_8">• p 1 p s &gt; I max • ∀i ∈ [1, s], p i p s / ∈ I and p 2 1 p s &gt; I max • Let X 3 = {m = p i p j p s s.t ∀i, j ∈ [1, s], m &lt; p 4 1 }. If ∃m ∈ X 3 s.t m &gt; I max and ∀m ∈ X 3 , m &lt; m =⇒ m / ∈ I</formula><p>Intuitively, if we note X k the set of combinations of k primes of R that are lower that p k+1 1 , we can generalize the property even further as: if for all k &lt; k elements of X k are not in I and X k is as above then p s can be excluded. However, computing those sets X k is not trivial: for X 3 , we only know that p 2 1 &lt; p 1 p 2 ≤ p i p j for i = j but we cannot compare p 1 p 3 and p 2 2 without actually computing their values. To avoid bruteforcing, we do not rely on the full property or its generalization.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.2">Crafting the algorithm parts</head><p>The algorithm we craft here will roughly follow the same principles as the three-step method of recomposing by factors, with some slight modifications:</p><p>• First step gather all possible primes.</p><p>• Second step eliminate both largest and smallest primes simultaneously, iterating pincer-wise.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>•</head><p>Third step reconstruct all remaining candidates in I.</p><p>Let f I be a function that outputs TRUE for an entry x if and only if x ∈ I. Note that I min , I max the integral range can be used to construct f I , even when I is not an interval: any finite set of numbers have a minimal and maximal value. We do not specify any f I to keep a general algorithm, but keep in mind that this whole section relies on such a function to test whether an element is part of any given set I.</p><p>Instead of managing all the primes from [2, I {max} ] ∩ P, we should only consider the primes in I P . For example, if I requires every factor to be 1 mod 8 or to be quadratic residues modulo some big prime, we can eliminate a lot of prime factors as preprocessing. However, for random generic sets, I P is not always easily available and we can choose to take P ∩ [2, I max ] instead: the algorithm will be less efficient, but the end result will still allow to find a M ∈ Φ(∅, I).</p><p>The reasoning used in previous algorithms are still valid and useful for optimization. Instead of storing all the primes into one set, we will split the storage into two sets for efficiency consideration: P L will contain all the primes within [2, √ I max [, and P H will contain all the primes within</p><formula xml:id="formula_9">[ √ I max , I max ].</formula><p>In practice, if we had a complete description of I P , we can possibly reduce those sets. For a, b ∈ P H , we have ab / ∈ I: to create an element of I from a ∈ P H , either a ∈ I or one has to multiply a by elements of P L . The first step is then as described in algorithm 6. Before we explain the second step, we briefly explain the quite simple exhaustive search for the undecided combinations in algorithm 7. </p><formula xml:id="formula_10">R 3 ← R 3 ∪ {p 3 } 8: p 3 ← p 3 p 9: R 2 ← R 2 ∪ R 3 10: RES = {} 11: for p ∈ R 2 do 12: if f I (p) then RES ← RES ∪ {p}</formula><p>13: return RES Before we describe the middle procedure we will name NewSecondStep between NewFirstStep and NewThird-Step, we need to explain how we plan to select the valid combinations and when we can terminate NewSecondStep and move on to NewThirdStep. Basically, we also proceed by a step-by-step construct-or/and-reject using the above properties:</p><p>1) If p 1 p s &gt; I max , use 3, discard p s and repeat.</p><p>2) If there is one unique i such that p i p s ∈ I and p 2 1 p s &gt; I max , then we use property 2 and update S ← S ∪ {p i p s }, discard p 1 , p s and repeat. 3) If ∀i, p i p s / ∈ I and p 2 1 p s &gt; I max , then discard p s and repeat (property 3). If p 2 1 p s ∈ I and p 1 p 2 p s &gt; I max , then discard p 1 , p s and update S ← S ∪ {p 2  1 p s } (property 2). 4) If there is at least 2 distinct values i, j with i &lt; j &lt; s such that p i p s , p j p s ∈ I, check if p 2 1 p s &gt; I max . If it is not the case, we move to NewThirdStep. If it is the case, we need to check if for all valid i at least one of them can be easily computed to verify property 2 1 : we can then update with S ← S ∪{p i p s } and R ∪ R\{p i , p s } and repeat. If not (or there is no easier way than bruteforce), then we move to NewThirdStep.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">i.e, among the remaining combinations</head><formula xml:id="formula_11">m, if p i |m =⇒ ps|m.</formula><p>Note that easy depends on the properties on the entry: for any generic set there is no easy way.</p><p>Hence, NewSecondStep presented in Algorithm 8. Note that this version does not make use of property 2, as we are currently unaware of a way to use it generically. Now that we have introduced in details all three core building blocks, we can build by concatenation the general algorithm GenericFactorFilter in algorithm 9. s ← min(S)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Algorithm 8 NewSecondStep</head><p>17: </p><formula xml:id="formula_12">E 2 ← E 2 ∪ {sb}</formula><formula xml:id="formula_13">1: E 1 , P L , P H ← NewFirstStep(I P , f I ) 2: E 2 , P L , P H ← NewSecondStep(I max , P L , P H , f I ) 3: C ← E 1 ∪ E 2 , R ← P L ∪ P H , RES ← {} 4: RES ← NewThirdStep(I max , R, 1, RES, f I ) 5: return C, RES</formula><p>If RES is empty, then C is maximal</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Fourth method: pick first, prove later</head><p>The three previous methods relied on proving the maximality of the result on a step-by-step iteration. We present here a new approach: we cannot prove that our intermediate choice will leave an optimal result, but we can easily verify in some cases that the final result is indeed optimal. In the last method, we chose to separate the remaining primes into two sets P L , P H , after E 1 was constructed. Then we have the simple yet very effective property Property 4 (Ad-hoc proof of maximality).</p><p>Let E 1 , P L , P H be the result of NewFirstStep on some initial set of numbers I. Let M ⊂ I be a RNS base. Then</p><formula xml:id="formula_14">|M| = |E 1 | + |P L | =⇒ M ∈ Φ({}, I)</formula><p>We can trivially see that after NewFirstStep, only products of at least two distinct primes can form a valid element of I. By construction, elements of P H cannot be powered or combined within each other (as we would have an element larger than I max ). Thus, the largest possible outcome is for every other choice to be combining one element of P L and one element of P H . We assume P L and P H have their elements sorted in increasing order: the largest element is at the last position and the smallest element at the first position. We then provide some heuristic completion algorithms that do not guarantee optimality (but where some results can be proven to be maximal). The philosophy here is simple: construct couples ab ∈ I, regardless of whether or not a or b have multiple possibilities, and giving priority to the largest possible combinations. The algorithms can be constructed by swapping NewSecondStep by GreedyMerge (algorithm 10) when needed.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Algorithm 10 GreedyMerge</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">CONSTRUCTION OF ELEMENTARY RNS BASES</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1">Base of Pseudo-Mersenne</head><p>In this section, we present the use of our basic alternative filtering techniques on Pseudo-Mersenne Numbers. Pseudo-Mersenne numbers are of the form 2 n -c, where c is a relatively small constant, and have been proposed for practical use in <ref type="bibr" target="#b36">[38]</ref>. We are continuing the work of <ref type="bibr" target="#b28">[29]</ref> for pseudo-Mersenne integers within an interval we denote solely for this section I n = [2 n -c, 2 n ], for simplicity, we keep n even to have a simple computation of c = 2 n/2 for now and only attempt to find the size of a RNS base M ∈ Φ(∅, I n ). We conduct experiments for n ∈ <ref type="bibr" target="#b15">[16,</ref><ref type="bibr">64]</ref>. Let R n be the set R outputted by SecondStep when the entry set is I n and the primes given were already filtered out by FirstStep. We list the number of primes within R n in Table <ref type="table" target="#tab_4">1</ref>. We can observe from Table <ref type="table" target="#tab_4">1</ref> that the size of R n is low enough to make ThirdStep inexpensive. Note that R n = ∅ is the result of SecondStep and directly implies that The only cases where ThirdStep did not output an empty set are the following: In the above cases, calling a graph algorithm is clearly unnecessary.</p><formula xml:id="formula_15">{E 1 ∪ E 2 } ∈ Φ(E 1 ∪ E 2 , I n ) ⊆ Φ(∅, I n ).</formula><p>We could conjecture that for n ≥ 40 then R n = ∅ in such cases but as the density of prime numbers vanishes as n grows we prefer not to.</p><p>We present some results for E 1 , E 2 and d = |M| for M ∈ Φ(∅, I n ) For c small, as c = 256, the amount of elements is not larger than the number of primes to consider, thus the Generic Filtering is a better choice. We present our experimental results on c = 256 in Table <ref type="table" target="#tab_6">3</ref>, listing the maximal size d = |M| for M ∈ Φ(∅, [2 n -256, 2 n ]).  <ref type="bibr" target="#b25">[26]</ref> in </p><formula xml:id="formula_16">ITALIC P c i = 2 n -m i c i = 2 n -m i k k' 192<label>5</label></formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>6) At least d different values</head><p>Once the process is finished, we have obtained valid sQ-RNS bases M, M . We cannot prove our result is optimal, but experimentally we still improve the results given by section 4.4 of <ref type="bibr" target="#b25">[26]</ref>: table <ref type="table">6</ref> shows larger sizes d can be found given (n, k), and table <ref type="table" target="#tab_7">7</ref> shows smaller k for fixed (n, d).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.2.3">dQ-RNS</head><p>As far as we understood, dQ-RNS was conceived to make base searching easier than sQ-RNS. The condition for dQ-RNS was to obtain a single base M of size 2d such that QR(p, M ) = 1 with moduli m i being square numbers. In that regard, our previous approach still works except we ignore the construction of M and focus on a larger M.</p><p>This simplification can lead to different approaches to find dQ-RNS bases. For example, to research two RNS base size of d for dQ-RNS within a set of pseudo-mersenne numbers I (defined by (n, k)) given p, we could:</p><p>1) Remove all m ∈ I such that QR(p, m) = 1 from I.</p><p>2) Remove all m ∈ I such that m is not square from I.</p><formula xml:id="formula_17">3) Find, if possible M ∈ Φ(∅, I) with |M | ≥ 2d. 4) Split M into M, M such that |M| = |M | = d</formula><p>Using our filtering methods on both techniques, we should be able to improve the known scalability of <ref type="bibr" target="#b25">[26]</ref> through larger RNS bases. The work of <ref type="bibr" target="#b25">[26]</ref> is non-trivial, and obtaining provably maximal bases without an exhaustive search seems to be a hard task at hand, and we leave this as an interesting open question.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7">SUPPLEMENTARY APPLICATIONS</head><p>In this section we provide some examples applications where the third and fourth method can extract RNS bases more efficiently.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7.1">Large Interval of many possible bitsizes</head><p>It is known that for [2, p] the largest subset of pairwise coprime numbers are basically all the primes until p. We previously treated the cases [2 n -2 n/2 , 2 n ], we are now considering the cases [2 n-2 , 2 n ]: experimentally, the final graph given by the first method on those sets are not empty, simply because unicity of representation cannot be guaranteed in intermediate steps. In particular, we can show in those specific examples that NewFirstStep+GreedyMerge outperforms NewFirstStep+NewSecondStep, while proving maximality of the result using property 4 (i.e no need for further processing). </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7.2">Large Intersection of many intervals</head><p>Let I = I 1 ∩ ... ∩ I k . If I is large, using the generic filtering is not ideal, and the first method does not apply whenever I is not an interval: we can imagine I being a mix of Montgomery-friendly integers and pseudo-mersenne integers of different sizes, or more exotic large sets. In this case, we can take a simple arbitrary example where I is a mix between pseudo-Mersenne numbers of various sizes:</p><formula xml:id="formula_18">I = {a ∈ [2 k -c, 2 k ] | k ∈ [19, 21], c &lt; 2 16 }</formula><p>It is very easy to verify whether or not an integer belongs to I, and it also seems that on this example the heuristic attempt using GreedyMerge also directly outputs an optimal RNS basis giving E 2 of size 210 for a total RNS base of 229 moduli (E 1 has size 19). However, there is a limit to this approach over the generic approach: the amount of primes to manage can be much larger than |I|. If that is the case, the Generic Filtering method (algorithm 5) could be preferred.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7.3">RNS base coprime with a very large smooth integer</head><p>This application is more interesting outside the field of cryptography, where we attempt to compute ring operations over a non-prime moduli that might be smooth. In cryptography we usually have to deal with large primes, thus we usually focus on constructing on RNS bases on small moduli that are guaranteed to be coprime to the large prime (to keep operations valid). Suppose for example we want to simplify operations on random rings Z N using a RNS approach where N 's full factorization is unknown: we then have to create novel RNS bases on the fly for every new N given. We can reuse our algorithms by preselecting primes, excluding small prime numbers that are not coprime with N . If a largest base is not needed but rather a base with a total bitsize of 2 log 2 (N ), finding good RNS basis on the fly could be done more efficiently than with previous methods. is indicating when computational time was too long to be relevant () is indicating when algorithm did not return optimal basis bold is indicating the best algorithm for corresponding set</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7.4">Comparison</head><p>We present in Table <ref type="table" target="#tab_10">9</ref> computation time of state of the art methods as well as our new proposals. Our test were perfromed on a i7 -8565 CPU based laptop and implemented in MAGMA 2 . We perform our test on 3 types of set of moduli.</p><p>• First, we simply grow the size of our set of moduli to show the impact of the size of the initial set on each algorithm.</p><p>• Secondly, we keep a fix size, but we increase the size of the moduli themselves to show how it impacts those methods.</p><p>• Finally, we change the density of moduli in a set, once again to show its impact.</p><p>The first four algorithms (from left to right in the table) guarantee an optimal basis, the last two do not. Note that we do not test Alg 4 as some of the samples are not intervals, but test instead Alg 9 as it is simply a slightly slower generic version.</p><p>Table <ref type="table" target="#tab_10">9</ref> clearly indicates that the best choice:</p><p>• when the size of the set is large, is to recompose by factors when available</p><p>• when the size of elements is large, is to apply the generic technique for random sets</p><p>We note also that our new greedy algorithm allows to often obtain optimal bases in an efficient time if the set is reasonably dense. Previous greedy solutions rarely give an optimal basis, whatever is the type of sets studied.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="8">CONCLUSION</head><p>This work expands the scope of possibilities over research on the usage of RNS bases, their efficiency and security applications in two ways: firstly, by presenting more effective methods to obtain larger bases over any set; and secondly, by improving the bases exhibited in the recent literature using the aforementioned methods.</p><p>In this extended version, we also presented two novel algorithms, offering more adapted tools to situations the previous works could not handle. One of those algorithms 2. http://magma.maths.usyd.edu.au/magma is heuristic and can prove maximality only under certain conditions, which differs from the previous approaches. Those can also still be improved and provide applications that can apply not just to cryptography but to practical integer computer arithmetic in the broad sense, for example computations under integral rings whenever the moduli are random and extremely large.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Lemma 1 (</head><label>1</label><figDesc><ref type="bibr" target="#b28">[29]</ref>'s maximality preprocessing).Let I = [I min , I max ] and δ = I max -I min &gt; 0. Given S = {a k b ∈ I s.t a ≤ δ, b &gt; δ or b = 1, {a, b} ⊂ P ∪ {1}}we have Φ(S, I) ⊆ Φ({}, I) and Φ(S, I) = ∅.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head></head><label></label><figDesc>2 16 ∈ I, so eliminate 2 from P and add 2 16 to E 1 3 P = {3, 5, ..., 251} and E 1 = {65287, ..., 65521, 2 16 } 4 No other p ∈ P can be transferred and eliminated End |P | = 53 and |E 1 | = 22</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Algorithm 2</head><label>2</label><figDesc>SecondStep Input: the remaining primes P , output of FirstStep while P = ∅ do a ← min(P ) and b ← PreviousPrime( Imax a ) if ab ∈ I and a ≤ δ and b &gt; δ then (lemma 1) puts ab into E 2 Remove a, b from P (if b ∈ P ) else s ← a 2 and break. s the smallest product of two primes, is used for selecting elements for R while P = ∅ do a ← min(P ) and b ← PreviousPrime( Imax a ) Remove a, b from P (if b ∈ P ) if ab ∈ I and a ≤ δ and b &gt; δ then (lemma 1) puts ab into E 2 else if ab ∈ I and a &lt; b then store ab in RES if as ≤ I max then store a in R if bs ≤ I max then store b in R Output: E 2 , R, RES Example 4. For I = [2 10 -46, 2 10 ], P = {3, 5, . . . , 41, 43} and E 1 = {983, 991, 997, 1009, 1013, 1019, 1021, 1024}. We find E 2 = {(979 = 11 * 89), (995 = 5 * 199), (1003 = 17 * 59), (1011 = 3 * 337)} with R = {7, 13, 19} and RES = {(989 = 23 * 43)}. The break has occurred for a = 7 where we passed in the second while loop. When P is finally empty, |E 2 | has 4 elements, R has 3 elements and RES one.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Example 5 .</head><label>5</label><figDesc>With the example for I = [2 16 -2 8 , 2 16 ], Algorithm SecondStep gives R = {29, 37, 47, 53, 61, 71, 73} and RES = ∅. Luckily here, only one combination within elements of R can fit within I, giving 29 × 37 × 61 = 65453. The maximum clique from a singleton is itself, thus we have actually our maximum clique and E 1 ∪ E 2 ∪ {65453} ∈ Φ({}, I).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>1 )</head><label>1</label><figDesc>Scan elements of I until such y is found. If no such y exists quit, else go to step 2 2) S ← S ∪ {y} and I ← {m ∈ I s.t gcd(y, m) = 1}, return to step 1.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Algorithm 5</head><label>5</label><figDesc>Generic Filtering Input: I = {m i } a set of integers Output: S ⊂ I an RNS base, and leftovers I S 1: S ← {} 2: I S ← I 3: while I S decreases in size do</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Example 7 .</head><label>7</label><figDesc>Let us take the example of:I = {a ∈ [2 16 -2 8 , 216 ], with c = 216 -a and hw(c) &lt; 4} where hw(c) is the number of 1 in the binary representation of c. We obtain E 1 = {65407, 65519, 65536} and the sets of primes |P L | = 42 and |P H | = 56 whose numbers are smaller than if we do not check the belonging to I P ( where |P L | = 53 and |P H | = 169).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>18 :PExample 8 .</head><label>188</label><figDesc>H ← P H \{b}, P L ← P L \{s} return E 2 , P L , P H Let us take the example of:I = {a ∈ [2 16 -2 8 , 216 ], with c = 216 -a and hw(c) &lt; 4} where hw(c) is the number of 1 in the binary representation of c. We obtain with NewSecondStep E 2 = {65501 = 17 * 3853, 65503 = 31 * 2113, 65515 = 5 * 13103, 65523 = 3 * 21841, 65531 = 19 * 3449} and the sets of primes are now such |P L | = 37 and |P H | = 13. Then we apply NewThirdStep with R = P L ∪ P H , and K = 1, we obtain RES = {65471 = 7 * 47 * 199, 65527 = 7 * 11 * 23 * 37, 65533 = 13 * 71 2 } Algorithm 9 GenericFactorFilter Input: I max , f I , I P Output: C a set of pairwise coprime numbers, RES potential additions to grow C</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head></head><label></label><figDesc>-a and hw(c) &lt; 4} where hw(c) is the number of 1 in the binary representation of c. We obtain with GreedyMerge E 2 = {65501 = 17 * 3853, 65503 = 31 * 2113, 65515 = 5 * 13103, 65523 = 3 * 21841, 65531 = 19 * 3449} and the sets of primes are now such |P L | = 37 and |P H | = 51. Then we apply NewThirdStep with R = P L ∪ P H , and K = 1, we obtain RES = {65471 = 7 * 47 * 199, 65527 = 7 * 11 * 23 * 37, 65533 = 13 * 71 2 }</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>• I 16 :</head><label>16</label><figDesc>65453 = 29 × 37 × 61 • I 20 : 1048207 = 73 × 83 × 173 • I 22 : 4193923 = 73 2 × 787 and 4193993 = 109 2 × 353</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>Let us select integers step-by-step: first let us set I = [968, 972, 3328, 1701, 875, 1445, 2873, 539, 493, 1573]. 1) The first integer, 968 has gcd 4 with 3328 and 11 with 539. Since gcd(4, 11) = 1, we cannot select 968. 2) The same goes on for every integer up to 539: their possible gcd cannot be reduced to powers of a same prime. 3) We can however pick 493: it shares 17 as gcd with 1445 and 2873, and 1 with other integers. With this information, we update to S = {493}, I = [968, 972, 3328, 1701, 875, 539, 1573]. 4) We retry from 968 to 1701 with no success. 5) 875 has gcd 7 with both 1701 and 539, but 1 with others.</figDesc><table /><note><p>4, algorithm 5 has a straightforward update of Φ(S, I) ← Φ(S , I ) after each loop iteration. Example 6. With this information we can set S = {493, 875} and I = [968, 972, 3328, 1573]. 6) We ignore 968 again, but pick 972, its gcd is 4 with 968 and 3328 but 1 with others. We update to S = {493, 875, 972} and I = [1573]. 7) We finish with S = {493, 875, 972, 1573} and I = ∅, which completes the search.</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head></head><label></label><figDesc>Algorithm 6 NewFirstStep, build initial primes Input: I P , f I s.t f I (a) = TRUE ⇐⇒ a ∈ I Output: Initial base E 1 and unused primes P L , P H . 1: E 1 ← {}, P L ← {}, P H ← {} 2: for a ∈ I P do</figDesc><table><row><cell>4: 5:</cell><cell>E 1 ← E 1 ∪ {a k } else if a &lt; √ I max then</cell></row><row><cell>6:</cell><cell>P L ← P L ∪ {a}</cell></row><row><cell>7:</cell><cell>else</cell></row><row><cell>8:</cell><cell>P H ← P H ∪ {a}</cell></row><row><cell cols="2">9: return E 1 ,P L ,P H</cell></row><row><cell cols="2">Algorithm 7 NewThirdStep, a recursive procedure</cell></row><row><cell cols="2">Input: I max the set range, R a list of leftover primes and f I</cell></row><row><cell></cell><cell>a function to verify inclusion in I</cell></row><row><cell cols="2">Output: RES contains the remaining clique candidates.</cell></row><row><cell cols="2">1: R 2 = {1}</cell></row><row><cell cols="2">2: for p ∈ R do</cell></row><row><cell>3:</cell><cell>R 3 = {}</cell></row><row><cell>4:</cell><cell>for p 2 ∈ R 2 do</cell></row><row><cell>5:</cell><cell>p 3 ← p 2</cell></row><row><cell>6:</cell><cell></cell></row></table><note><p><p>3:</p>if ∃k ≥ 1 s.t f I (a k ) then while p 3 ≤ I max do 7:</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head></head><label></label><figDesc>, build E 2 and filter primes Input: I max , P L , P H two sets of primes, f I to verify inclusion within I Output: E 2 , P L , P H the leftover primes 1: E 2 ← {} 2: while P L = ∅ and P H = ∅ do if |P L | &gt; 1 and ab × min(P L \{a}) ≤ I max then</figDesc><table><row><cell>3:</cell><cell cols="2">a ← min(P L ), b ← max(P H )</cell></row><row><cell>4:</cell><cell></cell><cell></cell></row><row><cell>5:</cell><cell>Break</cell><cell>Too many choices to explore</cell></row><row><cell>6:</cell><cell>else</cell><cell></cell></row><row><cell>7:</cell><cell cols="2">S ← {s ∈ P L , f I (sb)}</cell></row><row><cell>8:</cell><cell cols="2">if f I (a 2 b) and S ⊆ {a} then</cell></row><row><cell>9:</cell><cell cols="2">E 2 ← E 2 ∪ {a 2 b}</cell></row><row><cell>10:</cell><cell></cell><cell></cell></row><row><cell>11:</cell><cell>else if |S| = 0 then</cell><cell></cell></row><row><cell>12:</cell><cell></cell><cell></cell></row><row><cell>14:</cell><cell>Break</cell><cell></cell></row><row><cell>15:</cell><cell>else</cell><cell></cell></row><row><cell>16:</cell><cell></cell><cell></cell></row></table><note><p>P H ← P H \{b}, P L ← P L \{a} P H ← P H \{b} 13: else if f I (a 2 b) or |S| &gt; 1 then</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head></head><label></label><figDesc>Input: f I , P L , P H Output: E 2 pairwise coprimes, P L and P H leftover primes 1: E2 = {} 2: aP L = P L 3: while aP L = ∅ do P L ← P L \{a}, P H ← P H \{b} Let us take the example of:I = {a ∈ [2 16 -2 8 , 216 ], with c = 216 </figDesc><table><row><cell>4:</cell><cell>a ← min(aP L )</cell></row><row><cell>5:</cell><cell>aP H = P H</cell></row><row><cell>6:</cell><cell>while aP H = ∅ do</cell></row><row><cell>7:</cell><cell>b ← max(aP H )</cell></row><row><cell>8:</cell><cell>if f I (ab) then</cell></row><row><cell>9:</cell><cell>E 2 ← E 2 ∪ {ab},</cell></row><row><cell>10:</cell><cell></cell></row><row><cell>11:</cell><cell>break</cell></row><row><cell>12:</cell><cell>aP H ← aP H \{b}</cell></row><row><cell>13:</cell><cell>aP L ← aP L \{a}</cell></row><row><cell cols="2">14: return E 2 , P L , P H</cell></row><row><cell cols="2">Example 9.</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head>Table 1</head><label>1</label><figDesc>Size of Rn, output of SecondStep</figDesc><table><row><cell>n</cell><cell cols="6">16 18 20 22 24 26 28 30 32</cell><cell>34</cell><cell cols="3">36 38 40 to 64</cell></row><row><cell>R n</cell><cell>7</cell><cell>0</cell><cell>10 60</cell><cell>6</cell><cell>21 19 13</cell><cell>1</cell><cell>283</cell><cell>0</cell><cell>1</cell><cell>0</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_5"><head>Table 2</head><label>2</label><figDesc>Set size of E 1 , E 2 , and max RNS set size d for even n ∈<ref type="bibr" target="#b15">[16,</ref> 64]    </figDesc><table><row><cell cols="2">n E 1 \{2 n }</cell><cell>E 2</cell><cell>max size</cell></row><row><cell>16</cell><cell>21</cell><cell>25</cell><cell>48</cell></row><row><cell>24</cell><cell>251</cell><cell>198</cell><cell>450</cell></row><row><cell>32</cell><cell>2931</cell><cell>1851</cell><cell>4783</cell></row><row><cell>40</cell><cell>37798</cell><cell>19856</cell><cell>57655</cell></row><row><cell>48</cell><cell>504634</cell><cell>226507</cell><cell>731142</cell></row><row><cell cols="2">56 6920100</cell><cell>2724323</cell><cell>9644424</cell></row><row><cell cols="4">64 96798093 34267158 131065252</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_6"><head>Table 3</head><label>3</label><figDesc>Maximum set size d for m i ∈ [2 n -2 8 , 2 n ] for even n ∈<ref type="bibr" target="#b15">[16,</ref> 64]    </figDesc><table><row><cell>n 16 18 20 22 24 26 28 30 32 34 36 38 40</cell></row><row><cell>d 48 52 45 46 50 50 46 48 49 50 47 52 47</cell></row><row><cell>n 42 44 46 48 50 52 54 56 58 60 62 64</cell></row><row><cell>d 48 50 50 50 48 48 50 49 48 46 49 46</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_7"><head>Table 7</head><label>7</label><figDesc>Values c i , c i and their size k for sQ-RNS with d = 4 and same n. Our work is in bold,</figDesc><table /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_9"><head>Table 8 E</head><label>8</label><figDesc>2 's size within I = [2 n-2 , 2 n ] after NewFirstStep constructs E 1</figDesc><table><row><cell>n</cell><cell>16 17 18 19 20</cell><cell>21</cell><cell>22</cell><cell>23</cell><cell>24</cell></row><row><cell>GreedyMerge</cell><cell cols="5">24 32 41 59 81 110 152 204 282</cell></row><row><cell>NewSecondStep</cell><cell cols="5">23 31 30 50 64 109 123 183 216</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_10"><head>Table 9</head><label>9</label><figDesc>Time Comparison Set Factors (Alg 9) Generic (Alg 5) Filtering [29] Clique [29] New Greedy (Alg 10) Greedy [26], [33] [2 9 , 2 10 ]</figDesc><table><row><cell></cell><cell>&lt;0.01s</cell><cell>0.06s</cell><cell>&lt; 0.01s</cell><cell>&gt; 1h</cell><cell>&lt; 0.01s</cell><cell>(&lt; 0.01s)</cell></row><row><cell>[2 10 , 2 11 ]</cell><cell>&lt;0.01s</cell><cell>0.11s</cell><cell>86s</cell><cell>-</cell><cell>&lt; 0.01s</cell><cell>(&lt; 0.01s)</cell></row><row><cell>[2 11 , 2 12 ]</cell><cell>&lt;0.01s</cell><cell>0.34s</cell><cell>2612</cell><cell>-</cell><cell>0.12s</cell><cell>(0.01s)</cell></row><row><cell>[2 13 , 2 14 ]</cell><cell>0.01s</cell><cell>30s</cell><cell>-</cell><cell>-</cell><cell>0.12s</cell><cell>(0.01s)</cell></row><row><cell>[2 14 , 2 15 ]</cell><cell>8.76s</cell><cell>141s</cell><cell>-</cell><cell>-</cell><cell>0.02s</cell><cell>(0.44s)</cell></row><row><cell>[2 24 -2 12 , 2 24 ]</cell><cell>13.4s</cell><cell>0.26s</cell><cell>0.03s</cell><cell>-</cell><cell>(16.7s)</cell><cell>(0.05s)</cell></row><row><cell>[2 28 -2 12 , 2 26 ]</cell><cell>1257s</cell><cell>0.36s</cell><cell>0.05s</cell><cell>-</cell><cell>(811s)</cell><cell>(0.08s)</cell></row><row><cell>[2 52 -2 12 , 2 64 ]</cell><cell>-</cell><cell>0.24s</cell><cell>156s</cell><cell>-</cell><cell>-</cell><cell>(0.07s)</cell></row><row><cell>[2 512 -2 12 , 2 512 ]</cell><cell>-</cell><cell>0.34s</cell><cell>&gt; 1h</cell><cell>-</cell><cell>-</cell><cell>(0.07s)</cell></row><row><cell>10% of [2 18 , 2 19 ]</cell><cell>0.5s</cell><cell>48s</cell><cell>n/a</cell><cell>-</cell><cell>(0.21)</cell><cell>(1.22s)</cell></row><row><cell>50% of [2 16 , 2 17 ]</cell><cell>0.52s</cell><cell>154s</cell><cell>n/a</cell><cell>-</cell><cell>(0.05s)</cell><cell>(1.7s)</cell></row><row><cell>80% of [2 15 , 2 16 ]</cell><cell>4.9s</cell><cell>248s</cell><cell>n/a</cell><cell>-</cell><cell>0.02s</cell><cell>(1.14s)</cell></row></table></figure>
+		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">Base of Solinas numbers</head><p>In this part we exhibit our results for the research of Solinas numbers: while every number can be written as x = x i 2 i where x i ∈ {-1, 0, 1}, Solinas numbers are such that the amount of x i = 0 is low, where w called the weight of x is the number of non-zero x i . <ref type="bibr" target="#b37">[39]</ref> exhibited how to use those numbers efficiently: in particular, they showed how one can avoid using multiplications using those numbers and replace them by more efficient additions, shifts and substractions. However, <ref type="bibr" target="#b37">[39]</ref> only exhibited RNS bases with 6 integers.</p><p>We use the Generic Algorithm to determine d w the size of the elements of Φ(∅, I n,w ) where I n,w are the elements of [2 n -2 n/2 , 2 n ] with weight w. Our experimental results are presented in 4. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6">CONSTRUCTION OF SPECIFIC RNS BASES</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.1">Base of Montgomery-friendly numbers</head><p>This section considers "Montgomery-friendly" numbers: introduced in <ref type="bibr" target="#b38">[40]</ref>, <ref type="bibr" target="#b39">[41]</ref>, <ref type="bibr" target="#b40">[42]</ref>, they exhibit efficient properties whenever Montgomery reduction is involved within the computations. <ref type="bibr" target="#b32">[33]</ref> showcased that those numbers can have comparable or better performance and scalability compared to pseudo-Mersenne numbers, focusing on numbers of n-bits of the form</p><p>We use the Generic Filtering to further improve their results, showcasing that their approach has better scalability than they previously showed, exhibiting the size d of the elements of Φ(∅, I) while <ref type="bibr" target="#b32">[33]</ref>'s found sizes |M| are sometimes two times smaller: see the comparison table in Table <ref type="table">5</ref>. Parameters n, k, t are taken straight of section 5.3 of <ref type="bibr" target="#b32">[33]</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.2">Base of quadratic residues</head><p>Previous examples focused on finding exact elements of Φ(∅, I). In some cases, the problematic is different for finding large RNS bases: coprimality is nothing more than one condition rather than the sole condition for a base to be valid. Such is the case of the RNS bases required by <ref type="bibr" target="#b25">[26]</ref>: they exhibited powerful algorithms, tested on FPGA, which outperforms state-of-the-art algorithms at that time. However, specific bases with further requirements were necessary. While they managed to exhibit basis that were large enough for some practical applications, the scalability of their approach was relatively unknown: researching better bases was left as an open question. <ref type="bibr" target="#b25">[26]</ref> proposed two algorithms: sQ-RNS and dQ-RNS, with two specific sets of conditions. While we cannot prove to find optimal bases, we show we can still improve the currently known results.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.2.1">Q-RNS Definitions</head><p>The work of <ref type="bibr" target="#b25">[26]</ref> relies on a bivariate function (close to the Jacobi symbol), the QR function, which creates asymetric relations between the moduli: it is the main reason simple graph algorithms will not work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Definition 2 (QR function).</head><p>Let a, m ∈ N * and gcd(a, m) = 1.</p><p>Then, QR(a, m) = 1 ⇐⇒ ∃x s.t. x 2 = a mod m.</p><p>Otherwise, QR(a, m) = 0.</p><p>Elements of a basis M have to be of the form m i = 2 n -c. Previously, we either aimed to maximize the size d of M.</p><p>Here, we also aim to bound c to c &lt; 2 k if |M| = d is fixed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.2.2">sQ-RNS sQ-RNS requires two distinct bases</head><p>is equal to 1. The prime p is usually fixed by the (cryptographic) system we plan to use the base for. Since QR(M , M )QR(p, M ) = 1, we believe M should be generated first: p, which is fixed, influences M the same way M influences M . Our strategy is then the following:</p><p>First, we aim to construct M minimizing k given values d, p fixed by the (crypto)system verifying:</p><p>In order to do so, we increment k from k = 1 until the process can successfully complete: first filter with p, k to verify 1), then apply generic filtering to find moduli verifying 2) and repeat until we have d moduli m i to verify 3).</p><p>Once a suitable M is found, M is constructed similarly by incrementing from k = k given M until we can verify the following conditions: </p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Nonconventional computer arithmetic circuits, systems and applications</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sousa</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Circuits and Systems Magazine</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="6" to="40" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Operational circuits</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Svoboda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Valach</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Stroje na Zpracovani Informaci, Sbornik III</title>
+		<meeting><address><addrLine>Prague</addrLine></address></meeting>
+		<imprint>
+			<publisher>Nakl. CSAV</publisher>
+			<date type="published" when="1955">1955</date>
+			<biblScope unit="page" from="247" to="295" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">The residue number system</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">L</forename><surname>Garner</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">western joint computer conference</title>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="1959">1959</date>
+			<biblScope unit="page" from="146" to="153" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Residue Arithmetic and its Applications to Computer Technology</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Szabo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Tanaka</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1967">1967</date>
+			<publisher>McGraw-Hill</publisher>
+			<pubPlace>New York, NY, USA</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Seminumerical Algorithms</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Knuth</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="s">The Art of Computer Programming</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<date type="published" when="1981">1981</date>
+			<publisher>Addison-Wesley</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Efficient algorithms for sign detection in rns using approximate reciprocals</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kawamura</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Komano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Shimizu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Osuka</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Fujimoto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Hayashi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Imafuku</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEICE TRANSAC-TIONS on Fundamentals of Electronics, Communications and Computer Sciences</title>
+		<imprint>
+			<biblScope unit="volume">104</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="121" to="134" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Interval estimation of relative values in residue number system</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Isupov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Knyazkov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Circuits, Systems and Computers</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">01</biblScope>
+			<biblScope unit="page">1850004</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Improved modular division implementation with the akushsky core function</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Babenko</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tchernykh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Kuchukov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computation</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">9</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Application of the residue number system to computer processing of digital signals</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">A</forename><surname>Jullien</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">C</forename><surname>Miller</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ARITH</title>
+		<imprint>
+			<date type="published" when="1978">1978</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">2 n + 1, 2 n+k , 2 n -1: A new RNS moduli set extension</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chaves</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sousa</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Euromicro Symposium on Digital System Design</title>
+		<imprint>
+			<publisher>DSD</publisher>
+			<date type="published" when="2004">2004. 2004</date>
+			<biblScope unit="page" from="210" to="217" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">On the design of RNS intermodulo processing units for the arithmetic-friendly moduli sets {2 n+k , 2 n -1, 2 n+1 -1}</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Hiasat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sousa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">F</forename><surname>Anta</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Computer Journal</title>
+		<imprint>
+			<biblScope unit="volume">62</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Log depth circuits for division and related problems</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">W</forename><surname>Beame</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Cook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Hoover</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM Journal on Computing</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="994" to="1003" />
+			<date type="published" when="1986">1986</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Fast chinese remaindering in practice</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Van Der Hoeven</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">7th Intl Conf (MACIS), ser. LNCS</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="volume">10693</biblScope>
+			<biblScope unit="page" from="95" to="106" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Residue arithmetic systems in cryptography: a survey on modern security applications</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Schoinianakis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cryptographic Engineering</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="249" to="267" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Single base modular multiplication for efficient hardware RNS implementations of ECC</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bigou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tisserand</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<publisher>CHES</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Highly parallel modular multiplier for elliptic curve cryptography in residue number system</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Asif</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Kong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Circuits, Systems, and Signal Processing</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1027" to="1051" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Rns arithmetic in F p k and application to fast pairing computation</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Duquesne</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Cryptology</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="51" to="88" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">An improved rns variant of the bfv homomorphic encryption scheme</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Halevi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Polyakov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Shoup</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CT-RSA</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Revisiting homomorphic encryption schemes for finite fields</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Polyakov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Zucca</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ASIACRYPT</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Modulo reduction in residue number systems</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Posch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Posch</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Parallel and Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="449" to="454" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Cox-rower architecture for fast parallel montgomery multiplication</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kawamura</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Koike</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Sano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Shimbo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">EU-ROCRYPT</title>
+		<imprint>
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Hierarchical approach in rns base extension for asymmetric cryptography</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Djath</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bigou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tisserand</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ARITH</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Efficient fpga implementation of rns montgomery multiplication using balanced rns bases</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Ahsan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Esmaeildoust</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kaabi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Zarei</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Integration</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">FPGA implementation of pairings using residue number system and lazy reduction</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">C C</forename><surname>Cheung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Duquesne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Fan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Guillermin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Verbauwhede</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">X</forename><surname>Yao</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">CHES</title>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Efficient leak resistant modular exponentiation in RNS</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Lesavourey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Nègre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Plantard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ARITH</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">RNS montgomery reduction algorithms using quadratic residuosity</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kawamura</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Komano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Shimizu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Yonemura</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cryptographic Engineering</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="313" to="331" />
+			<date type="published" when="2019-11">Nov 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Multi-fault attack detection for RNS cryptographic architecture</title>
+		<author>
+			<persName><forename type="first">J.-C</forename><surname>Bajard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Eynard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Merkiche</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ARITH</title>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Resilience of randomized rns arithmetic with respect to side-channel leaks of cryptographic computation</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Courtois</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Abbas-Turki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-C</forename><surname>Bajard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computers</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="1720" to="1730" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Contributions to the design of residue number system architectures</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Gérard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Kammerer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Merkiche</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ARITH</title>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Hybrid position-residues number system</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bigou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tisserand</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ARITH</title>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Reducibility among combinatorial problems</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Karp</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Complexity of computer computations</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="1972">1972</date>
+			<biblScope unit="page" from="85" to="103" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Efficient algorithms for finding maximum and maximal cliques and their applications</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Tomita</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">WALCOM</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Montgomery-friendly primes and applications to cryptography</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Bajard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Duquesne</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cryptographic Engineering</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="399" to="415" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<monogr>
+		<title level="m" type="main">Generating residue number system bases</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Bajard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Fukushima</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kiyomoto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sipasseuth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Plantard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sipasseuth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Susilo</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<publisher>ARITH</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<monogr>
+		<title level="m" type="main">Tables of values of pi(x) and of pi2(x)</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">O</forename><surname>Silva</surname></persName>
+		</author>
+		<ptr target="http://sweet.ua.pt/tos/primes.html" />
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<monogr>
+		<title level="m" type="main">The first fifty million primes</title>
+		<author>
+			<persName><forename type="first">Chris</forename><forename type="middle">K</forename><surname>Caldwell</surname></persName>
+		</author>
+		<ptr target="https://primes.utm.edu/lists/small/millions/" />
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Method and apparatus for public key exchange in a cryptographic system</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">E</forename><surname>Crandall</surname></persName>
+		</author>
+		<idno>#5159632</idno>
+	</analytic>
+	<monogr>
+		<title level="j">U.S. Patent</title>
+		<imprint>
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<monogr>
+		<title level="m" type="main">Selected RNS bases for modular multiplication</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Bajard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kaihara</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Plantard</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+			<publisher>ARITH</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Fast and compact elliptic-curve cryptography</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Hamburg</surname></persName>
+		</author>
+		<idno>2012/309</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Cryptology ePrint Archive</title>
+		<imprint>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Fast cryptography in genus 2</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Bos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Costello</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hisil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Lauter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">EUROCRYPT</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Selecting elliptic curves for cryptography: an efficiency and security analysis</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Bos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Costello</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Longa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Naehrig</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cryptographic Engineering</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="259" to="286" />
+			<date type="published" when="2016-11">Nov 2016</date>
+		</imprint>
+		<respStmt>
+			<orgName>Jean Claude Bajard is professor at Sorbonne Universite</orgName>
+		</respStmt>
+	</monogr>
+	<note>He is member of the Ouragan Inria team and of the Institut de Math ématiques de Jussieu-Paris Rive Gauche. His research area is computer arithmetic</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<monogr>
+		<title level="m" type="main">Fukushima is a senior manager at the information security laboratory of KDDI Research Inc</title>
+		<author>
+			<persName><surname>Kazuhide</surname></persName>
+		</author>
+		<imprint/>
+	</monogr>
+	<note>in Japan, focusing on post-quantum cryptography, symmetric-key cryptography, and AI/ML security</note>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<monogr>
+		<author>
+			<persName><forename type="first">Thomas</forename><surname>Plantard</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Researcher</surname></persName>
+		</author>
+		<title level="m">His research focus is on post-quantum cryptography and computer arithmetic for cryptography</title>
+		<imprint>
+			<publisher>KDDI Research Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>Arnaud Sipasseuth is a researcher at. in Japan, focusing mainly on computer arithmetic and their application to cryptography</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

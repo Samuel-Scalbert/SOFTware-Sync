@@ -3,8 +3,9 @@ import json
 from .xml_json import wizzard_xml_json2
 import logging
 import os
+from .utils import setup_logger
 
-def json_enhance_xml(xml_path, json_path,super_logger,logger):
+def json_enhance_xml(xml_path, json_path,super_logger):
 
     with open(xml_path, 'r') as xml_file:
         tree = ET.parse(xml_file)
@@ -16,13 +17,16 @@ def json_enhance_xml(xml_path, json_path,super_logger,logger):
         data_json_get_mentions = data_json.get("mentions")
         software_types = {}
         software_counts = {}
+        list_mentions = []
         mentions_count = 0
+        software_list_json = []
 
         for mention in data_json_get_mentions:
             software_type = mention["software-type"]
             software = mention["software-name"]["normalizedForm"]
             mentions = mention["context"]
-
+            list_mentions.append(mentions)
+            software_list_json.append(software)
             # Count occurrences of software types
             if software_type in software_types:
                 software_types[software_type] += 1
@@ -46,24 +50,25 @@ def json_enhance_xml(xml_path, json_path,super_logger,logger):
     paths = [
         "./tei:teiHeader/tei:profileDesc/tei:abstract/tei:div",
         "./tei:text/tei:body/tei:div",
+        "./tei:text/tei:body/tei:note",
         "./tei:text/tei:back/tei:div[@type='acknowledgement']/tei:div",
         "./tei:text/tei:back/tei:div[@type='availability']/tei:div",
         "./tei:text/tei:back/tei:div[@type='annex']/tei:div"
         ]
 
     context_list_found = []
-    for path in paths:
-        div_elements = root.findall(path, ns)
-        for div_element in div_elements:
-            p_elements = div_element.findall(".//tei:p", ns)
-            for p in p_elements:
-                result = wizzard_xml_json2(p, data_json_get_mentions,logger)
-                if result == False:
-                    pass
-                else:
-                    modified_p, context_list_found_in_p = result
-                    if len(context_list_found_in_p) > 0:
-                        context_list_found += context_list_found_in_p
+
+    logger = setup_logger(f'{xml_path}', f'{xml_path}.log')
+
+    p_elements = root.findall(".//tei:p", ns)
+    for p in p_elements:
+        result = wizzard_xml_json2(p, data_json_get_mentions, logger)
+        if result == False:
+            pass
+        else:
+            modified_p, context_list_found_in_p = result
+            if len(context_list_found_in_p) > 0:
+                context_list_found += context_list_found_in_p
     found_type = {}
     for context in context_list_found:
         if context[1] in found_type:
@@ -71,15 +76,19 @@ def json_enhance_xml(xml_path, json_path,super_logger,logger):
         else:
             found_type[context[1]] = 1
     super_logger.info(found_type)
+    list_added_software = root.findall(".//software", ns)
     if len(context_list_found) != mentions_count:
-        super_logger.info(f'{mentions_count} mentions in the file "{xml_path}"')
-        difference_mention = len(context_list_found)-mentions_count
-        if difference_mention < 0:
-            super_logger.critical(f'-{difference_mention} mention(s) in the new file\n')
-        else:
-            super_logger.critical(f'+{difference_mention} mention(s) in the new file\n')
+        context_list_found = [elm[0] for elm in context_list_found]
+        super_logger.critical(f'{len(context_list_found)}/{mentions_count} mentions found in xml')
+        super_logger.critical(f'{len(list_added_software)}/{len(software_list_json)} software tags added')
+        nb = 0
+        for mentions in list_mentions:
+            if mentions not in context_list_found:
+                nb += 1
+                super_logger.error(f'({nb}) "{mentions}"')
+        super_logger.critical('Test failed\n')
     else:
-        super_logger.info(f'{mentions_count} mentions in the file "{xml_path}"\n')
+        super_logger.info(f'Test passed\n')
 
     # Write the modified XML back to the file
     with open(f"./data/software_result/{file_name.replace('.xml','')}.software.xml", 'wb') as output_xml_file:

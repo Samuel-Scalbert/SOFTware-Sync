@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Thirdkind: displaying phylogenetic encounters beyond 2-level reconciliation</title>
+				<funder ref="#_adfpFyp">
+					<orgName type="full">Agence Nationale de la Recherche</orgName>
+					<orgName type="abbreviated">ANR</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Simon</forename><surname>Penel</surname></persName>
+							<email>simon.penel@univ-lyon1.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">Hugo</forename><surname>Menet</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Théo</forename><surname>Tricou</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Vincent</forename><surname>Daubin</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Eric</forename><forename type="middle">*</forename><surname>Tannier</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Laboratoire de Biométrie et Biologie Evolutive/UMR5558</orgName>
+								<orgName type="institution">CNRS/UCBL</orgName>
+								<address>
+									<postCode>69622</postCode>
+									<settlement>Villeurbanne</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">Centre de Recherche Inria Lyon</orgName>
+								<address>
+									<postCode>69622</postCode>
+									<settlement>Villeurbanne</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Thirdkind: displaying phylogenetic encounters beyond 2-level reconciliation</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">491AB1C60C77258837DDBCE60EF1EB96</idno>
+					<idno type="DOI">10.1093/bioinformatics/btac062</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Motivation: Reconciliation between a host and its symbiont phylogenies or between a species and a gene phylogenies is a prevalent approach in evolution, however no simple generic tool (i.e. virtually usable by all reconciliation software, from host/symbiont to species/gene comparisons) is available to visualise reconciliation results. Moreover there is no tool to visualise 3-levels reconciliations, i.e. to visualise 2 nested reconciliations as for example in a host/symbiont/gene complex.</p><p>Results: Thirdkind is a light and easy to install command line software producing svg files displaying reconciliations, including 3-levels reconciliations. It takes a standard format recPhyloXML as input, and is thus usable with most reconciliation software.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction</head><p>Phylogenetic reconciliation consists in linking the history of two (or more) co-evolving biological entities, at two different levels of organization. It is achieved by embedding a phylogenetic tree into another, pointing at the dependencies between evolutionary histories and the level-specific events. For example, gene phylogenetic trees can be mapped into species trees, explaining the topological differences by speciation, duplication, loss, horizontal transfer. This can also apply for the comparison of host and symbiont co-evolution, or the evolution of protein domains inside genes, etc... Several methods and available software are dedicated to constructing reconciliations (for a review, see <ref type="bibr" target="#b8">Menet et al., 2021)</ref>. The XML format "recPhyloXML" has been proposed as a standard to describe phylogenetic reconciliations <ref type="bibr" target="#b4">(Duchemin et al., 2018)</ref> and is now produced directly or via available translation scripts by a majority of reconciliation software. Visualisation of phylogenetic reconciliations are proposed by various programs and interfaces as NOTUNG <ref type="bibr">(Chen et al., 2000)</ref>, SylvX <ref type="bibr" target="#b1">(Chevenet et al., 2016)</ref>, Treerecs <ref type="bibr" target="#b2">(Comte et al., 2020)</ref>, Jane <ref type="bibr" target="#b3">(Conow et al., 2010)</ref>, eMPRess <ref type="bibr" target="#b11">(Santichaivekin et al., 2021)</ref> and Capybara <ref type="bibr">(Wang et al., 2020)</ref>. However at the exception of SylvX, all are integrated in a specific reconciliation software and cannot visualise reconciliations produced by others. None of these software is handling recPhyloXML input files (at the exception of the unpublished Recphylovisu web interface http://phylariane.univ-lyon1.fr/recphyloxml/recphylovisu of which Thirdkind can be considered as an update), and none of them is generic to any kind of reconciliation (for example SylvX does not allow temporary free living symbionts, as it is not allowed for genes to live outside a genome) nor can handle multiple horizontal transfer (i.e. several genes transferred with the same donor and recipient) and the consideration of numerous possible scenarios. DoubleRecViz <ref type="bibr" target="#b6">(Kuitche et al., 2021)</ref> uses a derived version of recPhyloXML, adding a transcript level to gene and species format but without support for horizontal transfers. Eventually there is no software able to combine two nested reconciliations i.e. to get in a single representation the gene/symbiont reconciliation and the symbiont/host reconciliation, despite the recent interest of methodologists in these 3-levels systems <ref type="bibr" target="#b12">(Stolzer et al., 2015;</ref><ref type="bibr" target="#b7">Kundu et al., 2019;</ref><ref type="bibr" target="#b10">Muhammad et al., 2018)</ref> answering current and significant questions in biology <ref type="bibr" target="#b8">(Menet et al., 2021)</ref>.</p><p>Thirdkind is a light command-line software allowing the user to generate a svg from recPhyloXML files with a large choice of options (orientation, police size, branch length, multiple trees, redundant transfers handling, etc.) and to handle the visualisation of 2 nested reconciliations. Trees can be dated via their branch lengths or undated.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Installation</head><p>Thirdkind is written in Rust (https://crates.io/crates/thirdkind) and thus very easy to install: install cargo and then type 'cargo install thirdkind'. Source code is available at https://github.com/simonpenel/thirdkind.</p><p>3 Usage 3.1 Input files (option -f ) Thirdkind is dedicated to read recPhyloXML format files, but it can read newick or phyloXML files if needed. The option -f is used to indicate the name of the input file, whatever the format. The format is guessed from the extension of the file, or it can be chosen with the -F option. Newick is a simple parenthesed tree format, phyloXML is a xml format dedicated to phylogeny, recPhyloXML derives from phyloXML and is dedicated to reconciliations. A phyloXML file contains only 1 tree (reconciled or not). A recPhlyloXML file contains at least one "upper" tree (the species tree in the species/gene complex, or the host in a host/symbiont complex) and one "lower" reconciled tree (respectively the gene, or symbiont) mapped to (one of) the upper tree(s). A clade presents several tags: a name, a location, a type of event, etc. Each node of the lower tree(s) has a "location", which should correspond to the "name" of one of the clades in the upper tree(s). It is possible to have multiple lower trees, and multiples upper trees in a single file.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Output styles</head><p>Thirdkind allows to generate svg ouput files according to 2 different styles: 1) The "recphyloxml style" where the lower tree(s) and upper tree(s) are displayed, the lower tree(s) being embedded into the upper tree(s). The output consists of one ore several reconciled lower trees drawn as lines inside or outside one or several upper trees, drawn as tubes. Lower trees have symbols at their nodes (a square for a duplication, a circle for a speciation and a cross for a loss). Transfers (or host switches) are Bezier spotted lines ending with an arrow. If there is more than one lower tree, they are displayed with different colors (Figure <ref type="figure">1</ref>).</p><p>2) The "phyloxml style" where a unique tree is displayed, with symbol within the tree representing evolution events: a square for a duplication, a circle for a speciation, a cross for a loss, transfer is a spotted line between an orange diamond and a yellow triangle (Figure <ref type="figure">1</ref>, above and suppl.mat.). If the input format is phyloXML or newick, the style of the output is "phyloxml". If the input format is recPhyloXML, the style of the output is "recphyloxml", or "phyloxml" with the options -S (display the upper tree only) and -G (display one of the reconciled lower tree). Note that if the file format is recPhyloXML but the file extension is phyloXML, the output style will be the upper tree in "phyloxml" style. Fig. <ref type="figure">1</ref>. The 6 main outputs of a 3-level gene/symbiont/host reconciliation. one "recphyloxml style" svg for each of the two input, a "phyloxml style" svg of the reconciled symbiont tree (from -f file) and three "mapped" svg files describing the gene/symbiont/host reconciliation The first "mapped" svg is a modified version of the "recphyloxml style" svg of the gene/symbiont reconciliation: the drawing of the symbiont tree as a tube presents features describing its reconciliation with the host (a big square for a duplication node, an additional tube branch colored in black for a loss and the tube segments between the start and end of a transfer are colored in green). The second "mapped" svg is a modified version of the "recphyloxml style" svg of the symbiont/host reconciliation in which gene transfers are mapped to the host nodes and displayed in red: a gene transfer between the symbiont "C" present in host "3" and the symbiont "E" present in host "4" is displayed as a red Bezier line between host "3" and host "4" in the tube host tree. The third "mapped" is a mapping of the genes trees over the host tree through the symbiont. If genes "B1" and "B2" are associated to the symbiont "B", and the symbiont B is associated to host "4", the genes B1, B2 are associated to host "4" in the svg. If a gene is transferred between hosts via a symbiont transfer, the transfer start with a yellow square and the stippling is different. A gene transfer across symbionts which is not affected by a transfer of the symbiont across hosts is displayed as a classic gene transfer</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Dated trees (option -l)</head><p>The -l option allows to use the branch lengths to display the tree. It applies to the upper tree in "recphyloxml" style context, and to the current tree otherwise.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Minimising transfer crossings (option -O)</head><p>Since minimising transfer crossings is a NP-hard problem <ref type="bibr" target="#b5">(Klavitter and Stumpf, 2020)</ref> we used a simple heuristic : explore the upper tree from the start node and the end node of a transfer until the ancestor of these 2 nodes, giving to each node on the way a score reflecting how it should be oriented to reduce the distance between start and end nodes. This is mainly useful when studying a single tree with few transfers (with 1 transfer the heuristic finds the best solution).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Multiple recPhyloXML input files (option -m)</head><p>It is possible to use a list of recPhyloXML files instead a single recPhyloXML file. This option is useful to handle large sets of gene histories inside species histories as the ones generated by GeneRax <ref type="bibr" target="#b9">(Morel et al., 2020)</ref>.</p><p>3.6 Dealing with redundant transfers (options -t , -T and -J) In case of multiple gene histories it may be useful to enlighten redundant gene transfers (i.e. with the same donor and recipient), when trying to identify highways of transfer for instance. Option -t draws only one gene history without the transfers and then in red the transfers of all the histories according to their abundance: only the transfers with an abundance higher that the threshold are drawn and the opacity reflects the abundance. The option -T allows to choose the gene history to display. The option -J displays the abundance of the transfer. Thirdkind can visualise two kind of redundancy: multiple separate scenarios for one gene family, in which case the different transfers seen can belong to different reconciliation histories, and multiple gene families with one scenario for each family as seen in Figure <ref type="figure" target="#fig_0">2</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.7">Dealing with 'free living' symbionts (options -e)</head><p>In the history of a micro-organism, some taxa may be free living species and some others may have evolved to be a symbiont of a host. In this case, free living organisms should have a "location" indicating "FREE LIVING" instead of the name of a host. Thirdkind draws the free living part of the symbiont path tree outside the upper tree (Figure <ref type="figure">3</ref>). Figure <ref type="figure">3</ref>. Using -e option to display free living species and symbionts.</p><p>3.8 Nested recPhyloXML files (options -g and -f) It is possible to combine two reconciliations as for example a gene/species reconciliation and a symbiont/host reconciliation, in which the symbiont of the second reconciliation is the species of the first one. This is valid for any variant of a 3-levels co-evolution, as geography/species/genes, or species/gene/domains. For clarity of the exposition we adopt the host/symbiont/gene vocabulary, keeping in mind the genericity of the method. The -g option indicates the gene/species file, -f indicates the symbiont/host file. The software generates several svg files: one "recphyloxml style" svg for each of the two input, a "phyloxml style" svg of the reconciled symbiont tree (from -f file), a "phyloxml style" svg of each reconciled gene trees (from -g file) and three "mapped" svg files describing the gene/symbiont/host reconciliation (Figure <ref type="figure">1</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.9">Execution time and readability</head><p>Thirdkind was able to process 5,000 reconciled trees of 50 nodes in 2 seconds and to process a tree of 7,000 nodes in 1 second. The readability depends on the ability to handle the resulting svg (desktop computer, mobile, poster, etc).</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 2 .</head><label>2</label><figDesc>Figure 2. Using -m and -t options to display redundant gene transfers.</figDesc><graphic coords="5,82.95,372.35,299.15,355.40" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><head></head><label></label><figDesc></figDesc><graphic coords="4,56.70,56.65,481.90,403.90" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><head></head><label></label><figDesc></figDesc><graphic coords="6,63.20,159.65,323.25,573.90" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><p>Acknowledgements. Grant from <rs type="funder">Agence Nationale pour la Recherche</rs>, <rs type="grantNumber">ANR-19-CE45-0010</rs>.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_adfpFyp">
+					<idno type="grant-number">ANR-19-CE45-0010</idno>
+				</org>
+			</listOrg>
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>https://github.com/simonpenel/thirdkind/</p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">NOTUNG: a program for dating gene duplications and optimizing gene family trees</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Comput. Biol</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page" from="429" to="447" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">SylvX: a viewer for phylogenetic tree reconciliations</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Chevenet</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="page" from="608" to="610" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Treerecs: an integrated phylogenetic tool, from sequences to reconciliations</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Comte</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="page" from="4822" to="4824" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Jane: a new tool for the cophylogeny reconstruction problem</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Conow</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/1748-7188-5-16</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Algorithms Mol Biol</title>
+		<imprint>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">RecPhyloXML: a format for reconciled gene trees</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Duchemin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="page" from="3646" to="3652" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Drawing Tree-Based Phylogenetic Networks with Minimum Number of Crossings</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Klavitter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Stumpf</surname></persName>
+		</author>
+		<ptr target="https://arxiv.org/abs/2008.08960" />
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">DoubleRecViz: a web-based tool for visualizing transcript-gene-species tree reconciliation</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Kuitche</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="page" from="1920" to="1922" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">SaGePhy: an improved phylogenetic simulation framework for gene and subgene evolution</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kundu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Bansal</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="3496" to="3498" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<author>
+			<persName><forename type="first">H</forename><surname>Menet</surname></persName>
+		</author>
+		<ptr target="https://hal.archives-ouvertes.fr/hal-03258402" />
+		<title level="m">Phylogenetic reconciliation</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">GeneRax: A Tool for Species-Tree-Aware Maximum Likelihood-Based Gene Family Tree Inference under Gene Duplication, Transfer, and Loss</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Morel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Molecular Biology and Evolution</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="page" from="2763" to="2774" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Species tree-aware simultaneous reconstruction of gene and domain evolution</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Muhammad</surname></persName>
+		</author>
+		<idno type="DOI">10.1101/336453</idno>
+		<ptr target="https://doi.org/10.1101/336453" />
+	</analytic>
+	<monogr>
+		<title level="j">bioRxiv</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">eMPRess: a systematic cophylogeny reconciliation tool</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Santichaivekin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="page" from="2481" to="2482" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Event inference in multidomain families with phylogenetic reconciliation</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Stolzer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Capybara: equivalence ClAss enumeration of coPhylogenY event-BAsed ReconciliAtions</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="page" from="4197" to="4199" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

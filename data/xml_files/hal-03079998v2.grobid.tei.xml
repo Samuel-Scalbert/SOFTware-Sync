@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Trajectory saliency detection using consistencyoriented latent codes from a recurrent auto-encoder</title>
+				<funder>
+					<orgName type="full">DGA</orgName>
+				</funder>
+				<funder ref="#_jMur5f9">
+					<orgName type="full">Région Bretagne</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+				<date type="published" when="2021-05-19">May 19, 2021</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Léo</forename><surname>Maczyta</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Patrick</forename><surname>Bouthemy</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Olivier</forename><surname>Le Meur</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department">with Inria</orgName>
+								<orgName type="institution">Centre Rennes -Bretagne Atlantique</orgName>
+								<address>
+									<addrLine>Cam-pus de Beaulieu</addrLine>
+									<postCode>35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="department">O. Le Meur is</orgName>
+								<orgName type="institution" key="instit1">with Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<orgName type="institution" key="instit3">IRISA Rennes</orgName>
+								<address>
+									<addrLine>Campus de Beaulieu</addrLine>
+									<postCode>35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Trajectory saliency detection using consistencyoriented latent codes from a recurrent auto-encoder</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2021-05-19">May 19, 2021</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">3E2BD9AF07C359142276482F2B7006FE</idno>
+					<idno type="DOI">10.1109/TCSVT.2021.3078804</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>In this paper, we are concerned with the detection of progressive dynamic saliency from video sequences. More precisely, we are interested in saliency related to motion and likely to appear progressively over time. It can be relevant to trigger alarms, to dedicate additional processing or to detect specific events. Trajectories represent the best way to support progressive dynamic saliency detection. Accordingly, we will talk about trajectory saliency. A trajectory will be qualified as salient if it deviates from normal trajectories that share a common motion pattern related to a given context. First, we need a compact while discriminative representation of trajectories. We adopt a (nearly) unsupervised learning-based approach. The latent code estimated by a recurrent auto-encoder provides the desired representation. In addition, we enforce consistency for normal (similar) trajectories through the auto-encoder loss function. The distance of the trajectory code to a prototype code accounting for normality is the means to detect salient trajectories. We validate our trajectory saliency detection method on synthetic and real trajectory datasets, and highlight the contributions of its different components. We show that our method outperforms existing methods on several scenarios drawn from the publicly available dataset of pedestrian trajectories acquired in a railway station [ARF14].</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction</head><p>Saliency estimation in images is a common task. It may operate as a preattention mechanism or be a goal in itself. Its output usually consists of saliency maps providing the probability of each pixel to be salient. Actually, saliency estimation is close to visual attention, object detection, or even image segmentation. This paper is concerned with the detection of salient trajectories, which is a particular but important kind of saliency in videos. In what follows, we first draw up a broad perspective of saliency in images to properly position this type of saliency.</p><p>There is not really a single formal definition of image saliency. It is something that stands out from its surroundings in the image and attracts attention. In static images, this generally refers to one (or a few) prominent object(s) in the foreground as adopted in most challenges and benchmark datasets. It becomes a prominent moving object in the foreground when it comes to videos, and one talks about dynamic saliency.</p><p>In contrast, we will only take into account motion to define dynamic saliency, that is, local motion that deviates from the main motion of its surrounding. It may seem more specific, since it does not exhibit any notion of object. However, it can also be considered more general. Indeed, it involves all the cases where the only differentiating factor is movement, whatever the appearance is. A typical example is an individual walking against a crowd. It can occur in many diverse applications, such as monitoring of urban and road traffic <ref type="bibr" target="#b34">[RB19,</ref><ref type="bibr" target="#b2">BFM19]</ref>, safety of public areas prone to dense crowd <ref type="bibr" target="#b31">[PRBB17]</ref>, study of cell dynamics in bio-imaging [RDJ + 17], or identification of adverse weather conditions in meteorological image sequences <ref type="bibr" target="#b28">[PBMR00]</ref>. Motion saliency detection can be useful to trigger alarms, to focus additional processing or to allow for the detection of a specific event.</p><p>Here, we are going one step further, since we are interested in detecting progressive dynamic saliency. In other words, we are talking about saliency that may not be visible instantaneously, but rather progressively appears over time. Trajectories are the most natural features to support the detection of progressive dynamic saliency. Accordingly, we will talk about trajectory saliency. Indeed, trajectory-based detection of unexpected events has emerged as a growing need in many applications, possibly under different names [RB19, MMP + 15, FXZW18, LF14, PMF08].</p><p>Furthermore, salient trajectories and anomalous (or abnormal) trajectories are slightly different notions. In general, abnormal trajectories are abnormal in themselves relatively to an expected behavior in a given application. In our view, salient trajectories are salient relative to a majority in a set of trajectories or to surrounding trajectories. Thus, its state depends on the present context; a trajectory may be salient in a given context but not salient in another one, whereas trajectory anomaly is an intrinsic state. By the way, we will use the term "normal trajectories" for the majority or surrounding trajectories for convenience. A salient trajectory by definition attracts attention, and this, whatever its real nature (simply different, singular, unusual, inappropriate, potentially dangerous...). Besides, an abnormal trajectory is a case of salient trajectory, but not the other way around.</p><p>To get an idea, let us give the following concrete example in a real-life scenario. A person walking against a crowd will produce a trajectory that is salient with respect to the trajectories of the crowd. However, its trajectory is not in-trinsically abnormal. The same person walking in the same way, but this time within a crowd, will not produce a salient trajectory. On the other hand, a person staggering in the crowd will produce an abnormal trajectory regardless of the overall movement of the crowd.</p><p>Two main issues then arise: which representation for the trajectories and which method for trajectory saliency detection. We aim to design a method as general and efficient as possible. To do this, learning-based approaches appear nowadays superior to handcrafted representations. If enough data are available, we can learn the trajectory representation with neural networks. We will resort to Recurrent Neural Network (RNN), as done for example in [MML + 18, YZZ + 17]. More specifically, we will adopt a LSTM-based autoencoder. Besides, we will design a decision algorithm to solve the second issue.</p><p>Our main contributions can be summarised as follows: 1) Characterization of the notion of progressive dynamic saliency in videos and the associated trajectory saliency paradigm; 2) Introduction of a consistency constraint in the training loss of the LSTM-based auto-encoder producing the latent representation of the trajectories; 3) Trajectory-saliency detection designed in the latent trajectory-representation space; 4) Thorough and comparative evaluation on a large dataset of real pedestrian trajectories.</p><p>The rest of the paper is organised as follows. Section 2 is concerned with related work. Section 3 presents our latent trajectory representation based on a LSTM auto-encoder. Section 4 deals with the detection of trajectory saliency. In Section 5, we present the two trajectories datasets, a synthetic one and a real one. In addition, we design two evaluation sets, issued from the real dataset, for trajectory-saliency detection. In Section 6, we report experimental results on the synthetic and real trajectory datasets, including an objective comparative evaluation, and additional investigations on the main stages of the method. Section 7 contains concluding comments.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Related work</head><p>Dynamic saliency estimation in videos consists in identifying moving objects that depart from their context. We can classify the existing approaches in two categories. The first category assumes that salient elements are characterised by distinctive appearance and/or motion [KSS + 16, LS16, MRLG11, KK14, WSS15]. Recent methods leverage deep learning techniques, either by estimating video saliency end-to-end <ref type="bibr" target="#b45">[WSS18]</ref>, or by first extracting intermediate deep features <ref type="bibr" target="#b21">[LS18]</ref>. A second category of video saliency methods aims to predict which areas of the image attract the gaze of human observers. The objective is then to leverage eye-tracking data in order to predict efficiently eye-fixation maps <ref type="bibr" target="#b4">[CBPH16,</ref><ref type="bibr" target="#b22">LZLL14,</ref><ref type="bibr" target="#b32">QGH18]</ref>.</p><p>Although significant progress has been done during the last decade, there are still many open issues to address. Benchmarks used for video saliency evaluation typically consider only one or a few moving objects in the foreground of the viewed scene [OMB14, PPTM + 16]. For such configuration, dynamic saliency can be directly estimated from a couple of successive images and possibly from optical flow. However, for more complex situations, this approach may become less adequate. For a denser configuration of independently moving objects, and longer periods of observation, a change of paradigm can lead to better insights. This can be achieved by focusing on trajectories instead of raw visual content, as done in <ref type="bibr" target="#b13">[HCYL14]</ref> to estimate saliency maps in videos.</p><p>Trajectories can be obtained through several means. They can be directly provided with sensors such as GPS <ref type="bibr" target="#b9">[ETNI16]</ref>, which have become ubiquitous and can generate large amount of data. For natural videos, a tracker is usually applied to a unique camera as in <ref type="bibr" target="#b33">[RB18]</ref>, but more complex settings can be considered. A network of cameras with a processing pipeline including tracking and re-identification can provide trajectories of people over a large area <ref type="bibr" target="#b1">[ARF14]</ref>. In specific contexts such as bio-imaging, trackers taking into account the expected properties of image content can be developed <ref type="bibr" target="#b3">[CBO13]</ref>.</p><p>When dealing with trajectories, extracting a compact representation is useful for many tasks. A trajectory auto-encoder network can be an efficient and general way to obtain such a representation without making any prior assumption [YZZ + 17, CHZC18, CRLG + 18, SDZ + 16]. In [YZZ + 17], this representation is obtained with a recurrent auto-encoder and is exploited for trajectory clustering. In the following, we will refer to this method as TCDRL that stands for Trajectory Clustering via Deep Representation Learning, which is the title of the paper. In [SDZ + 16], the representation is leveraged for crowd scene understanding. In [CRLG + 18], the authors use a latent representation in a reinforcement-learning framework. The authors of <ref type="bibr" target="#b5">[CHZC18]</ref> take into account spatial constraint of the environment, such as walls, for the estimation of the trajectory representation, thanks to the optimisation of a spatially-aware objective function.</p><p>With trajectory data, estimating dynamic saliency can be achieved by searching for anomalous patterns. In <ref type="bibr" target="#b29">[PMF08]</ref>, the authors make use of single-class SVM clustering. In <ref type="bibr" target="#b33">[RB18]</ref>, the authors consider road user trajectories. They design the DAE method that reconstructs trajectories with a convolutional autoencoder. Then, they assume that poorly reconstructed trajectories are necessarily abnormal, since the latter are likely to be rare or even missing in the training data. In an extended work presenting the ALREC method <ref type="bibr" target="#b34">[RB19]</ref>, the same authors adopt a Generative Adversarial Network (GAN) to classify trajectories as being normal or salient. They train the discriminator to distinguish between normal and abnormal trajectories from reconstruction errors. While the threshold between normality and abnormality is automatically set with the GAN, the reconstruction error remains the core principle of the method. In [MML + 18] that describes the AET method, the authors train a recurrent auto-encoder for each normal trajectory of a training set, and compute the self-reconstruction error for every one. For each trained network, they compare the reconstruction error obtained for a tested trajectory to the corresponding self-reconstruction error. Accordingly, the tested trajectory is classified as abnormal or not. In [JWW + 20], the authors leverage a LSTM-based recurrent network to estimate the representative of each cluster of trajectories, and a distance between the tested trajectory and each cluster representative is used to decide whether the tested trajectory fits one group or none.</p><p>The trajectory representation may not be limited to moving objects, as it can be relevant for time series data in general. In <ref type="bibr" target="#b10">[FXZW18]</ref>, the authors consider building energy data over time. They follow similar principles as for other types of trajectories, and base their anomaly detection method on the reconstruction error provided by an auto-encoder. In [WCS + 17], the authors consider that trajectories are paths in a graph. They also adopt recurrent networks for this particular kind of trajectories.</p><p>The paradigm of inferring trajectory abnormality from the reconstruction error of an auto-encoder has some limitations. First, it assumes that the learned models will generalise badly to unseen data. In addition, abnormality is handled in an absolute way. An element is stated as abnormal or not in itself. Therefore, it does not immediately extend to saliency. Indeed, as far as saliency is concerned, the same element can be salient or not depending on its context. This key issue needs to be addressed explicitly. We will introduce an original framework to properly deal with that.</p><p>Recently, significant progress has been made in reducing the supervision burden when training. An unsupervised stage can provide a strong pre-trained network for fine-tuning. In [WSM + 19], tracking is performed with an unsupervised framework. For the trajectory prediction task <ref type="bibr" target="#b0">[AHP19]</ref>, the GAN framework is a mean to train a model without requiring manual annotations. Taking inspiration from these works, we will similarly seek to reduce as much as possible the annotation cost to ensure a broad applicability. Our objective is to detect salient trajectories within a set of trajectories, the vast majority of which are normal trajectories. In the following, a scenario S will consist of a set of normal trajectories for a given context and possibly a few salient trajectories with respect to the same context. Indeed, a trajectory is not salient in itself, but with respect to a given context. Salient trajectories are supposed to depart from the motion pattern shared by the normal trajectories.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">Latent trajectory representation</head><p>We need a relevant representation of the trajectories. It has to be compact to form the basis of an efficient classification method, while descriptive enough to distinguish normal and salient trajectories. It is preferable to transform trajectories of any length into a constant-length representation, in order to enable adaptability to any scenario. It should be applicable to both 2D and 3D trajectories. In that vein, hand-crafted representations based on sophisticated mathematical developments were investigated in the past, as in <ref type="bibr" target="#b11">[HBL08]</ref>. The latter provided representations invariant to a large class of geometrical transformations, including translation, rotation, scale, and able to achieve fine classification.</p><p>However, it is now more tractable to learn the targeted representation with the advent of neural networks, providing enough data are available for training [YZZ + 17, SDZ + 16]. An appropriate means is the use of auto-encoders. The internal (latent) code in the auto-encoder will provide us with the desired representation. Besides, a trajectory exhibits a sequential nature inherent to the time dimension, making a recurrent network a suitable choice. Below, we will first describe the representation we have designed for trajectories based on these requirements. Then, in Section 4 we will explain how we leverage it to detect salient trajectories.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">LSTM-based network for trajectory representation</head><p>Our approach is to compute the trajectory representation with a recurrent auto-encoder network. More specifically, we adopt a Long Short-Term Memory (LSTM) network. The objective of an auto-encoder is to reconstruct its input, by relying on an intermediate compact representation, acting as the code of the input <ref type="bibr" target="#b37">[RLL18]</ref>. An auto-encoder has the advantage of being unsupervised, since no manual annotation is required for training.</p><p>This architecture is inspired from existing networks, such as the generator of <ref type="bibr" target="#b0">[AHP19]</ref>. We similarly build a stack of fully connected layers to process the data at each time instant, but we dedicate the temporal processing to the recurrent LSTM units. This choice allows us to easily handle trajectories of variable length, in contrast to 1D temporal convolutions.</p><p>The architecture of the auto-encoder supplying the trajectory representation is summarised in Figure <ref type="figure" target="#fig_0">1</ref>. The input of the network at time t is composed of the concatenation of the 2D position (x t , y t ) and velocity (u t , v t ). For the processing of the whole trajectory T i , it gives a total of 4τ features if τ is the length of the trajectory, i.e., the number of points it contains. In practice, we assimilate the velocity to the displacement. Although the displacement can be deduced from two successive positions, it still helps the network properly estimate the trajectory representation at a negligible cost.</p><p>The 2D-space can be the image plane and the velocity vector given by the optical flow. If the 3D movements are planar, the 2D-space could be the ground plane of the 3D scene and trajectories (positions and velocities) are referred to this plane. An extension to full 3D trajectories would be straightforward. The exact number of layers and their dimensions have been set during preliminary experiments. In particular, we set the dimension n of the code c to 32, as this value allows us to store enough information to represent the motion patterns, while being shorter that the typical trajectory representation of length 4τ . In the experiments, we consider trajectories involving a number of positions between 20 to 200.</p><p>To process one time step, the encoder activates a succession of three fully connected layers with output of dimension 256, 192 and 128 respectively, with the leaky ReLU activation function. The fully connected layers are followed by a single LSTM layer whose output is of dimension n = 32. The output is precisely the hidden state and provides the latent code c i ∈ R n representing the whole trajectory T i .</p><p>The decoder reconstructs the trajectory from code c i , obtained once trajectory T i has been fully processed by the encoder. A LSTM-based decoder, involving one single recurrent layer, takes as input the code c i concatenated with the position at time t -1, and produces a vector of 64 components. The decoder is only expected to expand the information compressed in the code. The predicted position for the current time instant is obtained through two fully connected layers, followed by the leaky ReLU non linearity, whose respective output dimensions are 64 and 32, and one final fully-connected layer of output dimension 2 representing the displacement. The position is given by the sum of the displacement and of the previous position. Indeed, preliminary experiments showed that predicting the displacement is more robust than predicting the position directly. Let us mention that, for the reconstruction of a trajectory, we assume that its length is available (in practice, we compute it from the list of positions). The number of parameters for the whole network is 127,970.</p><p>To train the auto-encoder, we adopt the reconstruction loss L r , defined as follows:</p><formula xml:id="formula_0">L r = Ti∈B t f inal t=tinit (x i t -xi t ) 2 + (y i t -ŷi t ) 2 , (<label>1</label></formula><formula xml:id="formula_1">)</formula><p>with t init and t f inal the initial and final time instants of the trajectory T i , (x i t , y i t ) its position at time t, (x i t , ŷi t ) the predicted position and B a batch of trajectories. A batch can be composed of trajectories taken from several scenarios as illustrated in Figure <ref type="figure" target="#fig_1">2</ref>. It is a standard practice to train autoencoders with the reconstruction error as loss function [YZZ + 17, RLL18]. Since the positions entirely define the trajectory, the loss L r involves only positions.</p><p>Once trained, the auto-encoder is ready to provide a code representing the whole trajectory at test time. However, there is so far no guarantee that two similar trajectories will be represented with close codes. This is an important issue since we will exploit the codes to predict saliency. It motivates us to introduce a second loss term for code estimation. Our objective is to represent similar trajectories with close codes and dissimilar trajectories with distant codes to make saliency prediction easier. We somehow take inspiration from the paradigm of deep metric learning <ref type="bibr" target="#b40">[SKP15]</ref>. We want to ensure the best possible consistency in the representation of normal trajectories, while drastically minimising, or even discarding, manual annotation. To this end, we complement our auto-encoder network with a consistency constraint, acting as a second loss term. Figure <ref type="figure" target="#fig_2">3</ref> summarises our overall training scheme.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Consistency constraint</head><p>Let us recall that we address the problem of detecting salient trajectories that are supposed to be rare within a group of normal trajectories. The normal trajectories of a given scenario are supposed to all follow a consistent motion pattern. We then define the following consistency loss term L c applied to each scenario S k present in the batch B:</p><formula xml:id="formula_2">L c = S k B Ti∈S k ∩B ||c i -c k || 2 ,<label>(2)</label></formula><p>with c i the code of the trajectory T i estimated by the network, and c k the median code for the trajectories of the batch issued from the scenario S k . The operator designates scenarios that contribute to the batch.</p><p>Applying the consistency loss to all the trajectories of the scenario means obviously that salient trajectories might be involved as well if there are any. On one hand, this setting may seem contradictory to our objective. However, let us point out again that salient trajectories are rare by definition. Therefore, they are unlikely to affect the value of the median code. In addition, the use of the L2 norm instead of the square in the consistency loss function (2) further limits the impact of the consistency constraint on the salient trajectories.</p><p>The full loss will add the quadratic loss term L r defined in eq.( <ref type="formula" target="#formula_0">1</ref>) to the consistency constraint of eq.( <ref type="formula" target="#formula_2">2</ref>). One of the roles of L r is to mitigate the effect of L c on salient trajectories. Indeed, the combination of the two terms will express the trade-off between the reconstruction accuracy and the code distinctness for the salient trajectories. The large imbalance between salient and normal elements is not an issue, unlike for supervised classification. It even becomes an advantage for the correct training of our network by limiting the possible impact of salient trajectories on the consistency assumption. Besides, the addition of the consistency term still preserves an unsupervised training.</p><p>The final expression of the loss taking into account reconstruction and consistency terms is given by:</p><formula xml:id="formula_3">L = L r + βL c ,<label>(3)</label></formula><p>where β is a weighting parameter to balance the impact of the two loss terms.</p><p>We have defined a method to estimate a latent code to represent trajectories. It is specifically designed to obtain close codes for similar trajectories and distant codes for potentially salient trajectories.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Trajectory saliency detection</head><p>Once trained, the recurrent auto-encoder provides us with codes of input trajectories. Now, we have to define an algorithm to detect salient trajectories against normal ones. Let us recall that normal trajectories share a common motion pattern with respect to a given context. More specifically, we consider a scenario S of the test dataset, containing normal and possibly salient trajectories, S = {T i }. The trajectories are represented by their respective latent codes {c i , c i ∈ R n }. The scenario S will be further defined when reporting each experiment.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Distance between codes</head><p>First, for comparison purpose, we need to characterise the normal class by a "generic code". It will be used to classify trajectories into normal and salient ones. Due to the possible presence of salient trajectories in S, the generic code will be given by the median of codes over S, denoted by c. Since we deal with a n-component code, we compute the component-wise median code. Each component of c is the median value of the corresponding components of the codes c i over S.</p><p>The classification of a trajectory T i , as normal or salient, will leverage the distance d i between its code c i and the median code c :</p><formula xml:id="formula_4">d i = ||c i -c|| 2 . (<label>4</label></formula><formula xml:id="formula_5">)</formula><p>The distances related to normal trajectories are expected to be smaller than the ones related to salient trajectories. To make the comparison invariant to the distance range, the empirical average of the distances d i , noted d, and the standard deviation of the d i , noted σ, are computed over scenario S. We normalise the distance d i to get the following descriptor q i for each trajectory:</p><formula xml:id="formula_6">q i = |d i -d| σ .<label>(5)</label></formula><p>With this definition, q i belongs to R + , with value ideally close to zero for normal trajectories. The status of each trajectory will be inferred from the descriptor q i , as described below.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Inference of trajectory saliency from normalised distance</head><p>Descriptors q i account for the possible deviation from the normal motion of the scenarios for each trajectory T i . Accordingly, a natural way to predict saliency is to assume that trajectories with a descriptor q i greater than a given threshold λ are salient. We have investigated two ways of setting this threshold.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.1">p-value method</head><p>The p-value scheme aims to statistically control the number of false detections and enables to automatically set λ. We assume that the q i descriptors for normal trajectories follow a known probability distribution. We then need to estimate its parameters to fit the empirical distribution of the q i descriptors of a representative set of normal trajectories. In order to identify candidate distributions, we looked at several histograms of q i descriptors and observed that their distribution is skewed. Accordingly, the tested probability distributions were the Weibull distribution [Wei39], the Dagum distribution <ref type="bibr" target="#b8">[Dag77]</ref> in the standardised form and the Dagum distribution in the general form. We selected the latter as explained in Appendix A.</p><p>Once the three parameters of the general Dagum distribution are estimated, we can fix the p-value and then get the threshold value λ. In an ideal case, the estimated distribution should correspond also to the test data. At this point, let us emphasise that we have no guarantee that this is the case. Indeed, the q i descriptors depend on the presence of outliers, that is, salient trajectories, through the normalisation with d and σ, the computed mean and standard deviation respectively. In particular, the standard deviation σ may be noticeably influenced by salient trajectories. Indeed, it tends to make the q i smaller and it turns out that only fewer q i are finally above the threshold λ given by the p-value. As a consequence, very few false detections occur but at the cost of misdetections of salient trajectories. We would have to decrease the p-value. This is confirmed by experiments reported in Appendix A. Then the p-value should be adapted to the considered scenario, which amounts to directly set the threshold λ. The p-value scheme is not effective in our case.</p><p>A way to overcome this problem would be to take another definition of the q i descriptors that would not depend on the presence of salient trajectories. A first idea would be to compute d and σ once and for all on normal trajectories of the validation set for each scenario. This way, the dependence on the presence of salient trajectories at test time vanishes. Another idea would be to make a robust estimation of d and σ on the scenario at test time. However, experiments conducted on the datasets described in Section 5, showed that results obtained for both alternatives were not as good as the ones obtained with the initial q i .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.2">Hard thresholding</head><p>In practice, we have adopted the following approach. To set λ for a given version of the trained network and a given dataset, we probed a range of values for λ. More specifically, we test candidate values over the interval [0,5] sampled every 0.05. Then, we select the one providing the best F-measure over the validation set associated to the given experiment. The choice λ = 5 as upper bound of the interval corresponds to 5 times the standard deviation with the definition of the q i descriptors. It is enough to embrace very salient elements.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">Datasets, Training and Saliency</head><p>In this section, we present the datasets used to train and evaluate our method. We have built a synthetic dataset of trajectories called STMS (Synthetic Trajectories for Motion Saliency estimation). We have also used the dataset made available by <ref type="bibr" target="#b1">[ARF14]</ref>, comprising pedestrian trajectories acquired in a railway station with a set of cameras over a long time period. We denote it as RST dataset (RST standing for Railway Station Trajectories). However, we had to organize it properly to be able to apply trajectory-saliency detection on it.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1">STMS dataset</head><p>Our STMS dataset of synthetic trajectories for motion saliency, contains three trajectory classes: straight lines, trajectories with sharp turns and circular trajectories. A noise of small magnitude is added to the successive trajectory positions to increase the variability of the trajectories.</p><p>The construction of synthetic datasets is a common practice in many computer vision tasks involving deep neural networks, for instance for optical flow estimation. Its interest is two-fold. It allows a large-scale objective experimental evaluation, since by nature, a synthetic dataset is not limited and ground truth is immediately available. It enables to pre-train the network with a large set of examples, making it more efficient on real data.</p><p>Each scenario is composed of trajectories of the same kind (e.g., straight line) and with similar parameters (velocity, initial motion direction, etc.). The number of positions is comprised between 20 and 60 for each trajectory. The velocities vary within [5, 20] depending on the scenarios. The initial direction is randomly taken in [0, 2π]. For circular trajectories, the angular velocity is constant and lies in [-0.10, 0.10] radians per time step. For trajectories with sharp turns, the rotation angle is chosen in</p><formula xml:id="formula_7">[-π 2 , -π 6 ] ∪ [ π 6 , π 2 ]</formula><p>. The initial position of the trajectories is set to the origin (0,0). With the addition of the turn time instant for trajectories with sharp turns, we have defined the set of parameters to specify each trajectory class. For a given scenario, normal trajectories should be similar. As a consequence, only small variations are allowed for the trajectory parameters in a given scenario. Yet, to avoid too uniform trajectories, a random noise is added to each trajectory. The random addition (x n (t), y n (t)) to the position coordinates at time t depends on (x n (t -1), y n (t -1)) to ensure that the trajectory remains smooth.</p><p>To come up with a difficult enough task, salient trajectories are of the same class as normal trajectories. The difference will lie in the parametrisation of the salient trajectories. The parameters are chosen so that the salient trajectory should be not too different from normal trajectories, but still distinct enough to prevent any visual ambiguity about its salient nature. An illustration is given in Figure <ref type="figure" target="#fig_3">4</ref>. The trajectories for training are generated on the fly. We generate scenarios composed of 10 normal trajectories. An additional salient trajectory may be added with a probability of 0.5. Accordingly, we build batches made of 6 scenarios each, for a total of 60 to 66 trajectories.</p><p>The validation set and the test set are composed of 500 scenarios each. For these two sets, each scenario is composed of 20 normal trajectories. An additional salient trajectory is included with a probability of 0.5. We end up with a mean rate of salient trajectories of 2.5%. These two different configurations for the training and the test were chosen to challenge our method. A higher ratio of saliency is expected to make the training more difficult. On the other hand, rare salient trajectories are more difficult to find by chance during the test.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">RST dataset</head><p>We now describe the RST dataset of real trajectories. We start with a general description of the dataset, before presenting the training procedure we applied to the network for this dataset. The second dataset is constituted of publicly available real pedestrian trajectories, computed with a tracking system installed in a train station <ref type="bibr" target="#b1">[ARF14]</ref>. The tracking system takes videos recorded by a network of cameras. The videos were processed to extract trajectories, which are projected on the 2D ground plane of the train station. More specifically, we use the trajectories extracted from one underground corridor, denoted in the following as PIW, with gates on its sides and its extremities (the corridor is displayed in Figure <ref type="figure" target="#fig_4">5</ref> with trajectory samples). The acquisition was performed during 13 days in February 2013, and resulted in a total of 115,245 trajectories. Training data are sampled from the 95,458 trajectories acquired during the 11 first days. We use trajectories sampled from the 19,787 trajectories acquired during the last two days for validation and test.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2.1">Description of the RST dataset</head><p>Compared to the STMS dataset, the trajectories of the RST dataset are longer, and the mean displacement between two points is larger. Very long trajectories are challenging for recurrent networks such as the one we employ. To overcome it, we subsampled RST trajectories by keeping one every five points (consequently multiplying the observed displacement magnitude by a factor five). We also divided the coordinates by 100 to get displacement magnitudes closer to the synthetic case. The full trajectories are recovered by reidentification from one camera to the next. This means that a given trajectory may be interrupted for some time, before being continued at a different point.</p><p>To avoid these irregularities, we pre-processed the trajectories by splitting them when unexpectedly large displacements are observed.</p><p>For a better stability of the training, we found helpful to make all the trajectories start at the same origin (x 0 , y 0 ). It can be viewed as a translation-invariant requirement with respect to the location of the trajectory in the 2D-space.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2.2">Training procedure for the RST dataset</head><p>We pre-trained our network with the synthetic trajectories.</p><p>For the training procedure on the RST dataset, we have to organize the data to apply the consistency constraint, since the RST dataset involves many different motion patterns. Accordingly, we build scenarios composed of trajectories sharing the same entry and exit; this information is directly available in the trajectories files. It may happen that between a given entry and exit, people follow a more random (or even "erratic") path. They usually go straight from the entry to the exit, but some individuals may make a detour to another location, as illustrated in Figure <ref type="figure" target="#fig_4">5</ref>. We prefer to remove these "erratic" paths from the training scenarios. To this end, we computed the median length of trajectories associated to a given entry/exit pair. Only trajectories with a length deviating from less than 10% of the median length were kept. We first built elementary scenarios of 8 trajectories by following the above-mentioned procedure. To get training batches of about 60 trajectories as in the synthetic dataset, we grouped 8 elementary scenarios from several entry/exit pairs to construct a batch. It improves the diversity of data at each training iteration.</p><p>We consider three levels of consistency, respectively of β = 10 5 , strong consistency, β = 10 3 , low consistency, and β = 0, no consistency. The three network variants trained as explained above with these three consistency levels will be denoted respectively V β 5 , V β 3 and V β 0 in the sequel. For this training procedure, 43,079 trajectories from the corridor PIW are included in the training set. In addition, we removed some trajectories, such as the ones starting in the middle of the corridor, or the ones following rare paths. The training of our method variants is done once for all on this training set and will be used for all the experiments reported in Section 6.3 apart from a specific one as explained later.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3">RST dataset organization for trajectory-saliency detection</head><p>The goal is now to evaluate our method on real trajectory data. The RST dataset is an appealing dataset since it contains a large set of trajectories of different patterns. However, it was built for crowd analysis, not specifically for trajectory-saliency detection. There is no predefined saliency ground truth. Therefore, we have to design our own saliency experiments from the available data. On one hand, we have defined two evaluation dataset from the RST dataset: RSTE-LS is an organized version of the RST test set based on the entryexit gate pairs, in order to evaluate our method on a somewhat large scale, RSTE-CP is a set of limited size needed to carry out comparative evaluation with other existing methods requiring specific training.</p><p>On the other hand, we have defined three kinds of trajectory saliency:</p><p>Trajectories with different entry and/or exit gates (called DT-saliency in the sequel), Trajectories that do not go directly from entry to exit, that is, the "erratic" ones (called ET-saliency), Faster trajectories (called FT-saliency).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3.1">Evaluation set RSTE-LS</head><p>The trajectories of the dataset are organized by entry-exit gate pairs. To ensure that the normal trajectories attached to a given entry-exit pair, follow a similar motion pattern, we remove the "erratic" ones as done for the training procedure. For DT-saliency, trajectories salient with respect to normal trajectories of a given entry-exit pair, have either a different entry or a different exit, or both. Obviously, the same trajectory may play two different roles, either the normal one, or the salient one, depending on the entry-exit pair considered.</p><p>We built a RSTE-LS test set comprising 2275 normal trajectories. They are divided into 45 scenarios, corresponding to 45 different entry/exit pairs. First, we have studied the DT-saliency on RTSE-LS. In each scenario, salient trajectories are trajectories corresponding to a different entry/exit pair. We have considered three degrees of saliency. The highest the saliency degree, the easiest the trajectory saliency detection.</p><p>In the easiest case, salient trajectories are randomly drawn from entry/exit pairs different than the one of the normal trajectories. Furthermore, only entry/exit pairs leading to distinct motion pattern are allowed. For instance, if normal trajectories go from gates 7 to 8, salient trajectories cannot go from gates 9 to 10 since the trajectories would be parallel, and consequently, of the same motion pattern once translated to the common origin (see Figure <ref type="figure" target="#fig_4">5</ref>).</p><p>In the medium case, salient trajectories share either the entrance or the exit with normal trajectories. The other gate of salient trajectories is chosen two positions after or before the other gate of normal trajectories on the same side of the corridor. For instance, if a normal trajectory goes from gates 12 to 9, a salient trajectory may go from gates 12 to 5, gate 5 being two positions after gate 9.</p><p>The most difficult case is built similarly as the medium case. The difference is that the gate of a salient trajectory that differs from the gate of normal trajectories is only one position apart, that is, the next gate on the same side of the corridor. For instance, for a normal trajectory going from gates 12 to 9, a salient trajectory may go from gates 12 to 7.</p><p>In the following, these cases will be designated with their degree of saliency respectively qualified as high, middle and low. In addition to the saliency degree, we will consider different ratios of salient versus normal trajectories. Ratios of 5%, 10% and 15% will be tested.</p><p>Second, we have studied the FT-saliency on RSTE-LS. We set up this experiment by sub-sampling a small group of trajectories for each entry-exit gate pair, which is a way to implement faster paths. They act as the salient trajectories in each entry-exit gate pair.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3.2">Evaluation set RSTE-CP</head><p>We built a second evaluation set RSTE-CP to be able to compare with existing methods. Indeed, some of them need to be trained on normal data exclusively. As a consequence, for these methods, each scenario requires its own training set, and training is performed for every scenario. To ensure it and for a fair comparison, we double-checked manually the sets of normal trajectories for training, which necessarily led to an evaluation set of limited size. The normal trajectories are checked by hand to make sure they all follow a consistent motion pattern. Therefore, RSTE-CP involves only two entry/exit pairs, instead of 45 for RSTE-LS.</p><p>We compare the three variants of our method to four existing methods, DAE <ref type="bibr" target="#b33">[RB18]</ref>, ALREC <ref type="bibr" target="#b34">[RB19]</ref>, TCDRL [YZZ + 17] and AET [MML + 18]. The comparison also comprises a baseline taking into account only the trajectory length. The baseline classifies a trajectory as salient if the trajectory length deviation is more than a given percentage of the median trajectory length. In fact, this is nothing more than the way we proceed to remove "erratic" trajectories in each entry-exit gate pair for training our method on the RSTE-LS set. We applied the baseline with two length rates: 10% and 15%. First, we designed a trajectory-saliency experiment on RSTE-CP based on the DT-saliency, that is, salient trajectories are associated to different entry/exit pairs. 100 trajectories are drawn from other entry-exit pairs than G12-7 and G12-8, according to the easiest case defined above in subsection 5.3.1. They will serve as salient trajectories w.r.t. to both G12-7 and G12-8 subsets. For each G12-7 and G12-8 test subsets, we have built 20 scenarios, each with 100 normal and 5 salient trajectories, leading to a saliency ratio of 5%.</p><p>Second, we have designed another trajectory-saliency experiment on RSTE-CP based this time on ET-saliency. In each subset, G12-7 and G12-8, the salient trajectories are now those that do not go straight from the entry to the exit, the "erratic ones" (see Figure <ref type="figure" target="#fig_6">7</ref> for an illustration). Actually, it is a special saliency situation, because the trajectory length is sufficient to characterize ETsaliency. To be sure that all trajectories are properly assigned to the normal or salient class in the ground truth, the labelling is performed manually for this experiment. In contrast to the RTS training procedure described in subsection 5.2.2, we include erratic trajectories in the training of our method in this specific experiment for a fair comparison of the three variants. For each gate pair, the test set will include a total of 155 trajectories divided into 137 normal ones and 18 salient ones. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6">Experimental results</head><p>In this section, we report the experiments we carried out on the synthetic STMS dataset and the real RST dataset.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.1">Implementation details</head><p>The network was implemented with the PyTorch framework [P + 19]. For training, we used the Adam algorithm <ref type="bibr" target="#b15">[KB14]</ref>. We set the learning rate by training the auto-encoder network on the STMS dataset. A learning rate of 10 -4 provided a good compromise between speed and convergence and was then retained.</p><p>Parameter β of the loss function (3) defines the balance between the reconstruction and consistency constraints. It was set as follows. On one hand, a too low value of β would make the consistency constraint negligible. On the other hand, a too high value of β would prevent the auto-encoder from correctly reconstructing trajectories. In practice, we set β = 10 5 for the experiments on the STMS dataset. For the RST dataset, we considered values of β = 10 5 , β = 10 3 and β = 0, as mentioned in Section 5.2.</p><p>Regarding the computation time, the forward pass takes 0.1 second and the backward pass 0.5 second, for a batch of 10 trajectories comprising 40 positions, on a machine with 4 CPU cores of 2.3 GHz. We let each network variant train three weeks.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.2">Results on the STMS synthetic dataset</head><p>We first evaluate our trajectory saliency method on the STMS synthetic dataset presented in Section 5.1. Our first goal is to assess the quality of the trajectory reconstruction by the auto-encoder. The quality score r will be defined as the average reconstruction error ē, divided by the average displacement vn over the whole dataset:</p><formula xml:id="formula_8">r = ē vn , with (6) ē = 1 N Ti 1 t f inal -t init + 1 t f inal t=tinit (x i t -xi t ) 2 + (y i t -ŷi t ) 2 . (<label>7</label></formula><formula xml:id="formula_9">)</formula><p>N is the number of trajectories in the dataset. r is defined this way to be dimensionless.</p><p>Our network is trained on the STMS dataset with the procedure described in Section 6.1. For this dataset, we consider only one variant with β set to 10 5 . We got a score r = 0.62 for this dataset. We plot samples of reconstructed trajectories in Figure <ref type="figure" target="#fig_7">8</ref>. The second goal is to assess the trajectory saliency detection performance. We compute precision, recall and F-measure on the class of salient trajectories only, because they are the ones we are interested in. The rationale of this choice is to avoid a strong bias on performance due to overwhelming normal trajectories. The F-measure is the harmonic mean of precision and recall:</p><formula xml:id="formula_10">F-measure = 2 • precision • recall precision + recall (8)</formula><p>Let us recall that the STMS dataset was constructed with 2.5% of salient trajectories. As shown in Table <ref type="table" target="#tab_0">1</ref>, we reached a F-measure equal to 0.89 for this dataset. It proves that we were able to correctly find even subtle trajectory saliency.</p><p>To highlight the contribution of the consistency constraint, we conducted an ablation study of our method. More specifically, the consistency constraint is removed, letting the auto-encoder reconstruction constraint drive the latent code estimation. The reconstruction score is r = 0.58, and as expected it is slightly better than the one r = 0.62 obtained with the additional consistency constraint. However, the F-measure collapses to 0.26 as shown in Table <ref type="table" target="#tab_0">1</ref>. This clearly demonstrates the importance of the consistency constraint. Our intuition is that without the consistency constraint, the network employs all the available degrees of freedom to encode the trajectory pattern including any small variation. With the consistency constraint, the network is more focused on correctly representing the overall motion pattern of each trajectory, which allows us to better distinguish normal and salient trajectories. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.3">Results on the evaluation sets of the RST dataset</head><p>In this section, we present results obtained on the two sets of trajectories RSTE-CP and RSTE-LS issued from the RST dataset of real pedestrian trajectories acquired in the train station.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.3.1">Comparative results on the RSTE-CP evaluation set with DT-saliency</head><p>We report the comparative evaluation carried out on the RSTE-CP evaluation set for two kinds of trajectory saliency, DT-saliency and ET-saliency. This experimental comparison involves our three method variants and four existing methods, namely, DAE <ref type="bibr" target="#b33">[RB18]</ref>, ALREC <ref type="bibr" target="#b34">[RB19]</ref>, TCDRL [YZZ + 17] and AET [MML + 18]. In addition, we include the baseline method introduced in subsection 5.3.2.</p><p>First, we deal with the DT-saliency experiment. For a fair comparison, the decision threshold involved in each method is set as best as possible. Our method variants are trained as described in Section 5.2. The decision threshold λ is set over a validation set with low saliency degree and saliency ratio of 5%.</p><p>DAE and ALREC methods estimate saliency by training an auto-encoder on normal data only, and by considering that trajectories poorly reconstructed are salient. Then, for a fair comparison, we trained each of the two networks on the training subset of G12-7 and on the training subset of G12-8 respectively according to the experiment conducted. The decision threshold is set as proposed by the authors for DAE and ALREC. We then estimated trajectory saliency first on the G12-7 subset and then on the G12-8 test subset. The training subsets include 100 trajectories per scenario, which is more than the 16 to 31 trajectories per scenario that the authors considered in their own work. Due to the higher number of trajectories, we did not include data augmentation. The TCDRL method represents trajectories with a constant-length code. This representation is obtained directly by training a recurrent network on the test trajectories. TCDRL was originally designed to produce input to clustering algorithms. To apply TCDRL to the trajectory saliency detection task, we adapted it and we defined two alternatives. The first option consists in using the k -means clustering algorithm with two classes. We then state that the class with fewer elements is the salient class. However, there is a risk that the large imbalance between the normal and salient classes makes this first option unstable. It motivates the following alternative. The second option exploits our decision test, but we applied it to the code produced by TCDRL. We took 101 values of λ regularly sampled in [0, 5], and we selected the one that provided the best performance for TCDRL on the test set.</p><p>For the AET method, we used the same training sets than for DAE and ALREC. It means that 100 RNNs are trained. AET estimates an anomaly score, that needs to be converted into a binary prediction. As for TCDRL, we sampled 101 thresholds and selected the one that provided the best performance on the test set.</p><p>Results for DT-saliency on the two subsets of the RSTE-CP evaluation set are given in Table <ref type="table" target="#tab_1">2</ref>.</p><p>We observe that our method variants and the AET method provide almost or even perfect results for this experiment. They outperform the other methods.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.3.2">Comparative results on the RSTE-CP evaluation set with ET-saliency</head><p>We now report comparative results with the ET-saliency kind of trajectory saliency. Results are collected in Table <ref type="table" target="#tab_2">3</ref> for our three method variants V β 5 , V β 3 and V β 0 , the four existing methods, and the baseline.</p><p>The decision threshold λ for our method is set on a validation set with low saliency degree and a saliency ratio of 15% since more salient trajectories are expected in this experiment.</p><p>Actually, the ET-saliency experiment has quite specific characteristics. The salient trajectories are visually different, but not that much. More specifically, they are structurally of the same vein as they share the same entry and exit gates with normal trajectories of a given entry-exit pair. Certainly, ET-saliency is a challenging experiment, since the saliency degree is low. However, it is a specific case study in the sense that essentially the trajectory length counts.</p><p>All three variants of our method perform almost equally in terms of Fmeasure, as shown in Table <ref type="table" target="#tab_2">3</ref>. We could expect it, since the key characteristic of the trajectory saliency is here trajectory length. Nevertheless, V β 5 outperforms V β 0 regarding the precision score. Our method outperforms the existing methods except for the AET method. Not that surprisingly, the baseline, which is based on the trajectory length, also offers the same performance level (with a threshold set at 10%), or even outperforms the other methods (with a threshold set at 15%), apart from the AET method. However, it is no longer the case in other trajectory-saliency situations as highlighted in Tables <ref type="table" target="#tab_1">2</ref> and<ref type="table">5</ref> dealing with DT-saliency, where the baseline performance is lower by a large margin.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head><p>Precision In addition to this objective experimental comparison, we now discuss inherent differences between our method and existing methods. DAE, ALREC and AET methods build a model to represent the normal data, and then, expect that this model will fail for abnormal elements. The reconstruction error gives the trajectory saliency indicator. A major limitation of this paradigm is its a priori low generalisation capability. Indeed, for a new configuration, the normal and abnormal trajectories are likely to change, requiring to train again the network. For a deployment to many different scenarios, this can quickly become unpractical. This approach is suited to detect abnormal trajectories, but less efficient for salient ones. Indeed, abnormal trajectory is an absolute status, meaning it is abnormal in itself, while salient trajectory is a relative status, meaning that it is salient for a given context. If the context changes, the same element may be non salient any more. The AET method performs much better than DAE and ALREC methods, by training a different RNN for each normal trajectory of the training set and by introducing a relative reconstruction error. This gives the AET method greater adaptability, but at the cost of a large number of RNNs to manage and to train.</p><p>In contrast to this family of methods, our approach is able to handle relative saliency, as illustrated by the experiments presented in Sections 6.2 and 6.3. Indeed, for these experiments, a trajectory appears as salient in a given context, while in a different one the same trajectory may be non salient. Furthermore, we do not rely on the assumption that a salient trajectory is not present in the training set. In fact, if salient trajectories are included in the training set, we expect they will be properly reconstructed and encoded, thus facilitating the decision. It enables us to train the network only once for the dataset, whatever the scenario considered. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method Precision</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.3.3">Results on the evaluation set RSTE-LS with FT-saliency</head><p>In this section, we present results obtained on a large scale using the evaluation set RSTE-LS with the FT-saliency kind of trajectory saliency. Let us recall that for the FT-saliency kind, salient trajectories are trajectories of the very same scenario but with a faster velocity. For example, they might correspond to few people who run, as opposed to the vast majority of people who walk in the station corridors. However, we needed to simulate such trajectories to carry out a relevant FT-saliency experiment. We created the salient trajectories in each scenario (i.e., each entry-exit pair) by sub-sampling a small amount of trajectories of the scenario. In practice, the sub-sampling rate was set to 3, meaning that the salient trajectories were three-times faster. The ratio of salient trajectories is set to 5%. Results obtained by our three method variants are reported in Table <ref type="table" target="#tab_3">4</ref>. We also involved the AET method in this FT-saliency experiment. We observe that our method provides overall very good detection rates, even if the saliency degree is low, the difference being only in the path velocity. The F-measure scores of all tested methods are relatively close, certainly because normal and salient trajectories keep the same global shape in the FT-saliency experiment. Nevertheless, the best results are provided by our two method variants V β 0 and V β 3 that perform better than AET method.  <ref type="table">5</ref>: Results on the evaluation set RSTE-LS for DT-saliency obtained with our three method variants for a saliency ratio of 5%. Threshold λ was set to 2 for all the experiments. For each saliency degree, the best performance is in bold. The highest the saliency degree, the easiest the case. Results obtained with the AET method are also included.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.3.4">Results on the evaluation set RSTE-LS with DT-saliency</head><p>We now report results obtained for the DT-saliency experiment on the RSTE-LS evaluation set. Table <ref type="table">5</ref> contains the results obtained for the three variants of our method, V β 5 , V β 3 and V β 0 , for different degrees of saliency. Let us recall that V β 5 , V β 3 and V β 0 are the variants for which the parameter on the consistency constraint is respectively 10 5 , 10 3 and 0. For all these experiments, we set the threshold λ to a given value (λ = 2) once and for all. First of all, we observe as expected that the more salient trajectories depart from normal ones, the better the saliency estimation results are. Then, among our method variants, V β 5 , V β 3 and V β 0 , the best method for a given degree of saliency is V β 5 , and the more challenging the experiment (i.e., the lowest the saliency degree), the larger the margin. This confirms the interest of the consistency constraint. We also include results obtained with the AET method, since it provided very good results on RSTE-CP. For this experiment, we trained about 900 RNNs for the AET method. All variants of our method outperform the AET method in this experiment that is more challenging and representative than the ones on the RSTE-CP evaluation set. Indeed, this experiment is on a large scale, and the same trajectory may be salient or normal depending on the context (i.e., the scenario). Moreover, for the more difficult cases (i.e., the low and medium saliency degrees), they outperform it by a large margin. Finally, we carried out a complementary DT-saliency experiment that consists in varying the ratio of saliency in the test dataset (defined as the ratio between the number of salient and normal trajectories). Results are collected in Table <ref type="table" target="#tab_5">6</ref> for the best variant V β 5 . We observe that the overall performance evaluated with the F-measure does not vary much when the ratio of saliency increases, which demonstrates that our method is applicable for different saliency regimes. In addition, we show four representative failure cases for the method V β 5 in Figure <ref type="figure">9</ref>. They were obtained in the RSTE-LS test set with DT-saliency, for a low saliency degree and a saliency ratio of 5%. The two top trajectories are not salient but are predicted as salient. We can observe that these two trajectories present minor irregularities. The two bottom trajectories are salient but have been classified as normal. For the first one, the normal trajectories of this scenario start at gate 14, which is very close to gate 13, the starting point of this salient trajectory. For the second one, the length of the trajectory may make the prediction harder, since normal trajectories go from gate 3 to 14 in this scenario. In general, failure cases occur when the margin of decision was small as in these four examples.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method Saliency Saliency Precision</head><p>Figure <ref type="figure">9</ref>: Four failure cases for RSTE-LS with DT-saliency, provided by the method V β 5 , for a low saliency degree and a saliency ratio of 5%. The two top trajectories are not salient but are predicted as salient. The two bottom trajectories are salient but have been classified as normal.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.4">Additional investigations and visualisations</head><p>We now present additional investigations about the training, latent code estimation and decision stages. They will enable to better understand the behaviour of our method, and to provide more details on a few specific issues.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.4.1">Initial state of the LSTMs</head><p>The network designed for trajectory representation includes LSTM layers in the encoder and the decoder. In a recurrent network, the value predicted for the next time step is estimated with the help of a hidden state that keeps memory of past information. However, there is no past information for the first time step. In practice, there are several ways to initialise the hidden LSTM state (see for instance <ref type="bibr" target="#b48">[ZTG12]</ref>). The simplest solution consists in setting the initial state to a constant value, by default to 0. Slightly more sophisticated possibilities consist in setting it randomly or in learning it. If the initial value is randomly chosen, it is a way to introduce data augmentation, since the network faces more diverse configurations for the same training dataset. It may consequently help improving performance. Learning the initial state can be done by including the initial state as a variable in the backpropagation algorithm. In preliminary experiments, we did not find any significant difference between these different initialisations in the network performance. We then decided to adopt a random initialisation, by drawing the initial state from a normal distribution.</p><p>With a random initialisation of the hidden state, the resulting parametrisation of the network is of course not strictly deterministic. Still, the network delivers consistent predictions when the same trajectory is given as input several times. This is illustrated in Figure <ref type="figure" target="#fig_0">10</ref> displaying several reconstructions of the same trajectory for several random initialisations. Apart from a hardly visible variation near the starting position of the trajectory (bottom-right), the reconstructions are almost identical.</p><p>Figure <ref type="figure" target="#fig_0">10</ref>: One trajectory reconstructed three times by our network with different random initialisations of the hidden state of the LSTM. The reconstructed trajectory is drawn in red and the ground truth trajectory is drawn in green. The impact on the reconstructed trajectory is minimal.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.4.2">Evolution of the model during training</head><p>Our method builds constrained latent codes to represent trajectories, and the codes are exploited to detect trajectory saliency. Our decision framework takes benefit from the code position in the latent space. It is somewhat inspired by deep metric learning.</p><p>Figure <ref type="figure" target="#fig_8">11</ref> displays the evolution of the trajectory reconstruction error and the F-measure related to trajectory saliency detection on the STMS validation set along the training iterations. Each iteration corresponds to a batch of 60 to 66 trajectories, depending on the random inclusion of salient trajectories. We observe that, after an initial phase with large improvements, the gain in performance becomes slower and slower. There is a noticeable improvement around iteration 200,000, even if the final gain remains limited. On the other hand, regarding saliency detection, performance reaches a plateau in a few iterations, and even deteriorates a little for a while. Only after more than 100,000 iterations, performance improves again relatively quickly, before reaching another plateau.</p><p>A similar behaviour is observed for deep metric learning <ref type="bibr" target="#b12">[HBL17]</ref>. Indeed, codes are expected to evolve in the latent space during learning, in order to correctly represent different elements into separate clusters. However, as long as the clusters are not clearly distinguishable, the saliency detection algorithm cannot work well. As a consequence, it is beneficial to let the training go on, even if saliency detection performance apparently stagnates. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.4.3">Code distribution</head><p>The consistency constraint was designed to make codes representing similar elements closer. To better understand the effects of this constraint, we computed the empirical distribution of the learned codes with and without the consistency constraint on the STMS validation dataset. The components of each code are plotted as histograms in Table <ref type="table">7</ref>. The components corresponding to a training without consistency are denoted f i , and those with consistency are denoted g i . Their values lie in [-1, 1].</p><p>Without the consistency constraint, all the code components vary largely. Two main patterns stand out. Either the code values are spread in [-1,1], or the code values are restricted to positive or negative ones. When the consistency constraint is applied, the variability is far lower. In almost all cases, the difference between the smallest and largest values is smaller than 0.5, and for several components, the predicted value is practically constant.</p><p>The consistency constraint has then a clear impact on the codes. Without it, the network tends to take profit of all the possible values to reconstruct the trajectories with high precision. When enforcing the constraint, we end up with far smaller variations and only the main significant information is stored. Local variations inherent to each trajectory are more likely to be discarded.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.4.4">Influence of choice of λ</head><p>To assess the influence of the threshold value on the method performance, the trajectory saliency detection was conducted on the STMS validation set with a regular sampling of λ (every 0.05) in the interval [0, 5]. The corresponding precision, recall and F-measures are plotted in Figure <ref type="figure" target="#fig_9">12</ref>. It shows that in this case there is a plateau around λ = 3, which means that the performance is not sensitive to the decision threshold value. This observation is consistent with the results reported in Tables <ref type="table">5</ref> and<ref type="table" target="#tab_5">6</ref> on the real dataset RTS, where the same threshold value was used for all the experiments. The threshold value is of course dependent on the dataset and the nature of the trajectories.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7">Conclusion</head><p>We have defined a novel framework for trajectory saliency detection based on a recurrent auto-encoder supplying a compact latent representation of trajectories. The auto-encoder training includes a consistency constraint in the loss function. The proposed method remains almost unsupervised, while being able to find saliency even when the difference with normality is subtle. We have explicitly formulated the trajectory saliency state and its associated decision algorithm. A trajectory is not salient in itself and so is not labelled only because a similar occurrence has never been seen in the training data. Trajectory saliency is defined with respect to a given context that specifies the normal trajectories. Such a paradigm allows for an easy generalisation to new configurations. Indeed, a major advantage of our method is its flexibility and its</p><formula xml:id="formula_11">f 0 f 1 g 0 g 1 f 2 f 3 g 2 g 3 f 4 f 5 g 4 g 5</formula><p>f 6 f 7 g 6 g 7</p><p>f 8 f 9 g 8 g 9</p><p>f 10 f 11 g 10 g 11</p><p>Table <ref type="table">7</ref>: Histograms of the first components of the trajectory codes, after training on STMS dataset. The remaining components exhibit a similar behaviour. The f i components on the left correspond to a training without the consistency constraint, and the g i on the right correspond to a training with the consistency constraint. The dispersion of the components is far more limited with the consistency constraint as expected. essentially unsupervised nature. We have experimentally validated our trajectory saliency detection method and its main components on synthetic and real trajectory datasets. We have demonstrated on several trajectory-saliency experiments drawn from a publicly available dataset of pedestrian trajectories that our method compares favourably to existing methods.</p><p>A p-value method to set the saliency threshold</p><p>We report experiments on the p-value scheme to set the λ threshold for the trajectory saliency detection. We tested three probability distributions, the Weibull distribution <ref type="bibr" target="#b42">[Wei39]</ref>, the Dagum distribution <ref type="bibr" target="#b8">[Dag77]</ref> in the standardised form and the Dagum distribution in the general form, to fit the empirical distribution of the q i descriptors defined in eq.( <ref type="formula" target="#formula_6">5</ref>). Empirical and estimated probability distributions are plotted in Figure <ref type="figure" target="#fig_2">13</ref> for the STMS validation dataset. From this set, 10,000 q i 's corresponding to normal trajectories are computed. Distributions are fitted with the maximum likelihood method.</p><p>Figure <ref type="figure" target="#fig_2">13</ref>: Plots of the empirical distribution of the q i descriptors and the fitted distributions. They are computed from the 10,000 normal trajectories of the STMS validation dataset. Each scenario is processed separately to compute the q i descriptors.</p><p>Visually, the best fit is obtained with the general form of the Dagum distribution. In addition, to get a quantitative measure of the fitting error, we use the criterion F defined as follows: Once the three parameters of the general Dagum distribution are estimated, we can fix the p-value and then get the threshold value λ. In an ideal case, the estimated distribution should correspond also to the test data. At this point, let us emphasise that we have no guarantee that this is the case. Indeed, the q i descriptors depend on the presence of outliers, that is, salient trajectories, through the normalisation with d and σ, the computed mean and standard deviation. In particular, the standard deviation σ may be noticeably influenced by salient trajectories. Indeed, it tends to make the q i smaller. As a consequence, fewer q i 's will be above the threshold λ.</p><p>The p-value approach converts the problem of setting the value of λ into the choice of the tolerated proportion of false positive in the prediction. In contrast, λ is not directly interpretable. The issue is that at test time, the p-value does not correspond actually to the expected proportion of false positives. Instead, it only provides an upper bound for this quantity. If the upper bound is too large, the p-value scheme will be no longer effective.</p><p>To test the p-value scheme, we took the evaluation setting RSTE-A with the lowest saliency degree. To fit the distribution, we need a subset of only normal trajectories. The TrG set meets this criterion. We used the V β 5 variant. Results are given in Table <ref type="table" target="#tab_6">8</ref> for saliency ratios from 0.05 to 0.15. We give the chosen pvalue and the False Positive Rate (FPR) that corresponds to the ratio between the number of false positives and the number of normal trajectories.</p><p>Results confirm that the empirical probability distribution of the q i descriptors changes in presence of outliers. Indeed, the p-value and the FPR, which should normally have similar values (the FPR can be viewed as the empirical p-value), differ largely in practice. </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Recurrent auto-encoder network computing the latent representation of trajectories. Numbers indicate the input dimension for each layer.</figDesc><graphic coords="7,133.77,467.29,343.67,82.73" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Trajectories of three scenarios S 1 , S 2 , S 3 (from the STMS dataset described in Section 5.1) are displayed on the left. A batch B composed of trajectories sampled from the three scenarios is represented on the right.</figDesc><graphic coords="9,133.77,124.80,343.72,122.99" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Training scheme of the recurrent auto-encoder with the two associated losses.</figDesc><graphic coords="10,133.77,350.59,343.69,138.23" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Examples of synthetic trajectories for the three classes, starting from the same origin. Salient trajectories are drawn in red, normal trajectories in green to blue.</figDesc><graphic coords="14,365.70,518.35,96.24,89.74" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Illustration of the RST dataset (corridor PIW, numbers correspond to gates) and of the pre-processing step used to get homogeneous motion patterns. Display of trajectories before removing the "erratic" ones on the left, after removing them on the right.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: From top to bottom: 25 normal trajectories from the G12-7 subset, 25 normal trajectories from the G12-8 subset (the two subsets forming the evaluation set RSTE-CP), 25 salient trajectories with different entry/exit pairs used for the DT-saliency experiment.</figDesc><graphic coords="19,168.14,265.49,274.95,66.76" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 7 :</head><label>7</label><figDesc>Figure 7: A normal trajectory (top) and a salient trajectory (bottom) for the ET-saliency experiment applied to the RSTE-CP set.</figDesc><graphic coords="20,168.14,264.89,274.95,66.76" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 8 :</head><label>8</label><figDesc>Figure 8: Three examples of synthetic trajectories (in green) and their reconstructed counterpart superimposed (in blue) for the three classes of trajectories. They nicely match, demonstrating an accurate reconstruction.</figDesc><graphic coords="21,236.21,345.09,73.27,58.79" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Figure 11 :</head><label>11</label><figDesc>Figure 11: Evolution of the trajectory reconstruction error ē (left) and of the F-measure related to trajectory saliency detection (right) on the validation set of the STMS dataset during training. Each iteration corresponds to a batch of 60 to 66 trajectories (depending on the random inclusion of salient trajectories).</figDesc><graphic coords="30,144.98,406.15,154.66,160.07" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 12 :</head><label>12</label><figDesc>Figure 12: Precision, recall and F-measure computed w.r.t. the salient trajectory class. These metrics quantify the trajectory saliency detection performance for different values of λ on the STMS validation set. λ values are sampled every 0.05 within [0,5].</figDesc><graphic coords="33,161.27,260.37,288.71,216.54" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head></head><label></label><figDesc>b a bin, G(b) the area under the curve of the fitted probability law for the bin b, and H(b) the observed proportion of elements falling into the bin b. In practice, we use 101 bins regularly sampled between 0 and 5. The fitting errors are 0.05, 0.10 and 0.08 respectively for the Dagum distribution with the general form, the Dagum distribution with the standardised form and the Weibull distribution, confirming the visual evaluation. Consequently, we adopted the Dagum distribution with the general form.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><head></head><label></label><figDesc></figDesc><graphic coords="34,161.27,344.95,288.72,216.77" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 :</head><label>1</label><figDesc>Performance of our method evaluated on the STMS dataset, with and without the consistency constraint. We computed precision, recall and F-measure w.r.t. the salient trajectory class.</figDesc><table><row><cell></cell><cell cols="2">Precision Recall</cell><cell>F-measure</cell></row><row><cell>Our full method</cell><cell>0.91</cell><cell>0.87</cell><cell>0.89</cell></row><row><cell>Without consistency</cell><cell>0.22</cell><cell>0.31</cell><cell>0.26</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head>Table 2 :</head><label>2</label><figDesc>Comparative results for the RSTE-CP evaluation set with DT-saliency, on the G12-8 and G12-7 test subsets. P, R and FM denote respectively precision, recall and F-measure computed w.r.t. the salient trajectory class. Best results are in bold.</figDesc><table><row><cell>RST subset</cell><cell></cell><cell>G12-7</cell><cell></cell><cell></cell><cell>G12-8</cell><cell></cell></row><row><cell>Method</cell><cell>P</cell><cell>R</cell><cell>FM</cell><cell>P</cell><cell>R</cell><cell>FM</cell></row><row><cell>DAE [RB18]</cell><cell>0.83</cell><cell>0.32</cell><cell cols="2">0.46 0.81</cell><cell>0.32</cell><cell>0.46</cell></row><row><cell>ALREC [RB19]</cell><cell>0.72</cell><cell>0.43</cell><cell cols="2">0.54 0.71</cell><cell>0.45</cell><cell>0.55</cell></row><row><cell>TCDRL-</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>KMeans [YZZ + 17]</cell><cell>0.05</cell><cell>0.54</cell><cell cols="2">0.10 0.08</cell><cell>0.53</cell><cell>0.14</cell></row><row><cell cols="2">TCDRL-C [YZZ + 17] 0.72</cell><cell>0.24</cell><cell cols="2">0.36 0.54</cell><cell>0.52</cell><cell>0.53</cell></row><row><cell>AET [MML + 18]</cell><cell>1.0</cell><cell>1.0</cell><cell>1.0</cell><cell>1.0</cell><cell>1.0</cell><cell>1.0</cell></row><row><cell>Baseline 10%</cell><cell>0.32</cell><cell>0.94</cell><cell cols="2">0.48 0.47</cell><cell>0.93</cell><cell>0.62</cell></row><row><cell>Baseline 15%</cell><cell>0.82</cell><cell>0.89</cell><cell cols="2">0.85 0.69</cell><cell>0.88</cell><cell>0.77</cell></row><row><cell>Ours V β 5</cell><cell>1.0</cell><cell>0.98</cell><cell>0.99</cell><cell>1.0</cell><cell>0.89</cell><cell>0.94</cell></row><row><cell>Ours V β 3</cell><cell>1.0</cell><cell>0.98</cell><cell>0.99</cell><cell>1.0</cell><cell>0.98</cell><cell>0.99</cell></row><row><cell>Ours V β 0</cell><cell>1.0</cell><cell>0.99</cell><cell>0.99</cell><cell>1.0</cell><cell>0.99</cell><cell>0.99</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 3 :</head><label>3</label><figDesc>Comparative results on the evaluation set RSTE-CP for the ETsaliency experiment. Precision, recall and F-measure are computed w.r.t. the salient trajectory class. The best performance is in bold.</figDesc><table><row><cell></cell><cell></cell><cell cols="2">Recall F-measure</cell></row><row><cell>variant</cell><cell></cell><cell></cell><cell></cell></row><row><cell>V β 5</cell><cell>0.92</cell><cell>0.67</cell><cell>0.77</cell></row><row><cell>V β 3</cell><cell>0.76</cell><cell>0.72</cell><cell>0.74</cell></row><row><cell>V β 0</cell><cell>0.82</cell><cell>0.78</cell><cell>0.80</cell></row><row><cell>DAE [RB18]</cell><cell>0.95</cell><cell>0.25</cell><cell>0.39</cell></row><row><cell>ALREC [RB19]</cell><cell>0.90</cell><cell>0.33</cell><cell>0.48</cell></row><row><cell>TCDRL-</cell><cell></cell><cell></cell><cell></cell></row><row><cell>KMeans [YZZ + 17]</cell><cell>0.32</cell><cell>0.50</cell><cell>0.39</cell></row><row><cell>TCDRL-C [YZZ + 17]</cell><cell>0.73</cell><cell>0.61</cell><cell>0.67</cell></row><row><cell>AET [MML + 18]</cell><cell>0.95</cell><cell>1.0</cell><cell>0.97</cell></row><row><cell>Baseline 10%</cell><cell>0.69</cell><cell>1.0</cell><cell>0.82</cell></row><row><cell>Baseline 15%</cell><cell>0.95</cell><cell>1.0</cell><cell>0.97</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head>Table 4 :</head><label>4</label><figDesc>Results on the evaluation set RTSE-LS with FT-saliency, obtained with our three metod variants and with the AET method. Precision, recall and Fmeasure are computed w.r.t. the salient trajectory class. The best performance is in bold.</figDesc><table><row><cell></cell><cell></cell><cell cols="2">Recall F-measure</cell></row><row><cell>variant</cell><cell></cell><cell></cell><cell></cell></row><row><cell>V β 5</cell><cell>0.82</cell><cell>0.98</cell><cell>0.89</cell></row><row><cell>V β 3</cell><cell>0.87</cell><cell>1.0</cell><cell>0.93</cell></row><row><cell>V β 0</cell><cell>0.88</cell><cell>0.99</cell><cell>0.93</cell></row><row><cell>AET</cell><cell>0.92</cell><cell>0.86</cell><cell>0.89</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_5"><head>Table 6 :</head><label>6</label><figDesc>Results on the evaluation set RSTE-LS with DT-saliency, for different saliency ratios, obtained with the best performing variant of our method. Threshold λ was set to 2 for all the experiments.</figDesc><table><row><cell>Recall F-measure</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_6"><head>Table 8 :</head><label>8</label><figDesc>Evaluation setting RSTE-A, and λ set with the p-value scheme. P, R and FM denote respectively precision, recall and F-measure w.r.t. the salient trajectory class. FPR denotes the False Positive Rate.</figDesc><table><row><cell cols="2">Saliency p-value</cell><cell>λ</cell><cell>FPR</cell><cell>P</cell><cell>R</cell><cell>FM</cell></row><row><cell>ratio</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>5%</cell><cell>0.025</cell><cell cols="5">2.4 0.010 0.73 0.64 0.68</cell></row><row><cell>5%</cell><cell>0.05</cell><cell cols="5">1.9 0.019 0.61 0.73 0.67</cell></row><row><cell>10%</cell><cell>0.05</cell><cell cols="5">1.9 0.012 0.83 0.62 0.71</cell></row><row><cell>10%</cell><cell>0.10</cell><cell cols="5">1.5 0.035 0.67 0.76 0.71</cell></row><row><cell>15%</cell><cell>0.075</cell><cell cols="5">1.7 0.016 0.85 0.63 0.72</cell></row><row><cell>15%</cell><cell>0.15</cell><cell cols="5">1.3 0.050 0.67 0.73 0.70</cell></row></table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgement</head><p>This work was supported in part by the <rs type="funder">DGA</rs> and the <rs type="funder">Région Bretagne</rs> through co-funding of <rs type="programName">Léo Maczyta</rs>'s PhD thesis.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_jMur5f9">
+					<orgName type="program" subtype="full">Léo Maczyta</orgName>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Social ways: Learning multi-modal distributions of pedestrian trajectories with gans</title>
+		<author>
+			<persName><forename type="first">Javad</forename><surname>Amirian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jean-Bernard</forename><surname>Hayet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Julien</forename><surname>Pettré</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)</title>
+		<meeting>the IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)</meeting>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="0" to="0" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Socially-aware largescale crowd forecasting</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Alahi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Ramanathan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Fei-Fei</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<date type="published" when="2014-06">June 2014</date>
+			<biblScope unit="page" from="2211" to="2218" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Multiple motion fields for multiple types of agents</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Barata</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A T</forename><surname>Figueiredo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">S</forename><surname>Marques</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE International Conference on Image Processing (ICIP)</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="1287" to="1291" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Multiple hypothesis tracking for cluttered biological image sequences</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chenouard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Bloch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Olivo-Marin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Pattern Analysis and Machine Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="2736" to="3750" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Prediction of visual saliency in video with deep CNNs</title>
+		<author>
+			<persName><forename type="first">Souad</forename><surname>Chaabouni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jenny</forename><surname>Benois-Pineau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ofer</forename><surname>Hadar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SPIE Optical En-gineering+ Applications, Applications of Digital Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">XXXIX</biblScope>
+			<date type="published" when="2016-08">9971. August 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Representation learning of pedestrian trajectories using actor-critic sequence-to-sequence autoencoder</title>
+		<author>
+			<persName><forename type="first">Ka</forename><surname>Ho Chow</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anish</forename><surname>Hiranandani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yifeng</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S.-H</forename><surname>Gary Chan</surname></persName>
+		</author>
+		<idno>CoRR abs/1811.08069</idno>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title/>
+		<author>
+			<persName><surname>Crlg</surname></persName>
+		</author>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Self-consistent trajectory autoencoder: Hierarchical reinforcement learning with trajectory embeddings</title>
+		<author>
+			<persName><forename type="first">John</forename><surname>Co-Reyes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yuxuan</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Abhishek</forename><surname>Gupta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Benjamin</forename><surname>Eysenbach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pieter</forename><surname>Abbeel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sergey</forename><surname>Levine</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 35th International Conference on Machine Learning</title>
+		<meeting>the 35th International Conference on Machine Learning</meeting>
+		<imprint>
+			<publisher>PMLR</publisher>
+			<date type="published" when="2018-07-15">10-15 Jul 2018</date>
+			<biblScope unit="volume">80</biblScope>
+			<biblScope unit="page" from="1009" to="1018" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">New model of personal income-distributionspecification and estimation</title>
+		<author>
+			<persName><forename type="first">Camilo</forename><surname>Dagum</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Economie appliquée</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="413" to="437" />
+			<date type="published" when="1977">1977</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Classifying spatial trajectories using representation learning</title>
+		<author>
+			<persName><forename type="first">Yuki</forename><surname>Endo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hiroyuki</forename><surname>Toda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kyosuke</forename><surname>Nishida</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jotaro</forename><surname>Ikedo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ternational Journal of Data Science and Analytics</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Analytical investigation of autoencoder-based methods for unsupervised anomaly detection in building energy data</title>
+		<author>
+			<persName><surname>Cheng Fan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xiao</forename><surname>Fu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yang</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jiayuan</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Applied Energy</title>
+		<imprint>
+			<biblScope unit="volume">211</biblScope>
+			<biblScope unit="page" from="1123" to="1135" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">A statistical video content recognition method using invariant features on object trajectories</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Hervieu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bouthemy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Le Cadre</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems for Video Technology</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="1533" to="1543" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">In defense of the triplet loss for person re-identification</title>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Hermans</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lucas</forename><surname>Beyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bastian</forename><surname>Leibe</surname></persName>
+		</author>
+		<idno>CoRR abs/1703.07737</idno>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Video saliency map detection by dominant camera motion removal</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">J</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><forename type="middle">X</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">Y</forename><surname>Lin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems for Video Technology</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1336" to="1349" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">A method for lstm-based trajectory modeling and abnormal trajectory detection</title>
+		<author>
+			<persName><forename type="first">Yufan</forename><surname>Ji</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lunwen</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Weilu</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hao</forename><surname>Shao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yanqing</forename><surname>Feng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Access</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page" from="104063" to="104073" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">A method for stochastic optimization</title>
+		<author>
+			<persName><forename type="first">Diederik</forename><surname>Kingma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jimmy</forename><surname>Ba</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Adam</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Learning Representations (ICLR)</title>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="volume">12</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Spatiotemporal saliency detection using textural contrast and its applications</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Kim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems for Video Technology</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="646" to="659" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<title/>
+		<author>
+			<persName><surname>Kss</surname></persName>
+		</author>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Spatiotemporal saliency detection using abstracted fully-connected graphical models</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">H</forename><surname>Karimi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Shafiee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Scharfenberger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Bendaya</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Haider</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Talukdar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Clausi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Wong</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE International Conference on Image Processing (ICIP)</title>
+		<imprint>
+			<date type="published" when="2016-09">Sept 2016</date>
+			<biblScope unit="page" from="694" to="698" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Online learning and sequential anomaly detection in trajectories</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Laxhammar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Falkman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Pattern Analysis and Machine Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1158" to="1173" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Contrast based hierarchical spatial-temporal saliency for video</title>
+		<author>
+			<persName><forename type="first">Trung-Nghia</forename><surname>Le</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Akihiro</forename><surname>Sugimoto</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Image and Video Technology</title>
+		<imprint>
+			<biblScope unit="page" from="734" to="748" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Video salient object detection using spatiotemporal deep features</title>
+		<author>
+			<persName><forename type="first">Trung-Nghia</forename><surname>Le</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Akihiro</forename><surname>Sugimoto</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="5002" to="5015" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Superpixel-based spatiotemporal saliency detection</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">Le</forename><surname>Meur</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems for Video Technology</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1522" to="1540" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Detecting anomalous trajectories via recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">Cong</forename><surname>Ma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zhenjiang</forename><surname>Miao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Min</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shaoyue</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ming-Hsuan</forename><surname>Yang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Asian Conference on Computer Vision</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="370" to="382" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Analyzing tracklets for the detection of abnormal crowd behavior</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Mousavi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mohammadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Perina</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chellali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Murino</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Winter Conference on Applications of Computer Vision</title>
+		<imprint>
+			<biblScope unit="page" from="148" to="155" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Abnormal motion selection in crowds using bottom-up saliency</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mancas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Riche</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Leroy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Gosselin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">18th IEEE International Conference on Image Processing (ICIP)</title>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="page" from="229" to="232" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Segmentation of moving objects by long term video analysis</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Ochs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Malik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Brox</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Pattern Analysis and Machine Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1187" to="1200" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Pytorch: An imperative style, highperformance deep learning library</title>
+		<author>
+			<persName><forename type="first">Adam</forename><surname>Paszke</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<publisher>Curran Associates, Inc</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="page" from="8024" to="8035" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Tracking and characterization of highly deformable cloud structures</title>
+		<author>
+			<persName><forename type="first">Christophe</forename><surname>Papin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Patrick</forename><surname>Bouthemy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Etienne</forename><surname>Mémin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Guy</forename><surname>Rochard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Computer Vision -ECCV 2000</title>
+		<meeting><address><addrLine>Berlin, Heidelberg; David Vernon</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2000">2000</date>
+			<biblScope unit="page" from="428" to="442" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Trajectory-based anomalous event detection</title>
+		<author>
+			<persName><forename type="first">Claudio</forename><surname>Piciarelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christian</forename><surname>Micheloni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gian</forename><forename type="middle">Luca</forename><surname>Foresti</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Circuits and Systems for video Technology</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="1544" to="1554" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">A benchmark dataset and evaluation methodology for video object segmentation</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Perazzi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Pont-Tuset</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Mcwilliams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">V</forename><surname>Gool</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Gross</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sorkine-Hornung</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<date type="published" when="2016-06">June 2016</date>
+			<biblScope unit="page" from="724" to="732" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Detection and localization of anomalous motion in video sequences from local histograms of labeled affine flows</title>
+		<author>
+			<persName><forename type="first">Juan-Manuel</forename><surname>Pérez-Rúa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Antoine</forename><surname>Basset</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Patrick</forename><surname>Bouthemy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in ICT, Computer Image Analysis</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Eye fixation assisted video saliency detection via total variation-based pairwise interaction</title>
+		<author>
+			<persName><forename type="first">Wenliang</forename><surname>Qiu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xinbo</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bing</forename><surname>Han</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Image Processing PP</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="1" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Road user abnormal trajectory detection using a deep autoencoder</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">R</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Bilodeau</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Visual Computing</title>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="748" to="757" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Adversarially learned abnormal trajectory classifier</title>
+	</analytic>
+	<monogr>
+		<title level="m">16th Conference on Computer and Robot Vision (CRV)</title>
+		<imprint>
+			<date type="published" when="2019-05">May 2019</date>
+			<biblScope unit="page" from="65" to="72" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title/>
+	</analytic>
+	<monogr>
+		<title level="j">RDJ</title>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Piecewise-stationary motion modeling and iterative smoothing to track heterogeneous particle motions in dense environments</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Roudot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Ding</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Jaqaman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Kervrann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Danuser</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="5395" to="5410" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">A study of deep convolutional auto-encoders for anomaly detection in videos</title>
+		<author>
+			<persName><forename type="first">Manassés</forename><surname>Ribeiro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">André</forename><forename type="middle">Eugênio</forename><surname>Lazzaretti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Heitor Silvério</forename><surname>Lopes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Pattern Recognition Letters</title>
+		<imprint>
+			<biblScope unit="volume">105</biblScope>
+			<biblScope unit="page" from="13" to="22" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title/>
+		<author>
+			<orgName type="collaboration">SDZ +</orgName>
+		</author>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Crowd scene understanding with coherent recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">Hang</forename><surname>Su</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yinpeng</forename><surname>Dong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jun</forename><surname>Zhu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Haibin</forename><surname>Ling</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bo</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IJCAI</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page">2</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Facenet: A unified embedding for face recognition and clustering</title>
+		<author>
+			<persName><forename type="first">Florian</forename><surname>Schroff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dmitry</forename><surname>Kalenichenko</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">James</forename><surname>Philbin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<date type="published" when="2015-06">June 2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<monogr>
+		<title level="m" type="main">Modeling trajectories with recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">Hao</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ziyang</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Weiwei</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Baihua</forename><surname>Zheng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Wei</forename><surname>Wang</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<publisher>IJCAI</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">A statistical theory of the strength of materials</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Weibull</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proc. Roy. Swedish Inst. Eng. Res</title>
+		<meeting>Roy. Swedish Inst. Eng. Res</meeting>
+		<imprint>
+			<date type="published" when="1939">1939</date>
+			<biblScope unit="page" from="1" to="45" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Unsupervised deep tracking</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<date type="published" when="2019-06">June 2019</date>
+			<biblScope unit="page" from="1308" to="1317" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Consistent video saliency using local gradient flow optimization and global refinement</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Shao</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="4185" to="4196" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Video salient object detection via fully convolutional networks</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Shao</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Image Processing</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="38" to="49" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<monogr>
+		<title level="m" type="main">YZZ +</title>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Trajectory clustering via deep representation learning</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Yao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Zhu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Bi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International Joint Conference on Neural Networks (IJCNN)</title>
+		<imprint>
+			<date type="published" when="2017-05">2017. May 2017</date>
+			<biblScope unit="page" from="3880" to="3887" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<monogr>
+		<title level="m" type="main">Forecasting with recurrent neural networks</title>
+		<author>
+			<persName><forename type="first">Hans-Georg</forename><surname>Zimmermann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christoph</forename><surname>Tietz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ralph</forename><surname>Grothmann</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2012">2012</date>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page" from="687" to="707" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,1903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="fr">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Distance-aware Approximate Nanophotonic Interconnect</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Jaechul</forename><surname>Lee</surname></persName>
+							<email>jaechul.lee@irisa.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">Cédric</forename><surname>Killian</surname></persName>
+							<email>cedric.killian@irisa.fr</email>
+						</author>
+						<author>
+							<persName><forename type="first">Sebastien</forename><surname>Le Beux</surname></persName>
+							<email>slebeux@encs.concordia.ca</email>
+						</author>
+						<author>
+							<persName><forename type="first">Daniel</forename><surname>Chillet</surname></persName>
+							<email>daniel.chillet@irisa.fr.</email>
+						</author>
+						<author>
+							<persName><forename type="first">Sebastien</forename><surname>Le</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="laboratory">CÉDRIC KILLIAN</orgName>
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="department">SEBASTIEN LE BEUX</orgName>
+								<orgName type="institution">Concordia University</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="department">DANIEL CHILLET</orgName>
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff4">
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<postCode>F-22305</postCode>
+									<settlement>Lannion</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff5">
+								<orgName type="institution">Univ Rennes</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff6">
+								<orgName type="institution" key="instit1">Inria</orgName>
+								<orgName type="institution" key="instit2">CNRS</orgName>
+								<orgName type="institution" key="instit3">IRISA</orgName>
+								<address>
+									<postCode>F-22305</postCode>
+									<settlement>Lannion</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff7">
+								<orgName type="department" key="dep1">BEUX</orgName>
+								<orgName type="department" key="dep2">Dept. of Electrical and Computer Engineering</orgName>
+								<orgName type="institution">Concordia University</orgName>
+								<address>
+									<settlement>Montreal</settlement>
+									<region>Quebec</region>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff8">
+								<orgName type="institution" key="instit1">Univ Rennes</orgName>
+								<orgName type="institution" key="instit2">Inria</orgName>
+								<orgName type="institution" key="instit3">CNRS</orgName>
+								<orgName type="institution" key="instit4">IRISA</orgName>
+								<address>
+									<postCode>F-22305</postCode>
+									<settlement>Lannion</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Distance-aware Approximate Nanophotonic Interconnect</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">7C068214D85FAB457A409D9AE3010920</idno>
+					<idno type="DOI">10.1145/1122445.1122456</idno>
+					<note type="submission">Submitted on 7 Dec 2022 Manuscript submitted to ACM 1</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:37+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>CCS Concepts:</term>
+					<term>Computer systems organization → Embedded systems</term>
+					<term>Redundancy</term>
+					<term>Robotics</term>
+					<term>• Networks → Network reliability Photonic on silicon, network-on-chip, approximate communications, manycore architectures</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>come from teaching and research institutions in France or abroad, or from public or private research centers. L'archive ouverte pluridisciplinaire HAL, est destinée au dépôt et à la diffusion de documents scientifiques de niveau recherche, publiés ou non, émanant des établissements d'enseignement et de recherche français ou étrangers, des laboratoires publics ou privés.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="fr">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">INTRODUCTION</head><p>Nowadays, large-scale applications such as scientific computing, video/image processing and data mining require high performance with large amount of computation and data exchange communication. Manycore architectures, which integrate hundreds or thousands of cores within a same chip, fulfill the needs of hardware performance with huge parallel computation capacities. In these architectures, the on-chip interconnects are a key element to ensure communication needs, which directly affects the application performance, either on energy and execution time.</p><p>In the last decade, Electrical Network-on-Chip (NoC) appears as an efficient solution for multicore architectures, in the range of tens of cores on a-chip, to circumvent the parallelism limitations of traditional buses. Nevertheless, as manycore era progress, electrical NoCs suffer from scalability in terms of latency and energy due to a huge increase on the number of hops between cores <ref type="bibr" target="#b0">[1,</ref><ref type="bibr" target="#b1">2]</ref>. Optical NoC (ONoC), which bases on Nanophotonic interconnects, is a promising solution to overcome bandwidth and latency issues, as optical signals propagate near speed-of-light in waveguides. However, their implementations remain challenging due to the low efficiency of the lasers, which are key devices in such interconnects. Indeed, the laser power consumption is mainly driven by the high signal power required to transmit data at low Bit Error Rate (BER) for accurate communications <ref type="bibr" target="#b2">[3]</ref>.</p><p>Energy efficiency of ONoC is addressed at several aspects. At circuit level, in <ref type="bibr" target="#b3">[4]</ref> proposes to reduce the power loss which driven from components such as reducing the number of Micro Ring resonators (MR) and waveguide crossings. At data level, the use of error correcting codes has been explored to allow transmission power reduction, leading to transmission errors that are compensated by data redundancies <ref type="bibr" target="#b4">[5]</ref>. At communications level, communication scheduling can improve the energy efficiency thanks to less parallel communication leading to crosstalk and energy penalty <ref type="bibr" target="#b5">[6]</ref><ref type="bibr" target="#b6">[7]</ref><ref type="bibr" target="#b7">[8]</ref>.</p><p>Beside these on-chip interconnect evolution, approximate computing is an emerging solution to improve energy efficiency and execution speed of embedded computing systems <ref type="bibr" target="#b8">[9,</ref><ref type="bibr" target="#b9">10]</ref>. It relies on accuracy reduction of the data representations, which allows lowering design constraints and improves performances at the cost of Quality of Result (QoR) degradation measured with output errors <ref type="bibr" target="#b10">[11]</ref>. It has been deployed in numerous manners on interconnects <ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b12">13]</ref>, operators and memory levels <ref type="bibr" target="#b13">[14,</ref><ref type="bibr" target="#b14">15]</ref> as well. With various methods of approximate computing implementation, it offers storage efficiency, computation speed and power consumption improvements, while keeping a tolerable degradation at the application side.</p><p>In this paper, we propose a distance aware approximate nanophotonic interconnect to improve power consumption of on-chip communication. Our proposal classifies the communications by the distance between the source and destination and its data type for approximate communication. Only two distances of communication are considered: short and long-distance range. Based on this classification, laser power levels are adapted according to the application's error tolerance. For this latter, we propose to combine the use of approximation and truncation of data. Approximation allows to lower the laser power level, hence to save energy, by targeting a given quality of transmission, accordingly with the application output errors tolerance; while truncation is the most efficient way to save power as bits are not sent, hence some lasers are kept off, but at the cost of more errors at the application level. The proposed solution is a straightforward method to enhance the power efficiency of ONoC, as it only requires 3 power levels at each source.</p><p>The contributions of the paper are as follows:</p><p>(1) The association of approximation, truncation and Short/Long distance range management is presented and generalized. We also introduce the Optical Network Interface that allows the use of the proposed method with several examples that illustrate the concept details;</p><p>Manuscript submitted to ACM <ref type="bibr" target="#b1">(2)</ref> A graphical method allows to determine the three power levels required in function of the targeted BER and to determine the trigger for short and long-distance range;</p><p>(3) A comprehensive study is performed on real life benchmarks to analyze the impact of approximation and truncation on the quality of results (QoR). This study allows to show that not all the applications are good candidates for these kind of low power techniques, and also highlights that a same approximation and truncation configuration can be applied to several applications; (4) An analysis of power reduction is provided to highlight the contribution of each low power techniques;</p><p>(5) An exploration of the design space is done to show the power reduction versus quality of result. This study allows comparing the proposed technique with state-of-the-art ones and with the optimal solutions. (6) An analysis of the driver laser complexity is performed which allows a comparison of our lightweight solution and more complex solution from state-of-the-art one.</p><p>Our contribution is validated through simulation with SNIPER manycore simulator <ref type="bibr" target="#b15">[16]</ref>, which carried out Approxbench <ref type="bibr" target="#b10">[11]</ref> benchmark applications running on shared-memory architectures. The result of evaluation for the proposal shows drastic laser power reduction of 53% for Streamcluster application at the cost of less than 8% of errors. Finally, we show that our solution is scalable and outperform state of the art solution as follows: 10% reduction in the total energy consumption, 35x reduction in the laser driver size and 10x reduction in the laser controller.</p><p>The rest of the paper is organized as follows. Section 2 introduces state of art of ONoC and approximate computing concept. Section 3 presents the proposed technique and its management, according to the application needs. Section 4 presents the considered architecture implementation and the simulation setup, and a traffic analysis of the considered application benchmarks. Section 5 provided a comprehensive analysis of the impact of approximation and truncation on the output errors of applications. In Section 6, we first explore the impact of both system and device level on the laser power. Then, it shows the power improvement obtained according to the application error. Finally, we provide a comprehensive study on the design complexity of the drivers for our method and <ref type="bibr" target="#b12">[13]</ref>. Section 7 provides discussions and perspectives on the deployment of the approach to off-chip lasers-based interconnects, and on task mapping optimization opportunities Section 8 concludes this work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">RELATED WORK</head><p>On-chip nanophotonics interconnect is a promising replacing technology for electronic on-chip interconnect due to its high bandwidth and low latency. However, active optical devices require high power and they suffer power hungry.</p><p>To overcome this problem, several attempts propose to improve power efficiency on optical interconnect. In <ref type="bibr" target="#b3">[4,</ref><ref type="bibr" target="#b16">17]</ref>, an all optic interconnect topology suitable for managing optical communications is proposed. It is based on routers that reduce number of wavelengths and other optical components to reduce power consumption. This solution is compared to other existing topologies. In <ref type="bibr" target="#b17">[18]</ref>, the authors propose photonic on-chip network architecture composed of several sub-nets. This allows high performance and low latency by sharing optical channel between sub-nets and by dynamically schedule them without degrading throughput. Error correction code (ECC) is introduced in Optical NoC to reduce the power consumption <ref type="bibr" target="#b4">[5]</ref>. The transmitter includes an ECC and the receiver detects faulty bits and can then correct them. Since additional faulty bits are acceptable using ECC, the optical power emitted by the laser source can be significantly reduced. In <ref type="bibr" target="#b7">[8]</ref>, the authors propose crosstalk aware wavelength scheduling. The correlation of application execution time and the energy consumption overhead is strategically analyzed to reduce the crosstalk induced by WDM (Wavelengths Division Multiplexing). In <ref type="bibr" target="#b5">[6]</ref>, the paper proposes dynamic bandwidth scaling based on network traffic Manuscript submitted to ACM prediction. It dynamically tunes optical channel link according to the needs of bandwidth. By turning off the unused network link, it optimizes channel utilization and reduces optical power. The technique consists on configuring the optical light intensity based on the number of path used in a tree based optical NoC. In <ref type="bibr" target="#b18">[19]</ref><ref type="bibr" target="#b19">[20]</ref><ref type="bibr" target="#b20">[21]</ref>, based on network load of required by applications, the authors propose a network management. In <ref type="bibr" target="#b18">[19]</ref>, the authors propose to increase the laser power efficiency through the management of online activating and deactivating of L2 cache and the associated optical links. In <ref type="bibr" target="#b19">[20]</ref>, the off-chip laser power is dynamically managed in runtime to adapt the network to application characteristic, hence reducing laser power consumption. In <ref type="bibr" target="#b21">[22]</ref> proposed heterogeneous multicore architecture consists of CPU-GPU cores. It reduced static optical power by predicting network load with link reservation. In, <ref type="bibr" target="#b22">[23]</ref>, the authors propose to optimize the proposed runtime power management using token based time division multiplexing. It switches ON/OFF laser source according to NoC bandwidth needs. In <ref type="bibr" target="#b23">[24]</ref>, the authors propose to balance the power consumption of lasers and the average packet latency on the ONoC. This is done by optimization of the photonic link parameters at design time, and by on-line trade-off management of power consumption and performances by limiting the cross-talk effects involved by the Micro-Ring Resonators.</p><p>In addition to these optical link optimizations, other publications propose to exploit data approximation. Indeed, approximate computing is touted as an efficient solution to reduce energy and execution speed of computing systems <ref type="bibr" target="#b8">[9]</ref>. This paradigm has been integrated into electrical NoC architecture with various techniques that reduce the number of packets and decrease precision of data packet in NoC. In <ref type="bibr" target="#b24">[25]</ref>, the authors propose approximate framework for ENoC. The work presents data transmission approximation that reduces number of data transmission by transmitting approximately similar data. Their work implements specific routing header to recognize the data approximation configuration. The work presented in <ref type="bibr" target="#b25">[26]</ref> proposes to regulate the packets injected in NoC to mitigate network congestion. Their proposal adoptively drops fraction of data packets that can be approximately predicted as a lost data. An approximate error correction control in NoC has been proposed for large-scale parallel systems in <ref type="bibr" target="#b26">[27,</ref><ref type="bibr" target="#b27">28]</ref>.</p><p>This paper proposes to configure different lengths of error correction for the data packet. For that, it decreases the number of data bits that are under the error correction. They achieve latency and power efficiencies by packet prediction and approximate error checking technique on NoC. In <ref type="bibr" target="#b28">[29]</ref>, the authors propose approximate communications on the NoC through data compression and relaxation on synchronization. Their work improves the energy consumption and speedup performance by reducing data synchronization packet that causes network bottleneck. The paper <ref type="bibr" target="#b29">[30]</ref> proposes dual voltage communication for approximate data communication in electrical NoC approximate communication by managing the power with 2 voltage levels that correspond to content of the packet. Headers and important data flits are accurately transferred at a high voltage while the approximatable flits are set to low voltage which may provoke bit flips at the destination. Overall, these approximate communications in NoC, the output quality management is necessary for application performance. The work presented in <ref type="bibr" target="#b30">[31]</ref> addresses runtime management to controls the output quality of approximation. This paper investigates online quality management system for approximate computing. It proposes to detect the output data containing error coming from approximate computing, and to correct them to ensure the output quality of application.</p><p>These successful study cases of approximate computing in electrical NoC have been introduced into Optical interconnect NoC as well. On-chip optical interconnects communicate by emitting optical signals from the laser drivers into waveguides. The input power of laser is configured by estimating various device level characteristics (e.g. photodetector sensitivity, laser driver efficiency, waveguide loss, and microring resonator insertion loss) and system level parameters Manuscript submitted to ACM (e.g. number of wavelengths, propagation distance). The optical laser driver which generates optical signal is a key elements and dominant power consuming device due to its efficiency <ref type="bibr" target="#b31">[32]</ref>. To address this large power consumption from the laser driver and reduce the power consumed in laser source, various solutions have been proposed. To ensure accurate optical communications between source and destination cores, the power received by photodetectors must be higher than their sensitivity. If this received power is reduced, the transmission BER increases and this leads toward approximate communications. In our previous work <ref type="bibr" target="#b11">[12]</ref>, we introduced the first nanophotonic interconnect in which data approximations are performed to save power for error tolerant applications. It leverages error tolerant data with respect to its significance by transmitting them with lowered laser power. In <ref type="bibr" target="#b12">[13]</ref>, the authors propose to truncate bits by turning off lasers, thus allowing to save power. However, the truncation is only applied when the estimated power at the receiver is lower than the photodetector sensitivity, which does not allow exploring accuracy power tradeoffs. Furthermore, in <ref type="bibr" target="#b12">[13]</ref>, the authors propose loss-aware power configuration that adapts the laser power according to the communication distance between source and destination cores. However, the complexity of the laser driver, which has to be designed to numerous optical power levels, and the overhead of the run-time management are not evaluated.</p><p>In order to achieve fine grain distance loss-aware for each optical link <ref type="bibr" target="#b12">[13,</ref><ref type="bibr" target="#b32">33,</ref><ref type="bibr" target="#b33">34]</ref>, it requires to have large amount of power level configurations and it requires large amount of effort in terms of computation and which may not be suitable for large size architectures.</p><p>In this work, we improve the optical interconnect based on a realistic and scalable laser power management. First, we propose improved approximate communication, and we investigate not only bit approximation but also bit truncation and association of these two techniques for each data communication. This allows going further on design exploration and achieving a point closest to optimal one. Thus it provides more power saving with very subtle output error control. This optimization of approximate configuration makes optical communication more robust and energy efficient while adapting error tolerance of application. Secondly, we propose a laser power management based on a technique taking into account the communication distance. Our proposal classifies the communications by distance between source and destination cores. However, unlike <ref type="bibr" target="#b12">[13]</ref>, only two distances are considered: short and long-distance ranges. This allows laser power configuration more suitable and realistic for various architectures in terms of design effort and energy efficiency. Third, this paper presents method of power level configuration and its computation for targeted BER as well as the determination of distance threshold. Throughout this design process, we could gain limited number of optical laser power levels while these levels still satisfy approximate communication and distance aware technique. For the last, this paper highlights all the different communication scenarios with approximate techniques and its power gain computation. According to these points, in results section, evaluation results are presented on several real life benchmarks, and a comparison with Lorax method is performed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">PROPOSED COMMUNICATION LINK</head><p>In this section, we first present the proposed interconnect architecture and the communication schemes supported.</p><p>Then we detail the estimation of power saving obtained considering the communication distance.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Overview</head><p>Our proposal aims to manage, for a given application, power consumption regarding the Quality of Result (QoR). For this purpose, the proposed nanophotonic interconnect allows adapting the laser power level according to the communication distance and the transmitted data type. Without lack of generality, Fig. <ref type="figure">1</ref>   When a communication is initiated, the writer activates the lasers (optical signals are emitted after few ns typically) and the data modulate the optical signals using On-Off Keying (OOK) modulation. Although we assume that data transmissions involve the use of all the optical signals, the transmission of data are serialized according to the data bit width (𝑁 𝑑𝑎𝑡𝑎 ) and the number of wavelengths (𝑁 𝜆). For instance, 𝑁 𝑑𝑎𝑡𝑎 = 32 and 𝑁 𝜆 = 8 would lead to a Bit Stream Length (𝐵𝑆𝐿) of 4, i.e. 4 bits are sent on each wavelength and 4 clock cycles are needed to transmit each data. The design of the serializer has been investigated in <ref type="bibr" target="#b4">[5,</ref><ref type="bibr" target="#b35">36]</ref> and is out of the scope of the paper. The modulated signals propagate along the waveguide until reaching the destination. At this stage, the signals are ejected from the waveguide using MRs in ON state. They are redirected to photodetectors from which opto-electronic conversions are carried out. The serial streams are then de-serialized back into the original data format.</p><p>In case no communication occurs, the lasers are turned OFF and hence do not consume energy <ref type="bibr" target="#b19">[20]</ref>. In case data transmission is triggered, lasers are turned ON with power levels that depend on i) the required communication quality and ii) the communication distance. To allow a reduction in consumption while limiting the driver complexity, we propose to use four laser power levels: high power (𝑃 𝐻 ), medium power (𝑃 𝑀 ) low power (𝑃 𝐿 ) and off (𝑃 𝑂 𝑓 𝑓 ), with 𝑃 𝐻 &gt; 𝑃 𝑀 &gt; 𝑃 𝐿 &gt; 𝑃 𝑂 𝑓 𝑓 = 0. Fig. <ref type="figure">1</ref> presents an example assuming that the 𝜆 3 is sent with high power, 𝜆 2 and 𝜆 1 are sent with medium power, while the power of 𝜆 0 is equal to 𝑃 𝑂 𝑓 𝑓 , meaning this wavelength is not used, which corresponds to 4 LSB bits truncation. The laser power values are calculated based on technological parameters (e.g. waveguide propagation loss and MR losses), system level parameters (e.g. number of readers) and the targeted BERs, as detailed in Section 3.3.</p><p>We assume that the accurate data (i.e. data that cannot be approximated) and approximated data require, on the receiver side, 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 and 𝐵𝐸𝑅 𝐴𝑥 respectively. Hence, assuming 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 &lt; 𝐵𝐸𝑅 𝐴𝑥 , approximated data will be Manuscript submitted to ACM transmitted using lower laser power compared to accurate data. As previously explained, the actual laser power depends on the propagation loss and hence the communication distance. For this purpose, we define two ranges of communication distance, 𝑆ℎ𝑜𝑟𝑡 and 𝐿𝑜𝑛𝑔, depending on the position of the destination on the SWMR link. This leads to the four scenarios detailed in the following:</p><p>• Accurate &amp; Long is used for the transmission of sensitive data (e.g. instructions and integer data) that critically impact the execution of applications. Therefore, the transmission quality is protected by targeting low BER for all the bits (e.g. 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 = 10 -12 ). To compensate the losses induced by the long-range transmission, the highest power level is used (i.e. 𝑃 𝐻 ) for all the lasers.</p><p>• Accurate &amp; Short is also used to transmit sensitive data but at a shorter distance. Due to the lower losses, low BER is obtained for all the bits by configuring the lasers power level to 𝑃 𝑀 .</p><p>• Approximate &amp; Long allows the long range transmission of data that can be approximated. Depending on the approximation scheme, the lasers are configured with different power levels. As detailed in Section 3.2, most significant bits are transmitted with low BER, intermediate bits are transmitted with high BER and least significant bits are truncated. To achieve this, the lasers that emit signals transmitting most significant bits and approximated bits are configured to 𝑃 𝐻 and 𝑃 𝑀 respectively. Truncated bits are not transmitted and the corresponding lasers are thus set to 𝑃 𝑂 𝑓 𝑓 .</p><p>• Approximate &amp; Short allows for short distance transmission of data that can be approximated. As for the previous scenario, the configuration of the lasers depends on the bit's significance. However, the lower losses allow reducing the power of the emitted signals, which lead to use the 𝑃 𝑀 and 𝑃 𝐿 power level for most significant and intermediate bits respectively. By adapting the laser powers according to both communication distance and level of approximation, our interconnect aims at minimizing the energy to transmit data bits. Since only three power levels are needed for all destinations with approximation levels, the design complexity of the laser driver remains comparable to solutions which require individual computation of power levels for each destination (𝐷𝑖𝑠𝑡𝑎𝑛𝑐𝑒 𝑃𝑟𝑜𝑝𝑜𝑟𝑡𝑖𝑜𝑛𝑎𝑙). The proposed method to define the laser power levels is presented in 3.3 and, in the following, we detail the considered data approximation scheme.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Data approximation scheme</head><p>The proposed communication method involves both approximation and truncation on data. In order to control different approximate level, we propose configurable bit areas according to the bit significance. Hence, several configurations are available to send data that can be approximated, and that can be tuned to achieve a given quality of result for an application. (1) 𝐴 𝑁 𝑜𝑡𝐴𝑥 = [𝑁 𝑑𝑎𝑡𝑎 -1 ; 𝑃 𝐴𝑥 ] corresponds to Most Significant Bits (MSB), composed with the sign and the exponent of the FP number, which are always protected from approximation thanks to a transmission power allowing to reach 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 ;</p><p>(2) 𝐴 𝐴𝑥 = [𝑃 𝐴𝑥 -1 ; 𝑃 𝑇 𝑟𝑢𝑛𝑐 ] are intermediate bits, the highest part of the mantissa, which may tolerate approximation and are transmitted in order to reach 𝐵𝐸𝑅 𝐴𝑥 ;</p><p>(3) 𝐴 𝑇 𝑟𝑢𝑛𝑐 = [𝑃 𝑇 𝑟𝑢𝑛𝑐 -1 ; 0] are the Least Significant Bits (LSB), lowest par of mantissa, and are not transmitted.</p><formula xml:id="formula_0">Manuscript submitted to ACM 0 Bit positions … A Not Ax BER Not Ax (low) Nλ Not Ax high level BER Ax (medium) Nλ Ax medium level BSL … … A Ax … Laser power … … … A Trunc</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Lasers off</head><p>Nλ Trunc off level</p><formula xml:id="formula_1">P H P L P M P O with: Nλ= N data !"# Nλ Not Ax = (N data -P Ax ) !"# Nλ Ax = (P Ax -P Trunc ) !"# Nλ Trunc = P Trunc !"# … Nd at a -1 P Trunc P Ax … … 𝜆 %&amp;'( 𝜆 ) 𝜆 * 𝜆 + 𝜆 , 𝜆 -)./01 (nm)</formula><p>Fig. <ref type="figure">2</ref>. Example of data approximation scheme.</p><p>These 3 groups provide flexibility to adapts the robustness of the transmitted bits with respect to the bit significance.</p><p>Table <ref type="table" target="#tab_1">1</ref> summarizes the parameters used to identify and configure the different groups of bits of a data with the proposed method. While the flexibility can be controlled through the BER to reach and by selecting the bits areas to approximate or truncate (defined by 𝐴 𝐴𝑥 and 𝐴 𝑇 𝑟𝑢𝑛𝑐 on Fig. <ref type="figure">2</ref>), in this paper we propose to fix these parameters based on the analysis of a set of applications. This analysis is presented in the next section. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Parameters</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Power levels Definition</head><p>In this section, we present the method allowing to define laser power 𝑃 𝐻 , 𝑃 𝑀 , and 𝑃 𝐿 according to the targeted BERs (𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 and 𝐵𝐸𝑅 𝐴𝑥 ). As illustrated in Fig. <ref type="figure">3</ref>, we plot three lines representing the received optical power with respect to the communication distance hop count for different injected optical power. The source optical power is estimated by: </p><formula xml:id="formula_2">Manuscript submitted to ACM BER ax BER not-ax 1 2 0 N c -2 N c -</formula><formula xml:id="formula_3">𝑃 𝑠 = 𝑃 𝑑 + (𝐻𝑜𝑝 𝑠,𝑑 -1) × 𝐿𝑜𝑠𝑠 𝑚𝑟 × 𝑁 𝜆 + 𝐻𝑜𝑝 𝑠,𝑑 × 𝐿𝑜𝑠𝑠 ℎ + 𝐿𝑜𝑠𝑠 𝑑 + 𝐿𝑜𝑠𝑠 𝑋𝑡𝑎𝑙𝑘<label>(1)</label></formula><p>Where 𝑃 𝑠 is the optical power injected from source core (in dBm) and 𝑃 𝑑 is the optical power received at the destinations core (dBm). 𝑃 𝑑 depends on the targeted BER at the destination photodetector <ref type="bibr" target="#b36">[37]</ref>. In this work, we defined the BER for approximate and accurate communications using system level simulation results, as detailed in section 4.</p><p>The BER strongly depends on the attenuation experienced by the propagating optical signals, which depend on : i) the hop count 𝐻𝑜𝑝 𝑠,𝑑 , ii) the number of wavelengths (or lasers) 𝑁 𝜆 , iii) the MR through loss (𝐿𝑜𝑠𝑠 𝑚𝑟 , in dB), iv) the waveguide propagation loss per Hop (𝐿𝑜𝑠𝑠 ℎ , in dB/hop), v) the MR drop loss (𝐿𝑜𝑠𝑠 𝑑 , in dB), and vi) the crosstalk loss (𝐿𝑜𝑠𝑠 𝑋𝑡𝑎𝑙𝑘 , in dB). For this latter we consider the crosstalk model from <ref type="bibr" target="#b37">[38]</ref>. The following details the method.</p><p>We first define the destination power 𝑃 𝑑 allowing to reach the targeted 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 at the furthest receiver (core at distance 𝑁 𝑐 -1, mark 1𝑎 in Fig. <ref type="figure">3,</ref><ref type="figure">)</ref>. By taking into account the architecture size and the losses, we estimate the required optical power to be injected from the source 𝑃 𝑠 using equation 1. The corresponding signal power is illustrated by the red line. Mark 1𝑏 corresponds to 𝑃 𝐻 , the injected optical power to inject at the source core to guarantee error free communication for any source to destination in the architecture.</p><p>Similarly, we define the power level 𝑃 𝑑 on the last receiver (𝑁 𝑐 -1) for the approximate communication obtained using 𝐵𝐸𝑅 𝐴𝑥 , mark 2𝑎 . From equation 1, the required optical power at the source allows defining 𝑃 𝑀 , mark 2𝑏 . As represented by the green line, the optical signal power for approximate communication remains high enough to reach an accurate communication for short range communication. From this observation, we define a limit between short range and long range communication, mark 3 , which correspond to the highest hop count from which 𝑃 𝑀 allows to reach 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 . This will allow to reduce the laser power for short range communication while maintaining robust data transmission. Finally, in order to efficiently transmit approximate data, we define 𝑃 𝑑 (mark 4𝑏 ) as the optical power allowing to reach 𝐵𝐸𝑅 𝐴𝑥 for all short range communication, mark 4𝑎 .</p><p>Manuscript submitted to ACM Lee, et al.</p><p>The method allows us to define the optical power to be emitted by the lasers and to classify each communication as short or long distance. The power levels and hop threshold are then used in the ONIs as parameters to configure the laser drivers regarding the communication distance and the data to transmit.    Compared to the scenario where all bits are always transmitted at full power, regardless of the communication distance, our approach allows saving power, as detailed in Equation <ref type="formula">2</ref>. The parameter values used in equation 2 are computed from equation 1 that considers the required power at the receiver and the propagation losses. To calculate power gain, power consumption from proposals 𝑃 over Baseline scenario 𝜆 × 𝑃 𝐻 has to be computed. For baseline laser power is configured as 𝑃 𝐻 for all the wavelengths to guarantee accurate communication for all the distances, equation 2a. Moreover, in equation 2b, to obtain power consumption from proposal, power consumption on three bit areas (defined in section 3.2) have to be computed. First, MSBs of FP [𝑁 𝑑𝑎𝑡𝑎 -𝑃 𝐴𝑥 ] is configured with 𝑃 𝐻 or 𝑃 𝑀 level according to the Short and Long distance. Secondly, approximate bit area [𝑃 𝐴𝑥 -𝑃 𝑇 𝑟𝑢𝑛𝑐 ] is configured with 𝑃 𝑀 or 𝑃 𝐿 to Manuscript submitted to ACM target approximate communication. Last, for the lasers that are in charge of Truncation bit area [𝑃 𝑇 𝑟𝑢𝑛𝑐 -0] are set in off state 𝑃 𝑂 𝑓 𝑓 . The summation of all the power consumption from those bit areas defined the total power consumption for the proposal. The actual power saving depends of bit area configuration, targeted BER and distance configuration.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Power saving</head><formula xml:id="formula_4">A Not Ax A Trunc A Not Ax A Ax A Trunc A Not Ax A Ax A Not Ax A Trunc A Not Ax A Ax A Trunc A Not Ax A Ax</formula><formula xml:id="formula_5">𝑃𝑜𝑤𝑒𝑟𝐺𝑎𝑖𝑛 = 𝑃 𝑁 𝜆 × 𝑃 𝐻 (2a) (2b) with 𝑃 = 1 𝐵𝑆𝐿 (𝑁 𝑑𝑎𝑡𝑎 -𝑃 𝐴𝑥 ) × 𝑃 1 +(𝑃 𝐴𝑥 -𝑃 𝑇 𝑟𝑢𝑛𝑐 ) × 𝑃 2 +𝑃 𝑇 𝑟𝑢𝑛𝑐 × 𝑃 𝑂 𝑓 𝑓 and with (𝑃 1 , 𝑃 2 ) =        (𝑃 𝐻 , 𝑃 𝑀 ) for long distance,</formula><p>(𝑃 𝑀 , 𝑃 𝐿 ) for short distance.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">EXPERIMENTAL SETUP</head><p>In this section, we present the system parameters for the architecture and simulation platform that are considered for the evaluations performed in the next section. For experimental setup, we consider an architecture based on two layers: one electrical layer to support the computation part, and one optical layer for the optical communications (as presented on Fig. <ref type="figure" target="#fig_5">5-a</ref>). The chip size considered for this section is equal to 1600𝑚𝑚 2 , hence the distance between two consecutive ONIs is therefore equal to 10 𝑚𝑚.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Considered 3D architecture</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>As summarized in</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Approximation under Cache Coherence Traffic</head><p>Cache coherency involves traffic between cache memory and last level of cache that is mainly initiated by cache misses or write-back accesses <ref type="bibr" target="#b38">[39]</ref>. However, the traffic initiated by cache coherence protocols also involves addresses of the data to be transmitted and is thus data type agnostic. We assume that approximation are enabled by the OS based on user requirements. This is achieved by setting or resetting flag "Approximation activation by OS" at run-time (figure <ref type="figure" target="#fig_5">5</ref>).</p><p>In case approximations are disabled, all communications are carried without errors using 𝑃 𝐻 and 𝑃 𝑀 for long-range and short-range communications respectively. Otherwise, the lasers are configured as follows. First, we assume that i) accurate data and approximate data are located in different address spaces of the L3 memory and ii) ranges of addresses associated to a given data type are stored in local tables. Then, from the packet destination ID, the ONI evaluates whether the communication distance is short or long (see details in section 6.1). Both information (accurate/approximate and short/long) allow the ONI manager to configure the laser power level from the laser configuration table. The details of communication between OS and ONIs is out of scope for this paper and it is studied in <ref type="bibr" target="#b39">[40]</ref>. By considering all these parameters, Laser controller configures laser powers at the different levels (𝑃 𝐻 , 𝑃 𝑀 , 𝑃 𝐿 and, 𝑃 𝑂 𝑓 𝑓 ). Thus, cores have two ways to communicate, one without error and one with approximation mode. The Fig. <ref type="figure" target="#fig_5">5-b</ref> illustrates the principle with a cache miss scenario. The L3 on cluster 2 receives a request containing the address of a data to be returned. The address (@216447 in the example) is compared to the address ranges of data to be approximated (FP numbers). In case of matching, the power levels of lasers corresponding to the approximated and truncated bits are configured. To limit the hardware complexity, the proposed architecture only integrates one approximation and truncation configuration (see conclusion of section 6.3 for more details) and can be activated at run-time by an Operating System with a flag signal Manuscript submitted to ACM <ref type="bibr" target="#b39">[40,</ref><ref type="bibr" target="#b40">41]</ref>. The manager then grants the SWMR access to the L3 that initiated the request and the data is transmitted to the serializers for signal modulation. In order to reduce the latency and hardware overhead, the whole cache line is transferred: the size of response packets (which can be approximated) is larger than packet request size (which can never be approximated) as it contains data. We assume the use of a packet header integrating the IDs of source and destination cores, data address, data type, and flag indicating if the transmitted data are approximated. The header is always transmitted with high laser power, i.e. without approximation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Simulation platform</head><p>For evaluation, we consider error tolerant applications from Approxbench <ref type="bibr" target="#b10">[11]</ref>. Table <ref type="table" target="#tab_6">3</ref> presents the four benchmark applications used in this paper: Blackscholes, Fluidanimate, Canneal and Streamcluster performing financial algorithms, animation, routing and online clustering, respectively. Moreover, Approxbench provides the output error metric for each application, which allows to estimate the Quality of Result (QoR). This output error is the difference on error metric between the application with and without approximate communications. As each application performed has specific goal, each one has a particular error metric which is defined in Table <ref type="table" target="#tab_6">3</ref>. For instance, Blackscholes is financial pricing application that predicts price of the market based on previous market values and trend. Thus, the output error metric is the Mean Square Error (MSE), and is computed on mean error of output values as follow in Equation <ref type="formula" target="#formula_6">3</ref>:</p><formula xml:id="formula_6">𝑀𝑆𝐸 = ( 1 𝑛 ) 𝑛 ∑︁ 𝑖=1 (𝐴𝑐𝑐𝑢𝑟𝑎𝑡𝑒 𝑖 -𝐴𝑝𝑝𝑟𝑜𝑥𝑖𝑚𝑎𝑡𝑒 𝑖 ) 2<label>(3)</label></formula><p>Based on this equation, approximated output values 𝐴𝑝𝑝𝑟𝑜𝑥𝑖𝑚𝑎𝑡𝑒 𝑖 are compared with original ones 𝐴𝑐𝑐𝑢𝑟𝑎𝑡𝑒 𝑖 to determine output error.</p><p>These applications are simulated in multi-core simulator Sniper <ref type="bibr" target="#b15">[16]</ref>. From the simulations, we extracted the output results in order to compute the output errors and also the communication traces linked to the traffic between clusters in NoC. From the communication traces, which embed information of packet type, source, destination and sent time, we analyze communication distribution and type of data. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">Benchmarks and traffic analysis</head><p>To evaluate the impact of the proposed method, we analyze the traffic distribution for the selected applications. This analysis includes both hop distance and data type, within the considered 16 clusters architecture.</p><p>Fig. <ref type="figure" target="#fig_6">6-a</ref>) presents ratio of communication by hop count. We can note that the communication traffics over the network are well balanced for all the hop distances and for any application. From this well distributed communication, we can Manuscript submitted to ACM  The ratio of type of data is linked to the application and it is defined at the application designing level. Only Floating-Point (FP) ratio refers to potential data type that may benefit from power saving by using the proposed approximate method. We can see that Canneal only have around 4% of FP data communication, while the others reached 22%, 44% and 60%, for Fluidanimate, Blacksholes and Streamcluster, respectively. From this analysis, it is evident that applying energy reduction technique on FP data for Canneal will not produce a considerable energy reduction, unlike the other applications, and especially Streamcluster.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">IMPACT OF APPROXIMATION AND TRUNCATION ON QUALITY OF RESULT</head><p>In this section, we first investigate the impact of bit truncation on the Quality of Result (QoR). Then we analyze the QoR results when bit approximation and bit truncation are combined together.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1">Truncation impact on QoR</head><p>The truncation is the most straightforward technique to save energy, as certain amount of bits are not sent. However, it may also impact most the output of application, hence degrade the QoR. Fig. <ref type="figure">7</ref> illustrates the output error effects when only bit truncation is applied on FP data, starting from the LSB bit. It has to be noticed that we increased the number of truncated bits four by four up to 12 bits, as below that value no effect has been sensed, then we increased this number one by one up to 24 bits, that exhibits too much error for every application. We have set an output error threshold lined at 10% which is widely used as an acceptable error range for approximate computing <ref type="bibr" target="#b10">[11,</ref><ref type="bibr" target="#b13">14,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b29">30]</ref>. From the analysis, it is certain that applications differently react to a given approximation level. As an example, Canneal does not generate any visible output error with truncation. It may be explained as Canneal contains only 4% of FP data usage (Fig. <ref type="figure" target="#fig_6">6-b</ref>). Approximation on very small quantity of FP data does not critically impact the whole application.</p><p>Blackscholes and Streamcluster show low output error similar to Canneal until truncation of 23 bits. However, at 24 bits truncation, the produced output errors exceed the 10% threshold. Fluidanimate, meanwhile, produces a large output We can notice that all the applications suffer the 24 bits of truncation. Indeed, in FP single precision presentation, LSB bits from 0 to 23 𝑡ℎ are mantissa, and bits from 24 𝑡ℎ to 31 𝑡ℎ are exponent which has significant meaning for the data after the number normalization. Therefore, truncating 24 𝑡ℎ for all the applications leads to large amount of error.</p><p>For these experiments, we consider an ONI with 8 lasers serializing a group of four bits (𝐵𝑆𝐿 = 4). Thus, it is possible to apply truncation by steps of 4. For instance, truncation of 20 bits or 24 bits is configurable in this architecture. Therefore, in our system, the most beneficial configuration just with truncation, under the 10% threshold, is 20 bits for 𝐴 𝑇 𝑟𝑢𝑛𝑐 and 12 bits for 𝐴 𝑁 𝑜𝑡𝐴𝑥 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">Impacts of truncation and approximation combination</head><p>In the previous subsection 5.1, we found that truncating bits close to MSBs produces large amount of errors, in particular when the truncation is done on bits coding the FP exponent. In order to push further the energy reduction, approximation instead of truncation on bits close to MSB should be less aggressive for results degradation. Indeed, approximation of bit is less aggressive than truncation from application point of view. It is possible by adapting laser power level according to targeting BER and produces power saving.</p><p>The Fig. <ref type="figure">8</ref> present how combinations of both truncation and approximation techniques impact the QoR of applications.</p><p>The output errors are presented with different bit range parameters: Not Approximated bits (NA), Approximated bits (A) and Truncated bits (T). The explored combinations range from 8 MSBs not approximated (sign and exponent of 32 bits FP data are not approximated) and the remaining bits approximated (noted as 8NA/24A/0T), to truncated bits instead of 4 approximated bits. The step 4 is linked to the bit stream length (𝐵𝑆𝐿 = 4 in our experiments).</p><p>Regarding the approximated bit levels, we explored the aforementioned combinations with different 𝐵𝐸𝑅 𝐴𝑥 values: 10 -2 , 10 -3 , 10 -5 , and 10 -7 .</p><p>Firstly, from the results shown in Fig. <ref type="figure">8</ref>, we can clearly see that the combination of mixing truncation and approximations provides a better QoR, for any BER value, than only 24 bits of truncation (represented by 8NA/0A/24T). As already explained in the previous section, applying 24 bits truncation impacts the first bit of the exponent within the Floating-Point number. Secondly, we can see that increasing BER value decreases the QoR, due to more error on bits.</p><p>For instance, if we consider Fluidanimate, for 24 approximated bits (i.e. 8NA/24A/0T), the QoR goes from 2.5% to 5%, and from 48% to 50% of output error, respectively with a BER increasing from 10 -7 to 10 -5 , and from 10 -3 to 10 -2 . This</p><p>Manuscript submitted to ACM is also observable for any combination of approximation with truncation. Thirdly, we can notice that, for any BER value, the QoR is more degraded as the number of truncated bits increased. This is especially visible for Fluidanimate which is more sensitive to errors: for a BER value of 10 -5 , the output error goes from 5%, to 58%, while passing by 30%, respectively with only 24 approximated bits (8NA/24A/0T), only 24 truncated bits (8NA/0A/24T), and half approximated and half truncated (8NA/12A/12T).</p><p>Regarding the best combinations to keep an acceptable output result:</p><p>• Canneal can go for 24 truncated bits. As it is not a Floating-Point sensitive application, the combination of techniques does not provide any advantage. • Blackscholes exhibits less than 10% of errors for any combination except for 24 truncated bits. Hence, it can even apply strongly degraded BER of 10 -2 . As it is evident that truncation of 4 bits consumes less power than 4 approximated bits, we may expect that a combination with 4 approximated bits and 20 truncated bits is the best solution if we target the less consuming solution with an acceptable QoR (8NA/4A/20T with a BER of 10 -2 ) for this application. A complete analysis on QoR and power savings is presented on the next section.</p><p>• Streamcluster has somehow the same behavior as Blackscholes, however the BER should be better than 10 -2 .</p><p>Hence, the best combination should be for 8NA/4A/20T with a BER of 10 -3 • Fluidanimate, is more sensitive to data errors. For any combination, if the BER is worse than 10 -5 , the output error is more than 40%. The combination with the higher number of truncated bits providing less than 10% of output error is for 12 approximated bits at a BER of 10 -7 along with 12 truncated bits (8NA/12A/12T).</p><p>From these experiments, we can conclude that every application reacts differently to the approximation and truncation. However, we can see three trends. First, some applications are not really sensitive, like Canneal. However, this benchmark only has less than 5% of Floating-Point data in its communications. Hence, the opportunity for energy saving is not relevant. Secondly, some benchmarks are very sensitive to approximate, like Fluidanimate. Hence, this kind of application requires a specific and accurate combination of approximation and truncation. Finally, it is possible to find some applications with a non negligible amount of Floating-Point data that can be approximated using the same combination of parameters. This latter is the case for Blackscholes and Streamcluster.</p><p>From this analysis, the proposed method can be used for two purposes:</p><p>• Application specific communication interconnect: adapting i) the number of approximated and truncated bits and ii) the BER for every application. However, this will require a complex ONI that will have to adapt on run time to the application needs;</p><p>• Generic interconnect for approximation: it is possible to determine one combination of truncated and approximated bits that suits the most of approximable applications. However, by going in that way, the ONI will not be able to approximate some applications that then will be run using non approximated communication.</p><p>For the next section, we will explore the energy gains provided by approximation and truncation while also considering the QoR. We consider for the following a generic interconnect that use the following scheme for approximating floating-point data: 20 truncated bits with 4 approximated bits (8NA/4A/20T) sent with a 𝐵𝐸𝑅 𝑎𝑥 of 10 -3 . This solution will then be compatible with Blacksholes and Streamcluster applications, while not possible to be applied on Canneal and Fluidanimate.</p><p>Manuscript submitted to ACM This section analyzes the power saving according to i) the level of approximation and truncation, ii) the targeted BER for approximate and accurate communication, and iii) the communication traffic between processors and memories. For this purpose, we first use the proposed method to define the laser power levels and the limit between short-range and long-range communications, which are key parameters in our system. For this purpose, we explore the impact of the distance between the ONI (system level parameter) according to the waveguide loss (technological level). Then, we provide a detailed analysis of the power contribution for each type of communication. Exploration of QoR -power saving tradeoff is provided and we compare the found solutions with the ideal ones. As discussed in the previous section, not all the applications from Approxbench lead to significant power saving under approximate communications schemes. Nevertheless, for the sake of reduced design complexity, we decided to use the same approximation scheme, i.e. 8NA/4A/20T configuration with 𝐵𝐸𝑅 𝐴𝑥 = 10 -3 , for all the applications. In the following, we mainly focus our studies on the StreamCluster application. Finally, we propose a comprehensive study on the design complexity of the drivers for our method and Lorax <ref type="bibr" target="#b12">[13]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.1">ONI Specifications</head><p>In the following, we design the ONIs according to system level parameters defined in Table <ref type="table" target="#tab_4">2</ref> and by considering 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 = 10 -12 and 𝐵𝐸𝑅 𝐴𝑥 = 10 -3 (defined from previous simulation results). Our goal is twofold: first we aim to define power levels 𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝐿 . Second, we aim to define the hop count from which long-range communications start. We first assume minimum optical power of -8 𝑑𝐵𝑚 and -12 𝑑𝐵𝑚 for accurate and approximate data reception respectively <ref type="bibr" target="#b36">[37]</ref>. We assume 0.02 𝑑𝐵 MR through loss, 0.7 𝑑𝐵 MR drop loss, <ref type="bibr" target="#b41">[42]</ref> an FSR of 8𝑛𝑚 and a MR quality factor of 20, 000 <ref type="bibr" target="#b42">[43]</ref>. We consider distance between ONIs ranging from 0.8 𝑐𝑚 to 1.3 𝑐𝑚 and consider waveguide losses of 1 𝑑𝐵/𝑐𝑚 <ref type="bibr" target="#b43">[44]</ref> and 0.25 𝑑𝐵/𝑐𝑚 <ref type="bibr" target="#b44">[45]</ref>. While 0.25 𝑑𝐵/𝑐𝑚 corresponds to ridge waveguides not compatible for side-coupling with microrings <ref type="bibr" target="#b45">[46]</ref>, our aim is to demonstrate the ability of the method to also consider prospective propagation loss and to carry our comparison with Lorax. Fig. <ref type="figure">9 a</ref>) reports the exponential growth of the laser powers for increasing distance between ONI, assuming the two considered propagation losses. 𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝐿 are estimated based on the method defined in Section 3.3. The losses breakdown to communicate with the last receiver are shown in Fig. <ref type="figure">9 b</ref>) for a number of wavelengths ranging from 8 to 24 and for a 0.25dB/cm waveguide loss. The waveguide loss, which dominates the total losses for a small number of wavelengths, is independent from the number of lasers since it only depends on the communication distance. On the contrary, the MR through losses linearly increase with the number of wavelengths due to the higher number of crossed MRs. Regarding the crosstalk losses, it only represents 1.3% for 8 wavelengths. Indeed, for an FSR of 8𝑛𝑚, the channel spacing is 1𝑛𝑚 (∼120GHz), which results in negligible crosstalk losses as demonstrated in <ref type="bibr" target="#b42">[43]</ref>. For a same FSR, increasing the number of wavelengths to 24 leads to 7.9% of losses provided by the crosstalk, which is acceptable and can be lowered by increasing the channel spacing <ref type="bibr" target="#b37">[38]</ref>. In the rest of the study, we will consider 8 wavelengths. 𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝐿 calculations are detailed for a distance between ONIs of 1 𝑐𝑚 in Fig. <ref type="figure">9 c</ref>) (0.25 𝑑𝐵/𝑐𝑚 propagation loss) and Fig. <ref type="figure">9 d</ref>) (1 𝑑𝐵/𝑐𝑚 propagation loss). As seen in Fig. <ref type="figure">9 c</ref>) (respectively Fig. <ref type="figure">9 d</ref>), to reach 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 at ONI 15, the higher transmission losses are compensated by an increase of 𝑃 𝐻 up to 707𝜇𝑊 for 0.25𝑑𝐵/𝑐𝑚 (respectively up to 9549𝜇𝑊 for 1 𝑑𝐵/𝑐𝑚). Similarly, to reach 𝐵𝐸𝑅 𝐴𝑥 at ONI 15, 𝑃 𝑀 of 281𝜇𝑊 is needed for 0.25 𝑑𝐵/𝑐𝑚, which leads to 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 at ONI 5, while 𝑃 𝑀 must be fixed at 3801𝜇𝑊 for 1𝑑𝐵/𝑐𝑚, which leads to 𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥 at ONI 11. Hence, short range communications for 1 𝑑𝐵/𝑐𝑚 include ONIs 1 to 11, against ONIs 1 to 5 for 0.25 𝑑𝐵/𝑐𝑚. In other words, the total losses experienced by the optical signal for hops 11 to 15 under 1 𝑑𝐵/𝑐𝑚 Manuscript submitted to ACM are similar to the losses for hops 5 to 15 under 0.25 𝑑𝐵/𝑐𝑚. For comparison purpose with <ref type="bibr" target="#b12">[13]</ref>, we consider power values obtained for 0.25 𝑑𝐵/𝑐𝑚 in the rest of the paper (𝑃 𝐻 = 707𝜇𝑊 , 𝑃 𝑀 = 281𝜇𝑊 and 𝑃 𝐿 = 112𝜇𝑊 ), as summarized in Table <ref type="table" target="#tab_10">4</ref>.  Received power (dBm)</p><p>Distance (Hop count) 0.25 dB/cm Waveguide propagation loss - Emitted Laser Power (mW)</p><p>Distance between ONIs (cm)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Source laser power</head><p>P for 1 dB/cm P for 1 dB/cm P for 1 dB/cm P for 0.25 dB/cm P for 0.25 dB/cm P for 0.25 dB/cm</p><formula xml:id="formula_9">PM PL PH Short BERnot ax BERax H H M M L L Long PH = 707μW PM = 281μW PL = 112μW c) d) PL = 1380μW BERnot ax=10 -12 @10GBps BERax=10 -3 @10GBps PH = 9549μW PM = 3801μW</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Short Long</head><p>Fig. <ref type="figure">9</ref>. a) Required laser output power according to the distance between ONIs and for 𝐵𝐸𝑅 𝑎𝑥 = 10 -3 and 𝐵𝐸𝑅 𝑛𝑜𝑡𝑎𝑥 = 10 -12 . b) Communication losses overview to reach the last receiver with 0.25dB/cm waveguide propagation loss for 8 to 24 wavelengths. Details of the method to define short/long-range communications and to calculate 𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝐿 for a ONI distance of 10𝑚𝑚 are given for c) 0.25dB/cm and d) 1dB/cm waveguide propagation losses.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.2">Power saving analysis</head><p>Fig. <ref type="figure" target="#fig_11">10</ref> shows the power saving for existing methods <ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b12">13]</ref>   . As previously defined, the threshold between long and short distance communications is equal to 5.</p><p>Considering this distance threshold, the 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒 shows that 33% of transfers are short communications, while 66% are long communications. Regarding the data type, up to 58% can be transmitted using approximation (see FP ratio in Fig. <ref type="figure" target="#fig_6">6-b</ref>). The second stacked vertical bars, named 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 on the figure, show the power contribution when the lasers power levels are adapted according to Short/Long distances. In this case, the long distance communications are sent with the highest power 𝑃 𝐻 , while the power is reduced to 𝑃 𝑀 for short distance communications and for any data type. This results in 20% of power saving compared to the 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒. The last method that only benefits from distance consideration for power saving is 𝐷𝑖𝑠𝑡𝑎𝑛𝑐𝑒 𝑝𝑟𝑜𝑝𝑜𝑟𝑡𝑖𝑜𝑛𝑎𝑙 shown with the third stacked bars. It assumes to only use the required power for any distance within the architecture <ref type="bibr" target="#b12">[13]</ref>, hence it requires as many power levels as distance hops available. We can observe that the power required for both short and long distances of communication are reduced. It allows to save 21% and 41% more power compared to 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 and 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒 methods, respectively. It shows most effective power efficiency compare to 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒 and 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 as it avoids to waste any extra power for the transmission. However, the implementation of fully distance proportional links requires significant design efforts for the laser CMOS drivers and leads to hardware overhead due to the number of laser power level to be pre-configured.</p><p>Moreover, such links do not scale well as the hardware complexity linearly increases with the number of destinations and configurable BER. Indeed, assuming N cores architectures and M BER levels, the approach leads to (𝑁 -1) × 𝑀 different power levels. On the contrary, the approach we propose only requires 3 power levels. Overall, a comprehensive power analysis is needed to further compare the approaches by considering the overheads of the optoelectronics and electronics components. The detail of this laser design complexity for fine grain multi power level are studied in section 6.4.</p><p>Scenario 12𝑁 𝐴/20𝐴/0𝑇 involves approximation for 20 LSB of FP data, with a BER of 10 -3 , hence by setting laser power to 𝑃 𝑀 = 281 𝜇𝑊 and without distance management <ref type="bibr" target="#b11">[12]</ref>. The system benefits 21.8% power saving compared Manuscript submitted to ACM to 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒, which is due to a 62% reduction in the power needed to transmit FP data. Obviously, no power saving is obtained for non-FP data. By assuming 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 distance management for the previous method, approximated bits will be sent using 𝑃 𝐿 = 112 𝜇𝑊 and 𝑃 𝑀 = 281 𝜇𝑊 for short and long distances, respectively. An overall power reduction from 78.1% to 63.6% is achieved. Power consumption for communications that only use truncation to save power, without distance management, is presented in 12𝑁 𝐴/0𝐴/20𝑇 . In this result, 20 LSB are truncated on FP data communication by turning off lasers. The architecture benefits from 36% power saving compared to 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒 throughout all communications. Moreover, if 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 distance management is associated to this solution, hence leading to 12𝑁 𝐴/0𝐴/20𝑇 + 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 result, it leads to an extra 13% power saving, then reaching a total power consumption of only 50.9% versus the 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒.</p><p>By combining truncation and approximation without considering the distance, scenario 8𝑁 𝐴/4𝐴/20𝑇 shows 40% of power reduction. Associated to 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 distance management, (8𝑁 𝐴/4𝐴/20𝑇 + 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔), the power required for the communication drops to 47%, thus leading to a significant improvement. All these results demonstrate the needs to combine approximation techniques at the levels of both optical link and data representation. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.3">Power Vs Quality of Results Trade-offs</head><p>To fully evaluate the different techniques, we have to consider both power consumption and application output error.</p><p>The Fig. <ref type="figure" target="#fig_13">11</ref> highlights the design space with all the possible techniques to handle approximate communications in ONoC 𝐵𝐸𝑅 𝑎𝑥 = 10 -3 . For more clarity in the Fig. <ref type="figure" target="#fig_13">11</ref>, the number of non-approximated bits is not shown, but can be easily deduct as the total number of bits of FP data are 32bits. We also represented the solutions that provide more than 10% of output error, there are located on the right gray part. First of all, we can see that there is a huge exploration space with high differences in terms of power versus QoR.</p><p>The way to manage the distance of communication provides a shift from 12% for the same configuration in terms of approximating or truncating data. Unsurprisingly, the distance proportional solutions are the less power consuming, but at the cost of high complexity. It is interesting to note that, for distance proportional solutions, some configurations can consume more that the best solution with only two distances considered. The same trend can be seen for two distances management that has solutions worse than the Pareto front of the 𝑁𝑜 𝐷𝑖𝑠𝑡𝑎𝑛𝑐𝑒 𝑎𝑤𝑎𝑟𝑒.</p><p>Regarding the best solutions in terms of trade-offs between power consumption and output errors, we see the same points on the Pareto fronts in each group. All these solutions provide less than 0.15% of output errors. The solutions 16𝑁 𝐴/0/16𝑇 with a maximum of 16 truncated bits provide a very small degradation of the output error, but allow to save a huge amount of power compared to the baseline, and for any group of distance managements. Indeed, more than 20% of power reduction is shown.</p><p>The second main trend of points, zoomed in Fig <ref type="figure" target="#fig_13">11-c</ref>, are dominated by the solutions 12𝑁 𝐴/0𝐴/20𝑇 . These solutions do not exceed 1.7% output errors while pushing forward the power consumption reduction. The last trend of solutions, that do not exceed the tolerable output error of 10%, is zoomed in Fig <ref type="figure" target="#fig_13">11-d</ref>. These solutions are dominated by the 8𝑁 𝐴/4𝐴/20𝑇 with 𝐵𝐸𝑅 𝑎𝑥 = 10 -3 . These solutions provide less than 8.15% of output error while providing the more power consumption reduction.</p><p>To conclude this exploration, first we can state that the design space is huge, and designing an ONI that is be able to configure all of any configuration is unrealistic. Secondly, we highlighted that the different solutions can be grouped in trends are dominated by one or few optimal points, hence limiting the number of interesting solutions to embed in the ONIs./JAEI can not understand this sentence As already mentioned, we target to limit the complexity of the ONI and its management by only considering one low power communication scheme. Thus, the most relevant solution to provide the highest power savings is 8𝑁 𝐴/4𝐴/20𝑇 with 𝐵𝐸𝑅 𝑎𝑥 = 10 -3 which provide a reasonable output error.</p><p>Finally, regarding the distance of communication, the proposed solution of only considering two group of distance (i.e. Short/Long) provides efficient result compared to no distance management technique. Compared to the optimal solution induced by fully distance proportional links, our solution consumes only 12% additional power. However, it is important to notice that our ONI design is realistic as it requires only four laser powers, compared to <ref type="bibr" target="#b12">[13]</ref> for which the complexity linearly increases with both number of cores and number of BER levels.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.4">Laser Driver Design Complexity</head><p>As discussed in the previous section, fine grain tuning of the optical signal power, as proposed in <ref type="bibr" target="#b12">[13]</ref>, allows reducing the laser power consumption. However, such approach leads to significant challenges related to the design of both analog and digital electronic circuits to control the lasers. In <ref type="bibr" target="#b12">[13]</ref>, the authors consider a given approximation level for each application. This implies that each driver is capable of targeting, for each destination, any BER from 10 -12 to 10 -2 . Hence, for a N-cluster architecture, each driver is capable of emitting a signal at 11 × (𝑁 -1) different power levels (e.g. 165 levels per laser for 16 clusters). Since no hardware evaluation is carried out in <ref type="bibr" target="#b12">[13]</ref>, we study their driver complexity assuming only two BER values of 10 -12 and 10 -3 for each destination, while still assuming that the optimal BER can be used. Results are provided in Fig. <ref type="figure">12</ref> for a number of clusters ranging from 2 × 2 to 16 × 16. As seen on the figure, the number of power levels for our architecture is constant (4 levels corresponding to 𝑃 𝑂 𝑓 𝑓 , 𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝐿 ) while it linearly grows for 𝐿𝑜𝑟𝑎𝑥 despite the considered optimistic assumption. For instance, 𝐿𝑜𝑟𝑎𝑥 leads to 255 power levels for 128 clusters (1 level for 𝑃 𝑂 𝑓 𝑓 and two BER levels for each of the 127 destinations), which significantly increases the design complexity of the laser driver, as discussed in the following.</p><p>We now study the complexity of the CMOS drivers assuming an OOK modulation for both Lorax and our method.</p><p>CMOS drivers are key components to deliver the right current to the on-chip lasers according to the selected optical power level. We designed multi-level laser drivers for our approach and 𝐿𝑜𝑟𝑎𝑥 assuming 16 clusters, as represented in Fig. <ref type="figure">13</ref>. The drivers operate as follow: transistor 𝑇 1 drive a 𝐼 𝑏𝑖𝑎𝑠 current to maintain the laser near the threshold area and transistors drove by 𝐸𝑛 𝑖 signals define the current in the laser emission area. In case communication is required or is predicted, Signal /𝑆𝑙𝑒𝑒𝑝 is set to 1, allowing to start driving current and to prepare laser for emission. This allows Manuscript submitted to ACM reducing latency penalty occurring to switch on laser from a fully off state <ref type="bibr" target="#b22">[23,</ref><ref type="bibr" target="#b48">49]</ref>. In case no optical communication occurs or is predicted, Signal /𝑆𝑙𝑒𝑒𝑝 is set to 0, thus leading to energy saving. Temporal penalty and optimization of driver sleep time <ref type="bibr" target="#b49">[50]</ref> are out of the scope of this work but would lead to the same energy reduction for both 𝐿𝑜𝑟𝑎𝑥 and our method. Input signal D, which corresponds to the data to transmit, controls the laser emission through transistors 𝑇 2 and 𝑇 3 . The number of transistors increases with the number of laser output powers and the 𝐸𝑛 𝑖 are activated according to selected output power. As detailed in Tables of Fig. <ref type="figure">13-c</ref>) and d), the more transistors driving current, the higher the laser output power. As a result, the driver for 𝐿𝑜𝑟𝑎𝑥 requires 34 transistors to generate the 31 laser power levels (15 destinations and 2 levels per destination, and 𝑃 𝑂 𝑓 𝑓 ). Our approach requires 7 transistors to generated the 4 power levels (i.e. 𝑃 𝐻 , 𝑃 𝑀 , 𝑃 𝐿 and 𝑃 𝑂 𝑓 𝑓 ), hence leading to 4.8× reduction in transistor count.</p><p>Table <ref type="table" target="#tab_13">5</ref> summarizes driver estimations on leakage current and footprint for our proposed method and 𝐿𝑜𝑟𝑎𝑥. When targeting a 65𝑛𝑚 technology node from STM and estimation methods from <ref type="bibr" target="#b50">[51]</ref><ref type="bibr" target="#b51">[52]</ref><ref type="bibr" target="#b52">[53]</ref>, the leakage current for our method is 15𝑛𝐴 against 125𝑛𝐴 for 𝐿𝑜𝑟𝑎𝑥 (8× reduction). Regarding the footprint estimations, 𝐿𝑜𝑟𝑎𝑥 driver requires 8.89𝑚𝑚 2 , while our method only requires 0.25𝑚𝑚  Input bits 𝐸𝑛 𝑖 of the drivers are defined using a digital controller. The controller complexity directly depends on number of configurable laser power levels: while the 4-level driver used for our method requires a 2-input to 3-output controller, Lorax would require a 5-input to 30-output controller. In order to evaluate the area and power overhead, we designed the controllers at the RTL level using VHDL. The controllers were synthesized for a 65𝑛𝑚 ST Microelectronics technology using Synopsis Design Compiler. We targeted a 1GHz frequency corresponding to core speed assumed in the previous experiment. Prime Time was used for power estimation. As seen Table <ref type="table" target="#tab_15">6</ref>, our method leads to controller with an area of 42𝜇𝑚 For a comprehensive comparison, we evaluate the total power consumption per laser for 𝐿𝑜𝑟𝑎𝑥 and our approach, assuming 16 clusters, BER of 10 -3 for approximate communications and 33% laser efficiency <ref type="bibr" target="#b47">[48]</ref>. Fig. <ref type="figure" target="#fig_16">14</ref> presents the power breakdown (controller and laser) according to the communication distance. Our approach leads to power consumption of 368𝜇𝑊 and 882𝜇𝑊 for short-range communications (hop count 1 to 5) and long-range (hop count 6 to Manuscript submitted to ACM <ref type="bibr">Lee,</ref><ref type="bibr">et al. 16</ref>) communications respectively. Regarding the power consumption for 𝐿𝑜𝑟𝑎𝑥, it quadratically increases and leads to average power of i) 573𝜇𝑊 for hop count 1 to 5 and ii) 873𝜇𝑊 for hop count 6 to 16. Hence, our method allows reducing power by 35% for short range communications while leading to only 2.5% power overhead for long range communications. Interestingly, our approach is more energy efficient for the longest communication range (hop count 12 to 15 in the figure). The significant gains obtained for short range communications is possible due to the lower static power of the driver controller. The slight power overhead for long-range communication is acceptable considering the 10× reduction in the area footprint: while the drivers for 𝐿𝑜𝑟𝑎𝑥 would occupy a total area of 8.89𝑚𝑚 2 for the studied 16 clusters architecture, our approach would take an area of 0.25𝑚𝑚  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="7">DISCUSSIONS AND PERSPECTIVES</head><p>This study demonstrates the poor scalability of methods involving fine grain tuning of laser powers. It also validates the effectiveness of our approach to maintain the driver complexity low while reaching high level of energy efficiency, especially for short-range and very long-range communications. This opens new research perspectives related to i) short-term deployment of approximate nanophotonic interconnects with mature optical devices and ii) smart mapping of tasks to maximize the utilization of most energy efficient links.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>i) Off-chip laser</head><p>This paper focuses on on-chip lasers, which are disruptive but promising technologies for large scale integration of light sources on a chip. However, as off-chip laser is more realistic approach at current development of optical chip laser, we will investigate the deployment of the approach to off-chip lasers-based interconnects for our proposal.</p><p>A key challenge with off-chip Lasers would be to adapt the power level according to the communication needs, as off-chip lasers cannot be dedicated to each IP and are generally shared among them. Usually, the power is configured to satisfy any transmission requirements, hence leading to worst case scenario and significant waste of energy. Approaches involving on-chip optical amplifiers such as <ref type="bibr" target="#b32">[33]</ref>, or method adapting the power regarding the number of active paths in a tree-based optical NoC <ref type="bibr" target="#b5">[6]</ref>, could be used to adapt the output power according to the requirement but would significantly increase the design complexity. Furthermore, approaches involving off-chip Manuscript submitted to ACM lasers necessary require dedicated modulators, while direct modulation could be achieved using on-chip lasers. In this paper, our goal is to evaluate the potential of a prospective architecture to maximize the energy efficiency while keeping the design realistic. To apply the proposed method in the context of off-chip lasers, a straightforward solution would be to consider spatial division multiplexing by using multiple SWMR links per core. Each SWMR would then have the ability to transmit signals at a given power level (𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝐿 ) to a specific set of receivers (e.g. SWMR with 𝑃 𝐿 would reach only receivers part of short-range communications). This would lead to three sets of off-chip laser(s) dedicated to i) approximate / short range communications only (SWMR with 𝑃 𝐿 ), ii) accurate / long range communications (SWMR with 𝑃 𝐻 ) and iii) both approximate / long range and accurate / short range communications (SWMR with 𝑃 𝑀 ). Switching ON or OFF the lasers would be achieved at software level, depending on the executed application. Such approach would ideally complement existing solutions that enable to use only a set of wavelengths to communicate <ref type="bibr" target="#b53">[54]</ref> and that could be easily extended to transmitted truncated data. Obviously, such solutions would lead to significant overhead in the design of the photonics chips (number of lasers and layout) as well as on the electronics, which will have to be evaluated.</p><p>ii) Task mapping optimization Optimizing the task mapping in manycore architectures has been thoroughly studied in the context of electrical NoCs <ref type="bibr" target="#b54">[55]</ref><ref type="bibr" target="#b55">[56]</ref><ref type="bibr" target="#b56">[57]</ref> , hybrid electrical-wireless NoCs <ref type="bibr" target="#b57">[58]</ref> and optical NoCs <ref type="bibr" target="#b58">[59]</ref>. Since the purpose of existing approaches is mainly to minimize the communication costs, they could be adapted to efficiently use the laser power levels available in our architectures. For instance, it would be possible to prioritize very long-range communications in case 𝑃 𝐻 is used, which can be obtained by optimizing at system level metrics such pJ/bit/mm. Task mapping will also allow to evaluate the efficiency of the approach when extended to larger set of communication ranges and when applied to application specific domain. For this purpose, Convolutional Neural Networks (CNNs) are particularly interesting candidates as communication volumes and data accuracy requirement strongly change between the CNN layers.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="8">CONCLUSION</head><p>In this paper, we proposed a method to design scalable approximate nanophotonic interconnects. Our approach aims at improving the interconnect energy efficiency by adapting the transmission robustness to the application requirements.</p><p>We proposed to use both truncation and bits approximation by using lower power signals, thus leading to accurate and approximate communication. We classified communications according to the transmission losses, thus leading to short-range and long range communications. To minimize the number of laser power levels, we also proposed a method allowing to use a same power for both accurate short-range and approximate long-range communications. The method requires only minor modification of the interconnects interface and is scalable due to the reduced number of power levels. We have evaluated the impact of various combination of truncation and bits approximation on the output error of benchmarks applications, namely Blackscholes, Canneal, Fluidanminate and Streamcluster. Results have showed that applications such Streamcluster are the best candidates to use approximation in the nanophotonic interconnect since they are error-resilient and they involve numerous floating-point data. Our method leads to 53% power reduction for an acceptable 8% output errors. Compared to state of the art method involving fine grain laser power tuning, we obtain a 35% power reduction for short-range communication. We also demonstrate 35× and 10× reductions in the laser driver and laser controller sizes respectively. Finally, we shown the opportunities to extend this work to off-chip lasers and to Manuscript submitted to ACM <ref type="bibr">Lee, et al.</ref> task mapping optimization, with the aim to take benefits from the significant energy saving available for short-range communications.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>2 MMIFig. 1 .</head><label>21</label><figDesc>Fig. 1. Proposed data and distance aware optical link</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head></head><label></label><figDesc>Fig 2 illustrates how the technique can be used for the IEEE 754-2008 single-precision Floating-Point (FP) format and for long distance communication. Bits are grouped into 3 different areas according to their significance on the floating-point data representation:</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 4</head><label>4</label><figDesc>Fig. 4 illustrates six possible communication scenarios to save energy for the transmission of 32 bits data. For this scenario, 8 wavelengths (𝜆 7 to 𝜆 0 ) are used to simultaneously transmit 8 groups of 4 serialized bits. Each scenario is noted as xNA/yA/zT with: x Not Approximated, y Approximated, z Truncated bits. Regarding long distance communication (Fig. 4-a), we first illustrate a scenario where only approximation is used, assuming 𝐴 𝑁 𝑜𝑡𝐴𝑥 = 12 and 𝐴 𝐴𝑥 = 20. This</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head></head><label></label><figDesc>the three scenarios of Fig.4-b).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 4 .</head><label>4</label><figDesc>Fig. 4. Laser power level configurations to transmit approximated floating-point data assuming a) Long distance and b) Short distance communications. 𝑁 𝑑𝑎𝑡𝑎 = 32, 𝑁 𝜆 = 8 and 𝐵𝑆𝐿 = 4. xNA/yA/zT with x Not Approximated, y Approximated, z Truncated bits</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Fig. 5 .</head><label>5</label><figDesc>Fig. 5. a) Hardware Architecture (16 clusters of 4 cores) b) SWMR channel management for approximate communication</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Fig. 6 .</head><label>6</label><figDesc>Fig. 6. Traffic distributions on 16 clusters architecture: a) by hop count b) by data type.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head></head><label></label><figDesc>Fig.10shows the power saving for existing methods<ref type="bibr" target="#b11">[12,</ref><ref type="bibr" target="#b12">13]</ref> and the proposed one. All the results are compared with the optical power of the 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒 configuration, which only use the highest optical power level (𝑃 𝐻 = 707𝜇𝑊 ), without regards on data type and distance of communication. The floating-point data are represented with orange colors, while the rest of communication (integer data and instructions) are represented with blue colors. The light orange (respectively light blue) represents the contribution of short distance communications (respectively long distance Manuscript submitted to ACM</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head>Fig. 10 .</head><label>10</label><figDesc>Fig. 10. Normalized power consumption for the considered communication schemes.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head>(</head><label></label><figDesc>including the following different 𝐵𝐸𝑅 𝐴𝑥 : 10 -2 , 10 -3 , 10 -5 and 10 -7 ). The bottom of the figure shows zooms of valid solutions from the top figure. All the optical power consumptions have been normalized to the 𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒 represented by the red cross. This baseline only uses 𝑃 𝐻 power level, hence no distance management and no approximation are considered. For more clarity, we grouped the results by different communication distance managements: 𝑁𝑜 𝐷𝑖𝑠𝑡𝑎𝑛𝑐𝑒 𝑎𝑤𝑎𝑟𝑒, 𝑆ℎ𝑜𝑟𝑡/𝐿𝑜𝑛𝑔 and 𝐷𝑖𝑠𝑡𝑎𝑛𝑐𝑒 𝑝𝑟𝑜𝑝𝑜𝑟𝑡𝑖𝑜𝑛𝑎𝑙, in red, blue, and green, respectively.In each distance management group, the solutions that do not consider approximation or truncation are represented with a cross. Moreover, in each group, some points are located on Pareto front lines which indicates the most effective Manuscript submitted to ACM results in terms of power consumption and output error. The solutions on Pareto front lines are represented with triangles and the configuration are highlighted, e.g. 4A/20T 10 -3 stands for 4 approximated bits, 20 truncated bits, and</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>Fig. 11 .</head><label>11</label><figDesc>Fig. 11. Power consumption and output error trade-off: (a) design space, (b), (c), and (d) are zooms.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_14"><head></head><label></label><figDesc>trends on the different color groups. The first main cloud of solution, zoomed in Fig 11-b, are dominated with three Manuscript submitted to ACM</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_15"><head></head><label></label><figDesc>four trends, almost no error (Fig 11-b), few errors (Fig 11-c), reasonable errors (Fig 11-d), and unacceptable errors. All</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_16"><head>Fig. 14 .</head><label>14</label><figDesc>Fig.<ref type="bibr" target="#b13">14</ref>. Total power consumption per hop count for Lorax and the proposed method. Results are given for a 16 clusters architecture assuming 10 -3 BER for approximate communications.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Microring Resonator (MR) at λ x Photo detector OFF ON Modulator driver On-chip laser at λ x</head><label></label><figDesc></figDesc><table><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>Laser</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>driver</cell><cell>Filter</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>λ x</cell><cell>λ x</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>Rx</cell></row><row><cell>manager</cell><cell>Dist</cell><cell>Type</cell><cell cols="2">Accurate</cell><cell>Approximate</cell><cell>Laser config</cell></row><row><cell>level</cell><cell></cell><cell>λ 3</cell><cell>λ 2</cell><cell>λ 1 λ 0</cell><cell></cell></row><row><cell>Power</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>Received data</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>Core N</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>illustrates our approach on a Single Writer</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>Manuscript submitted to ACM</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head>Table 1 .</head><label>1</label><figDesc>Summary of parameters used for the proposed method.</figDesc><table><row><cell></cell><cell>Definition</cell></row><row><cell>𝑁 𝑑𝑎𝑡𝑎</cell><cell>Data size</cell></row><row><cell>𝑃 𝐴𝑥</cell><cell>Position of the higher approximated bit</cell></row><row><cell>𝑃 𝑇 𝑟𝑢𝑛𝑐</cell><cell>Position of the higher truncated bit</cell></row><row><cell>𝐴 𝑁 𝑜𝑡𝐴𝑥</cell><cell>Area of accurate bits</cell></row><row><cell>𝐴 𝐴𝑥</cell><cell>Area of approximated bits</cell></row><row><cell>𝐴 𝑇 𝑟𝑢𝑛𝑐</cell><cell>Area of truncated bits</cell></row><row><cell>𝑁 𝜆</cell><cell>Number of wavelengths (nb of lasers)</cell></row><row><cell>𝐵𝑆𝐿</cell><cell>Bit Stream Length (𝐵𝑆𝐿 = 𝑁 𝑑𝑎𝑡𝑎 /𝑁 𝜆)</cell></row><row><cell>𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥</cell><cell>BER for non approximated bits</cell></row><row><cell>𝐵𝐸𝑅 𝐴𝑥</cell><cell>BER for approximated bits</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head></head><label></label><figDesc>4-a), we first illustrate a scenario where only approximation is used, assuming 𝐴 𝑁 𝑜𝑡𝐴𝑥 = 12 and 𝐴 𝐴𝑥 = 20. This scenario is noted as 12𝑁 𝐴/20𝐴/0𝑇 . This leads to lasers at 𝜆 7 to 𝜆 5 and 𝜆 4 to 𝜆 0 configured with 𝑃 𝐻 and 𝑃 𝑀 respectively.Second scenario, 12𝑁 𝐴/0𝐴/20𝑇 , involves only truncation (<ref type="bibr" target="#b12">[13]</ref>) which refers to 𝐴 𝑁 𝑜𝑡𝐴𝑥 = 12 and 𝐴 𝑇 𝑟𝑢𝑛𝑐 = 20 and it leads to laser configuration 𝑃 𝐻 for 𝜆 7 to 𝜆 5 and 𝑃 𝑂 𝑓 𝑓 for lasers at 𝜆 4 to 𝜆 0 . Third scenario, 12𝑁 𝐴/8𝐴/12𝑇 , is a combination of approximation and truncation with 𝐴 𝑁 𝑜𝑡𝐴𝑥 = 12, 𝐴 𝐴𝑥 = 8, and 𝐴 𝑇 𝑟𝑢𝑛𝑐 = 12 which leads to 𝑃 𝐻 , 𝑃 𝑀 and 𝑃 𝑂 𝑓 𝑓 for lasers at 𝜆 7 to 𝜆 5 , 𝜆 4 to 𝜆 3 and 𝜆 2 to 𝜆 0 respectively. Moreover, when all of these 3 scenarios are applied in short-range communication, the laser power levels are reduced accordingly (𝑃 𝐻 → 𝑃 𝑀 and 𝑃 𝑀 → 𝑃 𝐿 ) (as presented in</figDesc><table /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head>Table 2 .</head><label>2</label><figDesc>Hardware parameters of the simulated architecture</figDesc><table><row><cell>Parameters</cell><cell>Values</cell></row><row><cell>Nb of clusters</cell><cell>16 (4  *  4)</cell></row><row><cell cols="2">Nb cores by cluster 4</cell></row><row><cell>ONI distance</cell><cell>10 𝑚𝑚</cell></row><row><cell>L1 I / D caches</cell><cell>64 𝐾𝐵 each private</cell></row><row><cell>L2 cache</cell><cell>512 𝐾𝐵 private</cell></row><row><cell>L3 cache</cell><cell>4 𝑀 shared (in a cluster)</cell></row><row><cell>Cache protocol</cell><cell>MSI</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_5"><head>Table 2 ,</head><label>2</label><figDesc>the electrical layer is composed of 16 clusters of 2 by 2 cores. These cores include a last level cache (L3) shared with the others. Each core has its own private L1 data (L1d), instructions (L1i) caches and L2 cache. Furthermore, a MSI protocol ensures coherency between the distributed caches. All these memory organisation parameters are listed in Table2. Every clusters are connected with ONIs through TSVs. The ONI blocks are located in optical layer and have 1 transmitting and 15 receiving waveguides which are featured with SWMR and WDM (as depicted in Fig.1). Each waveguide transmits 8 optical signals on different wavelengths, hence each having a 4 bits stream data (i.e. 𝐵𝑆𝐿 = 4 and 𝑁 𝜆 = 8).</figDesc><table><row><cell>Manuscript submitted to ACM</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_6"><head>Table 3 .</head><label>3</label><figDesc>Used Approximate Benchmark and associated error metric<ref type="bibr" target="#b10">[11]</ref> </figDesc><table><row><cell cols="2">Applications Descriptions</cell><cell>Error metrics</cell></row><row><cell>Blackscholes</cell><cell>Financial pricing</cell><cell>Mean error</cell></row><row><cell>Canneal</cell><cell>VLSI routing</cell><cell>Routing Cost</cell></row><row><cell>Fluidanimate</cell><cell cols="2">n-body simulation Distance in elements</cell></row><row><cell cols="2">Streamcluster Online clustering</cell><cell>Cluster center distance</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_9"><head>Output error Fluidanimate 1.00E-02 1.00E-03 1.00E-05 1.00E-07 Error</head><label></label><figDesc></figDesc><table><row><cell>Output error</cell><cell cols="2">0,000% 0,002% 0,004% 0,006% 0,008% 0,010%</cell><cell></cell><cell></cell><cell></cell><cell>Canneal</cell></row><row><cell></cell><cell></cell><cell cols="5">8 N A / 2 4 A / 0 T 8 N A / 2 0 A / 4 T 8 N A / 1 6 A / 8 T 8 N A / 1 2 A / 1 2 T 8 N A / 8 A / 1 6 T 8 N A / 4 A / 2 0 T 8 N A / 0 A / 2 4 T</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="2">1.00E-02</cell><cell>1.00E-03</cell><cell>1.00E-05</cell><cell>1.00E-07</cell></row><row><cell></cell><cell></cell><cell>16%</cell><cell></cell><cell></cell><cell></cell><cell>Blackscholes</cell></row><row><cell cols="2">Output error</cell><cell>0% 4% 8% 12%</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell>8 N A / 2 4 A / 0 T</cell><cell cols="4">8 N A / 2 0 A / 4 T 8 N A / 1 6 A / 8 T 8 N A / 1 2 A / 1 2 T 8 N A / 8 A / 1 6 T 8 N A / 4 A / 2 0 T 8 N A / 0 A / 2 4 T</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="2">1.00E-02</cell><cell>1.00E-03</cell><cell>1.00E-05</cell><cell>1.00E-07</cell></row><row><cell></cell><cell></cell><cell>16%</cell><cell></cell><cell></cell><cell></cell><cell>Streamcluster</cell></row><row><cell>Output error</cell><cell></cell><cell>0% 4% 8% 12%</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell cols="2">8 N A / 2 4 A / 0 T</cell><cell>8 N A / 2 0 A / 4 T</cell><cell cols="2">8 N A / 1 6 A / 8 T 8 N A / 1 2 A / 1 2 T</cell><cell>8 N A / 8 A / 1 6 T 8 N A / 4 A / 2 0 T 8 N A / 0 A / 2 4 T</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="2">1.00E-02</cell><cell>1.00E-03</cell><cell>1.00E-05</cell><cell>1.00E-07</cell></row><row><cell></cell><cell></cell><cell>60%</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell>40%</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell>20%</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell>0%</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell>8 N A / 2 4 A / 0 T</cell><cell></cell><cell>8 N A / 2 0 A / 4 T</cell><cell cols="2">8 N A / 1 6 A / 8 T 8 N A / 1 2 A / 1 2 T</cell><cell>8 N A / 8 A / 1 6 T</cell><cell>8 N A / 4 A / 2 0 T</cell><cell>8 N A / 0 A / 2 4 T</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>8 MSBs not</cell></row><row><cell cols="7">approximated and only truncation (noted as 8NA/0A/24T). The intermediate values are increased by steps of 4 more</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>Manuscript submitted to ACM</cell></row></table><note><p>threshold Fig. 8. Combination of Truncation and Approximated bits considering output error. xNA/yA/zT (with x Not Approximated, y Approximated, z Truncated bits).</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_10"><head>Table 4 .</head><label>4</label><figDesc>ONI design parameters</figDesc><table><row><cell>Parameters</cell><cell>Descriptions</cell><cell>Typical values</cell></row><row><cell></cell><cell cols="2">Technological parameters</cell></row><row><cell>𝐿𝑜𝑠𝑠 𝑚𝑟</cell><cell>MR through loss</cell><cell>0.02 𝑑𝐵 [47]</cell></row><row><cell>𝐿𝑜𝑠𝑠 𝑑</cell><cell>MR drop loss</cell><cell>0.7 𝑑𝐵 [47]</cell></row><row><cell>𝑄</cell><cell>MR Quality Factor</cell><cell>20, 000 [43]</cell></row><row><cell>𝐿𝑜𝑠𝑠 ℎ</cell><cell>Waveguide loss per hop</cell><cell>0.25 𝑑𝐵/𝑐𝑚 [42]</cell></row><row><cell>𝑃 𝑑</cell><cell>Optical power</cell><cell>-8 𝑑𝐵𝑚 at 10 -12 BER</cell></row><row><cell></cell><cell>received by photodetector</cell><cell>-12 𝑑𝐵𝑚 at 10 -3 BER</cell></row><row><cell>𝐹𝑆𝑅</cell><cell>Full Scale Range</cell><cell>8𝑛𝑚 [43]</cell></row><row><cell>𝐿𝑎𝑠𝑒𝑟 𝑒 𝑓 𝑓</cell><cell>Laser efficiency</cell><cell>0.33 [48]</cell></row><row><cell>𝐵 𝑅</cell><cell>Bit-rate</cell><cell>10Gb/s</cell></row><row><cell></cell><cell>ONI Parameters</cell><cell></cell></row><row><cell>𝐵𝐸𝑅 𝑁 𝑜𝑡𝐴𝑥</cell><cell cols="2">BER without approximation 10 -12</cell></row><row><cell>𝐵𝐸𝑅 𝐴𝑥</cell><cell>BER with approximation</cell><cell>10 -3</cell></row><row><cell>𝑃 𝐻</cell><cell>High power</cell><cell>707 𝜇𝑊</cell></row><row><cell>𝑃 𝑀</cell><cell>Medium power</cell><cell>281 𝜇𝑊</cell></row><row><cell>𝑃 𝐿</cell><cell>Low power</cell><cell>112 𝜇𝑊</cell></row><row><cell>𝑁 𝜆</cell><cell>Number of wavelengths</cell><cell>8</cell></row><row><cell cols="2">Short distance Nb of hops from</cell><cell>1 to 5 hops</cell></row><row><cell cols="2">Long distance source to destination</cell><cell>6 to 15 hops</cell></row><row><cell>communications)</cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_11"><head></head><label></label><figDesc>Number of power levels per laser driver according to the network size for Lorax and the proposed method.</figDesc><table><row><cell></cell><cell>600</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell cols="2">Proposed method</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>Lorax</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>511</cell></row><row><cell></cell><cell>500</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>Number of power levels per laser driver</cell><cell>100 200 300 400</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>63</cell><cell>127</cell><cell>255</cell></row><row><cell></cell><cell>4</cell><cell>7</cell><cell>4</cell><cell>15</cell><cell>4</cell><cell>31</cell><cell>4</cell><cell>4</cell><cell>4</cell><cell>4</cell></row><row><cell></cell><cell>0</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell cols="2">4 (2 x 2)</cell><cell cols="2">8 (2 x 4)</cell><cell cols="2">16 (4 x 4)</cell><cell>32 (4 x 8)</cell><cell>64 (8 x 8)</cell><cell>128 (8 x 16)</cell><cell>256 (16 x 16)</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="3">Number of clusters (organization n x m)</cell><cell></cell></row><row><cell>Fig. 12.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_12"><head></head><label></label><figDesc>2 (35× reduction).</figDesc><table><row><cell></cell><cell>Number of Power levels</cell><cell>Transistor count</cell><cell cols="2">Leakage(𝑛𝐴) Footprint(𝑚𝑚 2 )</cell></row><row><cell>Proposed method</cell><cell>4</cell><cell>7</cell><cell>15.65</cell><cell>0.253</cell></row><row><cell>Lorax [13]</cell><cell>34</cell><cell>32</cell><cell>125.12</cell><cell>8.89</cell></row><row><cell>Lorax Increase (×)</cell><cell>7.75</cell><cell>4.85</cell><cell>7.99</cell><cell>35.14</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_13"><head>Table 5 .</head><label>5</label><figDesc>Driver area estimations for a 16 cluster architecture</figDesc><table /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_15"><head>Table 6 .</head><label>6</label><figDesc>Driver controller synthesis results on 65nm STM technology node</figDesc><table><row><cell></cell><cell></cell><cell>Power</cell><cell></cell><cell>Area</cell></row><row><cell></cell><cell>Dynamic Power (𝜇𝑊 )</cell><cell>Cell Leakage Power (𝜇𝑊 )</cell><cell cols="2">Total power(𝜇𝑊 ) Area (𝜇𝑚 2 )</cell></row><row><cell>Proposed method</cell><cell>25.33</cell><cell>3.25</cell><cell>28.58</cell><cell>42.6</cell></row><row><cell>Lorax [13]</cell><cell>259.8</cell><cell>30.9</cell><cell>290.7</cell><cell>445.1</cell></row><row><cell>Gain</cell><cell>10.2 ×</cell><cell>9.5 ×</cell><cell>10.1 ×</cell><cell>10.4 ×</cell></row></table><note><p><p>2 </p>, thus leading to a 10 × reduction compared to Lorax (445𝜇𝑚 2 ). Similar gain is observed for the power consumption: the method we propose leads a controller consuming a total of 28.58𝜇𝑊 (leakage 3.25𝜇𝑊 and dynamic power 25.33𝜇𝑊 ) compared to 290𝜇𝑊 for 𝐿𝑜𝑟𝑎𝑥.</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_16"><head></head><label></label><figDesc>2 .</figDesc><table><row><cell></cell><cell>1200</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>Electrical power consumption per Laser (µW)</cell><cell>200 400 600 800 1000</cell><cell cols="4">Proposed method -Laser Lorax -Laser Proposed method -Driver controller Lorax -Driver controller</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>0</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>1</cell><cell>2</cell><cell>3</cell><cell>4</cell><cell>5</cell><cell>6</cell><cell>7</cell><cell>8</cell><cell>9</cell><cell>10</cell><cell>11</cell><cell>12</cell><cell>13</cell><cell>14</cell><cell>15</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="3">Hop counts distance</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">A survey of emerging interconnects for on-chip efficient multicast and broadcast in many-cores</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Karkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Tong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Yakovlev</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Circuits and Systems Magazine</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="58" to="72" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Multiprocessor system-on-chip (mpsoc) technology</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Wolf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Jerraya</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Martin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="1701" to="1713" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Optics in computing: From photonic network-on-chip to chip-to-chip interconnects and disintegrated architectures</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Alexoudi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Terzenidis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pitris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Moralis-Pegios</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Maniotis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Vagionas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mitsolidou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Mourgias-Alexandris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">T</forename><surname>Kanellos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Miliou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Vyrsokinos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Pleros</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Lightwave Technology</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="page" from="363" to="379" />
+			<date type="published" when="2019-01">Jan 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Qut: A low-power optical network-on-chip</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">K</forename><surname>Hamedani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">E</forename><surname>Jerger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Hessabi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Eighth IEEE/ACM International Symposium on Networks-on-Chip (NoCS)</title>
+		<imprint>
+			<date type="published" when="2014">2014. 2014</date>
+			<biblScope unit="page" from="80" to="87" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Energy and performance trade-off in nanophotonic interconnects using coding techniques</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Killian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Chillet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">L</forename><surname>Beux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Pham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Sentieys</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>O'connor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 54th Annual Design Automation Conference, DAC 2017</title>
+		<meeting>the 54th Annual Design Automation Conference, DAC 2017<address><addrLine>Austin, TX, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2017">June 18-22, 2017. 2017</date>
+			<biblScope unit="page" from="85" to="86" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Probe: Prediction-based optical bandwidth scaling for energy-efficient nocs</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Kodi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Seventh IEEE/ACM International Symposium on Networks-on-Chip (NoCS)</title>
+		<imprint>
+			<date type="published" when="2013-04">2013. April 2013</date>
+			<biblScope unit="page" from="1" to="8" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Swift: A low-power network-on-chip implementing the token flow control router architecture with swing-reduced interconnects</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Postman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Krishna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Edmonds</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Peh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Chiang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Very Large Scale Integration (VLSI) Systems</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1432" to="1446" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Min/max time limits and energy penalty of communication scheduling in ring-based ONoC</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">O</forename><surname>Sosa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Killian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">B</forename><surname>Ammar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Chillet</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">NoCArc 2020</title>
+		<meeting><address><addrLine>France</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2020-10">Oct. 2020</date>
+		</imprint>
+	</monogr>
+	<note>On-line</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Approximate computing: A survey</title>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mytkowicz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">S</forename><surname>Kim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Design Test</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="page" from="8" to="22" />
+			<date type="published" when="2016-02">Feb 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">A survey of techniques for approximate computing</title>
+		<author>
+			<persName><forename type="first">S</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Comput. Surv</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<date type="published" when="2016-03">Mar. 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title level="m" type="main">Accept: a programmer-guided compiler framework for practical approximate computing</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sampson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Dietl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Fortuna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gnanapragasam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Ceze</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Grossman</surname></persName>
+		</author>
+		<idno>UW-CSE-15-01</idno>
+		<imprint>
+			<date type="published" when="2015-06">June 2015</date>
+			<biblScope unit="volume">1</biblScope>
+		</imprint>
+		<respStmt>
+			<orgName>University of Washington</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Technical Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Approximate nanophotonic interconnects</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Killian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">L</forename><surname>Beux</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Chillet</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 13th IEEE/ACM International Symposium on Networks-on-Chip, NOCS &apos;19</title>
+		<meeting>the 13th IEEE/ACM International Symposium on Networks-on-Chip, NOCS &apos;19<address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>Association for Computing Machinery</publisher>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">LORAX: loss-aware approximations for energy-efficient silicon photonic networkson-chip</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Sunny</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mirza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">G</forename><surname>Thakkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pasricha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Nikdast</surname></persName>
+		</author>
+		<idno>abs/2002.11289</idno>
+	</analytic>
+	<monogr>
+		<title level="j">CoRR</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Axilog: Abstractions for approximate hardware design and reuse</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Mahajan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Ramkrishnan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Jariwala</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Yazdanbakhsh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Park</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Thwaites</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Nagendrakumar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Rahimi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Esmaeilzadeh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bazargan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Micro</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="16" to="30" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Enerj: Approximate data types for safe and general low-power computation</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sampson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Dietl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Fortuna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gnanapragasam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Ceze</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Grossman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIGPLAN Not</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="page" from="164" to="174" />
+			<date type="published" when="2011-06">June 2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">An evaluation of high-level mechanistic core models</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">E</forename><surname>Carlson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Heirman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Eyerman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Hur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Eeckhout</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Architecture and Code Optimization (TACO)</title>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Design of a bufferless photonic clos network-on-chip architecture</title>
+		<author>
+			<persName><forename type="first">Y.-H</forename><surname>Kao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Chao</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computers</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="764" to="776" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Luminoc: A power-efficient, high-performance, photonic network-on-chip</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Browning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">V</forename><surname>Gratz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Palermo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="826" to="838" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Managing laser power in silicon-photonic noc through cache and noc reconfiguration</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">L</forename><surname>Abellán</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Joshi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="972" to="985" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Dynamic power reduction techniques in on-chip photonic interconnects</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Neel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kennedy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kodi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 25th Edition on Great Lakes Symposium on VLSI, GLSVLSI &apos;15</title>
+		<meeting>the 25th Edition on Great Lakes Symposium on VLSI, GLSVLSI &apos;15<address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>Association for Computing Machinery</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="249" to="252" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Predict, share, and recycle your way to low-power nanophotonic networks</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Bashir</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">R</forename><surname>Sarangi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Emerg. Technol. Comput. Syst</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<date type="published" when="2019-10">Oct. 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Extending the power-efficiency and performance of photonic interconnects for heterogeneous multicores with machine learning</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Van Winkle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Kodi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Bunescu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Louri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2018 IEEE International Symposium on High Performance Computer Architecture (HPCA)</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="480" to="491" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Runtime management of laser power in silicon-photonic multibus noc architecture</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Joshi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Journal of Selected Topics in Quantum Electronics</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="3700713" to="3700713" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">PROTEUS: rule-based self-adaptation in photonic nocs for loss-aware co-management of laser power and performance</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Vatsavai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">S P</forename><surname>Karempudi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">G</forename><surname>Thakkar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">14th IEEE/ACM International Symposium on Networks-on-Chip, NOCS 2020</title>
+		<meeting><address><addrLine>Hamburg, Germany</addrLine></address></meeting>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2020">September 24-25, 2020. 2020</date>
+			<biblScope unit="page" from="1" to="8" />
+		</imprint>
+	</monogr>
+	<note>Manuscript submitted to ACM</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Approx-noc: A data approximation framework for network-on-chip architectures</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Boyapati</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Majumder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">H</forename><surname>Yum</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Kim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ACM/IEEE 44th Annual International Symposium on Computer Architecture (ISCA)</title>
+		<imprint>
+			<date type="published" when="2017">2017. 2017</date>
+			<biblScope unit="page" from="666" to="677" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Abdtr: Approximation-based dynamic traffic regulation for networks-on-chip systems</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2017 IEEE International Conference on Computer Design (ICCD)</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="153" to="160" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Dec-noc: An approximate framework based on dynamic error control with applications to energy-efficient nocs</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">F</forename><surname>Reza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Louri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2018 IEEE 36th International Conference on Computer Design (ICCD)</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="480" to="487" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Approximate communication strategies for energy-efficient and high performance noc: Opportunities and challenges</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">F</forename><surname>Reza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Ampadu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2019 on Great Lakes Symposium on VLSI</title>
+		<meeting>the 2019 on Great Lakes Symposium on VLSI<address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>Association for Computing Machinery</publisher>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Approximate communication: Techniques for reducing communication bottlenecks in large-scale parallel systems</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Betzel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Khatamifard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Suresh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">J</forename><surname>Lilja</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Sartori</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><surname>Karpuzcu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Comput. Surv</title>
+		<imprint>
+			<biblScope unit="volume">51</biblScope>
+			<date type="published" when="2018-01">Jan. 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Axnoc: Low-power approximate network-on-chips using critical-path isolation</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">B</forename><surname>Ahmed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Fujiki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Matsutani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Koibuchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Amano</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Twelfth IEEE/ACM International Symposium on Networks-on-Chip (NOCS)</title>
+		<meeting><address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2018-10">2018. Oct 2018</date>
+			<biblScope unit="page" from="1" to="8" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Rumba: An online quality management system for approximate computing</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Khudia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Zamirai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Samadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mahlke</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2015 ACM/IEEE 42nd Annual International Symposium on Computer Architecture (ISCA)</title>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="554" to="566" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Dsent -a tool connecting emerging photonics with electronics for opto-electronic networks-on-chip modeling</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">O</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Kurian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Agarwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Peh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Stojanovic</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2012 IEEE/ACM Sixth International Symposium on Networks-on-Chip</title>
+		<imprint>
+			<date type="published" when="2012-05">May 2012</date>
+			<biblScope unit="page" from="201" to="210" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Run-time laser power management in photonic nocs with on-chip semiconductor optical amplifiers</title>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">G</forename><surname>Thakkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">V R</forename><surname>Chittamuru</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pasricha</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Tenth IEEE/ACM International Symposium on Networks-on-Chip (NOCS)</title>
+		<imprint>
+			<date type="published" when="2016">2016. 2016</date>
+			<biblScope unit="page" from="1" to="4" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Power allocation method for tdm-based optical network on chip</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Gu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Photonics Technology Letters</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="973" to="976" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Controlled multi-wavelength emission in full cmos compatible micro-lasers for on chip interconnections</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Mandorlo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Lightwave Technology</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="3073" to="3080" />
+			<date type="published" when="2012-10">Oct 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">A holistic modeling and analysis of optical-electrical interfaces for inter/intra-chip interconnects</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE TVLSI</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="2462" to="2474" />
+			<date type="published" when="2016-07">July 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">A 22-gb/s time-interleaved low-power optical receiver with a two-bit integrating front end</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Radi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Nezami</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Taherzadeh-Sani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Nabki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ménard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Liboiron-Ladouceur</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Journal of Solid-State Circuits</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="310" to="323" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Crosstalk penalty in microring-based silicon photonic interconnect systems</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bahadori</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rumley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Jayatilleka</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Murray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">A F</forename><surname>Jaeger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Chrostowski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Shekhar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bergman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Lightwave Technol</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="page" from="4043" to="4052" />
+			<date type="published" when="2016-09">Sep 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">Fundamentals of Parallel Multicore Architecture</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Solihin</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015">11 2015</date>
+			<publisher>Chapman &amp; Hall/CRC</publisher>
+		</imprint>
+	</monogr>
+	<note>1st ed.</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Run-time management of energy-performance trade-off in optical network-on-chip</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V.-D</forename><surname>Pham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Killian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Chillet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>O'connor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Sentieys</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">Le</forename><surname>Beux</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2018 Conference on Design of Circuits and Integrated Systems (DCIS)</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Optical multilevel signaling for high bandwidth and power-efficient on-chip interconnects</title>
+		<author>
+			<persName><forename type="first">T.-J</forename><surname>Kao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Louri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Photonics Technology Letters</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">19</biblScope>
+			<biblScope unit="page" from="2051" to="2054" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Low loss silicon waveguides for application of optical interconnects</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Dong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Qian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Liao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Kung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Shafiiha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Fong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">V</forename><surname>Krishnamoorthy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Asghari</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Photonics Society Summer Topicals</title>
+		<imprint>
+			<biblScope unit="page" from="191" to="192" />
+			<date type="published" when="2010">2010. 2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Comprehensive design space exploration of silicon photonic interconnects</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bahadori</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rumley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Nikolova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bergman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Lightwave Technology</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="2975" to="2987" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">The aim photonics mpw: A highly accessible cutting edge technology for rapid prototyping of photonic integrated circuits</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">M</forename><surname>Fahrenkopf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mcdonough</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">L</forename><surname>Leake</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Su</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Timurdogan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">D</forename><surname>Coolbaugh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Journal of Selected Topics in Quantum Electronics</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1" to="6" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Low loss shallow-ridge silicon waveguides</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Dong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Qian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Liao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C.-C</forename><surname>Kung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N.-N</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Shafiiha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Fong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">V</forename><surname>Krishnamoorthy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Asghari</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Opt. Express</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="14474" to="14479" />
+			<date type="published" when="2010-07">Jul 2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">A versatile silicon-silicon nitride photonics platform for enhanced functionalities and applications</title>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Wilmart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">El</forename><surname>Dirani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Tyler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Fowler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Malhouitre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Garcia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Casale</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kerdiles</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Hassan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Monat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Letartre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kamel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Pu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Yvind</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">K</forename><surname>Oxenløwe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Rabaud</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Sciancalepore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Szelag</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Olivier</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Applied Sciences</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Ultra-compact high order ring resonator filters using submicron silicon photonic wires for on-chip optical interconnects</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Xia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rooks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sekaric</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Vlasov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Opt. Express</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="page" from="11934" to="11941" />
+			<date type="published" when="2007-09">Sep 2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Simultaneously tolerate thermal and process variations through indirect feedback tuning for silicon photonic networks</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Feng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="1409" to="1422" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">Multi-power-level energy saving management for passive optical networks</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">T</forename><surname>Hosseinabadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Ansari</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE/OSA Journal of Optical Communications and Networking</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="965" to="973" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Dlps: Dynamic laser power scaling for optical network-on-chip</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Lan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Pan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">T</forename><surname>Cheng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2017 22nd Asia and South Pacific Design Automation Conference (ASP-DAC)</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="726" to="731" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Design and analysis of efficient multilevel receiver for current mode interconnect system</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Agrawal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chandel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Dhiman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">2014 IEEE Students&apos; Conference on Electrical, Electronics and Computer Science</title>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+	<note>Manuscript submitted to ACM</note>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">A variation tolerant current-mode signaling scheme for on-chip interconnects</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Dave</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Jain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shojaei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Baghini</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Sharma</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Very Large Scale Integration (VLSI) Systems</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="342" to="353" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">High-performance current mode receiver design for on-chip vlsi interconnects</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Agrawal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chandel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Dhiman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Intelligent Systems and Computing</title>
+		<imprint>
+			<biblScope unit="volume">343</biblScope>
+			<biblScope unit="page" from="527" to="536" />
+			<date type="published" when="2015-01">01 2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Prowaves: Proactive runtime wavelength selection for energy-efficient photonic nocs</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Narayan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Thonnart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Vivet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Coskun</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="2156" to="2169" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">A multi-objective model oriented mapping approach for noc-based computing systems</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Deng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Han</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Yin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Wei</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Parallel and Distributed Systems</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="662" to="676" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">An effective optimization algorithm for application mapping in network-on-chip designs</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T.-M</forename><surname>Choi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Yue</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Du</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Industrial Electronics</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="5798" to="5809" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">Optimal application mapping and scheduling for network-on-chips with computation in stt-ram based router</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Guan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Dutt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computers</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1174" to="1189" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">On-chip communication network for efficient training of deep convolutional networks on heterogeneous manycore systems</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Choi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Duraisamy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">G</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Doppa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">P</forename><surname>Pande</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Marculescu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Marculescu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Computers</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="672" to="686" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">Task mapping-assisted laser power scaling for optical network-on-chips</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K.-T</forename><surname>Cheng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE/ACM International Conference on Computer-Aided Design (ICCAD)</title>
+		<imprint>
+			<date type="published" when="2019">2019. 2019</date>
+			<biblScope unit="page" from="1" to="6" />
+		</imprint>
+	</monogr>
+	<note>Manuscript submitted to ACM</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,1459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Functional norms, condition numbers and numerical algorithms in algebraic geometry</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Felipe</forename><surname>Cucker</surname></persName>
+							<email>macucker@cityu.edu.hk.</email>
+							<idno type="ORCID">0000-0002-4569-3248</idno>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Mathematics</orgName>
+								<orgName type="institution">City University of Hong Kong</orgName>
+								<address>
+									<settlement>Hong Kong</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Alperen</forename><forename type="middle">A</forename><surname>Ergür</surname></persName>
+							<email>alperen.ergur@utsa.edu.</email>
+							<idno type="ORCID">0000-0002-2340-6551</idno>
+							<affiliation key="aff1">
+								<orgName type="department">Department of Mathematics</orgName>
+								<orgName type="institution">The University of Texas at San Antonio</orgName>
+								<address>
+									<settlement>San Antonio</settlement>
+									<region>TX</region>
+									<country key="US">United States</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Josué</forename><surname>Tonelli-Cueto</surname></persName>
+							<email>josue.tonelli.cueto@bizkaia.eu.</email>
+							<idno type="ORCID">0000-0002-2904-1215</idno>
+							<affiliation key="aff2">
+								<orgName type="department">Institut de mathématiques</orgName>
+								<orgName type="laboratory">OURAGAN team</orgName>
+								<orgName type="institution">Inria Paris de Jussieu-Paris Rive Gauche</orgName>
+								<address>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Functional norms, condition numbers and numerical algorithms in algebraic geometry</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">6B9A44B6FB5426B02754F82226950C08</idno>
+					<idno type="DOI">10.1017/fms.2022.89</idno>
+					<note type="submission">Received: 24 February 2021; Revised: 5 April 2022; Accepted: 12 October 2022 2020</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-07T09:38+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Mathematics Subject Classification: Primary -14Q20</term>
+					<term>65Y20; Secondary -68Q25</term>
+					<term>68U05</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>In numerical linear algebra, a well-established practice is to choose a norm that exploits the structure of the problem at hand to optimise accuracy or computational complexity. In numerical polynomial algebra, a single norm (attributed to Weyl) dominates the literature. This article initiates the use of 𝐿 𝑝 norms for numerical algebraic geometry, with an emphasis on 𝐿 ∞ . This classical idea yields strong improvements in the analysis of the number of steps performed by numerous iterative algorithms. In particular, we exhibit three algorithms where, despite the complexity of computing 𝐿 ∞ -norm, the use of 𝐿 𝑝 -norms substantially reduces computational complexity: a subdivision-based algorithm in real algebraic geometry for computing the homology of semialgebraic sets, a wellknown meshing algorithm in computational geometry and the computation of zeros of systems of complex quadratic polynomials (a particular case of Smale's 17th problem).</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>In numerical analysis, it matters how we measure errors. Change the metric we measure the perturbations with, and a well-conditioned input may turn badly conditioned (a remarkable example is in <ref type="bibr" target="#b21">[22]</ref>). Because of this, a careful choice of how we measure errors is a fundamental step in the design and analysis of algorithms. A main example is numerical linear algebra, where it is commonplace to carefully choose a matrix norm depending on the problem at hand: the goal is to exploit the structure of the problem and optimise computational efficiency.</p><p>Unlike numerical linear algebra, a single norm -the Weyl norm -prevails in numerical algebraic geometry. The nice properties of the Weyl norm, ease of computing and unitary invariance, explain this prevalence. Nevertheless, the absence of complexity analyses using other norms in numerical algebraic geometry reflects badly on the theoretical strength of our analyses, which appear to rely on a specific choice of metric.</p><p>In this paper, we aim to show that using other norms is possible in numerical algebraic geometry. To do so, we consider an 𝐿 ∞ -norm in the space of polynomial systems and show how this leads to numerical algorithms and a complexity framework analogous to the one we have with the Weyl norm. Furthermore, we show that the change of norms leads to significant improvements in complexity bounds thanks to the better probabilistic behaviour of this 𝐿 ∞ norm with respect to the Weyl norm. We show this in three relevant cases: 1) computation of the homology of algebraic sets, 2) the Plantinga-Vegter algorithm and 3) the homotopy continuation method for quadratic polynomial systems.</p><p>We now discuss in more detail the aspects we have mentioned in passing to put our results in context within the wider setting of complexity theory for numerical algorithms and numerical algebraic geometry.</p><p>Complexity paradigm. The behaviour of numerical algorithms varies from input to input. This phenomenon is due not necessarily to the algorithms themselves but rather to the numerical sensitivityhow much the output varies with respect to a perturbation of the input -of the input we are processing. The numerical sensitivity of an input is captured by the so-called condition number. Then, in turn, condition numbers allow one to analyse numerical algorithms and explain why numerical algorithms handle some inputs faster than others.</p><p>Central to our paper is the fact that the choice of the metric under which we measure perturbations determines the condition number of the data. An example of this is given by the polynomial 𝑋 𝑑 -1, which is well-conditioned (for the zero finding problem) with respect to the standard norm in equation (2.2) but badly conditioned with respect to the Weyl norm in equation <ref type="bibr">(2.3)</ref>  <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Example 14.3]</ref>.</p><p>A drawback of condition-based complexity analyses is that, as we don't know a priori the condition of the input at hand, we cannot foresee the running time for this input. We can nonetheless get an idea of how the algorithm behaves in general by randomising the input. This allows one to obtain probabilistic estimates for the practical performance of the numerical algorithm.</p><p>Let F be either R or C. Let also 𝑛, 𝑑 ∈ N, 𝑛, 𝑑 ≥ 1. We denote by H F 𝑑 <ref type="bibr" target="#b0">[1]</ref> the linear space of homogeneous polynomials of degree d in the 𝑛 + 1 variables 𝑋 0 , 𝑋 1 , . . . , 𝑋 𝑛 with coefficients in F. Let 𝒅 = (𝑑 1 , . . . , 𝑑 𝑞 ) ∈ N 𝑞 and 𝑛 ∈ N as above. We denote by H F 𝒅 <ref type="bibr">[𝑞]</ref> the space <ref type="bibr" target="#b0">[1]</ref>. If F is clear from the context, or if it is not relevant to the argument, we will omit the superscript. We will use the following conventions for dimension counting: <ref type="bibr" target="#b0">[1]</ref> and 𝑁 :=</p><formula xml:id="formula_0">H F 𝑑 1 [1] × • • • × H F 𝑑 𝑞</formula><formula xml:id="formula_1">𝑁 𝑖 := 𝑛 + 𝑑 𝑖 𝑑 𝑖 = dim F H F 𝑑 𝑖</formula><formula xml:id="formula_2">𝑞 𝑖=1 𝑛 + 𝑑 𝑖 𝑑 𝑖 = dim F H F 𝒅 [𝑞].</formula><p>We also use D := max{𝑑 1 , . . . , 𝑑 𝑞 } and denote by Δ the 𝑞 × 𝑞 diagonal matrix with 𝑑 𝑖 in its ith diagonal entry. In all that follows, S 𝑛 := {𝑥 ∈ R 𝑛+1 | 𝑥 2 = 1} will be the (real) n-sphere and P 𝑛 := C 𝑛+1 /C * the complex projective space of dimension n. We note that there will be no ambiguity, as the sphere is the usual space to work with real polynomials and the projective space is the usual one for complex polynomials.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Remark 2.1.</head><p>In what follows, we will write 𝑧 ∈ P 𝑛 instead of [𝑧] ∈ P 𝑛 , and we will assume that the representative 𝑧 ∈ C 𝑛+1 always satisfies 𝑧 2 = 1. This simplifies the form of many of our definitions. This convention can be made without loss of generality as every point in P 𝑛 has a representative of norm 1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1.">Euclidean norms</head><p>The simplest norm considered on H R 𝒅 <ref type="bibr">[𝑞]</ref> is the one induced by the standard Euclidean inner product in a monomial basis. Every 𝑓 ∈ H F 𝑑 <ref type="bibr" target="#b0">[1]</ref> can be uniquely represented as</p><formula xml:id="formula_3">𝑓 = | 𝛼 |=𝑑 𝑓 𝛼 𝑋 𝛼 , (<label>2.1)</label></formula><p>where 𝛼 = (𝛼 0 , . . . , 𝛼 𝑛 ) ∈ N 𝑛+1 and |𝛼| = 𝛼 0 + • • • + 𝛼 𝑛 . The norm induced by the standard Euclidean inner product is therefore</p><formula xml:id="formula_4">𝑓 std := | 𝛼 |=𝑑 | 𝑓 𝛼 | 2 .</formula><p>(2.2)</p><p>For 𝑓 = ( 𝑓 1 , . . . , 𝑓 𝑞 ) ∈ H 𝒅 <ref type="bibr">[𝑞]</ref>, the norm extends as 𝑓 2 std := 𝑓 1 2 std + • • • + 𝑓 𝑞 2 std . The most commonly used norm on H 𝒅 <ref type="bibr">[𝑞]</ref> is the Weyl norm. For a polynomial as in equation <ref type="bibr">(2.1)</ref>, this is given by</p><formula xml:id="formula_5">𝑓 𝑊 := | 𝛼 |=𝑑 𝑑 𝛼 -1 | 𝑓 𝛼 | 2 , (<label>2.3)</label></formula><p>where 𝑑 𝛼 is the multinomial coefficient 𝑑! 𝛼 0 !...𝛼 𝑛 ! . Again, for 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref>, this extends by 𝑓 2 𝑊 := 𝑓 1 2</p><formula xml:id="formula_6">𝑊 + • • • + 𝑓 𝑞 2 𝑊 .</formula><p>The Weyl norm is also induced by an inner product, and this inner product is invariant under the action of the unitary group (respectively, the orthogonal group when the underlying field is R). It is straightforward to check that, for 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref>,</p><formula xml:id="formula_7">𝑓 𝑊 ≤ 𝑓 std ≤ max 𝑖 ≤𝑞 max | 𝛼 |=𝑑 𝑖 𝑑 𝑖 𝛼 𝑓 𝑊 .</formula><p>Here, and in all that follows, for any 𝑥 ∈ S 𝑛 and 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref>, D 𝑥 𝑓 : T 𝑥 S 𝑛 → R 𝑞 is the derivative of f at x restricted to the tangent space T 𝑥 S 𝑛 of S 𝑛 at x. A similar convention applies in the complex case replacing S 𝑛 and T 𝑥 S 𝑛 by P 𝑛 and T 𝑧 P 𝑛 . The following property (see <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Proposition 16.16]</ref>) is one of the most important properties of the Weyl norm from the viewpoint of the complexity of numerical algorithms.</p><p>Proposition 2.2. For all 𝑥 ∈ S 𝑛 , the map</p><formula xml:id="formula_8">H 𝒅 [𝑞] 𝑓 ↦ → ev 𝑥 𝑓 := 𝑓 (𝑥), Δ -1 2 D 𝑥 𝑓</formula><p>is an orthogonal projection from H 𝒅 <ref type="bibr">[𝑞]</ref> endowed with the Weyl norm onto R 𝑞 × T 𝑥 S 𝑛 R 𝑞+𝑛 equipped with the standard Euclidean norm. An analogous statement holds in the complex case.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2.">Functional norms</head><p>We will consider functional norms that arise from evaluating polynomials at points on the sphere. One might consider other norms (as we do in Section A), but 𝐿 𝑝 -norms suffice for obtaining the computational improvements we aim for. Although in the sequel we will only use the 𝐿 ∞ -norm, we present the full family of 𝐿 𝑝 -norms since we consider that these norms will be useful in the future. Moreover, presenting the full family of 𝐿 𝑝 -norms allows us to appreciate how the 𝐿 ∞ differs from and relates to these other norms. We will consider the two following classes of L-norms on H 𝒅 <ref type="bibr">[𝑞]</ref>:</p><p>(R) Real 𝐿 𝑝 -norm:</p><formula xml:id="formula_9">For 𝑝 ∈ [1, ∞], 𝑓 R 𝑝 := ⎧ ⎪ ⎪ ⎪ ⎪ ⎨ ⎪ ⎪ ⎪ ⎪ ⎩ max 𝑥 ∈S 𝑛 𝑓 (𝑥) ∞ = max 𝑥 ∈S 𝑛 max 𝑖 | 𝑓 𝑖 (𝑥)| if 𝑝 = ∞ E 𝔵 ∈S 𝑛 𝑓 (𝔵) 𝑝 𝑝 1/ 𝑝 = E 𝔵 ∈S 𝑛 𝑞 𝑖=1 | 𝑓 𝑖 (𝔵)| 𝑝 1/ 𝑝 otherwise,</formula><p>where the expectations are taken over the uniform distribution of the n-dimensional sphere S 𝑛 ⊆ R 𝑛+1 .</p><p>https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press (C) Complex 𝐿 𝑝 -norm: For 𝑝 ∈ <ref type="bibr">[1, ∞]</ref>,</p><formula xml:id="formula_10">𝑓 C 𝑝 := ⎧ ⎪ ⎪ ⎪ ⎪ ⎨ ⎪ ⎪ ⎪ ⎪ ⎩ max 𝑧 ∈P 𝑛 𝑓 (𝑧) ∞ = max 𝑧 ∈P 𝑛 max 𝑖 | 𝑓 𝑖 (𝑧)| if 𝑝 = ∞ E 𝔷 ∈P 𝑛 𝑓 (𝔷) 𝑝 𝑝 1/ 𝑝 = E 𝔷 ∈P 𝑛 𝑞 𝑖=1 | 𝑓 𝑖 (𝔷)| 𝑝 1/ 𝑝 otherwise,</formula><p>where the expectations are taken over the uniform distribution of the complex n-dimensional projective space P 𝑛 := P 𝑛 C . Remark 2.3. In the case of a single polynomial, the definitions above become simpler. For 𝑓 ∈ H 𝒅 <ref type="bibr" target="#b0">[1]</ref>,</p><formula xml:id="formula_11">𝑓 R 𝑝 := ⎧ ⎪ ⎪ ⎪ ⎨ ⎪ ⎪ ⎪ ⎩ max 𝑥 ∈S 𝑛 | 𝑓 (𝑥)| if 𝑝 = ∞ E 𝔵 ∈S 𝑛 | 𝑓 (𝔵)| 𝑝 1/ 𝑝 otherwise and 𝑓 C 𝑝 := ⎧ ⎪ ⎪ ⎪ ⎨ ⎪ ⎪ ⎪ ⎩ max 𝑧 ∈P 𝑛 | 𝑓 (𝑧)| if 𝑝 = ∞ E 𝔷 ∈P 𝑛 | 𝑓 (𝔷)| 𝑝 𝑝 1/ 𝑝 otherwise,</formula><p>which amount to taking the p-mean of | 𝑓 | over, respectively, S 𝑛 and P 𝑛 .</p><p>In general, we will omit the superscript when the context is clear. It will be common for us to work with the norms R 𝑝 in H R 𝒅 <ref type="bibr">[𝑞]</ref> and the norms C 𝑝 in H C 𝒅 <ref type="bibr">[𝑞]</ref>.1 Our definition has some arbitrary choices. These are motivated by the following two properties: (D) For 𝑝 ∈ <ref type="bibr">[1, ∞]</ref> and 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref>,</p><formula xml:id="formula_12">𝑓 R 𝑝 = 𝑓 1 R 𝑝 , . . . , 𝑓 𝑞 R 𝑝 𝑝 and 𝑓 C 𝑝 = 𝑓 1 C 𝑝 , . . . , 𝑓 𝑞 C 𝑝 𝑝 .</formula><p>This identity is why we take the p-mean of the p-norm of 𝑓 (𝑥) instead of taking the p-mean of a fixed norm. (I) We have actions of the qth power of the (real) orthogonal group, 𝒪(𝑛 + 1) 𝑞 , on H R 𝒅 <ref type="bibr">[𝑞]</ref>, given by ( 𝐴, 𝑓 ) ↦ → ( 𝑓 𝐴 𝑖 𝑖 ) := ( 𝑓 𝑖 ( 𝐴 𝑖 𝑋)). Similarly, we have an action of the qth power of the unitary group, 𝒰(𝑛 + 1) 𝑞 , on H C 𝒅 <ref type="bibr">[𝑞]</ref>. The norms R 𝑝 and</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>C</head><p>𝑝 are invariant under these actions. We perform some simple computations to have a better grasp of the introduced norms.</p><p>Example 2.4 (Monomials). We consider the value of the norms for a monomial 𝑋 𝛼 ∈ H 𝑑 <ref type="bibr" target="#b0">[1]</ref> of degree d. In this case, we have that for 𝑝 ∈ [1, ∞),</p><formula xml:id="formula_13">𝑋 𝛼 R 𝑝 = Γ 𝑛+1 2 𝑛 𝑖=0 Γ 𝑝 𝛼 𝑖 +1 2 𝜋 𝑛+1 2 Γ 𝑝𝑑+𝑛+1 2 1 𝑝</formula><p>and</p><formula xml:id="formula_14">𝑋 𝛼 C 𝑝 = 𝑛! 𝑛 𝑖=0 Γ 𝑝 𝛼 𝑖 2 + 1 Γ 𝑝𝑑 2 + 𝑛 + 1 1 𝑝</formula><p>, where Γ is Euler's Gamma function, and that</p><formula xml:id="formula_15">𝑋 𝛼 R ∞ = 𝑋 𝛼 C ∞ = 𝑛 𝑖=0 𝛼 𝑖 𝑑 𝛼 𝑖 2 = 1 𝑑 𝑑 𝑛 𝑖=0 𝛼 𝛼 𝑖 𝑖 .</formula><p>For the calculations of 𝐿 𝑝 -norms of monomials, we refer the reader to <ref type="bibr" target="#b35">[36]</ref>. Although the calculation is only illustrated over the reals in the reference, the complex case is similar. For the second one, note that for monomials, real and complex ∞-norms are equivalent. Once this is clear, we are just using the method of Lagrange multipliers to compute the maximum over the sphere.</p><p>1Observe, however, that R 𝑝 are also norms for H C 𝒅 [𝑞] since a complex homogeneous polynomial cannot vanish on the real sphere without being zero.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Example 2.5 (Linear functions)</head><p>. Let 1 = (1, 1, . . . , 1) ∈ N 𝑞 and 𝑓 ∈ H 1 <ref type="bibr">[𝑞]</ref>. Then f can be identified with a matrix A of size 𝑞 × (𝑛 + 1). We can see that</p><formula xml:id="formula_16">𝑓 ∞ = 𝐴 2,∞ := sup 𝑥≠0 𝐴𝑥 ∞ 𝑥 2 ,</formula><p>where 2,∞ is the operator norm, where the domain vector space has the usual Euclidean norm 2 and the codomain the ∞-norm ∞ .  <ref type="bibr" target="#b0">[1]</ref>. As this function is constant on the real sphere, we have that for all 𝑝 ∈ [1, ∞],</p><formula xml:id="formula_17">For 𝑝 ∈ [1, ∞), 𝑓 R 𝑝 = 𝑋 0 R 𝑝 𝐴 1 2 , . . . ,</formula><formula xml:id="formula_18">𝑓 R 𝑝 = 1.</formula><p>However, on P 𝑛 , f does not behave as a constant function as it has a positive dimensional zero set. Again, arguing as in <ref type="bibr" target="#b35">[36]</ref>, we can conclude that</p><formula xml:id="formula_19">𝑓 C 𝑝 = 1 𝜋 𝑛+1 𝑛! (𝑛 + 𝑝)! ∫ 𝑧 ∈C 𝑛+1 | 𝑓 (𝑧)| 𝑝 e -|𝑧 | 2 1 𝑝</formula><p>for 𝑝 ∈ [1, ∞). Now, if p is even, we can obtain the expression</p><formula xml:id="formula_20">𝑓 C 𝑝 = 𝑛 + 2 2 -1 𝛼∈N 𝑛+1 | 𝛼 |= 𝑝/2 𝑝/2 𝛼 2 𝑝 2𝛼 -1 1 𝑝 after writing | 𝑓 (𝑧)| 𝑝 = 𝑓 (𝑧) 𝑝 2 𝑓 (𝑧)</formula><p>𝑝 2 , expanding and using separation of variables. In particular, for 𝑝 = 2, we obtain that</p><formula xml:id="formula_21">𝑓 C 2 = 2 𝑛 + 2 ≠ 1.</formula><p>This shows how the norms C 𝑝 may be smaller than their corresponding norm R 𝑝 for 𝑝 ∈ [1, ∞). Example 2.7 (Cosine polynomials). Let 𝑑 ≥ 2, and consider the family of homogeneous polynomials</p><formula xml:id="formula_22">𝑐 𝑑 := 𝑑/2 𝑘=0 𝑑 2𝑘 (-1) 𝑘 𝑋 𝑑-2𝑘 𝑌 2𝑘 = 1 2 (𝑋 + 𝑖𝑌 ) 𝑑 + 1 2 (𝑋 -𝑖𝑌 ) 𝑑 ∈ H 𝑑 [1].</formula><p>Since 𝑐 𝑑 (cos 𝜃, sin 𝜃) = cos 𝑑𝜃, we have that</p><formula xml:id="formula_23">𝑐 𝑑 R ∞ = 1. Also, 𝑐 𝑑 is unitarily equivalent to 2 𝑑 2 -1 (𝑋 𝑑 + 𝑌 𝑑 ). Hence 𝑐 𝑑 C ∞ = 2 𝑑 2 -1 , since 𝑋 𝑑 + 𝑌 𝑑 C ∞ = 1 for 𝑑 ≥ 2. This shows that for degrees 𝑑 ≥ 3, the norms R ∞ and C ∞ disagree on real polynomials.</formula><p>The following proposition lists simple inequalities between the functional norms. For a converse of some of the inequalities below, where the 𝐿 ∞ norm is bounded in terms of 𝐿 𝑝 norms, see <ref type="bibr" target="#b5">[6]</ref>. Proposition 2.8. Let 1 ≤ 𝑝 &lt; 𝑝 &lt; ∞ and F ∈ {R, C}. Then for all 𝑓 ∈ H F 𝒅 <ref type="bibr">[𝑞]</ref>, the following inequalities hold:</p><formula xml:id="formula_24">1 𝑞 1 𝑝 𝑓 F 𝑝 ≤ 1 𝑞 1 𝑝 𝑓 F 𝑝 ≤ 𝑓 F ∞ ≤ 𝑓 C ∞ .</formula><p>Sketch of proof. It is a direct consequence of the inequalities between p-means.</p><p>The Weyl norm is essentially a scaled version of the complex 𝐿 2 norm.</p><p>Proposition 2.9.</p><formula xml:id="formula_25">Let 𝑓 ∈ H C 𝒅 [𝑞].</formula><p>Then</p><formula xml:id="formula_26">𝑓 𝑊 = 𝑞 𝑖=1 𝑁 𝑖 𝑓 𝑖 C 2 2 .</formula><p>In particular, for 𝑓 ∈ H C 𝒅 <ref type="bibr" target="#b0">[1]</ref>,</p><formula xml:id="formula_27">𝑓 C 𝑊 = √ 𝑁 𝑓 C 2 .</formula><p>Sketch of proof. We only need to show this in the case 𝑞 = We finish this subsection by noting how the 𝐿 ∞ -norms relate to the Weyl norm. We note that this is related to the so-called best rank-one approximation of a symmetric tensor <ref type="bibr" target="#b0">[1,</ref><ref type="bibr" target="#b58">59]</ref>; the inequality for the real case below was already present in <ref type="bibr" target="#b58">[59,</ref><ref type="bibr">Theorem 2.4]</ref>.</p><formula xml:id="formula_28">Proposition 2.11. Let 𝑓 ∈ H 𝒅 [𝑞]. Then 𝑓 C ∞ ≤ 𝑓 𝑊 ≤ √ 𝑁 𝑓 C ∞ . If 𝑓 ∈ H R 𝒅 [𝑞], then 𝑓 R ∞ ≤ 𝑓 𝑊 ≤ (𝑛 + 1) D 2 𝑓 R ∞ .</formula><p>Proof. The first part follows from Proposition 2.9 and 2.10. The left-hand side of the second part uses Proposition 2.10. Now, for 𝑓 ∈ H 𝑑 <ref type="bibr" target="#b0">[1]</ref>, Corollary 2.20 implies that for each 𝛼,</p><formula xml:id="formula_29">| 𝑓 𝛼 | = 1 𝛼! D 𝑥 𝑓 ≤ 𝑑 𝛼 .</formula><p>The right-hand inequality follows from here.</p><p>Example 2.12. Proposition 2.11 is almost optimal for 𝑛 = 1. In <ref type="bibr" target="#b0">[1]</ref>, it was shown that for the cosine polynomials 𝑐 𝑑 of Example 2.7, we have</p><formula xml:id="formula_30">𝑐 𝑑 𝑊 = 2 𝑑-1 2</formula><p>and that 𝑐 𝑑 is the real polynomial of real 𝐿 ∞ norm 1 with largest Weyl norm. Curiously, in this case, the Weyl norm and the complex 𝐿 ∞ are almost equal, the former being the latter times √ 2.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3.">Kellogg's theorem</head><p>We will denote by D the operation of taking all partial derivatives with respect to all variables: that is,</p><formula xml:id="formula_31">𝑓 ↦ → D 𝑓 is a linear map H 𝒅 [𝑞] → H 𝒅-1 [(𝑛 + 1)𝑞],</formula><p>and for 𝑥 ∈ F 𝑛+1 , D 𝑥 𝑓 : F 𝑛+1 → F 𝑞 is a linear map. We will write D 𝑋 𝑓 , with a capital X, to emphasise that we view D 𝑋 𝑓 as a polynomial tuple in H 𝒅-1 [(𝑛 + 1)𝑞]; and we will write D 𝑥 𝑓 , with a lowercase x, to emphasise that we view D 𝑥 𝑓 as the linear map F 𝑛+1 → F 𝑞 defined at the point x. We also recall that D 𝑥 𝑓 is the tangent map T 𝑥 S 𝑛 → R 𝑞 in the real case and the tangent map T 𝑥 P 𝑛 → C 𝑞 in the complex case.</p><p>The following result plays the role of Proposition 2.2 for the infinity norm instead of the Weyl one. It is a reformulation of a well-known inequality proved in <ref type="bibr" target="#b39">[40]</ref>. Theorem 2.13 (Kellogg's inequality). Let F ∈ {R, C}, 𝑓 ∈ H F 𝒅 <ref type="bibr">[𝑞]</ref> and 𝑣 ∈ F 𝑛+1 ; then</p><formula xml:id="formula_32">Δ -1 D 𝑋 𝑓 𝑣 F ∞ ≤ 𝑓 F ∞ 𝑣 . Corollary 2.14. Let 𝑓 ∈ H F 𝒅 [𝑞] and 𝑧 ∈ S 𝑛 (if F = R) or 𝑧 ∈ P 𝑛 (if F = C). Then max 𝑓 (𝑧) ∞ , Δ -1 D 𝑧 𝑓 2,∞ ≤ 𝑓 F ∞ .</formula><p>Before proving Theorem 2.13 and Corollary 2.14, we discuss some features of these results. Remark 2.15. We note that the left-hand side in Corollary 2.14 is not optimal. In general, we have that</p><formula xml:id="formula_33">Δ -1 D 𝑥 𝑓 2,∞ = max 𝑖 | 𝑓 𝑖 (𝑥)| 2 + 1 𝑑 2 𝑖 D 𝑥 𝑓 𝑖 2 2,∞ .</formula><p>The following examples show how the bound of Theorem 2.13 looks in a few particular cases.</p><p>Example 2.16. Consider the cosine polynomials 𝑐 𝑑 of Example 2.7. A direct computation shows that</p><formula xml:id="formula_34">1 𝑑 D 𝑋 𝑐 𝑑 𝑣 = 𝑣 𝑋 𝑐 𝑑-1 -𝑣 𝑌 𝑠 𝑑-1 ,</formula><p>where 𝑠 𝑑-1 := -𝑖 2 (𝑋 + 𝑖𝑌 ) 𝑑-1 + 𝑖 2 (𝑋 -𝑖𝑌 ) is the sine polynomial for which 𝑠 𝑑 (cos 𝜃, sin 𝜃) = sin 𝑑𝜃. In the real case, this gives</p><formula xml:id="formula_35">1 𝑑 D 𝑋 𝑐 𝑑 𝑣 R ∞ = 𝑣 2 = 𝑐 𝑑 R ∞ 𝑣 2 ,</formula><p>using the Cauchy-Schwarz inequality. In the complex case, 1</p><formula xml:id="formula_36">𝑑 D 𝑋 𝑐 𝑑 𝑣 = 𝑣 𝑋 𝑐 𝑑-1 -𝑣 𝑌 𝑠 𝑑-1 is unitarily equivalent to 2 𝑑-1 2 𝑑 (𝑣 𝑋 -𝑖𝑣 𝑌 ) 𝑋 𝑑-1 + (𝑣 𝑋 + 𝑖𝑣 𝑌 )𝑌 𝑑-1 . Now, (𝑣 𝑋 -𝑖𝑣 𝑌 )𝑥 𝑑-1 + (𝑣 𝑋 + 𝑖𝑣 𝑌 )𝑦 𝑑-1 ≤ √ 2 𝑣 2 (|𝑥| 𝑑-1 + |𝑦| 𝑑-1 ) ≤ 𝑣 2 for 𝑑 ≤ 3, and v real when |𝑥| 2 + |𝑦| 2 ≤ 1. Thus 1 𝑑 D 𝑋 𝑐 𝑑 𝑣 C ∞ = 2 𝑑 𝑑 𝑣 2 = √ 2 𝑑 𝑐 𝑑 C ∞ 𝑣 2 .</formula><p>This shows that the real version of Kellogg's theorem is tight for 𝑐 𝑑 , but the complex version is not.</p><p>Example 2.17. The reverse situation is true for the polynomial 𝑋 𝑑 0 . One can see that</p><formula xml:id="formula_37">1 𝑑 D 𝑋 𝑋 𝑑 0 𝑒 0 C ∞ = 𝑋 𝑑 0 C ∞ .</formula><p>Now it is the complex Kellogg's theorem that is tight. We note, however, that one might still improve Corollary 2. Proof of Theorem 2.13. We only prove the real case. The complex case is proven analogously (see <ref type="bibr" target="#b39">[40,</ref><ref type="bibr">Section 8]</ref> for the complex version of the results we use in the real case). By <ref type="bibr">[40,</ref> Theorem IV], we have that for all i and all 𝑥 ∈ S 𝑛 ,</p><formula xml:id="formula_38">D 𝑥 𝑓 𝑖 𝑣 ≤ 𝑑 𝑖 𝑓 𝑖 R ∞ 𝑣 , since D 𝑥 𝑓 𝑖 𝑣 is the directional derivative of f at x in the direction of v. Therefore, for all 𝑥 ∈ S 𝑛 , Δ -1 D 𝑥 𝑓 𝑣 ∞ = max 𝑖 1 𝑑 𝑖 D 𝑥 𝑓 𝑣 ≤ max 𝑖 𝑓 𝑖 R ∞ 𝑣 = 𝑓 R ∞ 𝑣 . Now Δ -1 D 𝑋 𝑓 𝑣 R ∞ = max 𝑥 ∈S 𝑛 Δ -1 D 𝑥 𝑓 𝑣 ∞ by definition of R</formula><p>∞ , so we are done.</p><p>Remark 2.19. We note that the application of [40, Theorem IV] using the scaling with the diagonal matrix was not used in <ref type="bibr" target="#b32">[33,</ref><ref type="bibr">Theorem 2.4</ref>] and <ref type="bibr" target="#b33">[34]</ref>. This can be used to improve by a factor of the degree some of the bounds there.</p><p>Proof of Corollary 2.14. We only prove the real case, the proof for the complex case being essentially the same. Recall that by Euler's formula for homogeneous functions,</p><formula xml:id="formula_39">Δ -1 D 𝑥 𝑓 𝑥 = 𝑓 (𝑥).<label>(2.4)</label></formula><p>In this way, for 𝑥 ∈ S 𝑛 , 𝜆 ∈ R and 𝑤 ∈ T 𝑥 S 𝑛 = 𝑥 ⊥ ,</p><formula xml:id="formula_40">Δ -1 D 𝑥 𝑓 (𝜆𝑥 + 𝑤) = 𝜆 𝑓 (𝑥) + Δ -1 D 𝑥 𝑓 𝑤.</formula><p>When 𝜆𝑥 + 𝑤 = 𝑥, this expression yields 𝑓 (𝑥); and when 𝜆𝑥 + 𝑤 = 𝑤, it yields Δ -1 D 𝑥 𝑓 𝑤. In this way,</p><formula xml:id="formula_41">max 𝜆𝑥+𝑤≠0 Δ -1 D 𝑥 𝑓 (𝜆𝑥 + 𝑤) ∞ |𝜆| 2 + 𝑤 2 ≥ max 𝑓 (𝑥) ∞ , max 𝑣 ∈T 𝑥 S 𝑛 \0 Δ -1 D 𝑥 𝑣 ∞ 𝑣 .</formula><p>The left-hand side is bounded by 𝑓 R ∞ by Theorem 2.13, and the right-hand side equals max{ 𝑓 (𝑥) ∞ , Δ -1 D 𝑥 𝑓 2,∞ }. Thus the desired inequality follows.</p><p>Following the notations introduced above, we will write D 𝑘 𝑥 𝑓 to denote the kth derivative map of 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref> at 𝑥 ∈ F 𝑛+1 . This is the k-multilinear map (F 𝑛+1 ) 𝑘 → F 𝑞 given by the kth derivatives of f at x. Also, D 𝑘 𝑋 𝑓 (𝑣 1 , . . . , 𝑣 𝑘 ), where 𝑣 1 , . . . , 𝑣 𝑘 ∈ F 𝑛+1 will denote the corresponding polynomial tuple in H 𝒅-𝑘1 <ref type="bibr">[𝑞]</ref>. For a real k-multilinear map 𝐴 :</p><formula xml:id="formula_42">(R 𝑛 ) 𝑘 → R 𝑞 , we define 𝐴 R 2,∞ := sup 𝑣 1 ,...,𝑣 𝑘 ≠0 𝐴(𝑣 1 , . . . , 𝑣 𝑘 ) ∞ 𝑣 1 • • • 𝑣 𝑘 . (2.5)</formula><p>We define 𝐴 C 2,∞ for a complex k-multilinear map 𝐴 : (C 𝑛 ) 𝑘 → C 𝑞 in a similar manner. Note that for 𝑘 &gt; 2, by the following corollary and Example 2.7, </p><formula xml:id="formula_43">1 𝑘! D 𝑘 0 𝑐 𝑘 C 2,∞ = 𝑐 𝑘 C ∞ = 2 𝑘 2 -1 &gt; 1 = 𝑐 𝑘 R ∞ = 1 𝑘! D 𝑘 0 𝑐 𝑘 R 2,∞ , so for real A, 𝐴 R 2,</formula><formula xml:id="formula_44">∈ F 𝑛+1 , 1 𝑘! Δ -1 D 𝑘 𝑋 𝑓 (𝑣 1 , . . . , 𝑣 𝑘 ) ∞ ≤ 1 𝑘 D -1 𝑘 -1 𝑓 F ∞ 𝑣 1 • • • 𝑣 𝑘 .</formula><p>In particular,</p><formula xml:id="formula_45">1 𝑘! Δ -1 D 𝑘 𝑧 𝑓 2,∞ ≤ 1 𝑘 D-1 𝑘-1 𝑓 F ∞ .</formula><p>Proof. It follows from Theorem 2.13 by induction, followed by an application of Corollary 2.14.</p><p>Remark 2.21. Although the results in this section were proved only for F ∞ , some of them can be generalised to other norms. For example, similar results can be obtained for R 2 (see <ref type="bibr" target="#b51">[52]</ref>) and certainly for other norms. We defer to future work the application of these extensions to the analysis of numerical algorithms in algebraic geometry. We also note that Corollary 2.14 for F = R can be generalised to smooth real algebraic varieties other than the sphere (see <ref type="bibr" target="#b10">[11]</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Condition numbers for the 𝐿 ∞ -norm</head><p>In this section, we will consider condition numbers that capture 'how near to being singular' a system 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref> is at a point 𝑥 ∈ S 𝑛 . We will define condition numbers and develop a geometric understanding of them for the 𝐿 ∞ -norms defined in the preceding section.</p><p>Recall the local and global versions of the real condition number 𝜅 used in <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27,</ref><ref type="bibr" target="#b27">28]</ref>. For 𝑓 ∈ H R 𝒅 <ref type="bibr">[𝑞]</ref> and 𝑥 ∈ S 𝑛 , they are defined by</p><formula xml:id="formula_46">𝜅( 𝑓 , 𝑥) := 𝑓 𝑊 𝑓 (𝑥) 2 2 + D 𝑥 𝑓 † Δ 1/2 -2 2,2</formula><p>and 𝜅( 𝑓</p><formula xml:id="formula_47">) := sup 𝑦 ∈S 𝑛 𝜅( 𝑓 , 𝑦). (3.1)</formula><p>Here, for a surjective linear map A, 𝐴 † := 𝐴 * ( 𝐴𝐴 * ) -1 denotes its Moore-Penrose inverse <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Section 1.6]</ref>. Also recall the 𝜇-condition number introduced by Shub and Smale <ref type="bibr" target="#b52">[53]</ref>: for 𝑓 ∈ H C 𝒅 <ref type="bibr">[𝑞]</ref> and 𝜁 ∈ P 𝑛 , 𝜇( 𝑓 , 𝜁) is defined by</p><formula xml:id="formula_48">𝜇 norm ( 𝑓 , 𝜁) := 𝑓 𝑊 D 𝜁 𝑓 † Δ 1/2 2,2 .</formula><p>(3.2) Remark 3.1. By convention, we assume that 𝐴 † 2,2 = ∞ when A is not surjective. We do this because for 𝐴 ∈ C 𝑞×𝑛 surjective,</p><formula xml:id="formula_49">𝐴 † -1 2,2 = 𝜎 𝑞 ( 𝐴),</formula><p>where 𝜎 𝑞 is the qth singular value. As the latter is continuous, this choice guarantees that 𝐴 ↦ → 𝐴 † -1 2,2 is continuous.</p><p>Following these ideas, we define the real local condition number of 𝑓 ∈ H R 𝒅 <ref type="bibr">[𝑞]</ref> at 𝑥 ∈ S 𝑛 as</p><formula xml:id="formula_50">K( 𝑓 , 𝑥) := √ 𝑞 𝑓 R ∞ max 𝑓 (𝑥) , D 𝑥 𝑓 † Δ -1 2,2<label>(3.3)</label></formula><p>and the real global condition number of 𝑓 ∈ H R 𝒅 <ref type="bibr">[𝑞]</ref> as</p><formula xml:id="formula_51">K( 𝑓 ) := sup 𝑦 ∈S 𝑛 K( 𝑓 , 𝑦). (3.4)</formula><p>And we define the complex local condition number of 𝑓 ∈ H C 𝒅 <ref type="bibr">[𝑞]</ref> at 𝜁 ∈ P 𝑛 as</p><formula xml:id="formula_52">M( 𝑓 , 𝜁) = √ 𝑞 𝑓 C ∞ D 𝜁 𝑓 † Δ 2,2<label>(3.5)</label></formula><p>and the complex global condition number of 𝑓 ∈ H C 𝒅 <ref type="bibr">[𝑞]</ref> (with 𝑞 ≤ 𝑛) as</p><formula xml:id="formula_53">M( 𝑓 ) := sup{M( 𝑓 , 𝜁) | 𝜁 ∈ P 𝑛 , 𝑓 (𝜁) = 0}.<label>(3.6)</label></formula><p>We can see that K is a variant of 𝜅 and M is a variant of 𝜇 norm . We note that the main difference lies in the fact that we are substituting all occurrences of 𝑊 with occurrences of ∞ . The fact that we use a different scaling factor (Δ 1/2 instead of Δ) or different norms for vectors ( ∞ instead of 2 and so on) only affects these quantities up to a 2𝑞D factor. This has little consequence for complexity. We will be more explicit in Proposition 4.27. Note that despite these changes, we still have that the local condition numbers, K and M, become ∞ at a singular zero and that they are finite otherwise.</p><p>The remainder of this section is devoted to proving the main properties of K and M, which are the reason we defined these numbers the way we did. The properties we will show are those needed for a condition-based complexity analyses of the algorithms in Sections 4 and 5 following the lines of the analyses in <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b27">28,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref> (see also <ref type="bibr" target="#b54">[55]</ref>) and <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Chapter 17]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1.">Properties of the real condition number K</head><p>Recall (see, e.g., <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Definition 16.35]</ref>) that for 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref> and 𝑥 ∈ S 𝑛 , the Smale's projective gamma is given by </p><formula xml:id="formula_54">𝛾( 𝑓 , 𝑥) := sup 𝑘 ≥2 1 𝑘! D 𝑥 𝑓 † D 𝑘 𝑥 𝑓 1 𝑘-1 , where = 2,</formula><formula xml:id="formula_55">𝑓 (𝑥) √ 𝑞 𝑓 R ∞ ≥ 1 K( 𝑓 , 𝑥) or √ 𝑞 𝑓 R ∞ D 𝑥 𝑓 † Δ 2,2 ≤ K( 𝑓 , 𝑥).</formula><p>In particular, if K( 𝑓 , 𝑥) 𝑓 ( 𝑥) • 1st Lipschitz property: The maps</p><formula xml:id="formula_56">√ 𝑞 𝑓 R ∞ &lt; 1, then D 𝑥 𝑓 : T 𝑥 S 𝑛 → R 𝑞 is</formula><formula xml:id="formula_57">H R 𝒅 [𝑞] → [0, ∞) 𝑔 ↦ → 𝑔 R ∞ K(𝑔, 𝑥)</formula><p>and</p><formula xml:id="formula_58">H R 𝒅 [𝑞] → [0, ∞) 𝑔 ↦ → 𝑔 R ∞ K(𝑔)</formula><p>are 1-Lipschitz with respect to the real 𝐿 ∞ -norm. In particular, K( 𝑓 , 𝑥) ≥ 1 and K( 𝑓 ) ≥ 1.</p><p>• 2nd Lipschitz property: The map</p><formula xml:id="formula_59">S 𝑛 → [0, 1] 𝑦 ↦ → 1 K( 𝑓 , 𝑦)</formula><p>is D-Lipschitz with respect to the geodesic distance on S 𝑛 . • Higher derivative estimate:</p><formula xml:id="formula_60">If K( 𝑓 , 𝑥) | 𝑓 ( 𝑥) | 𝑓 R ∞ &lt; 1, then 𝛾( 𝑓 , 𝑥) ≤ 1 2 (D -1)K( 𝑓 , 𝑥).</formula><p>We now discuss the role of the above properties. Regularity inequality. The regularity inequality guarantees that when K( 𝑓 , 𝑥) &lt; ∞, either x is far away from the zero set of f or D 𝑥 𝑓 † exists and is well-defined. The latter is important because it allows us to do various geometric arguments that rely on this pseudoinverse being defined or, equivalently, on D 𝑥 𝑓 being surjective. In the particular case of K, we could state it with equalities (see its proof below), but we leave the statement with inequalities as this is the one holding for 𝜅 as well and it is enough for our purposes.</p><p>1st Lipschitz property. The main use of the 1st Lipschitz inequality is to control the variation of K with respect to f. This property implies that</p><formula xml:id="formula_61">1 - 𝑓 -f R ∞ 𝑓 R ∞ 1 + K( 𝑓 , 𝑥) 𝑓 -f R ∞ 𝑓 R ∞ K( 𝑓 , 𝑥) ≤ K f , 𝑥 ≤ 1 + 𝑓 -f R ∞ 𝑓 R ∞ 1 -K( 𝑓 , 𝑥) 𝑓 -f R ∞ 𝑓 R ∞ K( 𝑓 , 𝑥) (3.7) whenever K( 𝑓 , 𝑥) 𝑓 -f R ∞ 𝑓 R ∞ &lt; 1.</formula><p>This formula shows how the condition number of an approximation of f relates to that of f. 2nd Lipschitz property. The 2nd Lipschitz property allows us to gauge the variation of K with respect to x. In this sense, it is very similar to the first Lipschitz property, and it implies that</p><formula xml:id="formula_62">1 1 + K( 𝑓 , 𝑥)dist S (𝑥, x) K( 𝑓 , 𝑥) ≤ K( 𝑓 , x) ≤ 1 1 -K( 𝑓 , 𝑥)dist S (𝑥, x) K( 𝑓 , 𝑥) (3.8) whenever K( 𝑓 , 𝑥)dist S (𝑥, x) &lt; 1.</formula><p>Here dist S denotes the geodesic distance in S 𝑛 . Higher derivative estimate. Smale's projective gamma, 𝛾( 𝑓 , 𝜁), controls many aspects of the local geometry around a zero 𝜁 of the function f, notably, in the case 𝑞 = 𝑛, the radius of the basin of attraction at 𝜁 of Newton's operator 𝑁 𝑓 associated with f. Recall (see <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Definition 16</ref>.34]) that we say 𝑥 ∈ S 𝑛 is an approximate zero of 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑛]</ref> with associated zero 𝜁 ∈ S 𝑛 when for all 𝑘 ≥ 1, the kth iteration</p><formula xml:id="formula_63">𝑁 𝑘 𝑓 of 𝑁 𝑓 satisfies dist S (𝑁 𝑘 𝑓 , 𝑥) ≤ 1 2 2 𝑘 -1 dist S (𝑥, 𝜁).</formula><p>We have the following result (see <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Theorem 16.38</ref> and Table <ref type="table">16</ref>.1]).</p><formula xml:id="formula_64">Theorem 3.3. Let 𝑓 ∈ H 𝒅 [𝑛] and 𝜁 ∈ S 𝑛 such that 𝑓 (𝜁) = 0. Let 𝑧 ∈ S 𝑛 be such that dist S (𝑧, 𝜁) ≤ 1 45</formula><p>and dist S (𝑧, 𝜁)𝛾( 𝑓 , 𝜁) ≤ 0.17708. Then z is an approximate zero of f with associated zero 𝜁.</p><p>The computation of 𝛾( 𝑓 , 𝑥) appears to require all the derivatives of f. The higher derivative estimate allows one to estimate 𝛾( 𝑓 , 𝑥) in terms of the first derivative only.</p><p>Proof of Theorem 3.2. Regularity inequality. By definition,</p><formula xml:id="formula_65">1 K( 𝑓 , 𝑥) = max 𝑓 (𝑥) √ 𝑞 𝑓 R ∞ , 1 √ 𝑞 𝑓 R ∞ D 𝑥 𝑓 † Δ 2,2</formula><p>.</p><formula xml:id="formula_66">Hence either 1 K ( 𝑓 ,𝑥) = 𝑓 ( 𝑥) √ 𝑞 𝑓 R ∞ or K( 𝑓 , 𝑥) = √ 𝑞 𝑓 R ∞ D 𝑥 𝑓 † Δ 2,2</formula><p>, which finishes the proof. 1st Lipschitz property. We have that</p><formula xml:id="formula_67">𝑔 R ∞ K(𝑔, 𝑥) = max 𝑔(𝑥) √ 𝑞 , 𝜎 𝑞 Δ -1 D 𝑥 𝑔 √ 𝑞 .</formula><p>Hence, we only need to show that 𝑔 ↦ → 𝑔(𝑥) / √ 𝑞 and 𝑔 ↦ →</p><formula xml:id="formula_68">𝜎 𝑞 Δ -1 D 𝑥 𝑔 / √ 𝑞 are 1-Lipschitz. Now, 𝑔(𝑥) √ 𝑞 - g(𝑥) √ 𝑞 ≤ (𝑔 -g)(𝑥) √ 𝑞 ≤ (𝑔 -g)(𝑥) ∞ ≤ 𝑔 -g R ∞ ,</formula><p>by the reverse triangle inequality, ≤ √ 𝑞 ∞ and the definition of the real 𝐿 ∞ -norm; and</p><formula xml:id="formula_69">𝜎 𝑞 Δ -1 D 𝑥 𝑔 √ 𝑞 - 𝜎 𝑞 Δ -1 D 𝑥 g √ 𝑞 ≤ Δ -1 D 𝑥 (𝑔 -g) 2,2 √ 𝑞 ≤ Δ -1 D 𝑥 (𝑔 -g) ∞,2 𝑔 -g R ∞ ,</formula><p>because 𝜎 𝑞 is 1-Lipschitz with respect to 2,2 , ≤ √ 𝑞 ∞ and Kellogg's inequality (Theorem 2.13).</p><p>Thus our claims follow.</p><p>The claim for 𝑔 ↦ → 𝑔 R ∞ /K(𝑔) follows from the fact that the minimum of a family of 1-Lipschitz functions is 1-Lipschitz and from</p><formula xml:id="formula_70">𝑔 R ∞ K(𝑔) = min 𝑥 ∈S 𝑛 𝑔 R ∞ K(𝑔, 𝑥) .</formula><p>For the lower bound, just note that</p><formula xml:id="formula_71">𝑓 R ∞ K( 𝑓 , 𝑥) = 𝑓 R ∞ K( 𝑓 , 𝑥) - 0 R ∞ K(0, 𝑥) ≤ 𝑓 -0 R ∞ = 𝑓 R ∞</formula><p>by the proven Lipschitz property, so K( 𝑓 , 𝑥) ≥ 1. Similarly with K( 𝑓 ). 2nd Lipschitz property. Without loss of generality, assume that 𝑓 R ∞ = 1 after scaling f by an appropriate constant; note that this does not change the value of K. Let 𝑦, ỹ ∈ S 𝑛 and 𝑢 ∈ 𝒪(𝑛 + 1) be the planar rotation taking y into ỹ. Then</p><formula xml:id="formula_72">1 K( 𝑓 , 𝑦) - 1 K( 𝑓 , ỹ) = 1 K( 𝑓 , 𝑦) - 1 K( 𝑓 𝑢 , 𝑦) ≤ 𝑓 -𝑓 𝑢 R ∞ ,</formula><p>where 𝑓 𝑢 := 𝑓 (𝑢𝑋) and where the equality follows from the fact that the 𝐿 ∞ -norm is orthogonally invariant along with the inequality from the 1st Lipschitz property. Now, arguing as when proving the 1st Lipschitz property, we have that for all 𝑧 ∈ S 𝑛 ,</p><formula xml:id="formula_73">| 𝑓 (𝑧) -𝑓 (𝑢𝑧)| ≤ D dist S (𝑧, 𝑢𝑧).</formula><p>By the choice of u, we have that dist S (𝑧, 𝑢𝑧) ≤ dist S (𝑦, ỹ). Therefore 𝑓 -𝑓 𝑢 R ∞ ≤ D dist S (𝑦, ỹ), and we are done.</p><p>We note that a variational argument showing that both</p><formula xml:id="formula_74">𝑦 ↦ → 𝑔(𝑦) / √ 𝑞 and 𝑦 ↦ → 𝜎 𝑞 (Δ -1 D 𝑦 𝑓 ))/ √ 𝑞</formula><p>are Lipschitz is possible. This argument would be almost identical to the one used for proving the 1st Lipschitz property but varying the point in the sphere instead of the polynomial. We use the above argument since it is simpler and gives a slightly better bound. Higher derivative estimate. Again, without loss of generality, we assume that 𝑓 R ∞ = 1, since multiplying f by a scalar affects neither the value of K nor Smale's projective gamma. Then</p><formula xml:id="formula_75">1 𝑘! D 𝑥 𝑓 † D 𝑘 𝑥 𝑓 ≤ D 𝑥 𝑓 † Δ 2,2 Δ -1 𝑘! D 𝑘 𝑥 𝑓 2,2</formula><p>(inequalities for operator norms)</p><formula xml:id="formula_76">≤ √ 𝑞 D 𝑥 𝑓 † Δ 2,2 Δ -1 𝑘! D 𝑘 𝑥 𝑓 2,∞ / √ 𝑞 ≤ ∞ ≤ K( 𝑓 , 𝑥) Δ -1 𝑘! D 𝑘 𝑥 𝑓 2,∞</formula><p>(assumption + regularity inequality)</p><formula xml:id="formula_77">≤ 1 𝑘 D -1 𝑘 -1 K( 𝑓 , 𝑥). (Corollary 2.20)</formula><p>Taking (𝑘 -1)th roots, we have that K( 𝑓 , 𝑥)</p><p>1 𝑘-1 ≤ K( 𝑓 , 𝑥), since K( 𝑓 , 𝑥) ≥ 1 by Corollary 2.14, and that</p><formula xml:id="formula_78">1 𝑘 D -1 𝑘 -1 1 𝑘-1 ≤ D -1 2 , using that 1 𝑘 D-1 𝑘-1 ≤ (D -1) 𝑘-1 /2 𝑘-1 .</formula><p>Putting this together, we obtain the desired bound for Smale's projective gamma.</p><p>The following proposition, which we state here for the sake of completeness, will be proved in Section A. </p><formula xml:id="formula_79">Proposition 3.4. Let 𝑓 ∈ H R 𝒅 [𝑞] and 𝑥 ∈ S 𝑛 . Then 𝑓 R ∞ dist R ∞ ( 𝑓 , Σ R 𝒅,𝑥 [𝑞]) ≤ K( 𝑓 , 𝑥) ≤ 2 𝑞 𝑖=1 𝑑 2 𝑖 𝑓 R ∞ dist R ∞ ( 𝑓 , Σ R 𝒅,𝑥 [𝑞]) and 𝑓 R ∞ dist R ∞ ( 𝑓 , Σ R 𝒅 [𝑞]) ≤ K( 𝑓 ) ≤ 2 𝑞 𝑖=1 𝑑 2 𝑖 𝑓 R ∞ dist R ∞ ( 𝑓 , Σ R 𝒅 [𝑞]) , https://doi.</formula><formula xml:id="formula_80">where dist R ∞ is the distance induced by R ∞ , Σ R 𝒅,𝑥 [𝑞] := 𝑔 ∈ H R 𝒅 [𝑞] | 𝑔(𝑥) = 0, rank D 𝑥 𝑔 &lt; 𝑞 , and Σ R 𝒅 [𝑞] := 𝑥 ∈S 𝑛 Σ R 𝒅,𝑥 [𝑞].</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.">Properties of the complex condition number M</head><p>In the complex case, Theorem 3.2 takes the form of the following result, whose proof is identical, so we omit it. We do not consider a regularity inequality for M since over complex numbers one usually considers M( 𝑓 , 𝜁) for a zero 𝜁 of f (or a point nearby).</p><p>Theorem 3.5. Let 𝑓 ∈ H C 𝒅 <ref type="bibr">[𝑞]</ref> and 𝜁 ∈ P 𝑛 . The following holds: • 1st Lipschitz property: The maps</p><formula xml:id="formula_81">H C 𝒅 [𝑞] → [0, ∞) 𝑔 ↦ → 𝑔 C ∞ M(𝑔,𝜁 )</formula><p>and</p><formula xml:id="formula_82">H C 𝒅 [𝑞] → [0, ∞) 𝑔 ↦ → 𝑔 C ∞ M(𝑔)</formula><p>are 1-Lipschitz with respect to the complex 𝐿 ∞ -norm. In particular,</p><formula xml:id="formula_83">M( 𝑓 , 𝜁) ≥ 1 and M( 𝑓 ) ≥ 1.</formula><p>• 2nd Lipschitz property: The map</p><formula xml:id="formula_84">P 𝑛 → [0, 1] 𝜂 ↦ → 1 M( 𝑓 , 𝜂)</formula><p>is D-Lipschitz with respect to the geodesic distance dist P on P 𝑛 . • Higher derivative estimate: We have</p><formula xml:id="formula_85">𝛾( 𝑓 , 𝜁) ≤ 1 2 (D -1)M( 𝑓 , 𝜁).</formula><p>We finish with the following proposition, which combines the 1st and 2nd Lipschitz properties of M, as it will play a fundamental role in our analysis of linear homotopy in Section 5. We note that this proposition is to M what [14, Proposition 16.55] is to 𝜇 norm .</p><formula xml:id="formula_86">Proposition 3.6. Let 𝑓 , f ∈ H C 𝒅 [𝑞], 𝜁, ζ ∈ P 𝑛 and 𝜀 ∈ (0, 1). If M( 𝑓 , 𝜁) max 2 f -𝑓 R ∞ 𝑓 C ∞ , D dist P (𝜁, ζ) ≤ 𝜀 4 , then 1 1 + 𝜀 M( 𝑓 , 𝜁) ≤ M f , ζ ≤ (1 + 𝜀)M( 𝑓 , 𝜁). Proof. Note that 1 M( 𝑓 , 𝜁) - 1 M f , ζ ≤ 1 M( 𝑓 , 𝜁) - 1 M f , 𝜁 + 1 M f , 𝜁 - 1 M f , ζ .</formula><p>For the first term in the sum, we have</p><formula xml:id="formula_87">1 M( 𝑓 , 𝜁) - 1 M f , 𝜁 = 1 M 𝑓 𝑓 C ∞ , 𝜁 - 1 M f f C ∞ , 𝜁 ≤ 𝑓 𝑓 C ∞ - f f C ∞ C ∞ by the 1st Lipschitz property of M (Theorem 3.5). Now, 𝑓 𝑓 C ∞ - f f C ∞ C ∞ ≤ 𝑓 𝑓 C ∞ - f 𝑓 C ∞ C ∞ + f 𝑓 C ∞ - f f C ∞ C ∞ ≤ 2 f -𝑓 C ∞ 𝑓 C ∞ .</formula><p>For the second term, we have</p><formula xml:id="formula_88">1 M f , 𝜁 + 1 M f , 𝜁 - 1 M f , ζ ≤ D dist P (𝜁, ζ)</formula><p>by the 2nd Lipschitz property of M (Theorem 3.5). Hence, we have</p><formula xml:id="formula_89">1 M( 𝑓 , 𝜁) - 1 M f , ζ ≤ 2 f -𝑓 C ∞ 𝑓 C ∞ + D dist P (𝜁, ζ).</formula><p>By assumption, after multiplying by M( 𝑓 , 𝜁), we have</p><formula xml:id="formula_90">1 - M( 𝑓 , 𝜁) M f , ζ ≤ 𝜀 2 so, from 1 - M( 𝑓 , 𝜁) M f , ζ ≤ 𝜀 2 and M( 𝑓 , 𝜁) M f , ζ -1 ≤ 𝜀 2 ,</formula><p>we get</p><formula xml:id="formula_91">1 1 + 𝜀 2 M( 𝑓 , 𝜁) ≤ M f , ζ ≤ 1 1 -𝜀 2 M( 𝑓 , 𝜁).</formula><p>Since 𝜀 &lt; 1, the desired inequalities follow.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Numerical algorithms in real algebraic geometry</head><p>There is a growing literature on numerical algorithms that addresses basic computational tasks in real algebraic geometry, such as counting real zeros <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27]</ref>, computing homology of algebraic <ref type="bibr" target="#b27">[28]</ref> and semialgebraic sets <ref type="bibr" target="#b14">[15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref>, and meshing real curves and surfaces <ref type="bibr" target="#b48">[49,</ref><ref type="bibr" target="#b22">23]</ref>. These works rely on condition numbers to control precision and estimate computational complexity.</p><p>In this section, we show how the complexity estimates in these works are improved by using the real 𝐿 ∞ -norm in the algorithm's design. These improvements rely on three observations:</p><p>1. The only properties of the real condition number 𝜅 that are used in the complexity analyses are those stated in Theorem 3.2: the regularity inequality, the 1st and 2nd Lipschitz properties and the higher derivative estimate. As these properties hold as well for K, an almost identical condition-based cost analysis can be derived when we pass from the Weyl norm to the real 𝐿 ∞ -norm and from 𝜅 to K. We showcase this in Section 4.1 and Section 4.2.</p><p>2. When we consider random input models, the gains in the complexity estimates become more evident. In Section 4.3, we show that the ratio of the new K to 𝜅 is typically of the order of √ 𝑛/ √ 𝑁 for a random polynomial system. Since 𝑁 ∼ 𝑛 𝑑 for 𝑛 &gt; 𝑑 and 𝑁 ∼ 𝑑 𝑛 for 𝑑 &gt; 𝑛, this yields a significant reduction in the complexity estimates. 3. Computing the Weyl norm is cheaper than computing the real 𝐿 ∞ -norm, but this does not affect the overall complexity: We only compute the 𝐿 ∞ -norm once, and the cost of this computation is dominated by that of the remaining steps.</p><p>In what follows, we will focus on algorithms dealing with real algebraic sets. The algorithms we have in mind are the ones in <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27,</ref><ref type="bibr" target="#b27">28]</ref> and the Plantinga-Vegter algorithm <ref type="bibr" target="#b48">[49]</ref> as described and analysed in <ref type="bibr" target="#b23">[24]</ref> (compare to <ref type="bibr" target="#b22">[23]</ref>). Our condition number K as defined in the preceding section will improve the overall computational complexity of these algorithms. Similar results can be obtained for the algorithms dealing with semialgebraic sets in <ref type="bibr" target="#b14">[15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref> (compare to <ref type="bibr" target="#b54">[55]</ref>) using natural extensions K and K * of the condition numbers 𝜅 and 𝜅 * used in these papers.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.">A grid-based algorithm and its condition-based complexity</head><p>A grid-based algorithm is a subdivision-based method that constructs a grid to discretise the original problem and solves the latter by working on the grid points only (selecting and finding proximity relations between its points). The algorithms in <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27]</ref>, <ref type="bibr" target="#b27">[28]</ref> and <ref type="bibr" target="#b14">[15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref> (compare to <ref type="bibr" target="#b54">[55]</ref>) are grid-based. Their basic structure is (simplifying to the extreme) the following:</p><p>1. Estimate the condition number of the problem (with a sequence of grids of increasing fineness). 2. Create an extra grid (if necessary) whose mesh is determined by the condition number. 3. Select points in the grid, and use them to obtain a solution to the problem.</p><p>In general, grid-based algorithms have complexity Ω(D 𝑛 ). This fact allows us to estimate the norm 𝑓 R ∞ of the data f without affecting the overall complexity of the algorithms. Moreover, the fact that K is smaller than 𝜅 results in a cost reduction.</p><p>In this subsection, we focus on an algorithm for the computation of the Betti numbers of a spherical algebraic set. This covers the case of counting zeros of a square polynomial system treated in <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27]</ref> and the computation of the Betti numbers of a projective real variety <ref type="bibr" target="#b27">[28]</ref>. For simplicity of exposition, we omit some computational aspects: 1) our presentation of the algorithms follows the constructionselection paradigm of <ref type="bibr" target="#b14">[15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref> instead of the inclusion-exclusion paradigm of <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27,</ref><ref type="bibr" target="#b27">28]</ref>. This makes the exposition of the algorithms easier without compromising their computational complexity. 2) We focus on Betti numbers to avoid describing the more involved computation of torsion coefficients in the homology groups. 3) We deal with neither parallelisation nor finite precision. The interested reader can find details about these in the cited references.</p><p>The backbone of existing grid-based algorithms in numerical real algebraic geometry <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27,</ref><ref type="bibr" target="#b27">28,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref> is an effective construction of spherical nets. The basic construction was done originally in <ref type="bibr" target="#b24">[25]</ref> and is based on projecting the uniform grid in the boundary of a unit cube onto the unit sphere.</p><p>Recall that a (spherical) 𝛿-net is a finite subset G ⊂ S 𝑛 such that for all 𝑥 ∈ S 𝑛 , dist S (𝑥, G) &lt; 𝛿. We will omit the term 'spherical' as all nets we consider are so.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Proposition 4.1.</head><p>There is an algorithm GRID that on input (𝑛, 𝑘)</p><formula xml:id="formula_92">∈ N × N, outputs a 2 -𝑘 -net G 𝑘 ⊂ S 𝑛 with |G 𝑘 | = O 2 𝑛 log 𝑛+𝑛𝑘 . The cost of this algorithm is O 2 𝑛 log 𝑛+𝑛𝑘 .</formula><p>Remark 4.2. The grid construction in Proposition 4.1, which occurs in <ref type="bibr" target="#b24">[25,</ref><ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27,</ref><ref type="bibr" target="#b27">28,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17]</ref>, is not optimal. This is due to the 2 𝑛 log 𝑛 factor in the estimates, which can be decreased to 2 O (𝑛) . An algorithm doing this -that is, constructing a spherical 2 -𝑘 -net of size 2 O (𝑛) 2 𝑘 (𝑛+1) in 2 O (𝑛) 2 𝑘 (𝑛+1)time -is given in [2, Theorem 1.9 <ref type="bibr" target="#b0">(1)</ref>]. We use the suboptimal result of Proposition 4.1 to focus on the effect of just changing the norm when comparing the old and new versions of the algorithms. But we observe here that by using the nets in <ref type="bibr" target="#b1">[2]</ref>, one can remove the log(𝑛) factors in the exponents.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.1.">Computation of R ∞</head><p>The following is an easy consequence of Kellogg's theorem.</p><formula xml:id="formula_93">Proposition 4.3. Let 𝑓 ∈ H R 𝒅 [𝑞] and G ⊂ S 𝑛 be a 𝛿-net. If D𝛿 &lt; √ 2, then max 𝑥 ∈G 𝑓 (𝑥) ∞ ≤ 𝑓 R ∞ ≤ 1 1 -D 2 2 𝛿 2 max 𝑥 ∈G 𝑓 (𝑥) ∞ .</formula><p>Proof. We only need to show the right-hand inequality, the other being trivial. Without loss of generality, assume that 𝑞 = 1: that is, f is a homogeneous polynomial of degree D.</p><p>Let 𝑥 * be the maximum of | 𝑓 | on S 𝑛 , 𝑥 ∈ G such that dist S (𝑥 * , 𝑥) ≤ 𝛿 and [0, 1] 𝑡 ↦ → 𝑥 𝑡 the geodesic on S 𝑛 going from 𝑥 * to x with constant speed. Then for the function 𝑡 ↦ → 𝑀 (𝑡) := 𝑓 (𝑥 𝑡 ), we have that </p><formula xml:id="formula_94">|𝑀 (1)| ≤ |𝑀 (0)| + |𝑀 (0)| + max 𝑠 ∈[0,1] 𝑀 (𝑠) 2 by Taylor's theorem. Furthermore, |𝑀 (0)| = | 𝑓 (𝑥 * )| = 𝑓 R ∞ , |𝑀 (1)| = | 𝑓 (𝑥)| and 𝑀 (0) = 0. The latter is because 𝑥 * is an extremal point of f and so of M. Now 𝑀 (𝑡) = D 2 𝑥 𝑡 𝑓 ( 𝑥 𝑡 , 𝑥 𝑡 ) -D 𝑓 (𝑥 𝑡 )dist S (𝑥 * , 𝑥) 2 , since 𝑥 𝑡 = -dist S (𝑥 * , 𝑥) 2 𝑥 𝑡 , as 𝑥 𝑡 is a geodesic on S 𝑛 of constant speed dist S (𝑥 * , 𝑥) and D 𝑥 𝑡 𝑓 (𝑥 𝑡 ) = D 𝑓 (𝑥 𝑡 ) by Euler's formula in equation (2.4). Then by Corollary 2.20, max 𝑠 ∈[0,1] |𝑀 (𝑠)| 2 ≤ D 2 𝑓 R ∞ + D 2 𝑓 R ∞ = D 2 2 𝑓 R ∞ . Thus 𝑓 R ∞ ≤ | 𝑓 (𝑥)| + D 2 2 𝑓 R ∞ 𝛿 2 ,</formula><formula xml:id="formula_95">Input : 𝑓 ∈ H R 𝒅 [𝑞], 𝑘 ∈ N G ← Grid(𝑛, (𝑘 -1)/2 + log D ) 𝑡 ← 1 -2 -𝑘 -1 max{ 𝑓 (𝑥) ∞ | 𝑥 ∈ G} Output : 𝑡 ∈ [0, ∞) Postcondition: 1 -2 -𝑘 𝑡 ≤ 𝑓 R ∞ ≤ 𝑡 Proposition 4.5. Algorithm NormApproxR is correct. On input ( 𝑓 , 𝑘) ∈ H R 𝒅 [𝑞] × N, its cost is bounded by O 2 𝑛 log 𝑛 D 𝑛 2 (𝑘+1) 𝑛 2 𝑁 .</formula><p>Proof. This is a direct consequence of Propositions 4.1 and 4.3 and the fact that f can be evaluated at 𝑥 ∈ S 𝑛 with O(𝑁) arithmetic operations (see <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Lemma 16.31]</ref>).</p><p>Remark 4.6. The ideas here can also be applied to compute 𝑓 C ∞ .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.2.">Estimation of K</head><p>In many grid-based algorithms, the estimation of condition numbers is done implicitly along the way; this does not affect the overall computational cost, and it makes for an easier understanding of these algorithms. The next proposition is the core of the estimation of K. Note that the mesh of the grid needed to estimate K depends on K itself.</p><formula xml:id="formula_96">Proposition 4.7. Let 𝑓 ∈ H R 𝒅 [𝑞] and G ⊂ S 𝑛 be a 𝛿-net. If 𝛿 D max 𝑥 ∈G K( 𝑓 , 𝑥) &lt; 1, then max 𝑥 ∈G K( 𝑓 , 𝑥) ≤ K( 𝑓 ) ≤ 1 1 -𝛿 D max 𝑥 ∈G K( 𝑓 , 𝑥) max 𝑥 ∈G K( 𝑓 , 𝑥).</formula><p>Proof. We only have to prove the right-hand side inequality since the other one is obvious. Let 𝑥 * ∈ S 𝑛 such that K( 𝑓 ) = K( 𝑓 , 𝑥 * ) and 𝑥 ∈ G such that dist S ( 𝑓 , 𝑥) ≤ 𝛿. Then by the 2nd Lipschitz property (Theorem 3.2), we have </p><formula xml:id="formula_97">1 K( 𝑓 , 𝑥) - 1 K( 𝑓 , 𝑥 * ) ≤ D dist S (𝑥 * , 𝑥) ≤ D 𝛿. Hence 1/K( 𝑓 , 𝑥 * ) ≤ (1 -𝛿 D K( 𝑓 , 𝑥))/K( 𝑓</formula><formula xml:id="formula_98">Input : 𝑓 ∈ H 𝒅 [𝑞], 𝑘 ∈ N, 𝑏 ∈ N ∪ {∞} 𝑡 ← NormApproxR( 𝑓 , 𝑘 + 1) ℓ ← 0 repeat ℓ ← ℓ + 1 𝐾 ← max{ √ 𝑞𝑡/max{ 𝑓 (𝑥) , D 𝑥 𝑓 † Δ -1 } | 𝑥 ∈ Grid(𝑛, ℓ)} until D 𝐾2 -ℓ ≤ 2 -(𝑘+1) or 2 𝑏 ≤ 𝐾 if 2 𝑏 ≤ 𝐾 then return fail else K ← (1 -2 -𝑘 ) -1 𝐾 return K Output : fail or K ∈ (0, ∞) Postcondition: 2 𝑏 ≤ K( 𝑓 ), if fail; (1 -2 -𝑘 )K( 𝑓 ) ≤ K ≤ K( 𝑓 ), otherwise Proposition 4.8. Algorithm K-Estimate is correct. On input ( 𝑓 , 𝑘, 𝑏) ∈ H R 𝒅 [𝑞] × N × (N ∪ {∞}),</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>its cost is bounded by</head><p>Proof. The correctness follows from Propositions 4.5 and 4.7 and</p><formula xml:id="formula_99">(1 -2 -(𝑘+1) ) 2 &gt; 1 -2 -𝑘 .</formula><p>The cost of the first line of the algorithm is bounded by Proposition 4.5. The number of evaluations of</p><formula xml:id="formula_100">√ 𝑞𝑡/max{ 𝑓 (𝑥) , D 𝑥 𝑓 † Δ -1 }</formula><p>in the ℓth iteration of the loop is given by Proposition 4.1. We need O(𝑁 + 𝑛 3 ) operations for each such evaluation, by <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Proposition 16.32]</ref>.</p><p>In this way, if the loop runs ℓ 0 iterations, it performs a total of</p><formula xml:id="formula_101">O(2 𝑛 log 𝑛 (𝐷 𝑛 2 (𝑘+2) 𝑛 2 𝑁 + 2 𝑛(ℓ 0 +1) (𝑁 + 𝑛 3 )))</formula><p>operations.</p><p>If the algorithm outputs K, then</p><formula xml:id="formula_102">ℓ 0 = 𝑘 + log D + log K -log(1 -2 -𝑘 ) . Moreover, from the correctness, log K -log(1 -2 -𝑘 ) ≤ log K( 𝑓 ), so ℓ 0 ≤ 𝑘 + 1 + log D + log K( 𝑓 ).</formula><p>If the algorithm outputs fail, then the first criterion had to fail, so as long as the second criterion fails too, we have</p><formula xml:id="formula_103">ℓ &lt; 𝑘 + log D + 𝑏. So, in this case, ℓ 0 ≤ 𝑘 + 1 + log D + log 𝑏.</formula><p>We conclude from the bounds above and some straightforward computations.</p><p>By setting k to 7 and 𝑏 = ∞, we have the following important corollary.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Corollary 4.9.</head><p>There is an algorithm</p><formula xml:id="formula_104">K-Estimate * that on input ( 𝑓 ) ∈ H R 𝒅 [𝑞] computes K ∈ [1, ∞) such that 0.99K ≤ K( 𝑓 ) ≤ K.</formula><p>This algorithm halts if and only if K( 𝑓 ) &lt; ∞, and its cost is bounded by</p><formula xml:id="formula_105">2 O (𝑛 log 𝑛) 𝐷 𝑛 𝑁K( 𝑓 ) 𝑛 .</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.3.">Complexity analysis of grid-based algorithms using K</head><p>To get the grid method to work, we need two ingredients: a method for selecting the points in the grid near the geometric object of interest and a way of controlling distances between these two sets.</p><formula xml:id="formula_106">Theorem 4.10 (Construction-selection). Let 𝑓 ∈ H R 𝒅 [𝑞] and G ⊆ S 𝑛 be a 𝛿-net. If 4D 2 K( 𝑓 ) 2 𝛿 &lt; 1 and 𝑄 ∈ R is such that 0.99𝑄 ≤ 𝑓 R ∞ ≤ 𝑄, then dist 𝐻 𝑥 ∈ G | 𝑓 (𝑥) √ 𝑞𝑄 &lt; D 𝛿 , Z S ( 𝑓 ) &lt; 2DK( 𝑓 )𝛿,</formula><p>where dist 𝐻 ( 𝐴, 𝐵) := max{sup{dist(𝑎, 𝐵) | 𝑎 ∈ 𝐴}, sup{dist(𝑏, 𝐴) | 𝑏 ∈ 𝐵}} is the Hausdorff distance.</p><p>Following <ref type="bibr" target="#b34">[35]</ref>, recall that the medial axis Δ 𝑋 of a closed set 𝑋 ⊂ R 𝑛 is the set</p><formula xml:id="formula_107">Δ 𝑋 := {𝑝 ∈ R 𝑛 | #{𝑥 ∈ 𝑋 | dist( 𝑝, 𝑥) = dist( 𝑝, 𝑋)} ≥ 2}</formula><p>consisting of those points for which there is more than one nearest point in X and that the reach 𝜏(𝑋) of X is the quantity</p><formula xml:id="formula_108">𝜏(𝑋) := dist(𝑋, Δ 𝑋 )</formula><p>measuring the size of the neighbourhood of X within which the nearest point projection is well-defined. If X is finite, then Δ 𝑋 is the union of the boundaries of the cells of the Voronoi diagram of X, and 𝜏(𝑋) is half the minimum distance between two distinct points of X. Thus, when Z S ( 𝑓 ) is zero-dimensional, 2𝜏(Z S ( 𝑓 )) is the separation of the zeros of f in the sphere.</p><p>Theorem 4.11.</p><formula xml:id="formula_109">Let 𝑓 ∈ H R 𝒅 [𝑞]. Then 𝜏(Z S ( 𝑓 )) ≥ 1 7DK( 𝑓 )</formula><p>.</p><p>Proof of Theorem 4.10. Let 𝑥 0 ∈ Z S ( 𝑓 ). Then there is some 𝑥 1 ∈ G such that dist S (𝑥 0 , 𝑥 1 ) ≤ 𝛿. Let [0, 1] 𝑡 ↦ → 𝑥 𝑡 be the geodesic joining them. By Taylor's theorem,</p><formula xml:id="formula_110">𝑓 (𝑥 1 ) ≤ 𝑓 (𝑥 0 ) + 𝛿 sup 𝑠 ∈[0,1]</formula><p>D 𝑥 𝑓 , so, by Kellogg's theorem (Corollary 2.14) and 𝑓 (𝑥 0 ) = 0, we have that</p><formula xml:id="formula_111">𝑓 ( 𝑥 1 ) √ 𝑞 𝑓 R ∞ ≤ D 𝛿. Hence 𝑓 ( 𝑥 1 ) √ 𝑞𝑄 ≤ D 𝛿 and dist 𝑥 0 , 𝑥 ∈ G | 𝑓 (𝑥) √ 𝑞𝑄 ≤ D 𝛿 ≤ dist(𝑥 0 , 𝑥 1 ) ≤ dist S (𝑥 0 , 𝑥 1 ) ≤ 𝛿. Now let 𝑥 2 ∈ G be such that 𝑓 ( 𝑥 2 ) √ 𝑞𝑄 &lt; D 𝛿. Then 𝑓 (𝑥 2 ) √ 𝑞 𝑓 R ∞ &lt; 1.02D 𝛿 ≤ 1 4DK( 𝑓 ) 2 &lt; 1 K( 𝑓 , 𝑥 2 ) , (<label>4.1)</label></formula><p>the second inequality by our hypothesis. Because of the regularity inequality (Theorem 3.2), we must then have We can now describe the algorithm. We will call a black box Betti for computing the Betti numbers of a union of balls. This is a standard procedure in topological data analysis <ref type="bibr" target="#b31">[32]</ref>. </p><formula xml:id="formula_112">√ 𝑞 𝑓 R ∞ D 𝑥 2 𝑓 † Δ 1/2 ≤ K( 𝑓 , 𝑥 2 ). It follows that D 𝑥 2 𝑓 † 𝑓 (𝑥 2 ) 𝛾( 𝑓 , 𝑥 2 ) &lt; K( 𝑓 , 𝑥 2 ) √ 𝑞 𝑓 R ∞ 𝛾( 𝑓 , 𝑥 2 ) ≤ 1 2 DK( 𝑓 ) 2 𝑓 (𝑥 2 ) √ 𝑞 𝑓 R ∞ &lt; 1.02 2 D 2 K( 𝑓 ) 2 𝛿 &lt; 1.</formula><formula xml:id="formula_113">Algorithm 4.3: PolyBetti ∞ Input : 𝑓 ∈ H 𝒅 [𝑞] Precondition : 𝑞 ≤ 𝑛, 𝑓 has no singular zeros (i.e. K( 𝑓 ) &lt; ∞) 𝑄 ← NormApproxR( 𝑓 , 7) K ← K-Estimate * ( 𝑓 ) ℓ ← 7 + 2 log D + 2 log K G ← Grid(𝑛, ℓ) X ← {𝑥 ∈ G | 𝑓 (𝑥) &lt; √ 𝑞 D𝑄2 -ℓ } 𝜀 ← 3/(</formula><formula xml:id="formula_114">2 O (𝑛 2 log 𝑛) 𝐷 10𝑛 2 K( 𝑓 ) 10𝑛 2 .</formula><p>Proof. Correctness is a consequence of Theorem 4.13 and the fact that the computed Q satisfies 0.99𝑄 ≤ 𝑓 R ∞ ≤ 𝑄 by Proposition 4.5. For the complexity, we apply Proposition 4.3 for the first line, Corollary 4.9 for the second line and Proposition 4.1 for the fourth and fifth lines. We know that Betti has cost O 2 O (𝑛 log 𝑛) |X | 5𝑛 (see <ref type="bibr" target="#b27">[28,</ref><ref type="bibr">Section 5]</ref> for example) and that |X | = O(2 𝑛 log 𝑛 D 2𝑛 K( 𝑓 ) 2𝑛 ), by Proposition 4.1. Note that we have eliminated N from the bounds. We have done so using the fact that as 𝑞 ≤ 𝑛 (by the precondition of the input), 𝑁 ≤ 2 𝑛 log 𝑛 D 𝑛 .</p><p>We note that our bound uses K ≤ 1.02K( 𝑓 ) to get the cost dependent on K( 𝑓 ) instead of on the computed estimate K.</p><p>The complexity estimate in Proposition 4.14 does not differ much from those in other grid-based algorithms. We will see in Section 4.3, however, that the occurrence of K in the place of 𝜅 leads to substantial improvements when one goes beyond the worst-case framework and considers random input models.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.">Complexity of the Plantinga-Vegter algorithm</head><p>The ideas above can also be applied to the Plantinga-Vegter algorithm <ref type="bibr" target="#b48">[49]</ref>. In a recent work <ref type="bibr" target="#b23">[24]</ref> (compare to <ref type="bibr" target="#b22">[23]</ref>), we performed an extensive analysis of this algorithm, including details for finite precision arithmetic. So we will be brief here, referring the reader to <ref type="bibr" target="#b23">[24]</ref> for details, and will only focus on the (exact) interval version of the algorithm.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.1.">The Plantinga-Vegter subdivision algorithm</head><p>Let P 𝑑 be the space of polynomials in 𝑋 1 , . . . , 𝑋 𝑛 of degree at most d. The Plantinga-Vegter algorithm <ref type="bibr" target="#b48">[49]</ref>2 is a subdivision-based algorithm for obtaining a piecewise linear approximation of the zero set of 𝑓 ∈ P 𝑑 inside [-𝑎, 𝑎] 𝑛 . As customary, we will focus on the complexity analysis of the subdivision routine only. The idea is to iteratively subdivide some boxes -that is, sets of the form 𝐵 = 𝑚(𝐵) + [-𝑤(𝐵)/2, 𝑤(𝐵)/2] 𝑛 (here 𝑚(𝐵) ∈ R 𝑛 is the centre of B and 𝑤(𝐵) &gt; 0 is its width) -in [-𝑎, 𝑎] 𝑛 until every box B in the subdivision satisfies the following condition:</p><formula xml:id="formula_115">𝐶 𝑓 (𝐵) : either 0 ∉ 𝑓 (𝐵) or 0 ∉ ∇ 𝑓 (𝐵), ∇ 𝑓 (𝐵) ,</formula><p>where , is the standard inner product and ∇ 𝑓 is the gradient vector of f. Once this criterion is satisfied by all boxes in the subdivision, the Plantinga-Vegter algorithm returns a topologically accurate approximation of the zero set of f in the region [𝑎, -𝑎] 𝑛 and halts (see <ref type="bibr" target="#b48">[49]</ref> (𝑛 ≤ 3) and <ref type="bibr" target="#b36">[37]</ref> (arbitrary n) for details on how this is done).</p><p>For 𝑓 ∈ P 𝑑 , we define</p><formula xml:id="formula_116">𝑓 ∞ := max{| 𝑓 h (𝑥)| | 𝑥 ∈ S 𝑛 } = 𝑓 h R ∞ ,</formula><p>where 𝑓 h ∈ H 𝑑 <ref type="bibr" target="#b0">[1]</ref> is the homogenisation of f. Taking the maps (2.3), (2.4), (2.5) in <ref type="bibr" target="#b23">[24]</ref> and substituting on them the Weyl norm by the real 𝐿 ∞ -norm, we get</p><formula xml:id="formula_117">ℎ(𝑥) = 1 𝑓 ∞ (1 + 𝑥 2 ) (𝑑-1)/2 and ℎ (𝑥) = 1 𝑑 𝑓 ∞ (1 + 𝑥 2 ) 𝑑/2-1 (4.2)</formula><p>together with</p><formula xml:id="formula_118">𝑓 : 𝑥 ↦ → ℎ(𝑥) 𝑓 (𝑥) = 𝑓 (𝑥) 𝑓 ∞ (1 + 𝑥 2 ) (𝑑-1)/2 (4.3)</formula><p>and</p><formula xml:id="formula_119">∇ 𝑓 : 𝑥 ↦ → ℎ (𝑥)D 𝑓 (𝑥) = ∇ 𝑓 (𝑥) 𝑑 𝑓 ∞ (1 + 𝑥 2 ) 𝑑/2-1 . (4.4)</formula><p>One can use these maps to produce interval approximations as we do in <ref type="bibr" target="#b23">[24]</ref>. For 𝑋 ⊆ R 𝑚 , we denote by 𝑋 the set of boxes contained in X. Recall that an interval approximation of 𝑓 : R 𝑛 → R 𝑞 is a function 𝑓 : R 𝑛 → R 𝑞 that maps boxes in R 𝑛 to boxes in R 𝑞 in such a way that 𝑓 (𝐵) ⊆ 𝑓 (𝐵). Proposition 4.15. Let 𝑓 ∈ P 𝑑 . Then</p><formula xml:id="formula_120">[ℎ 𝑓 ] : 𝐵 ↦ → 𝑓 (𝑚(𝐵)) + (1 + 𝑑) √ 𝑛 - 𝑤(𝐵) 2 , 𝑤(𝐵) 2</formula><p>is an interval approximation of ℎ 𝑓 and</p><formula xml:id="formula_121">[ ℎ D 𝑓 ] : 𝐵 ↦ → ∇ 𝑓 (𝑚(𝐵)) + 𝑑 √ 𝑛 - 𝑤(𝐵) 2 , 𝑤(𝐵) 2</formula><p>is an interval approximation of ℎ D 𝑓 .</p><p>2The original algorithm <ref type="bibr" target="#b48">[49]</ref> only dealt with dimensions two and three. For the extension to dimensions four or higher, see <ref type="bibr" target="#b36">[37]</ref>.</p><p>https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press Sketch of proof. Using the bounds from Kellogg's theorem (Theorem 2.13) and its corollaries, we can easily deduce (as is done in the proof of Theorem 3.2) that the maps</p><formula xml:id="formula_122">𝑔/ 𝑔 R ∞ : S 𝑛 → [-1, 1] and D𝑔(𝑣)/(𝑑 𝑔 R ∞ 𝑣 ) : S 𝑛 → [-1, 1]</formula><p>are d-and (𝑑 -1)-Lipschitz (with respect to the geodesic distance) for 𝑔 ∈ H R 𝑑 <ref type="bibr" target="#b0">[1]</ref>. We now argue as in [24, Section 4], but using these Lipschitz properties, to prove that f and ∇ 𝑓 are (1 + 𝑑)and d-Lipschitz, respectively. For the latter, we use the fact that for 𝑣 ∈ R 𝑛 , D 𝑋 𝑓 h 0 𝑣 = ( ∇ 𝑓 , 𝑣 ) h and that ∇ 𝑓 is d-Lipschitz if ∇ 𝑓 , 𝑣 is so for every 𝑣 ∈ S 𝑛-1 .</p><p>Using the interval approximations and their Lipschitz properties in Proposition 4.15, we can rewrite the condition 𝐶 𝑓 (𝐵). We only need to use <ref type="bibr">[</ref>  </p><formula xml:id="formula_123">Precondition : Z ( 𝑓 ) is smooth inside [-𝑎, 𝑎] 𝑛 𝑄 ← NormApproxR( 𝑓 , 7) S ← {[-𝑎, 𝑎] 𝑛 } S ← ∅ repeat Take 𝐵 in S S ← S \ {𝐵} if | 𝑓 (𝑚(𝐵))| &gt; 2𝑑 √ 𝑛𝑤(𝐵)𝑄(1 + 𝑚(𝐵) 2 ) 𝑑-1 2 then S ← S ∪ {𝐵} else if ∇ 𝑓 (𝑚(𝐵)) &gt; 2 √ 2𝑑 √ 𝑛𝑤(𝐵)𝑄(1 + 𝑚(𝐵) 2 ) 𝑑 2 -1 then S ← S ∪ {𝐵} else S ← S ∪</formula><formula xml:id="formula_124">𝑓 (𝑥) &gt; 1 2 √ 2𝑑 K( 𝑓 h , (𝑥)) or ∇ 𝑓 (𝑥) &gt; 1 2 √ 2𝑑 K( 𝑓 h , (𝑥)) , where (𝑥) = 1 √ 1+ 𝑥 2 1 𝑥 ∈ S 𝑛 .</formula><p>With Proposition 4.17 and the Lipschitz properties shown for f and ∇ 𝑓 , one can produce a local size bound for 𝐶 𝑓 (𝐵). This is a function that, evaluated at a point x, gives a lower bound on the volume of any possible box containing x and not satisfying the predicate 𝐶 𝑓 (𝐵).</p><p>Theorem 4.18. The map</p><formula xml:id="formula_125">𝑥 ↦ → 1/ 2 3/2 𝑑 3 2 √ 𝑛K( 𝑓 h , (𝑥))</formula><p>𝑛 is a local size bound for 𝐶 𝑓 (of Theorem 4.16).</p><p>Then using the continuous amortisation of <ref type="bibr" target="#b19">[20,</ref><ref type="bibr" target="#b17">18,</ref><ref type="bibr" target="#b18">19]</ref> (see <ref type="bibr" target="#b23">[24,</ref><ref type="bibr">Theorem 6</ref>.1]), we conclude the following, which takes into account the cost of calling NormApproxR (Proposition 4.3).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Theorem 4.19. The number of boxes in the final subdivision S of PV-Interval ∞ on input ( 𝑓 , 𝑎) is at most</head><formula xml:id="formula_126">𝑑 3 2 𝑛 max{1, 𝑎 𝑛 }2 1 2 𝑛 log 𝑛+11𝑛 E 𝔵 ∈[-𝑎,𝑎] 𝑛 K( 𝑓 h , (𝔵)) 𝑛 .</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The number of arithmetic operations performed by PV-Interval ∞ on input ( 𝑓 , 𝑎) is at most</head><formula xml:id="formula_127">O 𝑑 3 2 𝑛+1 max{1, 𝑎 𝑛 }2 1 2 𝑛 log 𝑛+11𝑛 𝑁 E 𝔵 ∈[-𝑎,𝑎] 𝑛 K( 𝑓 h , (𝔵)) 𝑛 .</formula><p>The condition-based estimates in Theorem 4.19 are very similar to those of <ref type="bibr" target="#b23">[24,</ref><ref type="bibr">Theorem 6.3]</ref>. It is important to observe that only one norm computation is performed by PV-Interval ∞ (in its very first step) and that the cost of this computation is already included in the cost bound in Theorem 4. <ref type="bibr" target="#b18">19</ref>. We will see in Section 4.3.3 that the occurrence of K in the place of 𝜅 results in significant improvements in overall complexity when we consider average or smoothed analysis.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.">Probabilistic analysis of algorithms</head><p>In the preceding sections, we have shown that existing grid-based and subdivision-based algorithms that use (in their design and/or analysis) 𝜅 can be modified to use K instead. Moreover, we have shown that the condition-based complexity estimates in terms of K are similar to those in terms of 𝜅. In this section, we will show that when we consider random inputs, in contrast, the cost (expected or in probability) substantially decreases.</p><p>We first introduce the randomness model along with some useful probabilistic results. Then we prove a general comparison result showing that when substituting 𝜅 by K, one can expect to reduce the size of the condition number by a factor of √ 𝑁. Finally, we apply these estimates to both PolyBetti and the Plantinga-Vegter algorithm and highlight the complexity improvements.</p><p>For most algorithms in real algebraic geometry, condition-based estimates show a dependence on either 𝜅 𝑛 or K 𝑛 . When this occurs, the complexity estimates improve by a factor of the form 𝑁 𝑛 2 when we pass from 𝜅 to K. The final complexity estimates thus change from having an exponent quadratic in n to an exponent quasilinear in n.</p><p>https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.1.">The randomness model: dobro random polynomials</head><p>Given a random variable 𝔵 ∈ R, we say that:</p><formula xml:id="formula_128">(i) 𝔵 is centred if E 𝔵 = 0. (ii) 𝔵 is subgaussian if there is a constant 𝐾 &gt; 0 such that for all 𝑝 ≥ 1, (E |𝔵| 𝑝 ) 1 𝑝 ≤ 𝐾 √ 𝑝.</formula><p>The smallest K satisfying this condition is called the 𝜓 2 -norm of 𝔵 and is denoted 𝔵 𝜓 2 . (iii) 𝔵 has the anti-concentration property with constant 𝜌 if for all 𝑢 ∈ R and 𝜀 &gt; 0,</p><formula xml:id="formula_129">P(|𝔵 -𝑢| &lt; 𝜀) ≤ 2𝜌𝜀.</formula><p>Note that this is equivalent to 𝔵 having a density (with respect to the Lebesgue measure) bounded by 𝜌.</p><p>We now extend to tuples the class of real random polynomials introduced in <ref type="bibr">[</ref>  <ref type="bibr">[𝑞]</ref> such that the 𝔠 𝛼 are are independent and identically distributed uniform random variables in [-1, 1] is a Weyl uniform (real) polynomial tuple. In this case, we can take 𝐾 𝜌 = 1/2.</p><p>We now state and prove several probabilistic results that will be used later.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Proposition 4.24 (Subgaussian tail bounds).</head><p>Let 𝔵 ∈ R be a random variable.</p><formula xml:id="formula_130">1. If 𝔵 is subgaussian with 𝜓 2 -norm at most K, then for all 𝑡 &gt; 0, P(|𝔵| ≥ 𝑡) ≤ e 1-𝑡 2 6𝐾 2 .</formula><p>2. If there are 𝐶 ≥ e and 𝐾 &gt; 0 such that for all 𝑡 &gt; 0, P(|𝔵| ≥ 𝑡) ≤ 𝐶e</p><formula xml:id="formula_131">-𝑡 2 𝐾 2 , then 𝔵 is subgaussian with 𝜓 2 -norm at most 𝐾 𝜋/2 + √ 2 ln 𝐶 .</formula><p>Proposition 4.25 (Hoeffding inequality). Let 𝔵 ∈ R 𝑁 be a random vector such that its components 𝔵 𝑖 are centred subgaussian random variables with 𝜓 2 -norm at most K and 𝑎 ∈ S 𝑁 -1 . Then for all 𝑡 ≥ 0,</p><formula xml:id="formula_132">P 𝔵 (|𝑎 * 𝔵| ≥ 𝑡) ≤ 2e -𝑡 2 11𝐾 2 .</formula><p>In particular, 𝑎 * 𝔵 is a subgaussian random variable with 𝜓 2 -norm at most 5𝐾.</p><formula xml:id="formula_133">3This follows from 2𝑡𝐾 𝜌 ≥ P 𝔵 ( |𝔵 | ≤ 𝐾 𝑡) ≥ 1 -P 𝔵 ( |𝔵 | &gt; 𝐾𝑡) ≥ 1 -2e -𝑡 2 /2</formula><p>and optimising, where 𝔵 is subgaussian with 𝜓 2 -norm K and the anti-concentration property with constant 𝜌.</p><p>4In this definition, KSS refers to Kostlan-Shub-Smale. An alternative term is 'Shub-Smale random polynomial tuple', following <ref type="bibr" target="#b3">[4]</ref>, but we use 'KSS' instead, as this is consistent with the use we have made of the term in the case of a single polynomial.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Proposition 4.26 (Anti-concentration bound).</head><p>Let 𝔵 ∈ R 𝑁 be a random vector such that its components 𝔵 𝑖 are independent random variables with anti-concentration property with constant 𝜌. Then for every 𝐴 ∈ R 𝑘×𝑁 with rank k and measurable 𝑈 ⊆ R 𝑘 ,</p><formula xml:id="formula_134">P 𝔵 ( 𝐴𝔵 ∈ 𝑈) ≤ vol(𝑈)( √ 2𝜌) 𝑘 det( 𝐴𝐴 * ) .</formula><p>Proof of Proposition 4.24. This is just [58, Proposition 2.5.2] with improved constants.</p><p>For the first part, we give a proof since we don't explicitly use the constants in the proof of [58, Proposition 2.5.2]. Fix 𝜆 &gt; 0. Then by Markov's inequality and expanding the exponential as a power series,</p><formula xml:id="formula_135">P(|𝔵| ≥ 𝑡) = P e 𝜆 2 𝔵 2 ≥ e 𝜆 2 𝑡 2 ≤ e -𝜆 2 𝑡 2 ∞ 𝑝=0 𝜆 2 𝑝 E 𝔵 2 𝑝 𝑝! ≤ e -𝜆 2 𝑡 2 ∞ 𝑝=0 (𝜆 2 2𝑝𝐾 2 ) 𝑝 𝑝! .</formula><p>Now, by setting the value of 𝜆 to 1</p><formula xml:id="formula_136">√ 6𝐾 , P(|𝔵| ≥ 𝑡) ≤ e -𝑡 2 8𝐾 2</formula><p>∞ 𝑝=0</p><p>( 𝑝/3) 𝑝 𝑝! . The right-hand series is convergent, and after adding the series numerically, we can see that ∞ 𝑝=0 ( 𝑝/3) 𝑝 𝑝! = 2.625 . . . ≤ e, which finishes the proof of the first part. Following the constants in the proof of [58, Proposition 2.5.2] directly seems to give 4e 10.8 in the denominator of the exponent instead of 6.</p><p>For the second, note that </p><formula xml:id="formula_137">E |𝔵| 𝑝 = 𝐾 𝑝 (2 ln 𝐶) 𝑝 2 + ∫ ∞ 0 𝑝𝑢 𝑝-1 e -𝑢</formula><formula xml:id="formula_138">∫ ∞ 0 𝑝𝑢 𝑝-1 e -𝑢 2 2𝐾 d𝑢 = 𝑝𝐾 𝑝 2 𝑝 2 -1 Γ 𝑝 2 ≤ 𝐾 𝑝 𝜋𝑝 2 𝑝 2 .</formula><p>Hence</p><formula xml:id="formula_139">E |𝔵| 𝑝 ≤ 𝐾 𝑝 (2 ln 𝐶) 𝑝 2 + 𝜋𝑝 2 𝑝 2 ,</formula><p>from which the second part follows.</p><p>Proof In this way, we have that</p><formula xml:id="formula_140">P(|𝑎 * 𝔵| ≥ 𝑡) ≤ 2P(𝑎 * 𝔵 ≥ 𝑡) (symmetry) = 2P(e 𝑎 * 𝔵 ≥ e𝑡) ≤ 2e -𝜆𝑡 E e 𝜆𝑎 * 𝔵 (Markov's inequality) = 2e -𝜆𝑡 𝑁 𝑖=1 E e 𝜆𝑎 𝑖 𝔵 𝑖 (𝑎 1 𝔵 1 , . . . , 𝑎 𝑁 𝔵 𝑁 independent) ≤ 2e -𝜆𝑡 𝑁 𝑖=1 e e𝑎 2 𝑖 𝐾 2 𝜆 2 (4.5) = 2e -𝜆𝑡+e𝐾 2 𝜆 2 ( 𝑎 2 = 1).</formula><p>Taking 𝜆 = 𝑡 2e𝐾 2 , we get the desired tail bound. The last claim immediately follows from Proposition 4.24.</p><p>Proof of Proposition 4.26. This is a rewriting of [51, Theorem 1.1] using <ref type="bibr" target="#b43">[44]</ref> to get explicit constants. This rewriting was first given in <ref type="bibr" target="#b55">[56,</ref><ref type="bibr">Proposition 2.5]</ref>. We provide the argument for the sake of completeness.</p><p>By the SVD, we have 𝐴 = 𝑃Σ𝑄, where P is an isometry, Σ ∈ R 𝑘×𝑘 a positive diagonal matrix and Q an orthogonal projection. Hence</p><formula xml:id="formula_141">P 𝔵 ( 𝐴𝔵 ∈ 𝑈) = P 𝔵 𝑄𝔵 ∈ Σ -1 𝑃 * 𝑈 ,</formula><p>and since vol(Σ -1 𝑃 * 𝑈) = vol(𝑈)/det Σ = vol(𝑈)/ det( 𝐴𝐴 * ), we only have to prove the claim for the case in which A is an orthogonal projection. Now, by [51, Theorem 1.1] (see <ref type="bibr" target="#b43">[44,</ref><ref type="bibr">Theorem 1.1]</ref> for getting the constant), we have that 𝐴𝔵 has density bounded by √ 2𝜌. Thus P( 𝐴𝔵 ∈ 𝑈) ≤ vol(𝑈)( √ 2𝜌) 𝑘 , as we wanted to show.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.2.">K vs. 𝜅: Measuring the effect of the 𝐿 ∞ -norm on the grid method</head><p>The condition-based complexity estimates we obtained in this section essentially substitute the 𝜅 in the cost estimates of the original algorithm by K. This way, the comparison between the two algorithms reduces to estimate K/𝜅. The following proposition shows that, in turn, this amounts to looking at the quotient 𝑓 R ∞ / 𝑓 𝑊 .</p><p>Proposition 4.27.</p><formula xml:id="formula_142">Let 𝑓 ∈ H R 𝒅 [𝑞] and 𝑥 ∈ S 𝑛 . Then 𝑓 R ∞ 𝑓 𝑊 ≤ K( 𝑓 , 𝑥) 𝜅( 𝑓 , 𝑥) ≤ 2𝑞D 𝑓 R ∞ 𝑓 𝑊 and 𝑓 R ∞ 𝑓 𝑊 ≤ K( 𝑓 ) 𝜅( 𝑓 ) ≤ 2𝑞D 𝑓 R ∞ 𝑓 𝑊 .</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>F. Cucker, A. A. Ergür and J. Tonelli-Cueto</head><p>Proof. It follows from</p><formula xml:id="formula_143">K( 𝑓 , 𝑥) 𝜅( 𝑓 , 𝑥) = √ 𝑞 𝑓 R ∞ 𝑓 𝑊 𝑓 (𝑥) 2 + 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 2 max 𝑓 (𝑥) , 𝜎 𝑞 Δ -1 D 𝑥 𝑓 and 1 √ D 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 ≤ 𝜎 𝑞 Δ -1 D 𝑥 𝑓 ≤ 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 .</formula><p>In general, we have that </p><formula xml:id="formula_144">𝑓 R ∞ 𝑓 𝑊 ≤ 1,</formula><formula xml:id="formula_145">E 𝔣 𝔣 R ∞ 𝔣 𝑊 ℓ ≤ 890 √ 2𝐾 𝜌 𝑛 ln(𝑒𝐷)ℓ √ 𝑁 -2ℓ ℓ .</formula><p>In particular,</p><formula xml:id="formula_146">E 𝔣 𝔣 R ∞ 𝔣 𝑊 ≤ O 𝐾 𝜌 𝑛 ln(𝑒D) 𝑁 .</formula><p>Remark 4.29. In the study of tensors, the quotients 𝔣 R ∞ / 𝔣 𝑊 and their nonsymmetric analogue play an important role. Because of this, we can consider Theorem 4.28 a symmetric analogue of the results shown in <ref type="bibr" target="#b37">[38]</ref> and <ref type="bibr" target="#b45">[46]</ref>. In a paper under preparation by Kozhasov and the third author <ref type="bibr" target="#b40">[41]</ref> </p><formula xml:id="formula_147">E 𝔣 K(𝔣) 𝜅(𝔣) ℓ ≤ 1780 𝐾 𝜌 𝑞𝑛D ln(𝑒𝐷)ℓ √ 𝑁 -2ℓ ℓ .</formula><p>Let PolyBetti 𝑊 be the version of PolyBetti ∞ using the Weyl norm and 𝜅. An analysis along the lines of <ref type="bibr" target="#b27">[28]</ref> (or <ref type="bibr" target="#b14">[15]</ref>) shows that the cost of PolyBetti 𝑊 is .</p><formula xml:id="formula_148">2 O (𝑛 2 log 𝑛) D 10𝑛 𝜅( 𝑓 ) 10𝑛 ,</formula><p>We proceed to prove Theorem 4.28.</p><p>Proposition 4.32. Let 𝔣 ∈ H R 𝒅 [𝑞] be dobro with parameters K and 𝜌. Then for all 𝑡 &gt; 0,</p><formula xml:id="formula_149">P 𝔣 R ∞ ≥ 𝑡 ≤ 𝑞 √ 2𝜋 √ 𝑛 + 1 eD 2 𝑛 e -𝑡 2 17𝐾 2 .</formula><p>In particular, if</p><formula xml:id="formula_150">𝑞 ≤ 𝑛 + 1, for all ℓ ≥ 1, E𝔣 𝔣 R ∞ ℓ 1 ℓ ≤ 63𝐾 𝑛 ln(eD)ℓ.</formula><p>Proof of Theorem 4.28. By the Cauchy-Schwarz inequality,</p><formula xml:id="formula_151">E 𝔣 𝔣 R ∞ 𝔣 𝑊 ℓ ≤ E 𝔣 𝔣 R ∞ 2ℓ E 1 𝔣 2ℓ 𝑊 .</formula><p>The first term on the right is bounded by Proposition 4.32.</p><p>For the second term, we will use <ref type="bibr" target="#b44">[45,</ref><ref type="bibr">Theorem 1.11]</ref>. We note that 𝔵 ∈ R 𝑁 satisfies the small ball assumption (SBA) with constant L [45, Assumption 1.1.] if for every 𝑘 ∈ {1, . . . , 𝑁 -1}, every orthogonal projection 𝑃 ∈ R 𝑘×𝑁 , every 𝑦 ∈ R 𝑘 and every 𝜀 &gt; 0,</p><formula xml:id="formula_152">P 𝑃𝔵 -𝑦 2 ≤ √ 𝑘𝜀 ≤ (L𝜀) 𝑘 .</formula><p>By Proposition 4.26 (applied with coordinates orthogonal with respect to the Weyl inner product) and Stirling's approximation, we have that 𝔣 has the SBA with constant 2 √ 𝜋𝑒𝜌. Thus, by <ref type="bibr" target="#b44">[45,</ref><ref type="bibr">Theorem 1.11</ref>],</p><formula xml:id="formula_153">E 𝔣 1 𝔣 2ℓ 𝑊 ≤ (14𝜌) 2ℓ E 𝔤 1 𝔤 2ℓ 𝑊 ,</formula><p>where 𝔤 ∈ H 𝒅 <ref type="bibr">[𝑞]</ref> is KSS. Since 𝔤 is a Gaussian vector for all coordinate systems orthogonal with respect to the Weyl inner product, 𝔤 2 𝑊 is distributed according to a 𝜒 2 -distribution with N degrees of freedom. Therefore,</p><formula xml:id="formula_154">E 𝔤 1 𝔤 2ℓ 𝑊 = ∫ ∞ 0 𝑡 -ℓ 1 2 𝑁 2 Γ 𝑁 2 𝑡 𝑁 2 -1 e -𝑡 2 d𝑡 = Γ 𝑁 2 -ℓ 2 ℓ Γ 𝑁 2 = 1 (𝑁 -2)(𝑁 -4) • • • (𝑁 -2ℓ)</formula><p>.</p><p>The desired claim now follows. In this way,</p><formula xml:id="formula_155">P 𝔣 R ∞ ≥ 𝑡 ≤ P 𝔣 P 𝔵 ∈S 𝑛 𝔣(𝔵) ∞ ≥ 1 - D 2 2 𝛿 2 𝑡 ≥ -𝛿 2 /6 𝑛 √ 2𝜋 √ 𝑛 + 1 𝛿 𝑛 ≤ √ 2𝜋 √ 𝑛 + 1 1 -𝛿 2 /6 𝑛 𝛿 𝑛 E 𝔣 P 𝔵 ∈S 𝑛 𝔣(𝔵) ∞ ≥ 1 - D 2 2 𝛿 2 𝑡 (Markov's inequality) ≤ √ 2𝜋 √ 𝑛 + 1 1 -𝛿 2 /6 𝑛 𝛿 𝑛 E 𝔵 ∈S 𝑛 P 𝔣 𝔣(𝔵) ∞ ≥ 1 - D 2 2 𝛿 2 𝑡 (Tonelli's theorem) ≤ √ 2𝜋 √ 𝑛 + 1 1 -𝛿 2 /6 𝑛 𝛿 𝑛 𝑥 ∈S 𝑛 P 𝔣 𝔣(𝑥) ∞ ≥ 1 - D 2 2 𝛿 2 𝑡 ≤ 𝑞 √ 2𝜋 √ 𝑛 + 1 1 -𝛿 2 /6 𝑛 𝛿 𝑛 max 𝑖,𝑥 ∈S 𝑛 P 𝔣 |𝔣 𝑖 (𝑥)| ∞ ≥ 1 - D 2 2 𝛿 2 𝑡 (Union bound).</formula><p>In the coordinates of a monomial basis orthogonal for the Weyl inner product, the following holds: (1) a dobro random polynomial 𝔣 looks like a random vector whose components are independent and subgaussian of 𝜓 2 -norm at most K, and (2) evaluation at a point of the sphere, 𝔣(𝑥), becomes the inner product with a vector of norm 1 (by Proposition 2.2). Hence, by Proposition 4.24,</p><formula xml:id="formula_156">P 𝔣 R ∞ ≥ 𝑡 ≤ 𝑞 √ 2𝜋 √ 𝑛 + 1 1 -𝛿 2 /6 𝑛 𝛿 𝑛 exp -1 - D 2 2 𝛿 2 2 𝑡 2 11𝐾 2 .</formula><p>The claim follows taking 𝛿 = 5/(6D) and 1 -</p><formula xml:id="formula_157">1 2 5 6 2 1 11 ≥ 1 17 .</formula><p>For the other inequalities on the moments, use Proposition 4.24.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3.3.">Complexity of the Plantinga-Vegter algorithm</head><p>In <ref type="bibr" target="#b23">[24]</ref> (compare to <ref type="bibr" target="#b22">[23]</ref>), we proved the following result (which we are just adapting to the notation5 of this paper). Theorem 4.33 <ref type="bibr" target="#b23">[24,</ref><ref type="bibr">Theorem 8.4 and Theorem 7.3]</ref>. Let 𝔣 ∈ H R 𝒅 <ref type="bibr" target="#b0">[1]</ref> be dobro with parameters K and 𝜌. For all 𝑥 ∈ S 𝑛 and 𝑡 ≥ 𝑒,</p><formula xml:id="formula_158">P(𝜅(𝔣, 𝑥) ≥ 𝑡) ≤ 2 𝑁 𝑛 + 1 𝑛+1 2 (30𝐾 𝜌) 𝑛+1 ln 𝑛+1 2 𝑡 𝑡 𝑛+1 .</formula><p>In particular, for the Plantinga-Vegter algorithm with input 𝔣 over the domain [-𝑎, 𝑎] 𝑛 , the expected number of hypercubes in the final subdivision is at most</p><formula xml:id="formula_159">𝑎 𝑛 D 𝑛 𝑁 𝑛+1 2 2 𝑛 log 𝑛+13𝑛+ 3 2 log 𝑛+ 17 2 (𝐾 𝜌) 𝑛+1 .</formula><p>5There is a slight difference in the way the anti-concentration constant is defined in <ref type="bibr" target="#b23">[24]</ref> and here. factor vanishes from these estimates when we pass from 𝜅 to K. This shows that the version of Plantinga-Vegter using K yields better cost bounds than the one using 𝜅: that is, the one in <ref type="bibr" target="#b23">[24]</ref>. Theorem 4.34. Let 𝔣 ∈ H R 𝒅 <ref type="bibr" target="#b0">[1]</ref> be dobro with parameters K and 𝜌. For all 𝑥 ∈ S 𝑛 and 𝑡 ≥ 𝑒,</p><formula xml:id="formula_160">P(K(𝔣, 𝑥) ≥ 𝑡) ≤ D 𝑛 2 (ln eD) 𝑛+1 2 2 6𝑛+4 (𝐾 𝜌) 𝑛+1 ln 𝑛+1 2 𝑡 𝑡 𝑛+1 .</formula><p>It follows that for every compact Ω ⊆ S 𝑛 ,</p><formula xml:id="formula_161">E 𝔣 E 𝔵 ∈Ω (K(𝔣, 𝔵) 𝑛 ) ≤ D 𝑛 2 (ln eD) 𝑛+1 2 2 1 2 𝑛 log 𝑛+5𝑛+2 log(𝑛)+7 (𝐾 𝜌) 𝑛+1 .</formula><p>In particular, for the Plantinga-Vegter algorithm with input 𝔣 over the domain [-𝑎, 𝑎] 𝑛 , the expected number of hypercubes in the final subdivision is at most Basically, the exponent of D goes from O(𝑛 2 ) to O(𝑛). If we focus on the original cases of interest (compare to <ref type="bibr" target="#b48">[49]</ref>) -that is, 𝑛 = 2 and 𝑛 = 3, with the average complexity analysis from <ref type="bibr" target="#b23">[24]</ref> -it is shown in Theorem 3.1 there that PV-Interval 𝑊 has an average complexity of O 𝑑 8 max{1, 𝑎 2 }(𝐾 𝜌) 3  for 𝑛 = 2, and O 𝑑 13 max{1, 𝑎 3 }(𝐾 𝜌) 4  for 𝑛 = 3.</p><formula xml:id="formula_162">𝑎 𝑛 D 3𝑛 2 (ln eD) 𝑛+1 2 2 3 2 𝑛 log 𝑛+13𝑛+2 log(𝑛)+7 .</formula><p>It follows from Theorems 4.19 and 4.34 that the average complexity of PV-Interval ∞ is O 𝑑 7 log 1.5 (𝑑) max{1, 𝑎 2 }(𝐾 𝜌) 3  for 𝑛 = 2, and O 𝑑 10 log 2 (𝑑) max{1, 𝑎 3 }(𝐾 𝜌) 4  for 𝑛 = 3.</p><p>We next proceed to prove Theorem 4.34.</p><p>Proof of Theorem 4.34. Let 𝑢, 𝑡 ≥ 0, then</p><formula xml:id="formula_163">P 𝔣 (K(𝔣, 𝑥) ≥ 𝑡) ≤ P 𝔣 𝑓 R ∞ ≥ 𝑢 or max |𝔣(𝑥)|, D 𝑥 𝔣 D ≤ 𝑢 𝑡 (implication bound) ≤ P 𝔣 𝑓 R ∞ ≥ 𝑢 + P 𝔣 max |𝔣(𝑥)|, D 𝑥 𝔣 D ≤ 𝑢 𝑡 , (<label>union bound)</label></formula><p>where we used the fact that for 𝑓 ∈ H R 𝒅 <ref type="bibr" target="#b0">[1]</ref>, K( 𝑓 , 𝑥) = 𝑓 R ∞ /max{| 𝑓 (𝑥)|, D 𝑥 𝑓 /D}. On the one hand, P 𝔣 𝑓 R ∞ ≥ 𝑢 is bounded by Proposition 4.32. On the other hand, the map</p><formula xml:id="formula_164">𝑓 ↦ → 𝑓 (𝑥) D 𝑥 𝑓 D has singular values 1, 1/ √ D, . . . , 1/ √ D in</formula><p>the coordinates of a monomial basis orthogonal with respect to the Weyl inner product. And since in such a basis, a dobro polynomial is a vector whose coefficients are independent and have the anti-concentration property with constant 𝜌, we deduce that</p><formula xml:id="formula_165">P 𝔣 max |𝔣(𝑥)|, D 𝑥 𝔣 D ≤ 𝑢 𝑡 ≤ D 𝑛 2 vol (𝑥 0 , 𝑥) ∈ R 𝑛+1 | |𝑥 0 |, 𝑥 ≤ 𝑢/𝑡 √ 2𝜌 𝑛+1 ≤ 𝜔 𝑛 D 𝑛 2 √ 2𝜌𝑢 𝑡 𝑛+1 ≤ 9 𝑛 D 𝑛 2 𝑢𝜌 √ 𝑛 𝑛+1 1 𝑡 𝑛+1 ,</formula><p>where 𝜔 𝑛 is the volume of the unit n-ball, and we used Proposition 4.26 and Stirling's estimation <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Equation (2.14)</ref>]. Hence, combining the inequalities above,</p><formula xml:id="formula_166">P 𝔣 (K(𝔣, 𝑥) ≥ 𝑡) ≤ 2𝜋(𝑛 + 1) eD 2 𝑛 e -𝑢 2 17𝐾 2 + 9 𝑛 D 𝑛 2 𝑢𝜌 √ 𝑛 𝑛+1 1 𝑡 𝑛+1 .</formula><p>Taking 𝑡 ≥ 𝑒 and 𝑢 = √ 17𝐾 𝑛 ln(e 2 D) ln 𝑡 ≥ √ 17𝐾 𝑛 ln D + (𝑛 + 1) ln 𝑡, we get</p><formula xml:id="formula_167">P 𝔣 (K(𝔣, 𝑥) ≥ 𝑡) ≤ 2𝜋(𝑛 + 1) (2e) 𝑛 1 𝑡 𝑛+1 + 9 𝑛 D 𝑛 2 √ 17𝐾 𝜌 ln 1 2 (e 2 D) 𝑛+1 ln 𝑛+1 2 𝑡 𝑡 𝑛+1 .</formula><p>This proves the first statement. By Tonelli's theorem, to prove the second statement, it is enough to bound E𝔣 K(𝔣, 𝑥) 𝑛 for a fixed 𝑥 ∈ S 𝑛 . Now,</p><formula xml:id="formula_168">E 𝔣 K(𝔣, 𝑥) 𝑛 = ∫ ∞ 0 P 𝔣 K(𝔣, 𝑥) ≥ 𝑡 1 𝑛 ≤ e 𝑛 + ∫ ∞ e 𝑛 P 𝔣 K(𝔣, 𝑥) ≥ 𝑡 1 𝑛 ≤ e 𝑛 + ∫ ∞ e 𝑛 D 𝑛 2 ln 𝑛+1 2 (eD)2 6𝑛+4 (𝐾 𝜌) 𝑛+1 ln(𝑡 1 𝑛 ) 𝑛+1 2 𝑡 1+ 1 𝑛 d𝑡 ≤ e 𝑛 + D 𝑛 2 ln 𝑛+1 2 (eD)2 6𝑛+4 (𝐾 𝜌) 𝑛+1 ∫ ∞ 1 ln(𝑡 1 𝑛 ) 𝑛+1 2 𝑡 1+ 1 𝑛 d𝑡.</formula><p>By changing variables, 𝑡 = e 𝑠𝑛 , we can see that</p><formula xml:id="formula_169">∫ ∞ 1 ln(𝑡 1 𝑛 ) 𝑛+1 2 𝑡 1+ 1 𝑛 d𝑡 = 𝑛Γ 𝑛 + 3 2 ≤ √ 2𝜋e 𝑛 √ 𝑛 + 1 𝑛 + 1 2e 𝑛+1 2</formula><p>, where the inequality comes from Stirling's approximation <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Equation (2.14)</ref>]. Hence, we get</p><formula xml:id="formula_170">E 𝔣 K(𝔣, 𝑥) 𝑛 ≤ e 𝑛 + √ 2𝜋e𝑛 √ 𝑛 + 1D 𝑛 2 ln 𝑛+1 2 (eD) 2 6𝑛+4 (2e) 𝑛+1 2 ( √ 𝑛 + 1𝐾 𝜌) 𝑛+1 ≤ 8𝑛 √ 𝑛 + 1D 𝑛 2 ln 𝑛+1 2 (eD) 2 6𝑛+4 (2e) 𝑛+1 2 ( √ 𝑛 + 1𝐾 𝜌) 𝑛+1 .</formula><p>The second statement now follows after some easy bounds.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Linear homotopy for computing complex zeros</head><p>Smale's 17th problem asks if a complex zero of n complex polynomial equations in 𝑛 + 1 homogeneous unknowns can be found on average polynomial time <ref type="bibr" target="#b53">[54]</ref>. A probabilistic solution to Smale's 17th problem was given by Beltrán and Pardo in 2009 <ref type="bibr" target="#b6">[7,</ref><ref type="bibr" target="#b7">8]</ref>. The construction of Beltrán and Pardo was probabilistic in the sense that they exhibited a randomised algorithm.</p><p>The distribution underlying the average-case analysis for the Beltrán-Pardo algorithm is the complex version of the KSS distribution (see <ref type="bibr">Example 4.22)</ref>. Finally, the expected running time of Beltrán-Pardo's algorithm is polynomial in 𝑁 = dim C H C 𝒅 <ref type="bibr">[𝑛]</ref>. A generic square system of equations with degrees 𝑑 1 , 𝑑 2 , . . . , 𝑑 𝑛 has D := 𝑑 1 • • • • • 𝑑 𝑛 many zeros, and Smale's 17th problems asks to compute one of these zeros. Following the initial work by Shub and Smale <ref type="bibr" target="#b52">[53]</ref>, the hearth of Beltrán-Pardo solution is a linear homotopy: let's call it ALH. It takes as input the system f for which a zero is sought, along with an initial pair (𝑔, 𝜁)</p><formula xml:id="formula_171">∈ H C 𝒅 [𝑛] × P 𝑛 satisfying 𝑔(𝜁) = 0. If we define 𝑞 𝑡 := 𝑡 𝑓 + (1 -𝑡)𝑔, for 𝑡 ∈ [0, 1], then generically, the segment [𝑔, 𝑓 ] in H C 𝒅 [𝑛] lifts to a curve {(𝑞 𝑡 , 𝜁 𝑡 ) | 𝑡 ∈ [0, 1]} in the solution variety V := {( 𝑓 , 𝜁) ∈ H C 𝒅 [𝑛] × P 𝑛 | 𝑓 (𝜁) = 0}.</formula><p>The idea of ALH, in a nutshell, is to 'follow' this curve (for which we know its origin (𝑔, 𝜁)) close enough that we end up with an approximation to the zero 𝜁 1 of 𝑓 = 𝑞 1 .</p><p>The breakthrough in <ref type="bibr" target="#b6">[7,</ref><ref type="bibr" target="#b7">8]</ref> was to come up with a randomised algorithm to produce the (long-sought) initial pair (𝑔, 𝜁). To state this result, we endow V with the standard distribution 𝜌 std defined via the following procedure:</p><formula xml:id="formula_172">• Draw a complex KSS system 𝔣 ∈ H C 𝒅 [𝑛]. • Draw 𝜁 from the D zeros of 𝔣 with the uniform distribution.</formula><p>For details on 𝜌 std , see <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Section 17.5]</ref>. The description of 𝜌 std above is not constructive: it merely describes the distribution. It is remarkable, however, that it is possible to efficiently sample from 𝜌 std .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Proposition 5.1. ([14, Proposition 17.21]).</head><p>There is a randomised algorithm that, with input n and 𝒅, returns a pair (𝑔, 𝜁) ∈ V drawn from 𝜌 std . The algorithm performs 2(𝑁 + 𝑛 2 + 𝑛 + 1) draws of random real numbers from the standard Gaussian distribution and 𝑂 (D𝑛𝑁 + 𝑛 3 ) arithmetic operations.</p><p>With this randomisation procedure at hand, the structure of the algorithm to compute approximate zeros is simple. Here Σ := {( 𝑓 , 𝜁) ∈ V | det D 𝜁 𝑓 = 0}. This set has complex codimension 1 in V. Hence, because the lifting of the segment [𝑔, 𝑓 ] corresponding to 𝜁 has real dimension 1, generically, it does not cut Σ. That is, algorithm Solve almost surely terminates for almost all inputs 𝑓 ∈ H 𝒅 <ref type="bibr">[𝑛]</ref>.</p><p>Regarding complexity, the total cost of Solve is dominated by that of running ALH, which is given by the number of steps K performed by the homotopy times the cost of each step. In previous work <ref type="bibr">([53, 7, 8, 13, 3]</ref> among others), the latter is essentially optimal as it is 𝑂 (𝑁 + 𝑛 3 ) (which is 𝑂 (𝑁) if 𝑑 𝑖 ≥ 2 for 𝑖 = 1, . . . , 𝑛). The former depends on the input at hand, and that is where average considerations play a role. In <ref type="bibr" target="#b8">[9,</ref><ref type="bibr" target="#b12">13]</ref>, ALH was implemented using the Weyl norm to compute step lengths. Its average number of iterations is 𝑂 (𝑛D 3/2 𝑁). The average total complexity of the resulting algorithm, let us call it Solve 𝑊 , is then 𝑂 (𝑛D 3/2 𝑁 2 ).</p><p>The goal of this section is to analyse a version ALH ∞ of ALH with step lengths based on ∞ . We show that this can be done in a straightforward manner and that, maybe surprisingly, the average number of iterations of ALH with step lengths based on our new condition number is O(𝑛 3 D 2 ln(𝑛D)): a bound independent of N. Unfortunately, this gain is not decisive for a general input model due to the high cost of computing ∞ norms.</p><p>Nonetheless, for the particular -but highly relevant -case of quadratic polynomials, we can efficiently compute the ∞-norm. As a result, we derive bounds that show the expected complexity of Solve ∞ is smaller than the expected complexity of Solve 𝑊 .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1.">Description of the linear homotopy</head><p>The algorithm below is, essentially, the one in <ref type="bibr" target="#b12">[13]</ref> and <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Chapter 17]</ref>. The only change is in the computation of the step-length Δ 𝑡 , where we replace the original (here dist S denotes angle) 0.008535284 dist S ( 𝑓 , 𝑔)D </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2.">A bound on the number of iterations</head><p>The analysis of ALH ∞ closely follows the steps in <ref type="bibr" target="#b13">[14]</ref>. It uses the properties of M shown in Theorem 3.5 and one more result (we know for 𝜇 norm ): namely, that M is a condition number in the standard sense of this expression -it measures how solutions change when data is perturbed (see Proposition 5.4 below).</p><p>To simplify the notation, in the rest of this section, we will often omit the reference to the base field C.</p><p>Theorem 5.2. Suppose that the lifting of the segment [𝑔, 𝑓 ] in V corresponding to 𝜁 does not cut Σ . Then the algorithm ALH ∞ stops after at most K steps with</p><formula xml:id="formula_173">𝐾 ≤ 1 + 45 D 𝑓 -𝑔 ∞ ∫ 1 0 M 2 (𝑞 𝑡 , 𝜁 𝑡 ) 𝑞 𝑡 ∞ d𝑡.</formula><p>The returned point z is an approximate zero of f with associated zero 𝜁 1 .</p><p>Corollary 5.3. The bound K in Theorem 5.2 satisfies</p><formula xml:id="formula_174">𝐾 ≤ 1 + 45 𝑛 D ∫ 1 0 ( 𝑓 ∞ + 𝑔 ∞ ) 2 D 𝜁 𝑡 𝑞 -1 𝑡 Δ 2 d𝑡.</formula><p>Proposition 5.4. Let 𝑡 ↦ → ( 𝑓 𝑡 , 𝜁 𝑡 ) ∈ 𝑉 be a smooth path. Then for all t,</p><formula xml:id="formula_175">𝜁 𝑡 ≤ M( 𝑓 𝑡 , 𝜁 𝑡 ) 𝑓 𝑡 ∞ 𝑓 𝑡 ∞ .</formula><p>Proof in Theorem 5.2. The proof follows the lines of <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Theorem 17.3</ref>]. We will therefore only offer a brief sketch. Set 𝜀 := 1  4 and 𝐶 = 𝜀 4 = 1 16 . Let 𝑞 𝑡 := 𝑡 𝑓 + (1 -𝑡)𝑔. Also let 0 &lt; 𝑡 1 &lt; . . . &lt; 𝑡 𝐾 = 1 and 𝜁 0 = 𝑧 0 , . . . , 𝑧 𝐾 be the sequence of t-values and points in P 𝑛 , respectively, generated by the algorithm in its first K iterations. To simplify notation, we write 𝑞 𝑖 and 𝜁 𝑖 instead of 𝑞 𝑡 𝑖 and 𝜁 𝑡 𝑖 .</p><p>As in <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Theorem 17.3</ref>], but using Proposition 3.6 in the place of <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Proposition 16</ref>.2] and Theorem 3.5 in the place of <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Theorem 16</ref>.1], one proves by induction the following statements for 𝑖 = 0, . . . , 𝐾 -1: </p><formula xml:id="formula_176">(a,i) dist P (𝑧 𝑖 , 𝜁 𝑖 ) ≤ 𝐶 DM(𝑞 𝑖 ,𝜁 𝑖 ) (b,i) M(𝑞 𝑖 ,𝑧 𝑖 ) 1+𝜀 ≤ M(𝑞 𝑖 , 𝜁 𝑖 ) ≤ (1 + 𝜀)M(𝑞 𝑖 , 𝑧 𝑖 ) (c,i) 𝑞 𝑖 -𝑞 𝑖+1 ∞ ≤ 𝐶 𝑞</formula><formula xml:id="formula_177">𝜁 𝑡 = D 𝑓 𝑡 𝐺 ( 𝑓 𝑡 ) = -(D 𝜁 𝑡 𝑓 𝑡 ) -1 ( 𝑓 𝑡 (𝜁 𝑡 )),<label>(5.4)</label></formula><p>where the second equality is shown in the course of the proof of <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Proposition 16.10]</ref>. Using this equality along with the fact that (D 𝜁 𝑡 𝑓 𝑡 ) -1 = (D 𝜁 𝑡 𝑓 𝑡 ) † (as 𝑞 = 𝑛), we deduce that</p><formula xml:id="formula_178">𝜁 𝑡 = max 𝑓 𝑡 ∞ =1 (D 𝜁 𝑡 𝑓 𝑡 ) -1 ( 𝑓 𝑡 (𝜁 𝑡 )) (By (5.4)) ≤ max 𝑓 𝑡 ∞ =1 𝑓 𝑡 (𝜁 𝑡 ) (D 𝜁 𝑡 𝑓 𝑡 ) -1 (operator norm inequality) ≤ √ 𝑛 max 𝑓 𝑡 ∞ =1 𝑓 𝑡 (𝜁 𝑡 ) ∞ (D 𝜁 𝑡 𝑓 𝑡 ) -1 ≤ √ 𝑛 ∞ ≤ √ 𝑛 (D 𝜁 𝑡 𝑓 𝑡 ) -1 (definition of ∞ ) = √ 𝑛 𝑓 𝑡 ∞ (Δ -1 D 𝜁 𝑡 𝑓 𝑡 ) -1 𝑓 𝑡 ∞ = M( 𝑓 𝑡 , 𝜁 𝑡 ) 𝑓 𝑡 ∞ . (definition of M)</formula><p>We recall that the norms where we have omitted subscripts are the usual norm in the case of vectors and the usual operator norm in the case of linear maps.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3.">Average complexity analysis of Solve ∞</head><p>The execution of Solve ∞ on an input 𝑓 ∈ H C 𝒅 <ref type="bibr">[𝑛]</ref> amounts to calling ALH ∞ on input ( 𝑓 , 𝔤, 𝔷), where (𝔤, 𝔷) ∈ H C 𝒅 [𝑛]×P 𝑛 is a standard random pair. Consequently, the number of iterations of Solve ∞ amounts to the number of iterations done by ALH ∞ . The latter is a random variable as (𝔤, 𝔷) is random. We will further consider f random and bound the average complexity of Solve ∞ by taking the expectation over both (𝔤, 𝔷) and f. Recall that a KSS complex random polynomial system 𝔣 ∈ H C 𝒅 <ref type="bibr">[𝑛]</ref> is a tuple of random polynomials</p><formula xml:id="formula_179">| 𝛼 |=𝑑 1 𝑑 1 𝛼 1 2 𝔠 1, 𝛼 𝑋 𝛼 , . . . , | 𝛼 |=𝑑 𝑛 𝑑 𝑛 𝛼 1 2</formula><p>𝔠 𝑛, 𝛼 𝑋 𝛼 such that the 𝔠 𝑖, 𝛼 are independent and identically distributed complex normal random variables of mean 0 and variance 1.</p><p>Our main result is the following. iteration steps on average.</p><p>Remark 5.6. The bound in Theorem 5.5 is independent on N: it is a polynomial in n and D. The possibility of such a bound for the number of iterations of a linear homotopy was explored in <ref type="bibr" target="#b2">[3]</ref>, where the dependence on N was reduced from linear to O( √ 𝑁). Pierre Lairez subsequently exhibited one such bound but for a rigid homotopy <ref type="bibr" target="#b41">[42]</ref>. To the best of our knowledge, Theorem 5.5 is the first such bound for a linear homotopy.</p><p>We will use the following two results. The first is the complex version of Proposition 4.32 and has an almost identical proof. The main difference lies in the needed volume computations, as the geometry of the complex projective space P 𝑛 is somewhat different from that of the real sphere S 𝑛 . The second is a known result on random complex Gaussian matrices. Proposition 5.7. Let 𝔣 ∈ H C 𝒅 [𝑛] be a KSS complex random polynomial tuple. Then for all 𝑡 &gt; 0,</p><formula xml:id="formula_180">P 𝔣 C ∞ ≥ 𝑡 ≤ 2𝑛 3D 2 2𝑛 e -(𝑡/3) 2 .</formula><p>In particular, for all ℓ ≥ 1,</p><formula xml:id="formula_181">E𝔣 𝔣 C ∞ ℓ 1 ℓ ≤ 12 ℓ 𝑛 ln(𝑒𝐷).</formula><p>Proposition 5.8 <ref type="bibr" target="#b13">[14,</ref><ref type="bibr">Proposition 4.27]</ref>. Let 𝔄 ∈ C 𝑛×(𝑛+1) be a random complex matrix whose entries are independent and identically distributed complex normal Gaussian variables. Then for all 𝑡 ≥ 0,</p><formula xml:id="formula_182">Prob 𝔄 † ≥ 𝑡 ≤ 1 16 𝑛 2 𝑡 4 .</formula><p>In particular, for ℓ ∈ <ref type="bibr" target="#b0">[1,</ref><ref type="bibr" target="#b3">4)</ref>,</p><formula xml:id="formula_183">E𝔄 𝔄 † ℓ 1 ℓ ≤ √ 𝑛 2 4 4-ℓ 1 ℓ .</formula><p>Proof of Theorem 5.5. We are calling Algorithm ALH ∞ with input (𝔣, 𝔤, 𝔷), where 𝔣 ∈ H C 𝒅 [𝑛] is a KSS complex polynomial system and (𝔤, 𝔷) ∈ H 𝒅 <ref type="bibr">[𝑛]</ref> is a standard pair.</p><p>Let Σ := {ℎ ∈ H 𝒅 [𝑛] | ∃𝜁 ∈ P 𝑛 such that (ℎ, 𝜁) ∈ Σ}. By classic results in algebraic geometry, this set is a complex algebraic hypersurface, so it has real codimension 2. Hence, with probability one, the segment [𝔤, 𝔣] does not intersect it, and for each zero 𝜁 (𝑖) of 𝔤, we obtain a unique lifted path 𝑡 ↦ → (𝔮 𝑡 , 𝜁 (𝑖)  𝑡 ) ∈ V.</p><p>Here, for each t, the 𝜁 (𝑖) 𝑡 cover all the 𝑑 1 • • • 𝑑 𝑛 different zeros of 𝔮 𝑡 := 𝑡𝔣 + (1 -𝑡)𝔤. Recall that behind this lifting lies the fact that the map</p><formula xml:id="formula_184">V \ Σ ↦ → H C 𝒅 [𝑛] \ Σ, ( 𝑓 , 𝜂) ↦ → 𝑓 , is a regular covering map of degree D = 𝑑 1 • • • 𝑑 𝑛 .</formula><p>In this way, the random zero 𝔷 of 𝔤 defines, following its lifted path, a zero 𝔷 𝑡 of 𝔮 𝑡 . Moreover, since the original 𝔷 is chosen uniformly from the D zeros of 𝔤, the 𝔷 𝑡 is a uniformly chosen zero of 𝔮 𝑡 . Hence</p><formula xml:id="formula_185">𝔮 𝑡 𝑡 2 + (1 -𝑡) 2 , 𝔷 𝑡 ∈ V is a standard random pair, since 𝔮 𝑡 √ 𝑡 2 +(1-𝑡)</formula><p>2 is a KSS complex random polynomial and 𝔷 𝑡 is a uniformly drawn zero of this system. By Corollary 5.3, the expected number of iterations of Solve ∞ with input 𝔣 is bounded by</p><formula xml:id="formula_186">45𝑛 D ∫ 1 0 E (𝔣,𝔤,𝔷) ( 𝔣 2 ∞ + 𝔤 2 ∞ ) 2 D 𝔷 𝑡 𝔮 -1 𝑡 Δ 2 d𝑡,<label>(5.5)</label></formula><p>where we have moved the expectation inside the integral using Tonelli's theorem. Now, by Hölder's inequality, = O(𝑛 ln(eD)).</p><formula xml:id="formula_187">E (𝔣,𝔤,𝔷) ( 𝔣 2 ∞ + 𝔤 2 ∞ ) 2 D 𝔷 𝑡 𝔮 -1 𝑡 Δ 2 ≤ E (𝔣,𝔤,𝔷) ( 𝔣 2 ∞ + 𝔤 2 ∞ ) 6 1 3 E (𝔣,𝔤,𝔷) D 𝔷 𝑡 𝔮 -1 𝑡 Δ 3 2 3 . (<label>5</label></formula><p>To apply the proposition, we expanded the binomial and used the fact that 𝔣 and 𝔤 are independent. Because (𝔮 𝑡 / 𝑡 2 + (1 -𝑡) 2 , 𝔷 𝑡 ) is a random standard pair, we have that</p><formula xml:id="formula_188">E (𝔣,𝔤,𝔷) D 𝔷 𝑡 𝔮 -1 𝑡 Δ 3 = 𝑡 2 + (1 -𝑡) 2 3 2 E (𝔥,𝔶)∼𝜌 std D 𝔶 𝔥 -1 Δ 3 . (5.7)</formula><p>Now, since (𝔥, 𝔶) is a random standard pair, the matrix</p><formula xml:id="formula_189">Δ -1/2 D 𝔶 𝔥 ∈ C 𝑛×(𝑛+1)</formula><p>is a random complex Gaussian matrix. This is the so-called Beltrán </p><formula xml:id="formula_190">D 𝔷 𝑡 𝔮 -1 𝑡 Δ 3 ≤ D 3 2 E (𝔥,𝔶)∼𝜌 std Δ -1 2 D 𝔷 𝑡 𝔮 𝑡 † 3 ≤ 1 2 D 3 2 𝑛 3 2 .</formula><p>Hence, integrating equation (5.7),</p><formula xml:id="formula_191">∫ 1 0 E (𝔣,𝔤,𝔷) D 𝔷 𝑡 𝔮 -1 𝑡 Δ 3 d𝑡 2 3</formula><p>= O(𝑛 D).</p><p>(5.8)</p><p>Putting together equations (5.5), (5.6) and (5.8), the desired result follows.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.4.">Systems of quadratic equations</head><p>Theorem 5.5 is an improvement over the average number of iterations of Solve 𝑊 , which is O(𝑛𝐷𝑁). Furthermore, in the case of quadratic systems, we can compute each iteration with low cost, ensuring that the average total complexity remains smaller than the one for Solve 𝑊 , which is O(𝑛 7 ). The major task left, unsurprisingly, is to compute 𝑞 C ∞ in equation (5.1). But we can use that, for a quadratic polynomial 𝑞 𝑖 , we can write 𝑞 𝑖 (𝑋) as 𝑋 𝑇 𝐴 𝑖 𝑋 with 𝐴 𝑖 complex symmetric and that 𝑞 𝑖 ∞ = 𝐴 𝑖 . We can then compute for a quadratic system 𝑞 ∈ H 2 [𝑛] the norm 𝑞 ∞ = max 𝑞 𝑖 ∞ . A naive approach to compute each 𝑞 𝑖 ∞ leads to an O(𝑛 4 ) cost for the computation of 𝑞 ∞ as it uses O(𝑛 3 ) operations to compute each 𝑞 𝑖 ∞ . Proposition 5.10 below shows we can do better. All in all, we obtain the following result.</p><p>Theorem 5.9 (Solving systems of quadratic equations). Algorithm Solve ∞ finds a common complex zero of a system of quadratic equations 𝑓 ∈ H 2 [𝑛] within O(𝑛 4.5+𝜔 ) time on average, where 𝜔 is the exponent for the cost of matrix multiplication. We currently have 𝜔 &lt; 2.375. Proposition 5.10. Let 𝑞 ∈ H 2 [𝑛] be a quadratic system such that for each i, 𝑞 𝑖 = 𝑋 𝑇 𝐴 𝑖 𝑋. Then</p><formula xml:id="formula_192">𝑞 C ∞ ≤ 𝑛 𝑖=1 𝐴 * 𝑖 𝐴 𝑖 ≤ √ 𝑛 𝑞 C ∞ ,</formula><p>where the norm in the middle formula is the usual operator norm. Moreover, the number 𝑛 𝑖=1 𝐴 * 𝑖 𝐴 𝑖 can be computed with O(𝑛 1+𝜔 ) operations, where 𝜔 is the exponent of matrix multiplication.</p><p>Proof of Theorem 5.9. By Proposition 5.10, we can estimate the step length of our homotopy</p><formula xml:id="formula_193">0.015 𝑞 C ∞ 𝑓 -𝑔 C ∞ M 2 (𝑞, 𝑧) = 0.06 𝑓 -𝑔 C ∞ D 𝑞 C ∞ D 𝑧 𝑞 -1 2</formula><p>by the smaller 0.06</p><formula xml:id="formula_194">𝑓 -𝑔 C ∞ 𝑛 𝑖=1 𝐴 * 𝑖 𝐴 𝑖 D 𝑧 𝑞 -1 2</formula><p>, where 𝑞 = (𝑋 𝑇 𝐴 𝑖 𝑋) 𝑖 . In doing so, the algorithm still terminates but gets an extra factor of √ 𝑛. </p><formula xml:id="formula_195">= 𝑛 𝑖=1 𝑞 𝑖 C ∞ 2 ≤ √ 𝑛 𝑞 C ∞ ,</formula><p>where the equality follows from reversing the equalities in the previously displayed formula. This finishes the proof of the inequalities.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. Extension to spaces of 𝐶 1 -maps</head><p>In this appendix, we prove some condition number theorems for the space of 𝐶 1 -functions over S 𝑛 , 𝐶 1 [𝑞] := 𝐶 1 (S 𝑛 , R 𝑞 ). Note that 𝐶 1 [𝑞] is not complete with respect to ∞ . Consider instead, for 𝑓 ∈ 𝐶 1 [𝑞],</p><formula xml:id="formula_196">𝑓 ∞ := max 𝑥 ∈S 𝑛 𝑓 (𝑥) 2 2 + D 𝑥 𝑓 2 2,2 = max 𝑥 ∈S 𝑛 𝑣 ∈T 𝑥 S 𝑛 𝑓 (𝑥) 2 + D 𝑥 𝑓 𝑣 2 2 𝑣 2 2 .</formula><p>This is a variant of the 𝐶 1 -norm, so one can show that 𝐶 1 [𝑞] is complete with respect to ∞ . Let's see how this norm looks like on an easy kind of 𝐶 1 -map.</p><p>Example A.1 (Linear functions). Let 𝐴 ∈ 𝑞 × (𝑛+1) be a linear matrix, and consider the map</p><formula xml:id="formula_197">A ∈ 𝐶 1 [𝑞]</formula><p>given by 𝑥 ↦ → 𝐴𝑥. We can show that</p><formula xml:id="formula_198">A ∞ = 𝜎 1 ( 𝐴) 2 + 𝜎 2 ( 𝐴) 2 ,</formula><p>where 𝜎 1 and 𝜎 2 are, respectively, the first and second singular values. Recall that 𝜎 1 is also the operator norm.</p><p>To see the above equality, note that</p><formula xml:id="formula_199">A ∞ = max 𝑣,𝑤 ∈S 𝑛 𝑣⊥𝑤 𝐴𝑣 2 2 + 𝐴𝑤 2 2 .</formula><p>Since 𝐴𝑣 𝐴𝑤 has rank at most 2,</p><formula xml:id="formula_200">𝐴𝑣 2 2 + 𝐴𝑤 2 2 = 𝐴𝑣 𝐴𝑤 𝐹 = 𝜎 1 𝐴𝑣 𝐴𝑤 2 + 𝜎 2 𝐴𝑣 𝐴𝑤 2 ;</formula><p>and since 𝐴𝑣 𝐴𝑤 is an orthogonal projection, by the interlacing theorem for singular values (compare to <ref type="bibr">[39, 3.1.3]</ref>, 2 . And we actually have equality, as we can take v and w to be, respectively, the 1st and 2nd (right) singular vectors of A.</p><formula xml:id="formula_201">𝜎 1 𝐴𝑣 𝐴𝑤 ≤ 𝜎 1 ( 𝐴) and 𝜎 2 𝐴𝑣 𝐴𝑤 ≤ 𝜎 2 ( 𝐴). Hence A ∞ ≤ 𝜎 1 ( 𝐴) 2 + 𝜎 2 ( 𝐴)</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A.1. Condition number theorems for 𝐶 1 [𝑞]</head><p>Given 𝑥 ∈ S 𝑛 , we can consider the set of 𝐶 1 -maps whose zero set in S 𝑛 have a singularity at x,</p><formula xml:id="formula_202">Σ 1 𝑥 [𝑞] := 𝑔 ∈ 𝐶 1 [𝑞] | 𝑔(𝑥) = 0, rankD 𝑥 𝑔 &lt; 𝑞 .</formula><p>Similarly, we can consider the set of 𝐶 1 -maps having a singular zero,</p><formula xml:id="formula_203">Σ 1 [𝑞] := 𝑥 ∈S 𝑛 Σ 1 𝑥 [𝑞].</formula><p>The following result shows a way to compute the distance of a 𝐶 1 -map to these sets. </p><formula xml:id="formula_204">∞ ( 𝑓 , Σ 1 𝑥 [𝑞]) = 𝑓 (𝑥) 2 + 𝜎 𝑞 (D 𝑥 𝑓 ) 2 and dist ∞ ( 𝑓 , Σ 1 [𝑞]) = min 𝑥 ∈S 𝑛 𝑓 (𝑥) 2 + 𝜎 𝑞 (D 𝑥 𝑓 ) 2 ,</formula><p>where dist ∞ is the distance induced by ∞ and 𝜎 𝑞 is the qth singular value.</p><p>We call this result the 'condition number theorem' as it is so for the following condition numbers for 𝐶 1 -maps: These condition numbers are very similar to K, and one might try (but we won't here) to prove an analogue of Theorem 3.2 for them when restricted to polynomial maps. For 𝐶 1 -maps, instead, such a theorem would require dealing with multiple technical problems.</p><p>For K ∞ ( 𝑓 ), one has ≤ 𝑀 𝑎,𝑏 𝑊 .</p><p>Thus 𝑀 𝑎,𝑏 ∞,𝒅 ≤ 𝑀 𝑎,𝑏 𝑊 , where we have equality for 𝑥 = 𝑒 0 .</p><p>We can also associate to ∞,𝒅 , for 𝑓 ∈ 𝐶 1 [𝑞] and 𝑥 ∈ S 𝑛 , the quantities where dist ∞,𝒅 is the distance induced by ∞,𝒅 and 𝜎 𝑞 is the qth singular value.</p><p>Note that the adjective 'structured' refers to the fact that we only allow perturbations of f by 𝐶 1 -maps in H R 𝒅 <ref type="bibr">[𝑞]</ref>. However, we might still be interested in general perturbations. If this is the case, we can get them using the relationship between ∞,𝒅 and ∞ . We will explore this in more detail in the next subsection.</p><p>Proof of Theorem A.4. This proof is almost the same as the one of Theorem A.2. We only have to modify the part where we find an explicit minimiser for the distance. Again, we write</p><formula xml:id="formula_205">Δ -1 2 D 𝑥 𝑓 = 𝑈 𝑠 1 . . . 𝑠 𝑞 0 𝑉,</formula><p>where 𝑠 1 , . . . , 𝑠 𝑞 &gt; 0, U and V are orthogonal and 0 is the zero matrix. Again, without loss of generality, we assume that 𝑥 = 𝑒 0 and that V is the identity. We consider </p><formula xml:id="formula_206">𝑔 𝑖 := 𝑓 𝑖 -𝑥 𝑑-</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A.3. Relationship between norms</head><p>As it happens with K and 𝜅 (see Section 4.3), the relations between the condition numbers K, 𝜅, K ∞ and K ∞,𝒅 reduces to the relations between the corresponding norms. We therefore prove the following propositions relating these norms. Note that for 𝐶  <ref type="bibr">[𝑞]</ref>. Then the following inequalities hold: ≤ 𝑓 𝑊 .</p><formula xml:id="formula_207">1 2𝑞 D 𝑓 ∞ ≤ 𝑓 R ∞ ≤ 𝑓 ∞,𝒅 ≤ 𝑓 ∞ (A.1) 1 2𝑞D 𝑓 ∞,𝒅 ≤ 𝑓 R ∞ ≤ 𝑓 ∞,𝒅 (A.2) 𝑓 R ∞ ≤ 𝑓 ∞,</formula><p>The result follows from maximizing over 𝑥 ∈ S 𝑛 .</p><p>We finish with the following theorem, similar in flavour to <ref type="bibr" target="#b29">[30,</ref><ref type="bibr">Proposition 3]</ref> and <ref type="bibr" target="#b11">[12,</ref><ref type="bibr">Theorem 7]</ref>, where it was shown that the distance of a polynomial tuple to polynomial tuples with singularities bounds the distance of this polynomial to 𝐶 1  </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head></head><label></label><figDesc>and the desired inequality follows. Remark 4.4. Proposition 4.3 is a slight improvement of [33, Lemma 2.5]. Proposition 4.3 suggests the following algorithm. Algorithm 4.1: NormApproxR</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head></head><label></label><figDesc>https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press Our objective is the following theorem, which shows how the 𝑁 𝑛+1 2</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Remark 4 . 35 .𝑛 2 ∼ D 𝑛 2 2</head><label>43522</label><figDesc>Theorem 4.34 allows us to compare the efficiency of Plantinga-Vegter for the versions based on the Weyl-norm and the ∞-norm. One can observe that (in the region of interest D &gt; 𝑛) the term 𝑁 in the estimate for the Weyl-norm version is replaced with (D log D) 𝑛 2 in the ∞-norm.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Algorithm 5 . 1 :</head><label>51</label><figDesc>Solve Input : 𝑓 ∈ H 𝒅 [𝑛] Precondition : 𝑓 ≠ 0 draw (𝑔, 𝜁) ∈ V from 𝜌 std run ALH on input ( 𝑓 , 𝑔, 𝜁) Output : 𝑧 ∈ C 𝑛+1 * Postcondition: 𝑧 is an approximate zero of 𝑓 Halting cond. : The lifting of [𝑔, 𝑓 ] at 𝜁 does not cut Σ ⊆ V</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Theorem 5 . 5 .</head><label>55</label><figDesc>Let 𝔣 ∈ H C 𝒅 [𝑛]. On input 𝔣, Algorithm Solve ∞ halts with probability 1 and performs O(𝑛 3 D 2 ln(eD))</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Financial support .</head><label>support</label><figDesc>This work was supported by the Einstein Foundation Berlin. The first author was partially supported by GRF grant CityU 11300220. The second author was partially supported by NSF CCF 211 00 75. The last author was supported by a postdoctoral fellowship of the 2020 'Interaction' program of the Fondation Sciences Mathématiques de Paris. Partially supported by the ANR JCJC GALOP (ANR-17-CE40-0009), the PGMO grant ALMA and the PHC GRAPE.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>K</head><label></label><figDesc>∞ ( 𝑓 , 𝑥) := 𝑓 ∞ 𝑓 (𝑥) 2 + 𝜎 𝑞 (D 𝑥 𝑓 ) 2 and K ∞ ( 𝑓 ) := sup 𝑥 ∈S 𝑛 K ∞ ( 𝑓 , 𝑥).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>𝑖 is the ith row of A and 𝑋 0 is a variable (and hence 𝑋 0</figDesc><table><row><cell></cell><cell></cell><cell>𝐴 𝑞</cell><cell>2 𝑝</cell><cell>and 𝑓 C 𝑝 = 𝑋 0</cell><cell>C 𝑝</cell><cell>𝐴 1</cell><cell>2 , . . . , 𝐴 𝑞</cell><cell>2 𝑝</cell><cell>,</cell></row><row><cell cols="9">where 𝐴 F 𝑝 is given by the expressions in</cell></row><row><cell>Example 2.4). Note that</cell><cell>𝐴 1</cell><cell>2 , . . . , 𝐴 𝑞</cell><cell cols="6">2 𝑝 is just the p-norm of the vector of 2-norms of the rows</cell></row><row><cell>of A.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="5">Example 2.6 (Sum of squares). Let 𝑓 := 𝑛 𝑖=0 𝑋 2 𝑖 ∈ H 2</cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head></head><label></label><figDesc><ref type="bibr" target="#b13">14</ref>. For example, is it possible to substitute Δ by Δ</figDesc><table><row><cell>1 2 in this corollary?</cell></row><row><cell>Remark 2.18. Examples 2.16 and 2.17 motivate the search of a randomised Kellogg's theorem that</cell></row><row><cell>holds with high probability for random polynomials and has a tighter right-hand side.</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head>Corollary 2.20. Let</head><label></label><figDesc>𝑓 ∈ H F 𝒅 [𝑞] and 𝑧 ∈ S 𝑛 (if F = R) or 𝑧 ∈ P 𝑛 (if F = C).Then for all 𝑘 ≥ 1 and 𝑣 1 , . . . , 𝑣 𝑘</figDesc><table><row><cell>∞ and 𝐴 C 2,∞ are not necessarily equal and can differ by a factor exponential in k.</cell></row><row><cell>The following corollary (which is closely related to [59, Theorem 2.1]) will be useful later.</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head></head><label></label><figDesc>2 is the operator norm (with respect to Euclidean norms) of a multilinear map.</figDesc><table><row><cell>Theorem 3.2. Let 𝑓 ∈ H R 𝒅 [𝑞] and 𝑥 ∈ S 𝑛 . The following holds:</cell></row><row><cell>• Regularity inequality: Either</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_8"><head></head><label></label><figDesc>02 8 &lt; 0.13071 . . . where we used the higher derivative estimate (Theorem 3.2) in the first line and equation (4.1) and the hypothesis in the second. This means Smale's 𝛼-criterion holds for 𝑥 2 and 𝑓 |T 𝑥 0 S 𝑛 by [29, Théorème 128]. Hence there is 𝑥 3∈ T 𝑥 2 S 𝑛 such that 𝑓 (𝑥 3 ) = 0 and dist(𝑥 2 , 𝑥 3 ) ≤ 1.64 D 𝑥 2 𝑓 † 𝑓 (𝑥 2 ) ≤ 1.64 • 1.02 DK( 𝑓 )𝛿 &lt; 2DK( 𝑓 )𝛿.Since dist(𝑥 2 , 𝑥 3 / 𝑥 3 ) = arctan dist(𝑥 2 , 𝑥 3 ) ≤ dist(𝑥 2 , 𝑥 3 ), we are done. The proof also shows the convergence of Newton's method associated with 𝑓 |T 𝑥 S 𝑛 for every 𝑥 ∈ G such that 𝑓 ( 𝑥)The following theorem is a variant of the so-called Niyogi-Smale-Weinberger theorem[47,  Proposition 7.1]. Let 𝑓 ∈ H R 𝒅 [𝑞], G ⊂ S 𝑛 be a 𝛿-net and 𝑄 ∈ R be such that 0.99𝑄 ≤ 𝑓 R ∞ ≤ 𝑄. If 90D 2 K( 𝑓 ) 2 𝛿 &lt; 1, then for every This is just [15, Theorem 2.8] combined with Theorems 4.10 and 4.11.</figDesc><table><row><cell>Theorem 4.13. 𝜀 ∈ 6DK( 𝑓 )𝛿,</cell><cell cols="2">1 14DK( 𝑓 )</cell><cell>,</cell></row><row><cell>the sets Z S ( 𝑓 ) and</cell><cell></cell><cell></cell></row><row><cell>𝐵(𝑥, 𝜀) | 𝑥 ∈ G,</cell><cell>𝑓 (𝑥) √ 𝑞𝑄</cell><cell cols="2">&lt; D𝛿</cell></row><row><cell cols="4">are homotopically equivalent. In particular, they have the same Betti numbers.</cell></row><row><cell>Proof.</cell><cell></cell><cell></cell></row><row><cell>Remark 4.12. √ 𝑞 𝑓 R</cell><cell></cell><cell></cell></row></table><note><p><p><p><p><p><p><p><p>∞ ≤ D 𝛿. Hence, we can refine our approximations if needed.</p>Sketch of proof of</p>Theorem 4.11.  </p>The proof is very similar to the one of</p><ref type="bibr" target="#b14">[15,</ref> Theorem 4.12]</p>. By</p>[</p>15, Lemma 2.7] and [15, Theorem 3.3], we have that 𝜏(Z S ( 𝑓 )) ≥ min 1, 1 14 max{𝛾( 𝑓 , 𝑥) | 𝑥 ∈ Z S ( 𝑓 )} . Hence, by the higher derivative estimate (Theorem 3.2), the desired bound follows. https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_9"><head>Proposition 4.14. Algorithm</head><label></label><figDesc>𝛽 0 , . . . , 𝛽 𝑛 are the Betti numbers of Z S ( 𝑓 ) PolyBetti ∞ is correct, and its cost is bounded by</figDesc><table /><note><p><p><p>50DK) (𝛽 0 , . . . , 𝛽 𝑛 ) ← Betti(X , 𝜀) return 𝛽 0 , . . . , 𝛽 𝑛</p>Output</p>: 𝛽 0 , . . . , 𝛽 𝑛 ∈ N Postcondition:</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_10"><head></head><label></label><figDesc>24, Lemma 4.2] for the second clause of the condition.</figDesc><table><row><cell cols="3">Theorem 4.16. Let 𝐵 ∈ R 𝑛 . If the condition</cell><cell></cell><cell></cell><cell></cell></row><row><cell>𝐶 𝑓 (𝐵) : 𝑓 (𝑚(𝐵)) &gt; 2𝑑</cell><cell>√</cell><cell>𝑛𝑤(𝐵) or ∇ 𝑓 (𝑚(𝐵)) &gt; 2 √</cell><cell>2𝑑</cell><cell>√</cell><cell>𝑛𝑤(𝐵)</cell></row></table><note><p>is satisfied, then 𝐶 𝑓 (𝐵) is true. The subdivision procedure of the Plantinga-Vegter algorithm thus takes the following form, where StandardSubdivision is a procedure that, given a box, divides it into 2 𝑛 equal boxes. Recall that [-𝑎, 𝑎] 𝑛 is the set of boxes within [-𝑎, 𝑎] 𝑛 . Algorithm 4.4: PV-Interval ∞ Input : 𝑓 ∈ P 𝑑 𝑎 ∈ (0, ∞)</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_11"><head></head><label></label><figDesc>Let 𝑓 ∈ P 𝑑 and 𝑥 ∈ R 𝑛 . Then either</figDesc><table /><note><p>StandardSubdivision(𝐵) until S = ∅ return S Output : Subdivision S ⊆ [-𝑎, 𝑎] 𝑛 of [-𝑎, 𝑎] 𝑛 Postcondition: For all 𝐵 ∈ S, 𝐶 𝑓 (𝐵) is true 4.2.2. Complexity of PV-Interval ∞ Without much effort, [24, Proposition 5.1] transforms into the following proposition. The essential step is multiplying the inequalities in that proposition by 𝑓 h 𝑊 / 𝑓 ∞ . Proposition 4.17.</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_12"><head></head><label></label><figDesc><ref type="bibr" target="#b22">23]</ref>.𝔠 1, 𝛼 𝑋 𝛼 , . . . , 𝔠 𝑞, 𝛼 𝑋 𝛼 such that the 𝔠 𝑖, 𝛼 are independent centred subgaussian random variables with 𝜓 2 -norm at most K and anti-concentration property with constant 𝜌. Probabilistic estimates for a dobro polynomial 𝔣 will depend on 𝐾 𝜌. This product is invariant under scalar multiplication of 𝔣 since 𝜆𝔣 is dobro with parameters |𝜆|𝐾 and 𝜌/|𝜆|. Moreover, note that3 6𝐾 𝜌 ≥ 1.</figDesc><table><row><cell cols="5">Definition 4.20. A dobro random polynomial tuple 𝔣 ∈ H R 𝒅 [𝑞] with parameters K and 𝜌 is a tuple of random polynomials</cell></row><row><cell></cell><cell>𝑑 1</cell><cell>1 2</cell><cell>𝑑 𝑞</cell><cell>1 2</cell></row><row><cell>| 𝛼 |=𝑑 1</cell><cell>𝛼</cell><cell>| 𝛼 𝑞</cell><cell>𝛼</cell></row><row><cell cols="5">Remark 4.21. Example 4.22. A dobro random polynomial tuple 𝔣 ∈ H R 𝒅 [𝑞] such that the 𝔠 𝛼 are are independent and identically distributed normal random variables of mean zero and variance one is called a KSS (real) polynomial tuple.4 In this case, we can take 𝐾 𝜌 = 2/ √ 𝜋.</cell></row></table><note><p>Example 4.23. A dobro random polynomial tuple 𝔣 ∈ H R 𝒅</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_14"><head></head><label></label><figDesc>𝑛 and that for 𝑥 ∈ [-1/2, 1/2], we have 1 + 1 ≤ e 𝑥 2 /2 . Then arguing as in part 'iii ⇒v' of the proof of [58, Proposition 2.5.2], we get that for all 𝜆 ∈ R, E e 𝜆𝔶 ≤ e e𝐾 2 𝜆 2 .</figDesc><table><row><cell>using 𝑛! ≥</cell><cell>√</cell><cell>2𝜋(𝑛/𝑒) √ 2 𝜋</cell><cell>𝑥 2 1-𝑥 2 (4.5)</cell></row></table><note><p>of Proposition 4.25. This is a version of [58, Proposition 2.6.1]. Let us sketch a proof to see the values of the chosen constants. Let 𝔶 ∈ R be a centred random variable with 𝜓 2 -norm at most K. Arguing as in part 'ii ⇒ iii' of the proof of [58, Proposition 2.5.2], we have that for all 𝜆 ∈ [-1/ √ 2e, 1/ √ 2e], E e 𝜆 2 𝔶 2 ≤ e e𝐾 2 𝜆 2 , https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_15"><head></head><label></label><figDesc>so the corresponding quotient of condition numbers worsens by a factor of at most 2𝑞D. Our main result derives from the fact that 𝑓 𝑊 is, for a substantial number of f s, much smaller than 1: we can expect it to be smaller than 𝑛 ln(eD)/𝑁 with very high probability. Recall that 𝐾 𝜌 is a constant from the randomness model.</figDesc><table><row><cell>𝑓 R ∞</cell></row></table><note><p>Theorem 4.28. Let 𝑞 ≤ 𝑛 + 1, 𝔣 ∈ H R 𝒅 [𝑞] be dobro with parameters K and 𝜌 and ℓ ∈ N. For any power ℓ with 1 ≤ ℓ &lt; 𝑁 2 , we have</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_16"><head>Corollary 4.30. Let</head><label></label><figDesc>, the probabilistic techniques introduced in this paper are developed further to study 𝔣 R ∞ / 𝔣 𝑊 in several settings.</figDesc><table /><note><p>𝑞 ≤ 𝑛 + 1 and 𝔣 ∈ H R 𝒅 [𝑞] be dobro with parameters K and 𝜌. Then for 1 ≤ ℓ &lt; 𝑁 2 , we have</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_17"><head></head><label></label><figDesc>which is very similar to the cost bound for PolyBetti ∞ in Proposition 4.<ref type="bibr" target="#b13">14</ref>. Let us denote by est-run-time(PolyBetti ∞ , 𝑓 ) and est-run-time(PolyBetti 𝑊 , 𝑓 ) these cost bounds. It follows that est-run-time(PolyBetti ∞ , 𝑓 ) est-run-time(PolyBetti 𝑊 , 𝑓 ) ≤ Let 𝑞 ≤ 𝑛 + 1, 𝑁 &gt; 20𝑛 and 𝔣 ∈ H R 𝒅 [𝑞] be dobro with parameters K and 𝜌,</figDesc><table><row><cell>est-run-time(PolyBetti ∞ , 𝑓 ) est-run-time(PolyBetti 𝑊 , 𝑓 )</cell><cell>≤</cell><cell cols="2">5700 𝐾</cell><cell>𝜌𝑛 𝑞D ln(eD)</cell><cell>√</cell><cell>𝑁 -20𝑛</cell><cell>10𝑛</cell></row><row><cell cols="8">with probability at least 1 -1/𝑁. Note that for fixed n and large D, the ratio in the right-hand side is of</cell></row><row><cell>the order of</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>𝑛-1</cell><cell>10𝑛</cell><cell></cell><cell></cell></row><row><cell cols="3">𝐾 𝜌 ln(eD)</cell><cell>2</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>D</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table><note><p>K( 𝑓 ) 𝜅( 𝑓 ) 10𝑛 . Using Corollary 4.30 and Markov's inequality, it is easy to prove the following estimate. https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press Corollary 4.31.</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_18"><head></head><label></label><figDesc>P 𝔣 R ∞ ≥ 𝑡 ≤ P 𝔣 P 𝔵 ∈S 𝑛 𝔣(𝔵) ∞ ≥ 1 -𝑡 ≥ vol 𝐵 S (𝑥 * , 𝛿)/vol S 𝑛 . 𝑛 sin 𝑛-1 𝜃 d𝜃 ≥ (1 -𝛿 2 /6) 𝑛 𝛿 𝑛 , we have that vol 𝑛 𝐵 S (𝑥 * , 𝛿)/vol 𝑛 S 𝑛 ≥ 1 -𝛿 2 /6</figDesc><table><row><cell cols="4">D 2 2 𝛿 2 By [14, Lemma 2.25], [14, Lemma 2.31] and ∫ 𝛿 0 𝑛</cell><cell></cell></row><row><cell>√</cell><cell>2𝜋</cell><cell>√</cell><cell>𝑛 + 1</cell><cell>𝛿 𝑛 .</cell></row></table><note><p><p><p><p><p>Proof of</p>Proposition 4.32</p>.</p>Fix 𝛿 ∈ [0, 1/D]. By the proof of Proposition 4.3, we have that 𝔣 R ∞ &gt; 𝑡 implies vol 𝑥 ∈ S 𝑛 | 𝔣(𝑥) ∞ ≥ 1 -D 2 2 𝛿 2 𝑡 ≥ vol 𝐵 S (𝑥 * , 𝛿),</p>where 𝑥 * ∈ S 𝑛 maximises 𝑓 (𝑥) ∞ . Therefore,</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_19"><head></head><label></label><figDesc>This change amounts -leaving aside the difference in the constants and a smaller exponent in D -to the use of the ∞-norm instead of the Weyl one and, consequently, the use of M instead of 𝜇 norm . Recall that 𝑁 𝑞 is the Newton operator associated to 𝑞 ∈ H 𝒅[𝑛]. The algorithm halts if 𝑞 𝑡 ∉ Σ 𝜁 𝑡 for all 𝑡 ∈ [0, 1]. In this case, 𝑧 is an approximate zero of 𝑓</figDesc><table><row><cell></cell><cell cols="2">3/2 𝜇 2 norm (𝑞, 𝑧)</cell></row><row><cell>by</cell><cell></cell><cell></cell></row><row><cell></cell><cell>0.03 𝑞 C ∞ 𝑓 -𝑔 C ∞ DM 2 (𝑞, 𝑧)</cell><cell>.</cell><cell>(5.1)</cell></row><row><cell cols="2">Algorithm 5.2: ALH ∞</cell><cell></cell></row><row><cell>Input</cell><cell>: 𝑓 , 𝑔 ∈ H 𝒅 [𝑛] and 𝜁 ∈ P 𝑛</cell><cell></cell></row><row><cell cols="2">Precondition : 𝑔(𝜁) = 0</cell><cell></cell></row><row><cell cols="2">𝑡 ← 0, 𝑞 ← 𝑔, 𝑧 ← 𝜁</cell><cell></cell></row><row><cell>repeat</cell><cell></cell><cell></cell></row><row><cell>Δ𝑡 ←</cell><cell>0.03 𝑞 ∞ 𝑓 -𝑔 ∞ DM 2 (𝑞,𝑧)</cell><cell></cell></row><row><cell cols="2">𝑡 ← min{𝑡 + Δ𝑡, 1}</cell><cell></cell></row><row><cell cols="2">𝑞 ← 𝑡 𝑓 + (1 -𝑡)𝑔</cell><cell></cell></row><row><cell cols="2">𝑧 ← 𝑁 𝑞 (𝑧)</cell><cell></cell></row><row><cell>until 𝑡 = 1</cell><cell></cell><cell></cell></row><row><cell cols="2">return 𝑧 and halt</cell><cell></cell></row><row><cell>Output</cell><cell>: 𝑧 ∈ C 𝑛+1  *</cell><cell></cell></row><row><cell cols="2">Postcondition:</cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_20"><head></head><label></label><figDesc>𝑧 𝑖 is an approximate zero of 𝑞 𝑖+1 with associated zero 𝜁 𝑖+1 . By Proposition 3.6, (c, 𝑖), (d, 𝑖) and our choice of C and 𝜀, we have that for all 𝑡 ∈ [𝑡 𝑖 , 𝑡 𝑖+1 ],And, by the triangle inequality and (b, 𝑖), for 𝑡 ∈ [𝑡 𝑖 , 𝑡 𝑖+1 ], It immediately follows from the definition of M(𝑞 𝑡 , 𝜁 𝑡 ) and the inequality𝑞 𝑡 ∞ ≤ 𝑓 ∞ + 𝑔 ∞ .Proof of Proposition 5.4. Recall from [14, Section 14.3] that the zero 𝜁 𝑡 is given by 𝜁 𝑡 = 𝐺 ( 𝑓 𝑡 ), where 𝐺 : 𝑈 ⊂ H 𝒅 [𝑛] → P 𝑛 is a local inverse of the projection 𝜋 1 : V → H 𝒅[𝑛]. Hence, for all 𝑓 𝑡 ∈ H 𝒅[𝑛]   we have</figDesc><table><row><cell cols="12">F. Cucker, A. A. Ergür and J. Tonelli-Cueto</cell></row><row><cell cols="3">Proof of Corollary 5.3.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="2">𝑖 ∞</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="3">(d,i) dist P (𝜁 𝑖 , 𝜁 𝑖+1 ) ≤</cell><cell cols="3">DM(𝑞 𝑖 ,𝜁 𝑖 ) 𝐶 DM(𝑞 𝑖 ,𝜁 𝑖 )</cell><cell>1-𝜀 1+𝜀</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="12">2𝐶 (1+𝜀)DM(𝑞 𝑖 ,𝜁 𝑖 ) (f,i) 4 (e,i) dist P (𝑧 𝑖 , 𝜁 𝑖+1 ) ≤ 5 M(𝑞 𝑖 , 𝜁 𝑖 ) ≤ M(𝑞 𝑡 , 𝜁 𝑡 ) ≤</cell><cell>5 4</cell><cell>M(𝑞 𝑖 , 𝜁 𝑖 ).</cell><cell>(5.2)</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="3">𝑞 𝑡 ∞ 𝑞 𝑖 ∞</cell><cell>≤ 1 + 𝐶 =</cell><cell>17 16</cell><cell>.</cell><cell>(5.3)</cell></row><row><cell cols="12">The statement now easily follows. Consider any 𝑖 ∈ {0, 1, . . . , 𝐾 -2}. Then</cell></row><row><cell>∫ 𝑡 𝑖+1 𝑡 𝑖</cell><cell>M 2 (𝑞 𝑡 , 𝜁 𝑡 ) 𝑞 𝑡 ∞</cell><cell cols="2">d𝑡 ≥</cell><cell>64 85</cell><cell cols="2">∫ 𝑡 𝑖+1 𝑡 𝑖</cell><cell cols="4">M 2 (𝑞 𝑖 , 𝑧 𝑖 ) 𝑞 𝑖 ∞</cell><cell>d𝑡 =</cell><cell>64 85</cell><cell>M 2 (𝑞 𝑖 , 𝑧 𝑖 ) 𝑞 𝑖 ∞</cell><cell>|𝑡 𝑖+1 -𝑡 𝑖 |</cell><cell>((5.2) and (5.3))</cell></row><row><cell></cell><cell></cell><cell></cell><cell>=</cell><cell>64 85</cell><cell cols="4">0.03 𝑓 -𝑔 ∞ D</cell><cell>.</cell><cell></cell><cell>(choice of Δ𝑡)</cell></row><row><cell>Hence</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell cols="2">∫ 1 0</cell><cell cols="4">M 2 (𝑞 𝑡 , 𝑧 𝑡 ) 𝑞 𝑡 ∞</cell><cell cols="2">d𝑡 ≥</cell><cell cols="2">192 8500</cell><cell>𝐾 -1 𝑓 -𝑔 ∞ D</cell><cell>≥</cell><cell>𝐾 -1 45 𝑓 -𝑔 ∞ D</cell><cell>,</cell></row><row><cell cols="3">and the result follows.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_22"><head></head><label></label><figDesc>-Pardo trick<ref type="bibr" target="#b13">[14,</ref> Proposition  17.21(a)]. Moreover, D 𝔶 𝔥 -1 Δ 𝔶 is a zero of 𝔥 and D 𝔶 𝔥 is just D 𝔶 𝔥 restricted to the orthogonal complement of 𝔶, which we can view as T 𝔶 P 𝑛 . Because of this, by Proposition 5.8,</figDesc><table><row><cell>1 2 2 , since E = D 𝔶 𝔥  † Δ 1 (𝔥,𝔶)∼𝜌 std</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_23"><head></head><label></label><figDesc>Now 𝑓 -𝑔 ∞ can be computed in O(𝑛4 ) operations at the beginning of the algorithm a single time, so we don't need to compute it in each iteration. By Proposition 5.10, we can compute 𝑖 𝐴 𝑖 in O(𝑛 1+𝜔 ) operations, and by<ref type="bibr" target="#b13">[14,</ref> Proposition 16.32], the remaining arithmetic operations can be done in O(𝑛 3 ) operations. Combining this with the bound of Theorem 5.5 and adding the extra factor √ 𝑛gives the desired estimate.</figDesc><table><row><cell></cell><cell></cell><cell></cell><cell></cell><cell>𝑛 𝑖=1 𝐴  *</cell></row><row><cell></cell><cell></cell><cell></cell><cell>𝑛</cell><cell></cell></row><row><cell>𝑞 𝑖</cell><cell>C ∞ = 𝐷 𝑖 =</cell><cell>𝐷  *  𝑖 𝐷 𝑖 =</cell><cell>𝐴  *  𝑖 𝐴 𝑖 ≤</cell><cell>𝐴  *  𝑖 𝐴 𝑖 ,</cell></row><row><cell></cell><cell></cell><cell></cell><cell>𝑖=1</cell><cell></cell></row><row><cell cols="5">where the last inequality follows from the fact that the operator norm is nondecreasing with respect to</cell></row><row><cell cols="2">the order of psd matrices. So 𝑞 C ∞ ≤</cell><cell cols="3">𝑛 𝑖=1 𝐴  *  𝑖 𝐴 𝑖 , as we wanted to show.</cell></row><row><cell cols="2">For the other inequality, observe that</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>𝑛</cell><cell>𝑛</cell><cell></cell><cell></cell></row><row><cell></cell><cell>𝐴  *  𝑖 𝐴 𝑖 ≤</cell><cell>𝐴  *  𝑖 𝐴 𝑖</cell><cell></cell><cell></cell></row><row><cell cols="2">𝑖=1</cell><cell>𝑖=1</cell><cell></cell><cell></cell></row></table><note><p><p><p><p><p><p><p>Proof of</p>Proposition 5.10</p>. By the so-called Autonne-Takagi factorisation</p><ref type="bibr" target="#b38">[39,</ref> Problem 33]</p>, we have that</p>𝐴 𝑖 = 𝑈 𝑇 𝑖 𝐷 𝑖 𝑈 𝑖</p>for some real diagonal matrix 𝐷 𝑖 with nonnegative entries and some unitary matrix 𝑈 𝑖 . Now it is easy to check that</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_24"><head></head><label></label><figDesc>Regarding cost, note that computing 𝐴 * 𝑖 𝐴 𝑖 takes O(𝑛 𝜔 ) operations, so computing all the 𝐴 * 𝑖 𝐴 𝑖 requires O(𝑛 1+𝜔 ) operations. Then adding the 𝐴 * 𝑖 𝐴 𝑖 requires O(𝑛 3 ) operations and computing 𝑖 𝐴 𝑖 another O(𝑛 3 ) operations. We thus get O(𝑛 1+𝜔 ) operations in total, as we wanted to show.</figDesc><table><row><cell>𝑛 𝑖=1 𝐴  *</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_26"><head></head><label></label><figDesc>This formula shows that K ∞ ( 𝑓 ) is similar to the condition number associated with an operator norm of a linear map.Proof of Theorem A.2. Using the triangular inequality and that 𝜎 𝑞 is Lipschitz with respect to the operator norm, we can see that for 𝑓 , 𝑔 ∈ 𝐶1 [𝑞],𝑓 (𝑥) 2 + 𝜎 𝑞 (D 𝑥 𝑓 ) 2 -𝑔(𝑥) 2 + 𝜎 𝑞 (D 𝑥 𝑔) 2 ≤ 𝑓 -𝑔 ∞ .From here, we deduce that𝑓 (𝑥) 2 + 𝜎 𝑞 (D 𝑥 𝑓 ) 2 ≤ dist ∞ ( 𝑓 , Σ 1Since orthogonal transformations leave invariant ∞ , we can assume, without loss of generality, that 𝑥 = 𝑒 0 and that V is the identity matrix. Consider now𝑔 𝑖 := 𝑓 𝑖 -𝑓 𝑖 (𝑒 0 ) 𝑋 0 -𝑢 𝑖,𝑞 𝑠 𝑞 𝑋 𝑞 .We have then that 𝑔 ∈ Σ 1 𝑒 0 [𝑞], since 𝑔(𝑒 0 ) = 0 and 𝜎 𝑞 (D 𝑒 0 𝑔) = 0, and that𝑓 -𝑔 = 𝑓 (𝑒 0 ) 𝑋 0 + 𝑠 𝑞 𝑢 𝑞 𝑋 𝑞 .By arguing as in Example 2.5 and noting that 𝑓 (𝑒 0 ) 𝑋 0 + 𝑠 𝑞 𝑢 𝑞 𝑋 𝑞 has rank at most 2, we have that𝑓 (𝑒 0 ) 𝑋 0 + 𝑠 𝑞 𝑢 𝑞 𝑋 𝑞 ∞ = 𝑓 (𝑒 0 ) 𝑠 𝑞 𝑢 𝑞 𝐹 = 𝑓 (𝑒 0 ) 2 2 + 𝑠 𝑞 𝑢 𝑞 2 2 = 𝑓 (𝑒 0 ) 2 + 𝜎 𝑞 (D 𝑒 0 𝑓 ) 2 / Hence dist ∞ ( 𝑓 , Σ 1 𝑒 0 [𝑞]) ≥ 𝑓 -𝑞 ∞ = 𝑓 (𝑒 0 ) 2 + 𝜎 𝑞 (D 𝑒 0 𝑓 ) 2 ,finishing the proof of the first equality.The second equality follows immediately from the first one. 𝐶 1 [𝑞]. The following example shows a class of functions for which this norm can be computed exactly.Then we can see that𝑀 𝑎,𝑏 ∞,𝒅 = 𝑀 𝑎,𝑏 𝑊 = 𝑎 2 + 𝑏 2 .Indeed, by Proposition 2.2, we have that for all 𝑥 ∈ S 𝑛 ,</figDesc><table><row><cell>𝑥 ∈S 𝑛</cell><cell cols="4">𝑓 (𝑥) 2 2 + Δ -1 2 D 𝑥 𝑓 2 2,2 = max 𝑥 ∈S 𝑛 𝑣 ∈T 𝑥 S 𝑛</cell><cell>𝑓 (𝑥) 2 +</cell><cell>Δ -1 2 D 𝑥 𝑓 𝑣 2 2 𝑣 2 2</cell></row><row><cell>for 𝑓 ∈ Example A.3. Let</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>𝑀 𝑎,𝑏 := 𝑎𝑋 𝑑 𝑖 0 + Δ</cell><cell>1 2 𝑏𝑋 𝑑 𝑖 -1 0</cell><cell cols="2">𝑋 1 𝑖</cell><cell>∈ H R 𝒅 [𝑞].</cell></row><row><cell></cell><cell cols="3">𝑀 𝑎,𝑏 (𝑥) 2 2 + Δ -1 2 D 𝑥 𝑀 𝑎,𝑏</cell><cell>2 2</cell></row></table><note><p><p><p><p><p><p>K ∞ ( 𝑓 ) = max 𝑓 (𝑥) 2 2 + 𝑎 * D 𝑥 𝑓 2 2 | 𝑥 ∈ S 𝑛 , 𝑎 ∈ S 𝑞-1 min 𝑓 (𝑥) 2 2 + 𝑎 * D 𝑥 𝑓 2 2 | 𝑥 ∈ S 𝑛 , 𝑎 ∈ S 𝑞-1 . 𝑥 [𝑞])</p>by taking 𝑔 ∈ Σ 1 𝑥 [𝑞] and minimizing over the right-hand side. For the reversed inequality, let</p>D 𝑥 𝑓 = 𝑈 𝑠 1 . . . 𝑠 𝑞 0 𝑉</p>be the SVD of 𝐷 𝑥 𝑓 , where U and V are orthogonal and 0 is the zero matrix.</p>A.2. Structured condition number theorem for 𝐶 1 [𝑞]</p>Recall that for 𝒅 ∈ N 𝑞 , Δ is the diagonal 𝑞 × 𝑞 matrix whose diagonal is 𝒅. We consider the following variant of ∞ 𝑓 ∞,𝒅 := max</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_27"><head></head><label></label><figDesc>𝑓 ∞ and K ∞,𝒅 ( 𝑓 ) := sup 𝑥 ∈S 𝑛 K ∞,𝒅 ( 𝑓 , 𝑥).For these variants of K ∞ , we have the following structured condition number theorem for perturbations by homogeneous polynomials.Theorem A.4 (Structured condition number theorem). Let 𝑓 ∈ 𝐶 1 [𝑞], 𝑥 ∈ S 𝑛 and 𝒅 ∈ N 𝑞 . Then dist ∞,𝒅 𝑓 , Σ 1 𝑥 [𝑞] ∩ ( 𝑓 + H R 𝒅 [𝑞]) = 𝑓 (𝑥) 2 + 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 2 and dist ∞,𝒅 𝑓 , Σ 1 [𝑞] ∩ ( 𝑓 + H R 𝒅 [𝑞]) = min 𝑥 ∈S 𝑛 𝑓 (𝑥) 2 + 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 2 ,where dist ∞,𝒅 is the distance induced by ∞,𝒅 and 𝜎 𝑞 is the qth singular value.</figDesc><table /><note><p><p>K ∞,𝒅 ( 𝑓 , 𝑥) :=</p>Corollary A.5. Let 𝒅 ∈ N 𝑑 , 𝑓 ∈ H R 𝒅 [𝑞] and 𝑥 ∈ S 𝑛 . Then dist ∞,𝒅 ( 𝑓 , Σ 𝒅,𝑥 [𝑞]) = 𝑓 (𝑥) 2 + 𝜎 𝑞 Δ - 2 D 𝑥 𝑓 2 = dist 𝑊 ( 𝑓 , Σ 𝒅,𝑥 [𝑞]) and dist ∞,𝒅 ( 𝑓 , Σ 𝒅 [𝑞]) = min 𝑥 ∈S 𝑛 𝑓 (𝑥) 2 + 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 2 = dist 𝑊 ( 𝑓 , Σ 𝒅 [𝑞]),</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_28"><head></head><label></label><figDesc>Because of Example A.3, forℎ = 𝑎 𝑖 𝑋 𝑑 𝑖 0 + 𝑑 𝑖 𝑏𝑋 𝑑 𝑖 -1 𝑓 , Σ 1 𝑒 0 [𝑞]) ≥ 𝑓 -𝑔 ∞ = 𝑓 (𝑒 0 ) 2 + 𝜎 𝑞 (Δ -1 2 D 𝑒 0 𝑓 ) 2 ,and the first equality follows. The second equality immediately follows from the first one.Proof of Corollary A.5. This is Theorem A.4 together with<ref type="bibr" target="#b14">[15,</ref> Theorem 4.4].</figDesc><table><row><cell></cell><cell>0</cell><cell>𝑋 1 𝑖</cell><cell>∈ H R 𝒅 [𝑞],</cell></row><row><cell>we have that ℎ ∞,𝒅 =</cell><cell>𝑎 2 2 + 𝑏 2 2 . Hence,</cell><cell></cell></row><row><cell cols="2">dist ∞,𝒅 (</cell><cell></cell></row></table><note><p><p><p>1 0 ( 𝑓 𝑖 (𝑒 0 ) 𝑋 0 -𝑑 𝑖 𝑢 𝑖,𝑞 𝑠 𝑞 𝑋 𝑞 ) so that 𝑔 ∈ Σ 1 𝑒 0 [𝑞],</p>as 𝑔(𝑒 0 ) = 0 and 𝜎 𝑞 (D 𝑒 0 𝑔) = 0, and</p>𝑓 -𝑔 = 𝑓 𝑖 (𝑒 0 ) 𝑋 𝑑 𝑖 0 + 𝑑 𝑖 𝑠 𝑞 𝑢 𝑞 𝑋 𝑞 𝑖 .</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_29"><head></head><label></label><figDesc>Let 𝑓 ∈ 𝐶 1 [𝑞]. Then for all 𝒅, 𝒅 ∈ N 𝑞 ,</figDesc><table><row><cell></cell><cell></cell><cell></cell><cell cols="3">1 max 𝑖</cell><cell>√</cell><cell>𝑑 𝑖</cell><cell cols="3">𝑓 ∞ ≤ 𝑓 ∞,𝒅 ≤ 𝑓 ∞</cell></row><row><cell>and</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>min</cell><cell>⎧ ⎪ ⎪ ⎨ ⎪ ⎪ ⎩</cell><cell>1, min 𝑖</cell><cell>d𝑖 𝑑 𝑖</cell><cell>⎫ ⎪ ⎪ ⎬ ⎪ ⎪ ⎭</cell><cell cols="4">𝑓 ∞, 𝒅 ≤ 𝑓 ∞,𝒅 ≤ max</cell><cell>⎧ ⎪ ⎪ ⎨ ⎪ ⎪ ⎩</cell><cell>1, max 𝑖</cell><cell>d𝑖 𝑑 𝑖</cell><cell>⎫ ⎪ ⎪ ⎬ ⎭ ⎪ ⎪</cell><cell>𝑓 ∞, 𝒅 .</cell></row></table><note><p>1 [𝑞], we compare ∞ with ∞,𝒅 , and for H R 𝒅 [𝑞], we compare R ∞ , 𝑊 , ∞ and ∞,𝒅 . Proposition A.6. Proposition A.7. Let 𝑓 ∈ H R 𝒅</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_30"><head></head><label></label><figDesc>𝒅 ≤ 𝑓 𝑊 (A.3) 𝑓 ∞, d ,since the rest of the inequalities are derived from this claim in a straightforward way. For the latter, note that and that, for 𝑎, 𝑏, 𝑡 ∈ R 2 ,𝑎 2 + (𝑡𝑏) 2 ≤ max{1, |𝑡|} 𝑎 2 + 𝑏 2 .Proof of Proposition A.7. Arguing as in Proposition A.6, we can prove that for all 𝑥 ∈ S 𝑛 , 12𝑞 D 𝑓 (𝑥) 2 + D 𝑥 𝑓 2 2,2 ≤ max 𝑓 (𝑥) ∞ , Δ-1 D 𝑥 𝑓 ∞,2 ≤ 𝑓 (𝑥) 2 + D 𝑥 𝑓 2 ≤ max 𝑓 (𝑥) ∞ , Δ-1 D 𝑥 𝑓 ∞,2 ≤ 𝑓 (𝑥) 2 + Δ -1 2 D 𝑥 𝑓 𝑛 gives the inequalities in equations (A.1) and (A.2). It only remains to prove 𝑓 ∞,𝒅 ≤ 𝑓 𝑊 in equation (A.3). To do this, note that by Proposition 2.2, for all 𝑥 ∈ S 𝑛 , 𝑓 (𝑥) 2 + Δ -1 2 D 𝑥 𝑓</figDesc><table><row><cell cols="5">Combining these bounds, we get</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell cols="4">𝑓 (𝑥) 2 + Δ -1 2 D 𝑥 𝑓</cell><cell cols="2">2 2,2</cell><cell cols="3">≤ max</cell><cell cols="2">⎧ ⎪ ⎪ ⎨ ⎪ ⎪ ⎩</cell><cell cols="2">1, max 𝑖</cell><cell>d𝑖 𝑑 𝑖</cell><cell>⎫ ⎪ ⎪ ⎬ ⎪ ⎪ ⎭</cell><cell>𝑓 (𝑥) 2 + Δ-1 2 D 𝑥 𝑓</cell><cell>2 2,2</cell></row><row><cell cols="3">and so the desired claim.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>2,2</cell></row><row><cell>and</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell cols="2">1 2𝑞D</cell><cell cols="7">𝑓 (𝑥) 2 + Δ -1 2 D 𝑥 𝑓</cell><cell></cell><cell cols="2">2 2,2</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>2</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>2,2</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>2</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>2,2</cell></row><row><cell cols="13">Proof of Proposition A.6. It is enough to show that</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell cols="5">𝑓 ∞,𝒅 ≤ max</cell><cell cols="2">⎧ ⎪ ⎪ ⎨ ⎪ ⎪ ⎩</cell><cell cols="3">1, max 𝑖</cell><cell>d𝑖 𝑑 𝑖</cell><cell>⎫ ⎪ ⎪ ⎬ ⎪ ⎪ ⎭</cell></row><row><cell>Δ -1 2 𝐴</cell><cell>2,2</cell><cell cols="2">= Δ -1 2</cell><cell cols="2">Δ 1 2 Δ-1 2 𝐴</cell><cell cols="2">2,2</cell><cell cols="5">≤ Δ -1 2</cell><cell>Δ 1 2</cell><cell>2,2</cell><cell>Δ-1 2 𝐴</cell><cell>2,2</cell><cell>= max 𝑖</cell><cell>d𝑖 𝑑 𝑖</cell><cell>Δ-1</cell></row></table><note><p><p>∞ = ∞,1 where 1 = (1, . . . , 1). Now one can easily check that for 𝐴 ∈ R 𝑞×𝑛 , .</p>Maximizing over 𝑧 ∈ S</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_31"><head></head><label></label><figDesc>-functions with singularities.Let 𝑓 ∈ H R 𝒅 [𝑞] and 𝑥 ∈ S 𝑛 . Then 𝑓 , Σ 1 𝑥 [𝑞]) ≤ dist ∞,𝒅 ( 𝑓 , Σ 𝒅,𝑥 [𝑞]) = dist 𝑊 ( 𝑓 , Σ 𝒅,𝑥 [𝑞]) ≤ dist ∞ ( 𝑓 , Σ 1 𝑥 [𝑞]), 𝑓 , Σ 1 [𝑞]) ≤ dist ∞,𝒅 ( 𝑓 , Σ 𝒅 [𝑞]) = dist 𝑊 ( 𝑓 , Σ 𝒅 [𝑞]) ≤ dist ∞ ( 𝑓 , Σ 1 [𝑞]),where dist ∞ and dist ∞,𝒅 are, respectively, the distances induced by ∞ and ∞,𝒅 .</figDesc><table><row><cell cols="2">Theorem A.8. 1 √ D dist ∞ ( and</cell></row><row><cell>1 √ D</cell><cell>dist ∞ (</cell></row></table><note><p><p><p><p>Sketch of proof.</p>The proof is similar to that of Proposition A.6. Arguing as there, we can prove that for all 𝑥 ∈ S 𝑛 ,</p>1 √ D 𝑓 (𝑥) 2 2 + 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 2 ≤ 𝑓 (𝑥) 2 2 + 𝜎 𝑞 (D 𝑥 𝑓 ) 2 ≤ 𝑓 (𝑥) 2 2 + 𝜎 𝑞 Δ -1 2 D 𝑥 𝑓 2 .</p>Minimizing over 𝑥 ∈ S 𝑛 and applying Theorems A.2 and Corollary A.5, we conclude. https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_0"><p>https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_1"><p>O (𝑛(𝑘+log 𝑛)) 𝐷 𝑛 𝑁 min{K( 𝑓 ) 𝑛 , 2 𝑛𝑏 }. https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_2"><p>https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_3"><p>2,2 , https://doi.org/10.1017/fms.2022.89 Published online by Cambridge University Press</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><p>Acknowledgements. The second author is grateful to <rs type="person">Hakan</rs> and <rs type="person">Bahadır Ergür</rs> for their cheerful response to his sudden all-day availability throughout the pandemic times. The third author is grateful to <rs type="person">Evgenia Lagoda</rs> for moral support and <rs type="person">Gato Suchen</rs> for useful suggestions for this paper. We are thankful to the reviewers of this paper for useful suggestions that helped improve the presentation and to <rs type="person">Khazhgali Kozhasov</rs> for pointing out an error in a constant used in Proposition 4.24.</p></div>
+			</div>			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0" />			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Chebyshev polynomials and best rank-one approximation ratio</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Agrachev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Kozhasov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Uschmajew</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Matrix Anal. Appl</title>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="308" to="331" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">The approximate rank of a matrix and its algorithmic applications</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Alon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Shraibman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Vempala</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">STOC&apos;13-Proceedings of the 2013 ACM Symposium on Theory of Computing</title>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2013">2013</date>
+			<biblScope unit="page" from="675" to="684" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Condition length and complexity for the solution of polynomial systems</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Armentano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Beltrán</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bürgisser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shub</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page" from="1401" to="1422" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">On the roots of a random system of equations. The theorem on Shub and Smale and some extensions</title>
+		<author>
+			<persName><forename type="first">J.-M</forename><surname>Azaïs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wschebor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="125" to="144" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Integration and optimization of multivariate polynomials by restriction onto a random subspace</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Barvinok</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="229" to="244" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Estimating 𝐿 ∞ norms by 𝐿 2𝑘 norms for functions on orbits</title>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Barvinok</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Foundations of Computational Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="393" to="412" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">On Smale&apos;s 17 problem: a probabilistic positive solution</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Beltrán</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Pardo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page" from="1" to="43" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Smale&apos;s 17th problem: average polynomial time to compute affine and projective solutions</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Beltrán</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Pardo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Amer. Math. Soc</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="363" to="385" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Fast linear homotopy to find approximate zeros of polynomial systems</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Beltrán</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Pardo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="95" to="129" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Sum-of-squares certificates for maxima of random tensors on the sphere</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Bhattiprolu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Guruswami</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Lee</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Approximation, Randomization, and Combinatorial Optimization. Algorithms and Techniques</title>
+		<meeting><address><addrLine>Wadern</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="volume">81</biblScope>
+		</imprint>
+	</monogr>
+	<note>LIPIcs. Leibniz Int. Proc. Inform. Schloss Dagstuhl. Leibniz-Zent. Inform.</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Tangential Markov inequalities on real algebraic varieties</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">P</forename><surname>Bos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Levenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">D</forename><surname>Milman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">A</forename><surname>Taylor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Indiana Univ. Math. J</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1257" to="1272" />
+			<date type="published" when="1998">1998</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Quantitative singularity theory for random polynomials</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Breiding</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Keneshlou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Lerario</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Mathematics Research Notices</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">On a problem posed by Steve Smale</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bürgisser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annals of Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">174</biblScope>
+			<biblScope unit="page" from="1785" to="1836" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bürgisser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<title level="m">Condition, volume 349 of Grundlehren der mathematischen Wissenschaften</title>
+		<meeting><address><addrLine>Berlin</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer-Verlag</publisher>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Computing the homology of basic semialgebraic sets in weak exponential time</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bürgisser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Lairez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. ACM</title>
+		<imprint>
+			<biblScope unit="volume">66</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="5" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Computing the homology of semialgebraic sets. I: Lax formulas</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bürgisser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tonelli-Cueto</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10208-019-09418-y</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="page" from="71" to="118" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Computing the homology of semialgebraic sets. II: General formulas</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bürgisser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tonelli-Cueto</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10208-020-09483-8</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1279" to="1316" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Continuous amortization and extensions: with applications to bisection-based root isolation</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Burr</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Symbolic Comput</title>
+		<imprint>
+			<biblScope unit="volume">77</biblScope>
+			<biblScope unit="page" from="78" to="126" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The complexity of an adaptive subdivision method for approximating real curves</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Burr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">P</forename><surname>Tsigaridas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ISSAC&apos;17-Proceedings of the 2017 ACM International Symposium on Symbolic and Algebraic Computation</title>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="61" to="68" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Continuous amortization: A non-probabilistic adaptive analysis technique</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Burr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Krahmer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Yap</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Electronic Colloquium on Computational Complexity</title>
+		<imprint>
+			<biblScope unit="volume">136</biblScope>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Relative entropy relaxations for signomial optimization</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Chandrasekaran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Shah</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Optim</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="1147" to="1173" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Componentwise condition numbers of random sparse matrices</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Cheung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Matrix Anal. Appl</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="page" from="721" to="731" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Plantinga-Vegter algorithm takes average polynomial time</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Ergür</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tonelli-Cueto</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2019 International Symposium on Symbolic and Algebraic Computation</title>
+		<meeting>the 2019 International Symposium on Symbolic and Algebraic Computation</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="114" to="121" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">On the complexity of the Plantinga-Vegter algorithm</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Ergür</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tonelli-Cueto</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00454-022-00403-x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Discrete Comput. Geom</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="page" from="664" to="708" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">A numerical algorithm for zero counting. I: Complexity and accuracy</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Krick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Malajovich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wschebor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Complexity</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">5-6</biblScope>
+			<biblScope unit="page" from="582" to="605" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">A numerical algorithm for zero counting. II: Distance to ill-posedness and smoothed analysis</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Krick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Malajovich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wschebor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Fixed Point Theory Appl</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="285" to="294" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">A numerical algorithm for zero counting. III: Randomization and condition</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Krick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Malajovich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wschebor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Adv. Applied Math</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="page" from="215" to="248" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Computing the homology of real projective sets</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cucker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Krick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shub</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="929" to="970" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Points fixes, zéros et la méthode de Newton</title>
+		<author>
+			<persName><forename type="first">J.-P</forename><surname>Dedieu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mathématiques &amp; Applications</title>
+		<editor>
+			<persName><forename type="first">Steve</forename><surname>Smale</surname></persName>
+		</editor>
+		<imprint>
+			<biblScope unit="volume">54</biblScope>
+			<date type="published" when="2006">2006</date>
+			<publisher>Springer</publisher>
+			<pubPlace>Berlin; Berlin</pubPlace>
+		</imprint>
+	</monogr>
+	<note>Mathematics &amp; Applications</note>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Low degree approximation of random polynomials</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">N</forename><surname>Diatta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Lerario</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10208-021-09506-y</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page" from="77" to="97" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">A Positivstellensatz for sums of nonnegative circuit polynomials</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Dressler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Iliman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>De Wolff</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Appl. Algebra Geom</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="536" to="555" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">The union of balls and its dual shape</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Edelsbrunner</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Discrete Comput. Geom</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3-4</biblScope>
+			<biblScope unit="page" from="415" to="440" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Probabilistic condition number estimates for real polynomial systems I: A broader family of distributions</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Ergür</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Paouris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Rojas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Found. Comput. Math</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="131" to="157" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Smoothed analysis for the condition number of structured real polynomial systems</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Ergür</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Paouris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Rojas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Math. Comp</title>
+		<imprint>
+			<biblScope unit="volume">90</biblScope>
+			<biblScope unit="issue">331</biblScope>
+			<biblScope unit="page" from="2161" to="2184" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Curvature measures</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Federer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Trans. Amer. Math. Soc</title>
+		<imprint>
+			<biblScope unit="volume">93</biblScope>
+			<biblScope unit="page" from="418" to="491" />
+			<date type="published" when="1959">1959</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">How to integrate a polynomial over a sphere</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">B</forename><surname>Folland</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Amer. Math. Monthly</title>
+		<imprint>
+			<biblScope unit="volume">108</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="446" to="448" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<monogr>
+		<title level="m" type="main">Topologically Accurate Meshing Using Domain Subdivision Techniques</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">T</forename><surname>Galehouse</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+			<publisher>ProQuest LLC</publisher>
+			<pubPlace>Ann Arbor, MI</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>New York University</orgName>
+		</respStmt>
+	</monogr>
+	<note>Ph.D. thesis</note>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Most quantum states are too entangled to be useful as computational resources</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gross</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">T</forename><surname>Flammia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Eisert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Phys. Rev. Lett</title>
+		<imprint>
+			<biblScope unit="volume">102</biblScope>
+			<biblScope unit="issue">19</biblScope>
+			<biblScope unit="page">190501</biblScope>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">Topics in matrix analysis</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Horn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R</forename><surname>Johnson</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1994">1994</date>
+			<publisher>Cambridge University Press</publisher>
+			<pubPlace>Cambridge</pubPlace>
+		</imprint>
+	</monogr>
+	<note>Corrected reprint of the 1991 original</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">On bounded polynomials in several variables</title>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">D</forename><surname>Kellogg</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Math. Z</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="55" to="64" />
+			<date type="published" when="1928">1928</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<title level="m" type="main">Bounds for the average rank-one approximation ratio</title>
+		<author>
+			<persName><surname>Kh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Kozhasov</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Tonelli-Cueto</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note>In progress</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Rigid continuation paths I. Quasilinear average complexity for solving polynomial systems</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Lairez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Amer. Math. Soc</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="487" to="526" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Sums of squares, moment matrices and optimization over polynomials</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Laurent</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Emerging Applications of Algebraic Geometry</title>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2009">2009</date>
+			<biblScope unit="volume">149</biblScope>
+			<biblScope unit="page" from="157" to="270" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">On sharp bounds for marginal densities of product measures</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Livshyts</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Paouris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Pivovarov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Israel Journal of Mathematics</title>
+		<imprint>
+			<biblScope unit="volume">216</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="877" to="889" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<monogr>
+		<title level="m" type="main">Stable recovery and the coordinate small-ball behaviour of random vectors</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mendelson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Paouris</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1904.08532</idno>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">Preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Tensor sparsification via a bound on the spectral norm of random tensors</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">H</forename><surname>Nguyen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Drineas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">D</forename><surname>Tran</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Inf. Inference</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="195" to="229" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Finding the homology of submanifolds with high confidence from random samples</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Niyogi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Smale</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Weinberger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Discrete Comput. Geom</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">1-3</biblScope>
+			<biblScope unit="page" from="419" to="441" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<monogr>
+		<title level="m" type="main">Essays on the Complexity of Continuous Problems</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Novak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">H</forename><surname>Sloan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Traub</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Woźniakowski</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+			<publisher>EMS</publisher>
+			<pubPlace>Zürich</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">Isotopic approximation of implicit curves and surfaces</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Plantinga</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Vegter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2004 Eurographics/ACM SIGGRAPH Symposium on Geometry Processing</title>
+		<meeting>the 2004 Eurographics/ACM SIGGRAPH Symposium on Geometry Processing</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="page" from="245" to="254" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<monogr>
+		<title level="m" type="main">Noisy Information and Computational Complexity</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Plaskota</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1996">1996</date>
+			<publisher>Cambridge University Press</publisher>
+			<pubPlace>Cambridge</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Small ball probabilities for linear images of high-dimensional distributions</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rudelson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Vershynin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Int. Math. Res. Not. IMRN</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="9594" to="9617" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Spherical harmonics</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">T</forename><surname>Seeley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Amer. Math. Monthly</title>
+		<imprint>
+			<biblScope unit="volume">73</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="115" to="121" />
+			<date type="published" when="1966">1966</date>
+		</imprint>
+	</monogr>
+	<note>part II</note>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">Complexity of Bézout&apos;s theorem. I. Geometric aspects</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shub</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Smale</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Amer. Math. Soc</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="459" to="501" />
+			<date type="published" when="1993">1993</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Mathematical problems for the next century</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Smale</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Mathematics: Frontiers and Perspectives</title>
+		<editor>
+			<persName><forename type="first">V</forename><surname>Arnold</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">M</forename><surname>Atiyah</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">P</forename><surname>Lax</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">B</forename><surname>Mazur</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>AMS</publisher>
+			<date type="published" when="2000">2000</date>
+			<biblScope unit="page" from="271" to="294" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<monogr>
+		<title level="m" type="main">Condition and Homology in Semialgebraic Geometry</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tonelli-Cueto</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+		<respStmt>
+			<orgName>Technische Universität Berlin</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Doctoral thesis</note>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">Condition numbers for the cube. i: Univariate polynomials and hypersurfaces</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tonelli-Cueto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">P</forename><surname>Tsigaridas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 45th International Symposium on Symbolic and Algebraic Computation</title>
+		<meeting>the 45th International Symposium on Symbolic and Algebraic Computation</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="434" to="441" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<monogr>
+		<title level="m" type="main">Information-Based Complexity</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Traub</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">W</forename><surname>Wasilkowski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Woźniakowski</surname></persName>
+		</author>
+		<editor>A. G. Werschulz and T. Boult</editor>
+		<imprint>
+			<date type="published" when="1988">1988</date>
+			<publisher>Academic Press, Inc</publisher>
+			<pubPlace>Boston, MA</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>Computer Science and Scientific Computing</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">High-Dimensional Probability: An Introduction with Applications in Data Science</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Vershynin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Cambridge Series in Statistical and Probabilistic Mathematics</title>
+		<meeting><address><addrLine>Cambridge</addrLine></address></meeting>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="volume">47</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">The best rank-1 approximation of a symmetric tensor and related spherical optimization problems</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ling</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Qi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">SIAM J. Matrix Anal. Appl</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="806" to="821" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>
