@@ -32,12 +32,9 @@ def compare_xml_files(xml_file1, xml_file2):
         for p in p_elements:
             p_string = "".join(p.itertext())
             list_content2.append(p_string)
-    #print(list_content2)
 
     for item1, item2 in zip(list_content1, list_content2):
         if item1 == item2:
             print(f"same")
         else:
             print(f"diff : {item1} // {item2}")
-
-compare_xml_files("./data/xml_files/PMC3130168.xml","./test.xml")

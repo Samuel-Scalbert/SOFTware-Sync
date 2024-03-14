@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hal="http://hal.archives-ouvertes.fr/" version="1.1" xsi:schemaLocation="http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>HAL TEI export of hal-02083080</title>
+      </titleStmt>
+      <publicationStmt>
+        <distributor>CCSD</distributor>
+        <availability status="restricted">
+          <licence target="http://creativecommons.org/licenses/by/4.0/">Distributed under a Creative Commons Attribution 4.0 International License</licence>
+        </availability>
+        <date when="2024-03-11T23:37:14+01:00"/>
+      </publicationStmt>
+      <sourceDesc>
+        <p part="N">HAL API platform</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <listBibl>
+        <biblFull>
+          <titleStmt>
+            <title xml:lang="en">Estimating Energy Consumption of Cloud, Fog and Edge Computing Infrastructures</title>
+            <author role="aut">
+              <persName>
+                <forename type="first">Ehsan</forename>
+                <surname>Ahvar</surname>
+              </persName>
+              <email type="md5">71fd401d37eb684948229b177f15f70c</email>
+              <email type="domain">yahoo.com</email>
+              <idno type="idhal" notation="numeric">988155</idno>
+              <idno type="halauthorid" notation="string">885835-988155</idno>
+              <affiliation ref="#struct-490914"/>
+            </author>
+            <author role="aut">
+              <persName>
+                <forename type="first">Anne-Cécile</forename>
+                <surname>Orgerie</surname>
+              </persName>
+              <email type="md5">01f26bb6f7a92fa91f64df3e737d770f</email>
+              <email type="domain">irisa.fr</email>
+              <idno type="idhal" notation="string">orgerie</idno>
+              <idno type="idhal" notation="numeric">5283</idno>
+              <idno type="halauthorid" notation="string">14544-5283</idno>
+              <idno type="ORCID">https://orcid.org/0000-0003-0727-965X</idno>
+              <idno type="IDREF">https://www.idref.fr/157865002</idno>
+              <affiliation ref="#struct-490914"/>
+            </author>
+            <author role="aut">
+              <persName>
+                <forename type="first">Adrien</forename>
+                <surname>Lebre</surname>
+              </persName>
+              <email type="md5">9308be2d6fa8614bd02af8de3a5d6296</email>
+              <email type="domain">inria.fr</email>
+              <idno type="idhal" notation="string">adrien-lebre-inria</idno>
+              <idno type="idhal" notation="numeric">3254</idno>
+              <idno type="halauthorid" notation="string">25777-3254</idno>
+              <idno type="IDREF">https://www.idref.fr/11372764X</idno>
+              <idno type="ORCID">https://orcid.org/0000-0002-0305-4130</idno>
+              <affiliation ref="#struct-525233"/>
+              <affiliation ref="#struct-489559"/>
+            </author>
+            <editor role="depositor">
+              <persName>
+                <forename>Anne-Cécile</forename>
+                <surname>Orgerie</surname>
+              </persName>
+              <email type="md5">01f26bb6f7a92fa91f64df3e737d770f</email>
+              <email type="domain">irisa.fr</email>
+            </editor>
+          </titleStmt>
+          <editionStmt>
+            <edition n="v1" type="current">
+              <date type="whenSubmitted">2019-03-28 16:49:04</date>
+              <date type="whenModified">2023-08-23 14:44:03</date>
+              <date type="whenReleased">2019-03-28 16:56:31</date>
+              <date type="whenProduced">2022-04</date>
+              <date type="whenEndEmbargoed">2019-03-28</date>
+              <ref type="file" target="https://hal.science/hal-02083080/document">
+                <date notBefore="2019-03-28"/>
+              </ref>
+              <ref type="file" subtype="author" n="1" target="https://hal.science/hal-02083080/file/main-hal.pdf">
+                <date notBefore="2019-03-28"/>
+              </ref>
+              <ref type="externalLink" target="https://hal.archives-ouvertes.fr/hal-02083080/file/main-hal.pdf"/>
+            </edition>
+            <respStmt>
+              <resp>contributor</resp>
+              <name key="150004">
+                <persName>
+                  <forename>Anne-Cécile</forename>
+                  <surname>Orgerie</surname>
+                </persName>
+                <email type="md5">01f26bb6f7a92fa91f64df3e737d770f</email>
+                <email type="domain">irisa.fr</email>
+              </name>
+            </respStmt>
+          </editionStmt>
+          <publicationStmt>
+            <distributor>CCSD</distributor>
+            <idno type="halId">hal-02083080</idno>
+            <idno type="halUri">https://hal.science/hal-02083080</idno>
+            <idno type="halBibtex">ahvar:hal-02083080</idno>
+            <idno type="halRefHtml">&lt;i&gt;IEEE Transactions on Sustainable Computing&lt;/i&gt;, 2022, 7 (2), pp.277-288. &lt;a target="_blank" href="https://dx.doi.org/10.1109/TSUSC.2019.2905900"&gt;&amp;#x27E8;10.1109/TSUSC.2019.2905900&amp;#x27E9;&lt;/a&gt;</idno>
+            <idno type="halRef">IEEE Transactions on Sustainable Computing, 2022, 7 (2), pp.277-288. &amp;#x27E8;10.1109/TSUSC.2019.2905900&amp;#x27E9;</idno>
+          </publicationStmt>
+          <seriesStmt>
+            <idno type="stamp" n="INSTITUT-TELECOM">Institut Mines Télécom</idno>
+            <idno type="stamp" n="UNIV-RENNES1">Université de Rennes 1</idno>
+            <idno type="stamp" n="CNRS">CNRS - Centre national de la recherche scientifique</idno>
+            <idno type="stamp" n="INRIA">INRIA - Institut National de Recherche en Informatique et en Automatique</idno>
+            <idno type="stamp" n="UNIV-UBS">Université de Bretagne Sud</idno>
+            <idno type="stamp" n="INSA-RENNES">Institut National des Sciences Appliquées de Rennes</idno>
+            <idno type="stamp" n="EC-NANTES">Ecole Centrale de Nantes</idno>
+            <idno type="stamp" n="INRIA-RENNES">INRIA Rennes - Bretagne Atlantique</idno>
+            <idno type="stamp" n="IRISA">Irisa</idno>
+            <idno type="stamp" n="IRISA_SET">IRISA_SET</idno>
+            <idno type="stamp" n="INRIA_TEST">INRIA - Institut National de Recherche en Informatique et en Automatique</idno>
+            <idno type="stamp" n="LORIA2">Publications du LORIA</idno>
+            <idno type="stamp" n="GRID5000" corresp="SILECS">Grid'5000</idno>
+            <idno type="stamp" n="UNAM">l'unam - université nantes angers le mans</idno>
+            <idno type="stamp" n="TESTALAIN1">TESTALAIN1</idno>
+            <idno type="stamp" n="CENTRALESUPELEC">Ecole CentraleSupélec</idno>
+            <idno type="stamp" n="INRIA2">INRIA 2</idno>
+            <idno type="stamp" n="UR1-HAL">Publications labos UR1 dans HAL-Rennes 1</idno>
+            <idno type="stamp" n="UR1-MATH-STIC">UR1 - publications Maths-STIC</idno>
+            <idno type="stamp" n="LS2N">Laboratoire des Sciences du Numérique de Nantes</idno>
+            <idno type="stamp" n="UR1-UFR-ISTIC">UFR ISTIC Informatique et électronique</idno>
+            <idno type="stamp" n="LS2N-STACK" corresp="LS2N">LS2N - équipe Stack</idno>
+            <idno type="stamp" n="LS2N-STACK-IMTA">Equipe Stack</idno>
+            <idno type="stamp" n="TEST-UR-CSS">TEST Université de Rennes CSS</idno>
+            <idno type="stamp" n="IMTA_DAPI">IMT Atlantique - Département automatique, productique et informatique</idno>
+            <idno type="stamp" n="IRISA_IMTA">IRISA - IMT Atlantique</idno>
+            <idno type="stamp" n="LS2N-IMTA">LS2N - IMT Atlantique</idno>
+            <idno type="stamp" n="UNIV-RENNES">Université de Rennes</idno>
+            <idno type="stamp" n="INRIA-RENGRE">INRIA-RENGRE</idno>
+            <idno type="stamp" n="IMT-ATLANTIQUE">IMT-ATLANTIQUE</idno>
+            <idno type="stamp" n="INSTITUTS-TELECOM" corresp="INSTITUT-TELECOM">composantes instituts telecom </idno>
+            <idno type="stamp" n="SILECS">Publications from users of the SILECS research infrastructure</idno>
+            <idno type="stamp" n="UR1-MATH-NUM">Pôle Rennes 1 - Mathématiques - Numérique </idno>
+            <idno type="stamp" n="INRIAARTDOI">INRIAARTDOI</idno>
+          </seriesStmt>
+          <notesStmt>
+            <note type="audience" n="2">International</note>
+            <note type="popular" n="0">No</note>
+            <note type="peer" n="1">Yes</note>
+          </notesStmt>
+          <sourceDesc>
+            <biblStruct>
+              <analytic>
+                <title xml:lang="en">Estimating Energy Consumption of Cloud, Fog and Edge Computing Infrastructures</title>
+                <author role="aut">
+                  <persName>
+                    <forename type="first">Ehsan</forename>
+                    <surname>Ahvar</surname>
+                  </persName>
+                  <email type="md5">71fd401d37eb684948229b177f15f70c</email>
+                  <email type="domain">yahoo.com</email>
+                  <idno type="idhal" notation="numeric">988155</idno>
+                  <idno type="halauthorid" notation="string">885835-988155</idno>
+                  <affiliation ref="#struct-490914"/>
+                </author>
+                <author role="aut">
+                  <persName>
+                    <forename type="first">Anne-Cécile</forename>
+                    <surname>Orgerie</surname>
+                  </persName>
+                  <email type="md5">01f26bb6f7a92fa91f64df3e737d770f</email>
+                  <email type="domain">irisa.fr</email>
+                  <idno type="idhal" notation="string">orgerie</idno>
+                  <idno type="idhal" notation="numeric">5283</idno>
+                  <idno type="halauthorid" notation="string">14544-5283</idno>
+                  <idno type="ORCID">https://orcid.org/0000-0003-0727-965X</idno>
+                  <idno type="IDREF">https://www.idref.fr/157865002</idno>
+                  <affiliation ref="#struct-490914"/>
+                </author>
+                <author role="aut">
+                  <persName>
+                    <forename type="first">Adrien</forename>
+                    <surname>Lebre</surname>
+                  </persName>
+                  <email type="md5">9308be2d6fa8614bd02af8de3a5d6296</email>
+                  <email type="domain">inria.fr</email>
+                  <idno type="idhal" notation="string">adrien-lebre-inria</idno>
+                  <idno type="idhal" notation="numeric">3254</idno>
+                  <idno type="halauthorid" notation="string">25777-3254</idno>
+                  <idno type="IDREF">https://www.idref.fr/11372764X</idno>
+                  <idno type="ORCID">https://orcid.org/0000-0002-0305-4130</idno>
+                  <affiliation ref="#struct-525233"/>
+                  <affiliation ref="#struct-489559"/>
+                </author>
+              </analytic>
+              <monogr>
+                <idno type="halJournalId" status="VALID">118068</idno>
+                <idno type="issn">2377-3782</idno>
+                <title level="j">IEEE Transactions on Sustainable Computing</title>
+                <imprint>
+                  <publisher>IEEE</publisher>
+                  <biblScope unit="volume">7</biblScope>
+                  <biblScope unit="issue">2</biblScope>
+                  <biblScope unit="pp">277-288</biblScope>
+                  <date type="datePub">2022-04</date>
+                  <date type="dateEpub">2019-04</date>
+                </imprint>
+              </monogr>
+              <idno type="doi">10.1109/TSUSC.2019.2905900</idno>
+            </biblStruct>
+          </sourceDesc>
+          <profileDesc>
+            <langUsage>
+              <language ident="en">English</language>
+            </langUsage>
+            <textClass>
+              <keywords scheme="author">
+                <term xml:lang="en">distributed Clouds</term>
+                <term xml:lang="en">energy consumption</term>
+                <term xml:lang="en">Cloud computing</term>
+                <term xml:lang="en">Fog computing</term>
+                <term xml:lang="en">Edge computing</term>
+                <term xml:lang="en">Peer-to-peer</term>
+              </keywords>
+              <classCode scheme="halDomain" n="info.info-ni">Computer Science [cs]/Networking and Internet Architecture [cs.NI]</classCode>
+              <classCode scheme="halDomain" n="info.info-dc">Computer Science [cs]/Distributed, Parallel, and Cluster Computing [cs.DC]</classCode>
+              <classCode scheme="halTypology" n="ART">Journal articles</classCode>
+              <classCode scheme="halOldTypology" n="ART">Journal articles</classCode>
+              <classCode scheme="halTreeTypology" n="ART">Journal articles</classCode>
+            </textClass>
+            <abstract xml:lang="en">
+              <p>In order to improve locality aspects, new Cloud-related architectures such as Edge Computing have been proposed. Despite the growing popularity of these new architectures, their energy consumption has not been well investigated yet. To move forward on such a critical question, we first introduce a taxonomy of different Cloud-related architectures. From this taxonomy, we then present an energy model to evaluate their consumption. Unlike previous proposals, our model comprises the full energy consumption of the computing facilities, including cooling systems, and the energy consumption of network devices linking end users to Cloud resources. Finally, we instantiate our model on different Cloud-related architectures, ranging from fully centralized to completely distributed ones, and compare their energy consumption. The results show that a completely distributed architecture, because of not using intra-data center network and large-size cooling systems, consumes between 14% and 25% less energy than fully centralized and partly distributed architectures respectively. To the best of our knowledge, our work is the first one to propose a model that enables researchers to analyze and compare energy consumption of different Cloud-related architectures.</p>
+            </abstract>
+          </profileDesc>
+        </biblFull>
+      </listBibl>
+    </body>
+    <back>
+      <listOrg type="structures">
+        <org type="researchteam" xml:id="struct-490914" status="VALID">
+          <idno type="RNSR">201020965Z</idno>
+          <orgName>Design and Implementation of Autonomous Distributed Systems</orgName>
+          <orgName type="acronym">MYRIADS</orgName>
+          <desc>
+            <address>
+              <addrLine>Campus de Beaulieu 35042 Rennes cedex</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.inria.fr/equipes/myriads</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-419153" type="direct"/>
+            <relation active="#struct-300009" type="indirect"/>
+            <relation active="#struct-490900" type="direct"/>
+            <relation active="#struct-490899" type="indirect"/>
+            <relation active="#struct-105160" type="indirect"/>
+            <relation active="#struct-117606" type="indirect"/>
+            <relation active="#struct-301232" type="indirect"/>
+            <relation active="#struct-172265" type="indirect"/>
+            <relation active="#struct-247362" type="indirect"/>
+            <relation active="#struct-411575" type="indirect"/>
+            <relation name="UMR6074" active="#struct-441569" type="indirect"/>
+            <relation active="#struct-481355" type="indirect"/>
+            <relation active="#struct-302102" type="indirect"/>
+          </listRelation>
+        </org>
+        <org type="researchteam" xml:id="struct-525233" status="OLD">
+          <idno type="RNSR">201722617P</idno>
+          <orgName>Software Stack for Massively Geo-Distributed Infrastructures</orgName>
+          <orgName type="acronym">LS2N - équipe STACK</orgName>
+          <date type="start">2017-11-01</date>
+          <date type="end">2021-12-31</date>
+          <desc>
+            <address>
+              <addrLine>IMT Atlantique - Campus de Nantes, 4, rue Alfred Kastler - La Chantrerie, CS 20722, 44307 Nantes cedex 3</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">https://www.inria.fr/equipes/stack</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-419153" type="direct"/>
+            <relation active="#struct-300009" type="indirect"/>
+            <relation active="#struct-473973" type="direct"/>
+            <relation active="#struct-97058" type="indirect"/>
+            <relation active="#struct-93263" type="indirect"/>
+            <relation active="#struct-111023" type="indirect"/>
+            <relation name="UMR6004" active="#struct-441569" type="indirect"/>
+            <relation active="#struct-481355" type="indirect"/>
+            <relation active="#struct-302102" type="indirect"/>
+          </listRelation>
+        </org>
+        <org type="department" xml:id="struct-489559" status="VALID">
+          <orgName>Département Automatique, Productique et Informatique</orgName>
+          <orgName type="acronym">IMT Atlantique - DAPI</orgName>
+          <date type="start">2017-03-21</date>
+          <desc>
+            <address>
+              <addrLine>IMT Atlantique - Campus de Nantes - La Chantrerie - 4, rue Alfred Kastler - CS 20722 - 44307 NANTES Cedex 3 </addrLine>
+              <country key="FR"/>
+            </address>
+          </desc>
+          <listRelation>
+            <relation active="#struct-481355" type="direct"/>
+            <relation active="#struct-302102" type="indirect"/>
+          </listRelation>
+        </org>
+        <org type="laboratory" xml:id="struct-419153" status="VALID">
+          <idno type="RNSR">198018249C</idno>
+          <idno type="ROR">https://ror.org/04040yw90</idno>
+          <orgName>Inria Rennes – Bretagne Atlantique</orgName>
+          <desc>
+            <address>
+              <addrLine>Campus de beaulieu35042 Rennes cedex</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.inria.fr/centre/rennes</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-300009" type="direct"/>
+          </listRelation>
+        </org>
+        <org type="institution" xml:id="struct-300009" status="VALID">
+          <idno type="ROR">https://ror.org/02kvxyf05</idno>
+          <orgName>Institut National de Recherche en Informatique et en Automatique</orgName>
+          <orgName type="acronym">Inria</orgName>
+          <desc>
+            <address>
+              <addrLine>Domaine de VoluceauRocquencourt - BP 10578153 Le Chesnay Cedex</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.inria.fr/en/</ref>
+          </desc>
+        </org>
+        <org type="department" xml:id="struct-490900" status="VALID">
+          <orgName>SYSTÈMES LARGE ÉCHELLE</orgName>
+          <orgName type="acronym">IRISA-D1</orgName>
+          <desc>
+            <address>
+              <country key="FR"/>
+            </address>
+            <ref type="url">https://www.irisa.fr/fr/departements/d1-systemes-large-echelle</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-490899" type="direct"/>
+            <relation active="#struct-105160" type="indirect"/>
+            <relation active="#struct-117606" type="indirect"/>
+            <relation active="#struct-301232" type="indirect"/>
+            <relation active="#struct-172265" type="indirect"/>
+            <relation active="#struct-247362" type="indirect"/>
+            <relation active="#struct-300009" type="indirect"/>
+            <relation active="#struct-411575" type="indirect"/>
+            <relation name="UMR6074" active="#struct-441569" type="indirect"/>
+            <relation active="#struct-481355" type="indirect"/>
+            <relation active="#struct-302102" type="indirect"/>
+          </listRelation>
+        </org>
+        <org type="laboratory" xml:id="struct-490899" status="VALID">
+          <idno type="IdRef">026386909</idno>
+          <idno type="ISNI">0000 0001 2298 7270</idno>
+          <idno type="RNSR">200012163A</idno>
+          <idno type="ROR">https://ror.org/00myn0z94</idno>
+          <orgName>Institut de Recherche en Informatique et Systèmes Aléatoires</orgName>
+          <orgName type="acronym">IRISA</orgName>
+          <date type="start">2017-01-01</date>
+          <desc>
+            <address>
+              <addrLine>Avenue du général LeclercCampus de Beaulieu 35042 RENNES CEDEX</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.irisa.fr</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-105160" type="direct"/>
+            <relation active="#struct-117606" type="direct"/>
+            <relation active="#struct-301232" type="indirect"/>
+            <relation active="#struct-172265" type="direct"/>
+            <relation active="#struct-247362" type="direct"/>
+            <relation active="#struct-300009" type="direct"/>
+            <relation active="#struct-411575" type="direct"/>
+            <relation name="UMR6074" active="#struct-441569" type="direct"/>
+            <relation active="#struct-481355" type="direct"/>
+            <relation active="#struct-302102" type="indirect"/>
+          </listRelation>
+        </org>
+        <org type="institution" xml:id="struct-105160" status="VALID">
+          <idno type="ROR">https://ror.org/015m7wh34</idno>
+          <orgName>Université de Rennes</orgName>
+          <orgName type="acronym">UR</orgName>
+          <desc>
+            <address>
+              <addrLine>Campus de Beaulieu, 263 avenue Général Leclerc, CS 74205, 35042 RENNES CEDEX</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">https://www.univ-rennes.fr/</ref>
+          </desc>
+        </org>
+        <org type="institution" xml:id="struct-117606" status="VALID">
+          <idno type="ROR">https://ror.org/04xaa4j22</idno>
+          <orgName>Institut National des Sciences Appliquées - Rennes</orgName>
+          <orgName type="acronym">INSA Rennes</orgName>
+          <desc>
+            <address>
+              <addrLine>20, avenue des Buttes de Coësmes - CS 70839 - 35708 Rennes cedex 7</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.insa-rennes.fr/</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-301232" type="direct"/>
+          </listRelation>
+        </org>
+        <org type="regroupinstitution" xml:id="struct-301232" status="VALID">
+          <idno type="IdRef">162105150</idno>
+          <orgName>Institut National des Sciences Appliquées</orgName>
+          <orgName type="acronym">INSA</orgName>
+          <desc>
+            <address>
+              <country key="FR"/>
+            </address>
+          </desc>
+        </org>
+        <org type="institution" xml:id="struct-172265" status="VALID">
+          <idno type="ROR">https://ror.org/04ed7fw48</idno>
+          <orgName>Université de Bretagne Sud</orgName>
+          <orgName type="acronym">UBS</orgName>
+          <desc>
+            <address>
+              <addrLine>BP 92116 - 56321 Lorient cedex</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.univ-ubs.fr/</ref>
+          </desc>
+        </org>
+        <org type="institution" xml:id="struct-247362" status="VALID">
+          <idno type="ROR">https://ror.org/03rxtdc22</idno>
+          <orgName>École normale supérieure - Rennes</orgName>
+          <orgName type="acronym">ENS Rennes</orgName>
+          <desc>
+            <address>
+              <addrLine>Campus de Ker Lann - avenue Robert Schuman - 35170 Bruz</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.ens-rennes.fr</ref>
+          </desc>
+        </org>
+        <org type="institution" xml:id="struct-411575" status="VALID">
+          <idno type="IdRef">184443237</idno>
+          <idno type="ROR">https://ror.org/019tcpt25</idno>
+          <orgName>CentraleSupélec</orgName>
+          <desc>
+            <address>
+              <addrLine>3, rue Joliot Curie,Plateau de Moulon,91192 GIF-SUR-YVETTE Cedex</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.centralesupelec.fr</ref>
+          </desc>
+        </org>
+        <org type="regroupinstitution" xml:id="struct-441569" status="VALID">
+          <idno type="IdRef">02636817X</idno>
+          <idno type="ISNI">0000000122597504</idno>
+          <idno type="ROR">https://ror.org/02feahw73</idno>
+          <orgName>Centre National de la Recherche Scientifique</orgName>
+          <orgName type="acronym">CNRS</orgName>
+          <date type="start">1939-10-19</date>
+          <desc>
+            <address>
+              <country key="FR"/>
+            </address>
+            <ref type="url">https://www.cnrs.fr/</ref>
+          </desc>
+        </org>
+        <org type="institution" xml:id="struct-481355" status="VALID">
+          <idno type="IdRef">202743233</idno>
+          <idno type="ROR">https://ror.org/030hj3061</idno>
+          <orgName>IMT Atlantique</orgName>
+          <orgName type="acronym">IMT Atlantique</orgName>
+          <date type="start">2017-01-01</date>
+          <desc>
+            <address>
+              <addrLine>Campus Brest : Technopôle Brest-Iroise CS 8381829238 BREST Cedex 3 -Campus Nantes : 4, rue Alfred Kastler- La chantrerie 44300 NANTES -Campus Rennes :  2 Rue de la Châtaigneraie, 35510 CESSON SEVIGNE</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">https://www.imt-atlantique.fr</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-302102" type="direct"/>
+          </listRelation>
+        </org>
+        <org type="regroupinstitution" xml:id="struct-302102" status="VALID">
+          <idno type="ROR">https://ror.org/025vp2923</idno>
+          <orgName>Institut Mines-Télécom [Paris]</orgName>
+          <orgName type="acronym">IMT</orgName>
+          <date type="start">2012-03-01</date>
+          <desc>
+            <address>
+              <addrLine>37-39 Rue Dareau, 75014 Paris</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.mines-telecom.fr/</ref>
+          </desc>
+        </org>
+        <org type="laboratory" xml:id="struct-473973" status="OLD">
+          <idno type="IdRef">203637585</idno>
+          <idno type="RNSR">201722241F</idno>
+          <idno type="ROR">https://ror.org/02snf8m58</idno>
+          <orgName>Laboratoire des Sciences du Numérique de Nantes</orgName>
+          <orgName type="acronym">LS2N</orgName>
+          <date type="start">2017-01-01</date>
+          <date type="end">2021-12-31</date>
+          <desc>
+            <address>
+              <addrLine>Université de Nantes – faculté des Sciences et Techniques (FST)2 Chemin de la HoussinièreBP 92208, 44322 Nantes Cedex 3</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">https://www.ls2n.fr</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-97058" type="direct"/>
+            <relation active="#struct-93263" type="indirect"/>
+            <relation active="#struct-111023" type="direct"/>
+            <relation name="UMR6004" active="#struct-441569" type="direct"/>
+            <relation active="#struct-481355" type="direct"/>
+            <relation active="#struct-302102" type="indirect"/>
+          </listRelation>
+        </org>
+        <org type="regrouplaboratory" xml:id="struct-97058" status="OLD">
+          <orgName>Université de Nantes - UFR des Sciences et des Techniques</orgName>
+          <orgName type="acronym">UN UFR ST</orgName>
+          <date type="end">2021-12-31</date>
+          <desc>
+            <address>
+              <addrLine>2, rue de la Houssinière - BP 92208 - 44322 Nantes cedex 3</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.sciences-techniques.univ-nantes.fr/</ref>
+          </desc>
+          <listRelation>
+            <relation active="#struct-93263" type="direct"/>
+          </listRelation>
+        </org>
+        <org type="institution" xml:id="struct-93263" status="OLD">
+          <idno type="IdRef">026403447</idno>
+          <idno type="ROR">https://ror.org/03gnr7b55</idno>
+          <orgName>Université de Nantes</orgName>
+          <orgName type="acronym">UN</orgName>
+          <date type="end">2021-12-31</date>
+          <desc>
+            <address>
+              <addrLine>1, quai de Tourville - BP 13522 - 44035 Nantes cedex 1</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.univ-nantes.fr/</ref>
+          </desc>
+        </org>
+        <org type="institution" xml:id="struct-111023" status="OLD">
+          <idno type="IdRef">03063525X</idno>
+          <idno type="ISNI">0000000122039289</idno>
+          <idno type="ROR">https://ror.org/03nh7d505</idno>
+          <orgName>École Centrale de Nantes</orgName>
+          <orgName type="acronym">ECN</orgName>
+          <date type="end">2021-12-31</date>
+          <desc>
+            <address>
+              <addrLine>1 rue de la Noë - BP 92101 - 44321 Nantes cedex 3</addrLine>
+              <country key="FR"/>
+            </address>
+            <ref type="url">http://www.ec-nantes.fr/</ref>
+          </desc>
+        </org>
+      </listOrg>
+    </back>
+  </text>
+</TEI>

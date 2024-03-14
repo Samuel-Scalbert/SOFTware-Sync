@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from fuzzywuzzy import fuzz
-from .utils import longest_common_substrings,find_closest_number, find_occurrences
+from package_perso.utils import longest_common_substrings, find_closest_number, find_occurrences
 
 
 def wizzard_xml_json2(p, software_mentions, logger):
@@ -71,15 +71,16 @@ def wizzard_xml_json2(p, software_mentions, logger):
             occurrences = find_occurrences(software,p_string[index_context_from_fuzzy:])
             p_software_index = find_closest_number(offsetStart,occurrences)
             if p_software_index:
-                if p_string[index_context_from_fuzzy + p_software_index:index_context_from_fuzzy + p_software_index+len(software)] == software:
-                    offsetStart_full_str = index_context_from_fuzzy + p_software_index
-                    software_list = ['software', software, None, offsetStart_full_str, 'software', None, 'fuzzy']
-                    full_list_software.append(software_list)
-                    context_list_found.append([context,software_list[6]])
+                if p_software_index >= 0:
+                    if p_string[index_context_from_fuzzy + p_software_index:index_context_from_fuzzy + p_software_index+len(software)] == software:
+                        offsetStart_full_str = index_context_from_fuzzy + p_software_index
+                        software_list = ['software', software, None, offsetStart_full_str, 'software', None, 'fuzzy']
+                        full_list_software.append(software_list)
+                        context_list_found.append([context,software_list[6]])
+                    else:
+                        logger.critical(f'error index (fuzzy) software for: {context}')
                 else:
-                    logger.critical(f'error index (fuzzy) software for: {context}')
-            else:
-                logger.critical(f'critical occurences')
+                    logger.critical(f'critical occurences, {software} {context}')
     if not full_list_software:
         return False
 

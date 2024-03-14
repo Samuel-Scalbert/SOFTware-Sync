@@ -3,6 +3,16 @@ import re
 import os
 import logging
 
+def common_file_xmlgrobid_xmlmeta(xml_path_GROBID,xml_path_META):
+    list_xml_grobid = os.listdir(xml_path_GROBID)
+    list_xml_grobid = [file_name.replace('.grobid.tei.xml', '') for file_name in list_xml_grobid]
+    list_xml_meta = os.listdir(xml_path_META)
+    list_xml_meta = [file_name.replace('.xml', '') for file_name in list_xml_meta]
+    list_common_file = []
+    for xml in list_xml_grobid:
+        if xml in list_xml_meta:
+            list_common_file.append(xml)
+    return list_common_file
 
 def setup_logger(name, log_file, level=logging.INFO):
     handler = logging.FileHandler(log_file, mode='w')
@@ -14,7 +24,7 @@ def setup_logger(name, log_file, level=logging.INFO):
 
     return logger
 
-def common_file(dir_xml_path,dir_json_path):
+def common_file_xml_json(dir_xml_path,dir_json_path):
     list_xml = os.listdir(dir_xml_path)
     for xml in list_xml:
         if xml.endswith('.xml.log'):

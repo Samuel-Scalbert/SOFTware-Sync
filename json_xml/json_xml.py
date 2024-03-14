@@ -1,9 +1,8 @@
 import xml.etree.ElementTree as ET
 import json
-from .xml_json import wizzard_xml_json2
-import logging
+from .wizzard import wizzard_xml_json2
 import os
-from .utils import setup_logger
+from package_perso.utils import setup_logger
 
 def json_enhance_xml(xml_path, json_path,super_logger):
 
@@ -91,7 +90,7 @@ def json_enhance_xml(xml_path, json_path,super_logger):
         super_logger.info(f'Test passed\n')
 
     # Write the modified XML back to the file
-    with open(f"./data/software_result/{file_name.replace('.xml','')}.software.xml", 'wb') as output_xml_file:
+    with open(f"./result/XML_software/{file_name.replace('.xml','')}.software.xml", 'wb') as output_xml_file:
         ET.register_namespace("", "http://www.tei-c.org/ns/1.0")
         xml_str = ET.tostring(root, encoding='utf-8')
         output_xml_file.write(xml_str)
