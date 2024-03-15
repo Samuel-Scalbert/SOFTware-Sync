@@ -1,0 +1,46 @@
+software,counts,document
+CATALA,52,2
+code,45,1
+Guix,15,2
+LinearSnap,15,1
+SimpleAfek,14,2
+DoRead,11,1
+NewLinearSnap,10,1
+guix,10,1
+OpenFisca,7,1
+Cgal,6,1
+Eigen,6,1
+EndRead,5,1
+Web,3,1
+InCircle,3,2
+CentOS,2,1
+EasyBuild,2,1
+Spack,2,1
+Prolog,2,1
+Apache,1,1
+CompCert,1,1
+WebAssembly,1,1
+Computational Geometry Algorithms Library,1,1
+Cgal package,1,1
+Flora2,1,1
+Cgal packages,1,1
+Maple,1,1
+guix install,1,1
+guix shell,1,1
+guix package,1,1
+C,1,1
+ARPACK- NG,1,1
+libc,1,1
+xsimd,1,1
+Ceres,1,1
+xtensor,1,1
+Every,1,1
+ld.so,1,1
+GMP library,1,1
+FEn- iCSx,1,1
+Ubuntu,1,1
+Libgcrypt,1,1
+Nettle,1,1
+OpenBLAS,1,1
+FFTW,1,1
+Linux,1,1

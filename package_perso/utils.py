@@ -14,7 +14,7 @@ def common_file_xmlgrobid_xmlmeta(xml_path_GROBID,xml_path_META):
             list_common_file.append(xml)
     return list_common_file
 
-def setup_logger(name, log_file, level=logging.INFO):
+def setup_logger(name, log_file, level=logging.DEBUG):
     handler = logging.FileHandler(log_file, mode='w')
     handler.setFormatter(logging.Formatter('%(levelname)s : %(message)s'))
 

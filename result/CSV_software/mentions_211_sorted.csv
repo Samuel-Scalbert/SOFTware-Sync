@@ -1,0 +1,212 @@
+software,counts,document
+NeuroLang,55,2
+CATALA,51,2
+ANDES,30,2
+Maude,22,2
+WebThings,19,1
+COCO,18,2
+Software,17,1
+LinearSnap,15,1
+Guix,15,2
+Neurosynth,14,1
+SimpleAfek,14,2
+LITTLE,14,1
+big,13,1
+MOEA,13,2
+DoRead,11,1
+recPhyloXML,11,1
+NewLinearSnap,10,1
+Eigen,10,2
+Streamcluster,10,1
+guix,10,1
+Canneal,10,2
+ThirdStep,9,2
+Thirdkind,9,2
+ns,9,2
+CADP,9,1
+Mozart,9,1
+Cgal,8,1
+XGBoost,8,1
+Google,8,1
+OpenFisca,7,1
+phyloxml,7,1
+U NDER P RESSURE,7,2
+λProlog,7,2
+NeuroQuery,7,1
+SciVis,6,2
+VAST,6,1
+phyloXML,6,1
+InfoVis,5,1
+DynaSLAM,5,2
+InCircle,5,2
+EndRead,5,1
+NewSecondStep,5,1
+NewFirstStep,5,1
+SecondStep,5,1
+NSGA,5,1
+big.LITTLE,5,2
+Google Chrome,4,1
+DynamIQ,4,1
+SearchPanel,4,1
+GNU,4,1
+Gurobi,4,2
+Firefox,4,1
+TrafficVision,4,1
+Approxbench,4,1
+MultiClassifier,4,1
+FreeFem++,3,2
+FirstStep,3,1
+GreedyMerge,3,1
+NewThirdStep,3,1
+SearchPad,3,1
+Skype,3,1
+Omnibox,3,1
+SimVascular,3,1
+FedDICE,3,1
+OpenPnP,3,1
+SylvX,3,1
+Spectra,3,1
+PyKeops,3,2
+package,3,1
+SQLite,2,1
+CADP toolbox,2,1
+Julia,2,2
+R-Mozart,2,1
+runTrace,2,1
+Prolog,2,1
+VARMAN,2,1
+Clang-Chimera,2,1
+GitHub,2,1
+DuckDuckGo,2,1
+NetworkRegion,2,1
+RegionVoxel,2,1
+SelectedStudy,2,1
+TopicAssociation,2,1
+BrainMap,2,1
+Android,2,1
+LaTeX,2,1
+NumPy,2,1
+Chromium,2,1
+Spack,2,1
+CentOS,2,1
+PyTorch,2,2
+PySAP,2,1
+EasyBuild,2,1
+pysap-mri,2,1
+VOSviewer,2,2
+eMPRess,1,1
+Jane,1,1
+Treerecs,1,1
+GeneRax,1,1
+NOTUNG,1,1
+Recphylovisu,1,1
+code,1,1
+DoubleRecViz,1,1
+Mathcrypt,1,2
+System,1,1
+VoxelReported,1,1
+manycore simulator,1,1
+SNIPER,1,1
+StreamCluster,1,1
+Google Scholar,1,1
+CP-Logic,1,1
+Safari,1,1
+google,1,1
+Bento Browser,1,1
+AugmeNteD sEarch,1,1
+ProbLog2,1,1
+NiMare,1,1
+PeakReported,1,1
+Linux,1,1
+Brain-Map,1,1
+Sniper,1,1
+Libgcrypt,1,1
+FEn,1,1
+ld.so,1,1
+SIMD Everywhere,1,1
+xtensor,1,1
+Ceres,1,1
+xsimd,1,1
+CuPy,1,1
+FFTW,1,1
+OpenBLAS,1,1
+libc,1,1
+ARPACK-NG,1,1
+guix package,1,1
+guix shell,1,1
+Capybara,1,1
+PsyToolkit,1,1
+PICASSO,1,2
+NSGA-II-Matlab,1,1
+Octave,1,1
+Matlab,1,1
+IPython,1,1
+COCO 12,1,1
+-LANGUAGEOFINTEREST,1,1
+APISENSE,1,1
+Nettle,1,1
+IdleGap,1,1
+Semantic Scholar,1,1
+locfit,1,1
+Genderize,1,1
+guix install,1,1
+CUDA.jl,1,1
+BifurcationKit.jl,1,1
+KrylovKit.jl,1,1
+bpmn.io,1,1
+Node.js,1,1
+gpuNUFFT,1,1
+MiBench suite,1,1
+Comet simulator,1,1
+GeForce,1,1
+W-Billard,1,1
+Labelled Transition System Analyser (LTSA),1,1
+-HnR,1,1
+WebThings API,1,1
+Freemarker,1,1
+Tensorflow,1,1
+STATE,1,1
+Motion Graphs++,1,1
+Py-Torch,1,1
+Maple,1,1
+Cgal packages,1,1
+Computational Geometry Algorithms Library,1,1
+BitBucket,1,1
+GitLab.com,1,1
+volesti,1,1
+crawler,1,1
+Pypi,1,1
+CRAN,1,2
+GenericFactorFilter,1,1
+MAGMA 2,1,1
+Spring Boot application,1,1
+EUCLIDEAN,1,1
+IDEA,1,1
+Vivado,1,1
+Windows 8,1,1
+Bing,1,1
+Statista,1,1
+cuBLAS,1,1
+VirtualBox,1,1
+cuFFT,1,1
+Hangout,1,1
+CAIDA,1,1
+scikit-learn,1,1
+Atlas,1,1
+Pandas,1,1
+Deformetrica,1,2
+Matplotlib,1,1
+Hadoop,1,1
+PILOT BJORK,1,1
+Deep Mind,1,1
+XGboost,1,1
+Tcpreplay,1,1
+Scikit-learn,1,1
+Spark,1,2
+ARM big,1,1
+WebAssembly,1,1
+Flora2 by,1,1
+CompCert by,1,1
+Chrome,1,1
+Vascular Modeling ToolKit,1,1
+MLib,1,1

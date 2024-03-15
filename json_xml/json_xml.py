@@ -6,6 +6,8 @@ from package_perso.utils import setup_logger
 
 def json_enhance_xml(xml_path, json_path,super_logger):
 
+    filename = file_name = os.path.basename(xml_path)
+
     with open(xml_path, 'r') as xml_file:
         tree = ET.parse(xml_file)
         root = tree.getroot()
@@ -19,6 +21,11 @@ def json_enhance_xml(xml_path, json_path,super_logger):
         list_mentions = []
         mentions_count = 0
         software_list_json = []
+
+        if not data_json_get_mentions:
+            super_logger.info(f'{filename}')
+            super_logger.info('no mentions\n')
+            return None
 
         for mention in data_json_get_mentions:
             software_type = mention["software-type"]
@@ -40,7 +47,6 @@ def json_enhance_xml(xml_path, json_path,super_logger):
 
             if mentions:
                 mentions_count += 1
-    filename = file_name = os.path.basename(xml_path)
     super_logger.info(f'{filename}')
     super_logger.info(f'{software_types}')
     super_logger.info(f'{software_counts}')
@@ -57,7 +63,7 @@ def json_enhance_xml(xml_path, json_path,super_logger):
 
     context_list_found = []
 
-    logger = setup_logger(f'{xml_path}', f'{xml_path}.log')
+    logger = setup_logger(f'{xml_path}', f'./data/xml_files/log_xml/{filename}.log')
 
     p_elements = root.findall(".//tei:p", ns)
     for p in p_elements:
