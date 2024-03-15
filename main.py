@@ -29,6 +29,8 @@ if __name__ == "__main__":
 
 7. --check-XML-JSON : Check the number of XML files available against the number of JSON files.
    Usage: python main.py --check-XML-JSON <xml_path> <json_path>
+   
+   pour le commit
             """
 
     if sys.argv[1] in ["--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
