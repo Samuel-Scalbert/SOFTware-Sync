@@ -125,8 +125,6 @@ def wizzard_xml_json2(p, software_mentions, logger):
                         old_string = original_sub_tags_list[nb][2]
                         new_tail_prior_tag = p_string[original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1]): str_alt_index]
                         tail_software =p_string[str_alt_index + len(software):original_sub_tags_list[nb+1][3]]
-                        if len(tail_software) == 0:
-                            tail_software = ' '
                         if (str_alt_index > original_sub_tags_list[nb][3] or str_alt_index == original_sub_tags_list[nb][3]) and str_alt_index < original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1]):
                             new_text_prior_tag = p_string[original_sub_tags_list[nb][3]:str_alt_index]
                             tail_software = p_string[str_alt_index + len(software):original_sub_tags_list[nb][3] + len(
@@ -150,14 +148,13 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             founded = True
                             break
                         else:
-                            logger.critical(f'CRITICAL : {software}(middle) {old_string} : CRITICAL')
+                            logger.critical(f'"{tail_software}"')
+                            logger.critical(f'CRITICAL : {software}(middle) "{old_string}" : CRITICAL')
                 except IndexError:
                     if str_alt_index >= original_sub_tags_list[len(original_sub_tags_list)-1][3]:
                         old_string = original_sub_tags_list[len(original_sub_tags_list)-1][2]
                         new_tail_prior_tag = p_string[original_sub_tags_list[len(original_sub_tags_list)-1][3] + len(original_sub_tags_list[len(original_sub_tags_list)-1][1]):str_alt_index]
                         tail_software = p_string[str_alt_index + len(software):]
-                        if len(tail_software) == 0:
-                            tail_software = ' '
                         if str_alt_index >= original_sub_tags_list[nb][3] and str_alt_index < original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1]):
                             new_text_prior_tag = p_string[original_sub_tags_list[nb][3]:str_alt_index]
                             tail_software = p_string[str_alt_index + len(software):original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1])]
