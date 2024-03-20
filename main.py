@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
 9. --mentions-checker : Check for empty JSON mentions files.
     Usage: python main.py --mentions-checker <json_path>
+    
             """
 
     if sys.argv[1] in ["--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
