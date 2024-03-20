@@ -30,11 +30,3 @@ Available options for SOFTware-Sync:
 9. --mentions-checker : Check for empty JSON mentions files.
     Usage: python main.py --mentions-checker <json_path>
 ```
-
-
-### Pitfalls
-Use a logging service to keep track of results.
-Comment code thoroughly for better understanding and future modifications.
-
-## Idea
-CHAT-GPT4
