@@ -2,6 +2,7 @@ import sys
 from json_xml.json_xml import json_enhance_xml
 from package_perso.utils import common_file_xml_json, setup_logger, common_file_xmlgrobid_xmlmeta, mention_checker
 from meta_grobid_xml.xml_builder import xml_builder
+from meta_grobid_xml.scrapper import downloader_halid
 import os
 from tqdm import tqdm
 from json_software_displayer.software_displayer import json_parser_csv
@@ -35,10 +36,9 @@ if __name__ == "__main__":
 
 9. --mentions-checker : Check for empty JSON mentions files.
     Usage: python main.py --mentions-checker <json_path>
-    
             """
 
-    if sys.argv[1] in ["--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
+    if sys.argv[1] in ["--download-halid","--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
 
         if sys.argv[1] in ["--help","-h"]:
             print(message)
@@ -88,5 +88,10 @@ if __name__ == "__main__":
         if sys.argv[1] == "--mentions-checker":
             path_json = sys.argv[2]
             print(f'{len(mention_checker(path_json))} JSON files without mentions')
+
+        if sys.argv[1] == "--download-halid":
+            csv_path = sys.argv[2]
+            downloader_halid(csv_path)
+
     else:
         print(message)
