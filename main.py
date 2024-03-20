@@ -1,6 +1,6 @@
 import sys
 from json_xml.json_xml import json_enhance_xml
-from package_perso.utils import common_file_xml_json, setup_logger, common_file_xmlgrobid_xmlmeta
+from package_perso.utils import common_file_xml_json, setup_logger, common_file_xmlgrobid_xmlmeta, mention_checker
 from meta_grobid_xml.xml_builder import xml_builder
 import os
 from tqdm import tqdm
@@ -32,9 +32,12 @@ if __name__ == "__main__":
    
 8. --csv-creator : Create a csv to display the number of mentions and its occurrences of a software.
     Usage: python main.py --csv-creator <json_path>
+
+9. --mentions-checker : Check for empty JSON mentions files.
+    Usage: python main.py --mentions-checker <json_path>
             """
 
-    if sys.argv[1] in ["--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
+    if sys.argv[1] in ["--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
 
         if sys.argv[1] in ["--help","-h"]:
             print(message)
@@ -80,5 +83,9 @@ if __name__ == "__main__":
         if sys.argv[1] == "--csv-creator":
             path_json = sys.argv[2]
             json_parser_csv(path_json)
+
+        if sys.argv[1] == "--mentions-checker":
+            path_json = sys.argv[2]
+            print(f'{len(mention_checker(path_json))} JSON files without mentions')
     else:
         print(message)

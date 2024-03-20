@@ -121,7 +121,7 @@
 		<back>
 
 			<div type="acknowledgement">
-<div><head>ACKNOWLEDGMENTS.</head><p>A.S. would like to thank <rs type="person">Xavier Bonnetain</rs> for discussions on Kuperberg's algorithm. Both authors would like to thank <rs type="person">Jeeun Lee</rs>, <rs type="person">Changmin Lee</rs> and the anonymous reviewers of <software>Mathcrypt</software> for helpful comments. This work has been supported by the <rs type="funder">European Union</rs>'s <rs type="grantNumber">H2020</rs> project No. <rs type="grantNumber">714294</rs> (<rs type="projectName">QUASYModo</rs>) and by <rs type="funder">ERC-ADG-ALSTRONGCRYPTO</rs> (project <rs type="grantNumber">740972</rs>).</p></div>
+<div><head>ACKNOWLEDGMENTS.</head><p>A.S. would like to thank <rs type="person">Xavier Bonnetain</rs> for discussions on Kuperberg's algorithm. Both authors would like to thank <rs type="person">Jeeun Lee</rs>, <rs type="person">Changmin Lee</rs> and the anonymous reviewers of <software ContextAttributes="used">Mathcrypt</software> for helpful comments. This work has been supported by the <rs type="funder">European Union</rs>'s <rs type="grantNumber">H2020</rs> project No. <rs type="grantNumber">714294</rs> (<rs type="projectName">QUASYModo</rs>) and by <rs type="funder">ERC-ADG-ALSTRONGCRYPTO</rs> (project <rs type="grantNumber">740972</rs>).</p></div>
 			</div>
 			<listOrg type="funding">
 				<org type="funding" xml:id="_JBWS6bj">

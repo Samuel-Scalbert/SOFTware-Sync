@@ -2,6 +2,18 @@ import difflib
 import re
 import os
 import logging
+import json
+
+def mention_checker(json_path):
+    list_json = os.listdir(json_path)
+    list_empty_json = []
+    for json_file_name in list_json:
+        with open(os.path.join(json_path, json_file_name), 'r') as json_file:
+            data_json = json.load(json_file)
+            data_json_get_mentions = data_json.get("mentions")
+            if not data_json_get_mentions:
+                list_empty_json.append(json_file_name)
+    return list_empty_json
 
 def common_file_xmlgrobid_xmlmeta(xml_path_GROBID,xml_path_META):
     list_xml_grobid = os.listdir(xml_path_GROBID)
