@@ -182,7 +182,7 @@
 		<back>
 
 			<div type="acknowledgement">
-<div><head n="5">Acknowledgments</head><p>This work was funded by the <rs type="grantName">-STG <software>NeuroLang</software></rs> grant. We are grateful to <rs type="person">Guillaume Favelier</rs> who helped with some of our visualisations. We are also grateful to <rs type="person">Jonas Renault</rs> who worked on optimising <software>NeuroLang</software>'s engine and developing its webbased application. The source code of <software>NeuroLang</software> is openly available on <software>GitHub</software> at https://github.com/<software>NeuroLang</software>/<software>NeuroLang</software>.</p></div>
+<div><head n="5">Acknowledgments</head><p>This work was funded by the <rs type="grantName">-STG </rs> grant. We are grateful to <rs type="person">Guillaume Favelier</rs> who helped with some of our visualisations. We are also grateful to <rs type="person">Jonas Renault</rs> who worked on optimising <software>NeuroLang</software>'s engine and developing its webbased application. The source code of <software>NeuroLang</software> is openly available on <software>GitHub</software> at https://github.com/<software>NeuroLang</software>/<software>NeuroLang</software>.</p></div>
 			</div>
 			<listOrg type="funding">
 				<org type="funding" xml:id="_aPuvAtv">

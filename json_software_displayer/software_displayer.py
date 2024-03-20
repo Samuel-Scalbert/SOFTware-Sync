@@ -55,3 +55,5 @@ def json_parser_csv(data_path):
 
     df_sorted.to_csv(f'./result/CSV_software/mentions_{len(counts)}_sorted.csv', index=False)
 
+    print(f"'mentions_{len(counts)}_sorted.csv' was created")
+
