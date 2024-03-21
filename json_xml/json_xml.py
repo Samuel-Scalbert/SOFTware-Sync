@@ -26,7 +26,6 @@ def json_enhance_xml(xml_path, json_path,super_logger):
             super_logger.info(f'{filename}')
             super_logger.info('no mentions\n')
             return None
-
         for mention in data_json_get_mentions:
             software_type = mention["software-type"]
             software = mention["software-name"]["normalizedForm"]
@@ -82,15 +81,15 @@ def json_enhance_xml(xml_path, json_path,super_logger):
             found_type[context[1]] = 1
     super_logger.info(found_type)
     list_added_software = root.findall(".//software", ns)
-    if len(context_list_found) != mentions_count:
+    if len(list_added_software) != mentions_count:
         context_list_found = [elm[0] for elm in context_list_found]
         super_logger.critical(f'{len(context_list_found)}/{mentions_count} mentions found in xml')
         super_logger.critical(f'{len(list_added_software)}/{len(software_list_json)} software tags added')
-        nb = 0
-        for mentions in list_mentions:
-            if mentions not in context_list_found:
-                nb += 1
-                super_logger.error(f'({nb}) "{mentions}"')
+        context_set = set(context_list_found)
+        mentions_set = set(list_mentions)
+        difference = mentions_set - context_set
+        for item in difference:
+            super_logger.critical(f'{item}')
         super_logger.critical('Test failed\n')
     else:
         super_logger.info(f'Test passed\n')

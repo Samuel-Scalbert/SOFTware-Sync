@@ -10,14 +10,18 @@ def wizzard_xml_json2(p, software_mentions, logger):
     ET.register_namespace('', "http://www.tei-c.org/ns/1.0")
     if p_string == None:
         return None
-    for elm in list(p):
+    '''for elm in list(p):
         if elm.tag == "{http://www.tei-c.org/ns/1.0}p":
-            return False
+            return False'''
     for elm in list(p):
         index = -1
         if elm.text == None:
             index = p_string.find(elm.tail)
-        if elm.tail != None and elm.text != None:
+        if elm.tail != None or elm.text != None:
+            if elm.tail == None:
+                elm.tail = ''
+            if elm.text == None:
+                elm.text = ''
             index = p_string.find(elm.text, p_string.find(elm.tail) - len(elm.text), len(p_string))
             if index == -1:
                 index = p_string.find(elm.text)
@@ -29,6 +33,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                 attributes_dict = None
                 original_sub_tags_list.append([elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict])
     full_list_software = []
+    #print(len(original_sub_tags_list),len(list(p)))
     for software_mention in software_mentions:
         software = software_mention["software-name"]["rawForm"]
         context = software_mention["context"]
@@ -77,7 +82,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                 else:
                     logger.critical(f'error index (cleaned) software for: {context}')
         #FUZZY
-        if fuzz.partial_ratio(p_string, context) >= 95 and normal_found != 1 and cleaned_found != 1 and len(p_string) >= len(context):
+        if fuzz.partial_ratio(p_string, context) >= 95 and normal_found == -1 and cleaned_found == -1 and len(p_string) >= len(context):
             index_context_from_fuzzy = longest_common_substrings(p_string, context)
             occurrences = find_occurrences(software,p_string[index_context_from_fuzzy:])
             p_software_index = find_closest_number(offsetStart,occurrences)
@@ -121,18 +126,20 @@ def wizzard_xml_json2(p, software_mentions, logger):
                     new_p_text = p_string[:str_alt_index]
                     tail_software = p_string[str_alt_index + len(software):original_sub_tags_list[nb][3]]
                     if len(tail_software) == 0:
-                        tail_software = ' '
+                        tail_software_possible = ' '
+                    else:
+                        tail_software_possible = ''
                     #NORMAL
-                    if new_p_text + software + tail_software == old_string:
+                    if new_p_text + software + tail_software == old_string or new_p_text + software + tail_software_possible == old_string:
                         p.text = new_p_text
                         software_list = ['software', software, tail_software, str_alt_index, 'software', attr_software]
                         original_sub_tags_list.append(software_list)
-                        logger.info(f'{software} was added to the list (start){software_list[3]}')
+                        logger.info(f'{software} was added to the list (start)')
                         original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                         founded = True
                         break
                     else:
-                        logger.critical(f'CRITICAL : {software}(start) : CRITICAL')
+                        logger.critical(f'{software}(start)')
             #MIDDLE
                 try:
                     if str_alt_index >= original_sub_tags_list[nb][3] and str_alt_index < original_sub_tags_list[nb+1][3]:
@@ -150,32 +157,51 @@ def wizzard_xml_json2(p, software_mentions, logger):
                                 original_sub_tags_list[nb].append(software_list)
                                 list_len -= 1
                                 logger.info(f'{software} was added to the list (middle) as a sub-child')
+                                original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                                 founded = True
                                 break
                             else:
-                                logger.critical(f'CRITICAL : {software}(middle \ inside) : CRITICAL')
+                                logger.critical(f'{software}(middle \ inside) ')
                         #NORMAL
-                        if new_tail_prior_tag + software + tail_software == old_string:
-                            software_list = ['software', software, tail_software, str_alt_index, 'software', attr_software]
-                            original_sub_tags_list[nb][2] = new_tail_prior_tag
-                            original_sub_tags_list.append(software_list)
-                            logger.info(f'{software} was added to the list (middle){software_list[3]}')
-                            original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
-                            founded = True
-                            break
+                        if len(original_sub_tags_list[nb]) == 7:
+                            new_tail_prior_tag = p_string[original_sub_tags_list[nb][3] + len(original_sub_tags_list[nb][1]) + len(original_sub_tags_list[nb][6][1]) + len(original_sub_tags_list[nb][6][2]) : str_alt_index]
+                            if new_tail_prior_tag + software + tail_software == old_string:
+                                software_list = ['software', software, tail_software, str_alt_index, 'software',
+                                                 attr_software]
+                                original_sub_tags_list[nb][2] = new_tail_prior_tag
+                                original_sub_tags_list.append(software_list)
+                                logger.info(f'{software} was added to the list (middle)')
+                                original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+                                founded = True
+                                break
+                            else:
+                                logger.critical(f'{software}(middle \ sub-ref error) ')
+                        if len(original_sub_tags_list[nb]) == 6:
+                            if new_tail_prior_tag + software + tail_software == old_string:
+                                software_list = ['software', software, tail_software, str_alt_index, 'software',
+                                                 attr_software]
+                                original_sub_tags_list[nb][2] = new_tail_prior_tag
+                                original_sub_tags_list.append(software_list)
+                                logger.info(f'{software} was added to the list (middle)')
+                                original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+                                founded = True
+                                break
+                        else:
+                            logger.critical(f' {software}(middle) "{new_tail_prior_tag + software + tail_software }" ')
                         #REF-SUB-CHILD
-                        if str_alt_index + len(software) > original_sub_tags_list[nb+1][3]:
+                        if str_alt_index <= original_sub_tags_list[nb+1][3] and str_alt_index + len(software) >= original_sub_tags_list[nb+1][3]:
+                            print(original_sub_tags_list[nb+1])
                             original_sub_tags_list[nb][2] = new_tail_prior_tag
                             old_ref_tag_index = original_sub_tags_list[nb + 1][3]
                             old_ref_tag_text = original_sub_tags_list[nb + 1][1]
                             new_tail_ref_sub = p_string[old_ref_tag_index + len(old_ref_tag_text):str_alt_index + len(software)]
                             original_sub_tags_list[nb + 1] = ['software', p_string[str_alt_index : old_ref_tag_index], tail_software, str_alt_index,'software', attr_software, [original_sub_tags_list[nb + 1][0],old_ref_tag_text,new_tail_ref_sub,'ref_sub',original_sub_tags_list[nb + 1][5]]]
-                            original_sub_tags_list[nb+1][2] = p_string[str_alt_index + len(software): original_sub_tags_list[nb +3][3]]
+                            original_sub_tags_list[nb+1][2] = p_string[str_alt_index + len(software): original_sub_tags_list[nb +2][3]]
+                            original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                             founded = True
                             break
                         else:
-                            logger.critical(f'"{tail_software}"')
-                            logger.critical(f'CRITICAL : {software}(middle) "{old_string}" : CRITICAL')
+                            logger.critical(f'"{software}"(middle sub-ref) "{old_string}" ')
                 #END
                 except IndexError:
                     # SUB-CHILD
@@ -192,10 +218,11 @@ def wizzard_xml_json2(p, software_mentions, logger):
                                 original_sub_tags_list[nb].append(software_list)
                                 logger.info(f'{software} was added to the list (end) as a sub-child')
                                 list_len -= 1
+                                original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                                 founded = True
                                 break
                             else:
-                                logger.critical(f'CRITICAL : {software}(end \ inside) : CRITICAL')
+                                logger.critical(f' {software}(end \ inside) ')
                         #NORMAL
                         if new_tail_prior_tag + software + tail_software == old_string:
                             software_list = ['software', software, tail_software, str_alt_index, 'software', attr_software]
@@ -206,7 +233,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             founded = True
                             break
                         else:
-                            logger.critical(f'CRITICAL : {software}(end) : CRITICAL')
+                            logger.critical(f' {software}(end) ')
                 original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                 nb += 1
                 founded = False

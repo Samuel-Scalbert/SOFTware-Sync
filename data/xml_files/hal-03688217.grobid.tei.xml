@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main"></title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">F1F76E8536ADA3A2A364982335106A3E</idno>
+					<idno type="DOI">10.1093/bioinformatics/btac365</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.0" ident="GROBID" when="2024-03-21T10:24+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The study of cell biology dynamics, such as intracellular membrane transport inward (i.e. endocytosis) and outward (i.e. exocytosis/ recycling), has been difficult or at least incomplete until recently, due to the heterogeneity of the motion behavior of the analyzed structures. Different tracking software have been published <ref type="bibr">[e.g. utrack (Jaqaman et al., 2008</ref><ref type="bibr">), TrackMate (Tinevez et al., 2017)</ref>, <ref type="bibr">MTT (Serge et al., 2008)</ref>, <ref type="bibr">MSSEF-TSAKF (Jaiswal et al., 2015)</ref>, maptrack <ref type="bibr">(Feng et al., 2011</ref><ref type="bibr">), Cell Tracking Profiler (Mitchell et al., 2020)</ref>, btrack <ref type="bibr">(Ulicna et al., 2021)</ref>] to track individual biomolecules or extended objects with a shape, such as cells <ref type="bibr">[e.g. TrackMate (Ershov et al., 2021)</ref> and <ref type="bibr">CellProfiler (Stirling et al., 2021)</ref>], to obtain spatial information and to quantify their kinetics. Most of them focus on the accuracy and reproducibility of the analysis but the user interfaces remain complex or even limited to a two-dimensional representation. The development of a user-friendly graphical user interface (GUI) therefore appears necessary to facilitate the selection of parameters, the analysis and the visualization of 3D þ time trajectories estimated from complex 3D videos. The use of Python, a versatile and free programming language is growing rapidly within the bioimaging user community <ref type="bibr">(Fernandez-Gonzalez et al., 2022)</ref>. Python tools for visualization <ref type="bibr">[e.g. napari (Sofroniew et al., 2021)</ref>, ipyvolume <ref type="bibr">(Breddels et al., 2018</ref><ref type="bibr">), SeeVis (Hattab &amp; Nattkemper, 2019)</ref>] and analysis <ref type="bibr">[ZeroCostDL4Mic (von Chamier et al., 2021)</ref>, <ref type="bibr">BioImageIT (Prigent et al., 2021</ref><ref type="bibr">), Cellpose (Stringer et al., 2021)</ref>] are widely applied to microscopy images.</p><p>On the other hand, a lot of particle tracking approaches have been developed over the last decades. Interestingly, although a number of studies aimed at comparing particle tracking performance have been published <ref type="bibr">(Carter et al., 2005;</ref><ref type="bibr">Cheezum et al., 2001;</ref><ref type="bibr">Chenouard et al., 2014;</ref><ref type="bibr">Ruusuvuori et al., 2010;</ref><ref type="bibr">Smal &amp; Meijering, 2015;</ref><ref type="bibr">Smal et al., 2010)</ref>, none of the tested methods seems to perform in a generic way, regardless of the type of image data. As a consequence, it is critical for users to have the possibility to test different detectors and/or trackers in order to identify the best solution for their application. In addition, efforts in the Python community includes particle tracking packages such as TrackPy <ref type="bibr">(Allan et al., 2021)</ref>. TrackPy is a complete particle tracking toolkit, but the code can be a barrier for non-expert user.</p><p>Here, we present STracking, an open-source Python library for combining algorithms into standardized particles tracking pipelines for biological microscopy images. STracking is distributed under a BSD 3-Clause 'New' or 'Revised' License. STracking combines particle detection, tracking and analysis methods and can be used via a napari plugin. STracking contributes to the recent ecosystem of Python-based plugins for bioimage analysis.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Implementation and application</head><p>STracking breaks down a particle tracking pipeline into five components: (i) frame-by-frame particle detection; (ii) particle linking; (iii) analysis of particle properties; (iv) design of track features; and (v) filtering of tracks. Each component is represented as a Python object.</p><p>Each component can be implemented separately. This modular design makes it easy to update and facilitates interoperability with other plugins/algorithms. Whenever a new detection or tracker algorithm is added, compatibility is guaranteed with the particle tracking pipeline, and it is versioned within the STracking library. Several particle detectors are available in STracking: Difference of Gaussian, Determinant of Hessian and Laplacian of Gaussian from the Python library scikit-image (van der <ref type="bibr">Walt et al., 2014)</ref>. In addition, STracking includes a mask detector, called SSegDetector. This detector takes a label or binary mask as input image and returns a list of object positions (centroids of connected components).</p><p>Moreover, STracking includes a tracker <ref type="bibr">(Matov et al., 2011)</ref> that estimates the optimal tracks as follows: first, a connection graph is created with all the possible connections. Second, tracks are iteratively extracted from the graph using shortest path and graph pruning.</p><p>STracking library uses two data structures: 'SParticles' to manage the set of detected particles and 'STracks' to manage the collection of trajectories. These data structures contain SciPy (Virtanen et al., 2020) objects to store the particles and the tracks. The particles are represented with a 2D numpy array where each row is dedicated to a specific particle and columns are [T, Z, Y, X] for 3D data and [T, Y, X] for 2D data. The properties of particles are stored in a dictionary. Similarly, tracks are stored in a 2D numpy array where each row is dedicated to specific particle and columns are [trackID, T, Z, Y, X] for 3D data and [trackID, T, Y, X] for 2D data. Tracks features and split/merge events are stored using dictionaries. This data representation is the same as napari (Sofroniew et al., 2021) points and tracks layers, making STracking natively compatible with the napari viewer. We thus implemented a STracking napari plugin suite (napari-tracks-reader, naparistracking). It provides a graphical interface to create a STracking pipeline without writing Python code. STracking could be used as script in Python or napari plugin. The STracking library can be combined with other Python packages to extend STracking functionalities. The napari plugin allows one to perform a full STracking pipeline, or to load detections or tracks from another software such as <ref type="bibr">StarDist (Schmidt et al., 2018</ref><ref type="bibr">), TrackMate (Tinevez et al., 2017)</ref> or u-track <ref type="bibr">(Jaqaman et al., 2008)</ref> and continue the analysis with STracking and napari. Documentation on STracking library with examples is available at https://sylvainprigent.github.io/stracking/. STracking documentation was created using sphinx and the autodoc extension.</p><p>STracking pipeline using the napari plugin is illustrated with data obtained in Lattice Light-Sheet Structured Illumination Microscopy (Chen et al., 2014)(Fig. <ref type="figure" target="#fig_0">1</ref> and Supplementary Video S1). The STracking workflow could also be implemented using Jupyter notebook (Supplementary Note S1). Additionally, STracking library can be used for cell migration experiments (Supplementary Note S2) using label mask images produced by other software such as CellPose <ref type="bibr">(Stringer et al., 2021)</ref>  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>The STracking library simplifies the design of single particle tracking workflows through a graphical interface using napari and a comprehensive Python library of functions. Unlike previous single particle tracking tools in Python ecosystem, it provides a very flexible solution for processing and visualizing the tracks taking advantage of Napari <ref type="bibr">(Sofroniew et al., 2021)</ref> viewer for 3D þ time representation. A similar approach was introduced in TrackMate software <ref type="bibr">(Tinevez et al., 2017)</ref> for the visualization and validation of 2D tracks in Fiji (Schindelin et al., 2012) java-based environment. Thus, reproducible analysis can be performed without being an expert programmer. For this purpose, STracking library includes a pipeline class to allow executing a tracking pipeline recorded as a json file. We would point out that this plugin-implemented recording technique is not an optimal software architecture since it should be done by the host platform. To overcome this difficulty, we recommend using a powerful data management software such as the recent BioImageIT platform <ref type="bibr">(Prigent et al., 2021)</ref>.</p><p>In summary, the STracking library greatly simplifies the inspection and optimization of single particle tracking algorithms and thus allows the evaluation of new detection and tracker algorithms in this context, which are constantly being developed.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Overview of STracking library implemented in its napari plugin (a-c) and Jupyter Notebook (Kluyver et al., 2016) (d-f). Fifty-five planes 3D volumes of live RPE1 cells double stained with PKMR for Mitochondria (magenta) and with plasma membrane deep red (PMDR) for endosomal pathway (green) were acquired within 4.3 s per stack using Lattice light-sheet Structure Illumination Microscopy (LLS-SIM). STracking workflow is illustrated here with single particle tracking of endosomal pathway (PMDR). napari-stracking includes spots detection (a) and linking (b) through a GUI. 3D data and tracks are rendered using napari viewer (c). Jupyter notebook (d) allows also spots (e) and tracks (f) analysis. Additionally, they permit to get spots properties and tracks features, as well as tracks filtering. LLS-SIM data were reconstructed using MAP-SIM (K r ı zek et al., 2016) (A color version of this figure appears in the online version of this article.)</figDesc><graphic coords="3,70.81,59.47,470.61,351.04" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>or StarDist (Schmidt et al., 2018) through napari-stracking plugin, Jupyter Notebook or Python scripting. These examples demonstrate the ability of STracking to analyze complex datasets acquired with most advanced microscopy technologies.</figDesc><table /></figure>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><head>Funding</head><p>This work was supported by the French National Research Agency (France-BioImaging Infrastructure [ANR-10-INBS-04-07] and LabEx Cell(n)Scale [ANR-11-LABX-0038] as part of the IDEX PSL [ANR-10-IDEX-0001-02]).</p></div>
+			</div>
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data availability</head><p>The data underlying this article are available in FigShare, at https:// doi.org/10.6084/m9.figshare.19322171.</p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl/>
+			</div>
+		</back>
+	</text>
+</TEI>
