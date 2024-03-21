@@ -231,7 +231,6 @@ def wizzard_xml_json2(p, software_mentions, logger):
         tag.tail = tail
         if attr != None:
             for keys, values in attr.items():
-                print(keys, values)
                 tag.set(keys, values)
         if child_software:
             if len(child_software) == 3:
