@@ -63,7 +63,7 @@ def json_enhance_xml(xml_path, json_path,super_logger):
 
     context_list_found = []
 
-    logger = setup_logger(f'{xml_path}', f'./data/xml_files/log_xml/{filename}.log')
+    logger = setup_logger(f'{xml_path}', f'{xml_path}.log')
 
     p_elements = root.findall(".//tei:p", ns)
     for p in p_elements:
