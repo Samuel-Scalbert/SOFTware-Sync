@@ -29,7 +29,10 @@ def json_enhance_xml(xml_path, json_path,super_logger):
         for mention in data_json_get_mentions:
             software_type = mention["software-type"]
             software = mention["software-name"]["normalizedForm"]
-            mentions = mention["context"]
+            try:
+                mentions = mention["context"]
+            except KeyError:
+                data_json_get_mentions.remove(mention)
             list_mentions.append(mentions)
             software_list_json.append(software)
             # Count occurrences of software types
