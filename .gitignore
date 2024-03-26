@@ -1,11 +1,11 @@
 #Data file
 
-.grobid.tei.software.xml
-.hal.grobid.xml
-.csv
-.grobid.tei.xml.log
-.grobid.tei.xml
-software.json
+*.grobid.tei.software.xml
+*.hal.grobid.xml
+*.csv
+*.grobid.tei.xml.log
+*.grobid.tei.xml
+*.software.json
 
 /downloads
 
