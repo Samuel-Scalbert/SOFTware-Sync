@@ -10,8 +10,6 @@ from datetime import datetime
 
 if __name__ == "__main__":
 
-    super_logger = setup_logger_main('super_logger', 'super_logger.log')
-
     message = """Available options for SOFTware-Sync:
 
 1. --enhance-dir : Enhance multiple XML files in a directory by associating them with corresponding JSON files.
@@ -45,17 +43,34 @@ if __name__ == "__main__":
             print(message)
 
         if sys.argv[1] == "--enhance-dir":
+            if sys.argv[4] == "--project":
+                super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
+            else:
+                super_logger = setup_logger_main('super_logger', f'main_log.log')
             super_logger.info(f"------------------------------")
             super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")
             dir_xml_path = sys.argv[2]
             dir_json_path = sys.argv[3]
             list_common_file = common_file_xml_json(dir_xml_path,dir_json_path)
+            if sys.argv[4] == "--only-mention" or sys.argv[6] == "--only-mention":
+                nb_file = len(list_common_file)
+                list_json_mention = mention_checker(dir_json_path)
+                for empty_file in list_json_mention:
+                    empty_file = empty_file.replace('.software.json','')
+                    if empty_file in list_common_file:
+                        list_common_file.remove(empty_file)
+                print(f'{len(list_common_file)}/{nb_file} JSON files with mentions')
+
             for file in tqdm(list_common_file, colour = 'red'):
                 xml_path = dir_xml_path + file + '.grobid.tei.xml'
                 json_path = dir_json_path + file + '.software.json'
                 json_enhance_xml(xml_path, json_path,super_logger)
 
         if sys.argv[1] == "--enhance-file":
+            if sys.argv[4] == "--project":
+                super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
+            else:
+                super_logger = setup_logger_main('super_logger', f'main_log.log')
             super_logger.info(f"------------------------------")
             super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")
             xml_path = sys.argv[2]

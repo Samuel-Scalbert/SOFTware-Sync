@@ -37,7 +37,7 @@ def setup_logger(name, log_file, level=logging.DEBUG):
     return logger
 
 def setup_logger_main(name, log_file, level=logging.DEBUG):
-    handler = logging.FileHandler(log_file, mode='a')
+    handler = logging.FileHandler(log_file, mode='w')
     handler.setFormatter(logging.Formatter('%(levelname)s : %(message)s'))
 
     logger = logging.getLogger(name)

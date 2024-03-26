@@ -103,7 +103,6 @@ def wizzard_xml_json2(p, software_mentions, logger):
                     logger.critical(f'critical occurences, {software} {context}')
     if not full_list_software:
         return False
-    print(len(full_list_software))
     list_len = len(full_list_software) + len(original_sub_tags_list)
     full_list_software = sorted(full_list_software, key=lambda x: x[3])
     if len(original_sub_tags_list) == 0:
@@ -237,8 +236,8 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             break
                         else:
                             logger.critical(f' {software}(end) ')
-                else:
-                    print(software, context)
+                '''else:
+                    print(software, context)'''
                 original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                 nb += 1
                 founded = False
