@@ -1,15 +1,16 @@
 import sys
 from json_xml.json_xml import json_enhance_xml
-from package_perso.utils import common_file_xml_json, setup_logger, common_file_xmlgrobid_xmlmeta, mention_checker
+from package_perso.utils import common_file_xml_json, setup_logger_main, common_file_xmlgrobid_xmlmeta, mention_checker
 from meta_grobid_xml.xml_builder import xml_builder
 from meta_grobid_xml.scrapper import downloader_halid
 import os
 from tqdm import tqdm
 from json_software_displayer.software_displayer import json_parser_csv
+from datetime import datetime
 
 if __name__ == "__main__":
 
-    super_logger = setup_logger('super_logger', 'super_logger.log')
+    super_logger = setup_logger_main('super_logger', 'super_logger.log')
 
     message = """Available options for SOFTware-Sync:
 
@@ -44,6 +45,8 @@ if __name__ == "__main__":
             print(message)
 
         if sys.argv[1] == "--enhance-dir":
+            super_logger.info(f"------------------------------")
+            super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")
             dir_xml_path = sys.argv[2]
             dir_json_path = sys.argv[3]
             list_common_file = common_file_xml_json(dir_xml_path,dir_json_path)
@@ -53,6 +56,8 @@ if __name__ == "__main__":
                 json_enhance_xml(xml_path, json_path,super_logger)
 
         if sys.argv[1] == "--enhance-file":
+            super_logger.info(f"------------------------------")
+            super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")
             xml_path = sys.argv[2]
             json_path = sys.argv[3]
             print(xml_path)

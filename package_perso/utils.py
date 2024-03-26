@@ -36,6 +36,16 @@ def setup_logger(name, log_file, level=logging.DEBUG):
 
     return logger
 
+def setup_logger_main(name, log_file, level=logging.DEBUG):
+    handler = logging.FileHandler(log_file, mode='a')
+    handler.setFormatter(logging.Formatter('%(levelname)s : %(message)s'))
+
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+
+    return logger
+
 def common_file_xml_json(dir_xml_path,dir_json_path):
     list_xml = os.listdir(dir_xml_path)
     for xml in list_xml:
