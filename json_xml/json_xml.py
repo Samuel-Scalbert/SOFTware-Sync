@@ -70,7 +70,11 @@ def json_enhance_xml(xml_path, json_path,super_logger):
         if result == False:
             pass
         else:
-            modified_p, context_list_found_in_p = result
+            modified_p, context_list_found_in_p, mentions_found_remove = result
+            for mention_remove in mentions_found_remove:
+                for mention in data_json_get_mentions:
+                    if mention_remove == mention:
+                        data_json_get_mentions.remove(mention_remove)
             if len(context_list_found_in_p) > 0:
                 context_list_found += context_list_found_in_p
     found_type = {}
