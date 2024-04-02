@@ -129,7 +129,8 @@ def wizzard_xml_json2(p, software_mentions, logger):
             full_list_software.pop(0)
             logger.info(f'{software} was added to the empty list')
 
-    dup = 0
+    dup = []
+    founded_tags_software = []
     for tags in full_list_software:
         str_alt_index = tags[3]
         software = tags[1]
@@ -137,7 +138,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
         tag_founded = False
         for elm in range(len(original_sub_tags_list)):
             if str_alt_index == original_sub_tags_list[nb][3] and software == original_sub_tags_list[nb][1]:
-                dup += 1
+                dup.append(software)
                 logger.critical(f'duplicate {software}')
                 break
         #START
@@ -154,16 +155,16 @@ def wizzard_xml_json2(p, software_mentions, logger):
                     p.text = new_p_text
                     software_list = ['software', software, tail_software, str_alt_index, 'software', attr_software]
                     original_sub_tags_list.append(software_list)
-                    
                     logger.info(f'{software} was added to the list (start)')
+                    founded_tags_software.append(tags)
                     original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                     break
                 else:
                     # DUP SOFTWARE
                     if str_alt_index == original_sub_tags_list[nb][3]:
                         break
-                    logger.critical(f'{software}(start)')
-                    error_msg.append(f'{software}(start)')
+                    logger.critical(f'{software} (start)')
+                    error_msg.append(f'{software} (start)')
                     break
         #MIDDLE
             try:
@@ -179,13 +180,13 @@ def wizzard_xml_json2(p, software_mentions, logger):
                                              attr_software]
                             original_sub_tags_list[nb][2] = new_tail_prior_tag
                             original_sub_tags_list.append(software_list)
-                            
+                            founded_tags_software.append(tags)
                             logger.info(f'{software} was added to the list (middle)')
                             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                             break
                         else:
-                            logger.critical(f'{software}(middle \ sub-ref error) ')
-                            error_msg.append(f'{software}(middle \ sub-ref error) ')
+                            logger.critical(f'{software} (middle \ sub-ref error) ')
+                            error_msg.append(f'{software} (middle \ sub-ref error) ')
                             break
                     if len(original_sub_tags_list[nb]) == 6:
                         if new_tail_prior_tag + software + tail_software == old_string:
@@ -193,13 +194,13 @@ def wizzard_xml_json2(p, software_mentions, logger):
                                              attr_software]
                             original_sub_tags_list[nb][2] = new_tail_prior_tag
                             original_sub_tags_list.append(software_list)
-                            
+                            founded_tags_software.append(tags)
                             logger.info(f'{software} was added to the list (middle)')
                             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                             break
                         else:
-                            logger.critical(f' {software}(middle) "{new_tail_prior_tag + software + tail_software }" ')
-                            error_msg.append(f' {software}(middle) "{new_tail_prior_tag + software + tail_software }" ')
+                            logger.critical(f'{software} (middle) "{new_tail_prior_tag + software + tail_software}" ')
+                            error_msg.append(f'{software} (middle) "{new_tail_prior_tag + software + tail_software}" ')
                             break
             #END
             except IndexError:
@@ -213,7 +214,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                         software_list = ['software', software, tail_software, str_alt_index, 'software', attr_software]
                         original_sub_tags_list[max_index][2] = new_tail_prior_tag
                         original_sub_tags_list.append(software_list)
-                        
+                        founded_tags_software.append(tags)
                         logger.info(f'{software} was added to the list (end)')
                         original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                         break
@@ -221,12 +222,35 @@ def wizzard_xml_json2(p, software_mentions, logger):
                         #DUP SOFTWARE
                         if str_alt_index == original_sub_tags_list[max_index][3]:
                             break
-                        logger.critical(f' {software}(end) ')
-                        error_msg.append(f' {software}(end) ')
+                        logger.critical(f'{software} (end) ')
+                        error_msg.append(f'{software} (end) ')
                         break
 
             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
             nb += 1
+    for unfounded_tag in full_list_software:
+        if unfounded_tag not in founded_tags_software:
+            for nb, tags in enumerate(original_sub_tags_list):
+                str_alt_index = unfounded_tag[3]
+                software = unfounded_tag[1]
+                if unfounded_tag[3] >= tags[3] and unfounded_tag[3] <= tags[3] + len(tags[1]):
+                    if unfounded_tag[3] == tags[3] and unfounded_tag[1] == tags[1]:
+                        break
+                    else:
+                        new_text_tag = p_string[original_sub_tags_list[nb][3]:str_alt_index]
+                        tail_software = p_string[str_alt_index + len(software) : original_sub_tags_list[nb][3]+len(original_sub_tags_list[nb][1])]
+                        if new_text_tag + software + tail_software == original_sub_tags_list[nb][1]:
+                            original_sub_tags_list[nb][1] = new_text_tag
+                            software_list = ['software', software, tail_software, 'software_sub', None]
+                            original_sub_tags_list[nb].append(software_list)
+                            logger.info(f'{software} was added to the list (middle) as a sub-child')
+                            original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
+                            break
+                        else:
+                            logger.critical(f'{software}(middle \ inside) ')
+                            error_msg.append(f'{software}(middle \ inside) ')
+                            break
+
 
     original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
     for elm in original_sub_tags_list:
@@ -253,18 +277,12 @@ def wizzard_xml_json2(p, software_mentions, logger):
             for keys, values in attr.items():
                 tag.set(keys, values)
         if child_software:
-            if len(child_software) == 3:
-                software_child = ET.Element(child_software[0])
-                software_child.text = child_software[1]
-                software_child.tail = child_software[2]
-                tag.insert(0, software_child)
-            if child_software[4] != None:
-                software_child = ET.Element(child_software[0])
-                software_child.text = child_software[1]
-                software_child.tail = child_software[2]
-                if child_software[3] != None:
-                    for keys, values in child_software[4].items():
-                        software_child.set(keys, values)
-                tag.insert(0, software_child)
+            software_child = ET.Element(child_software[0])
+            software_child.text = child_software[1]
+            software_child.tail = child_software[2]
+            if child_software[4] is not None:
+                for keys, values in child_software[4].items():
+                    software_child.set(keys, values)
+            tag.insert(0, software_child)
         p.append(tag)
     return [p,context_list_found,mention_found, error_msg, dup]

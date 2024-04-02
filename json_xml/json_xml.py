@@ -56,30 +56,21 @@ def json_enhance_xml(xml_path, json_path,super_logger):
     super_logger.info(f'{software_types}')
     super_logger.info(f'{software_counts}')
 
-
-    paths = [
-        "./tei:teiHeader/tei:profileDesc/tei:abstract/tei:div",
-        "./tei:text/tei:body/tei:div",
-        "./tei:text/tei:body/tei:note",
-        "./tei:text/tei:back/tei:div[@type='acknowledgement']/tei:div",
-        "./tei:text/tei:back/tei:div[@type='availability']/tei:div",
-        "./tei:text/tei:back/tei:div[@type='annex']/tei:div"
-        ]
-
     context_list_found = []
 
     logger = setup_logger(f'{xml_path}', f'{xml_path}.log')
 
     p_elements = root.findall(".//tei:p", ns)
     error_file = []
-    nb_all_duplicates = 0
+    nb_all_duplicates = []
     for p in p_elements:
         result = wizzard_xml_json2(p, data_json_get_mentions, logger)
         if result == False:
             pass
         else:
             modified_p, context_list_found_in_p, mentions_found_remove, error_list , nb_duplicates= result
-            nb_all_duplicates += nb_duplicates
+            for duplicates in nb_duplicates:
+                nb_all_duplicates.append(duplicates)
             for error in error_list:
                 error_file.append(error)
             for mention_remove in mentions_found_remove:
@@ -97,11 +88,13 @@ def json_enhance_xml(xml_path, json_path,super_logger):
             found_type[context[1]] = 1
     super_logger.info(found_type)
     list_added_software = root.findall(".//software", ns)
-    if len(list_added_software) + nb_all_duplicates != mentions_count:
+    if len(list_added_software) != len(software_list_json) - len(nb_all_duplicates) or mentions_count - len(data_json_get_mentions) != mentions_count:
         context_list_found = [elm[0] for elm in context_list_found]
         super_logger.critical(f'{mentions_count - len(data_json_get_mentions)}/{mentions_count} mentions found in xml')
-        super_logger.critical(f'{len(list_added_software)}/{len(software_list_json)} software tags added')
+        super_logger.critical(f'{len(list_added_software)}/{len(software_list_json) - len(nb_all_duplicates)} software tags added')
         list_added_software = [tag.text for tag in list_added_software]
+        for duplicates in nb_all_duplicates:
+            software_list_json.remove(duplicates)
         super_logger.critical(f'we missed : {find_differences_software(software_list_json ,list_added_software)}')
         context_set = set(context_list_found)
         mentions_set = set(list_mentions)
@@ -110,8 +103,8 @@ def json_enhance_xml(xml_path, json_path,super_logger):
             super_logger.critical(f'{item}')
         for error in error_file:
             super_logger.critical(error)
-        if nb_all_duplicates > 0:
-            super_logger.critical(f'Test failed ({nb_all_duplicates} duplicates)\n')
+        if len(nb_all_duplicates) > 0:
+            super_logger.critical(f'Test failed ({len(nb_all_duplicates)} duplicates)\n')
         else:
             super_logger.critical(f'Test failed\n')
         source_file = f'{xml_path}.log'
@@ -124,8 +117,8 @@ def json_enhance_xml(xml_path, json_path,super_logger):
         if os.path.exists(source_file) and os.path.exists(destination_directory):
             shutil.move(source_file, destination_directory)
     else:
-        if nb_all_duplicates > 0:
-            super_logger.info(f'Test passed ({nb_all_duplicates} duplicates)\n')
+        if len(nb_all_duplicates) > 0:
+            super_logger.info(f'Test passed ({len(nb_all_duplicates)} duplicates)\n')
         else:
             super_logger.info(f'Test passed\n')
         if os.path.exists(f'{xml_path}.log'):
