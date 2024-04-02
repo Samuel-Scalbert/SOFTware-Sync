@@ -12,29 +12,24 @@ def wizzard_xml_json2(p, software_mentions, logger):
     if p_string == None:
         return None
     for elm in list(p):
-        index = -1
-        if elm.text == None and elm.tail != None:
-            index = p_string.find(elm.tail)
-        if elm.tail != None or elm.text != None:
-            if elm.tail == None:
-                elm.tail = ''
-            if elm.text == None:
-                elm.text = ''
-            index = p_string.find(elm.text, p_string.find(elm.tail) - len(elm.text), len(p_string))
-            if index == -1:
-                index = p_string.find(elm.text)
-        if index != -1:
-            attributes_dict = elm.attrib if elm.attrib else None
+        if elm.tail == None:
+            elm.tail = ''
+        if elm.text == None:
+            elm.text = ''
+        attributes_dict = elm.attrib if elm.attrib else None
+        if len(original_sub_tags_list) <= 0:
+            if p.text == None:
+                index = 0
+            else:
+                index = len(p.text)
+        else:
+            index = original_sub_tags_list[-1][3] + len(original_sub_tags_list[-1][1]) + len(
+                original_sub_tags_list[-1][2])
+        if p_string[index:index + len(elm.text)] != elm.text:
+            print('error')
+        else:
             new_tag = [elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict]
-            if new_tag in original_sub_tags_list:
-                index = original_sub_tags_list[-1][3] + len(original_sub_tags_list[-1][1]) + len(
-                    original_sub_tags_list[-1][2])
-                if p_string[index:index + len(elm.text)] != elm.text:
-                    print('error')
-                else:
-                    new_tag = [elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict]
-                    original_sub_tags_list.append(new_tag)
-            original_sub_tags_list.append(new_tag)
+        original_sub_tags_list.append(new_tag)
 
     full_list_software = []
     mention_found = []
