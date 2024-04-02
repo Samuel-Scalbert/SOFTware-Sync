@@ -6,7 +6,14 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 	<teiHeader xml:lang="en">
 		<fileDesc>
 			<titleStmt>
-				<title level="a" type="main"></title>
+				<title level="a" type="main">STracking: a free and open-source Python library for particle tracking and analysis</title>
+				<funder ref="#_r7PQrRC #_StcKJg8 #_cQXtMVF">
+					<orgName type="full">unknown</orgName>
+				</funder>
+				<funder ref="#_m2zFbaC">
+					<orgName type="full">Agence Nationale de la Recherche</orgName>
+					<orgName type="abbreviated">ANR</orgName>
+				</funder>
 			</titleStmt>
 			<publicationStmt>
 				<publisher/>
@@ -15,6 +22,136 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 			<sourceDesc>
 				<biblStruct>
 					<analytic>
+						<author>
+							<persName><forename type="first">Sylvain</forename><surname>Prigent</surname></persName>
+							<email>sylvain.prigent@inria.fr</email>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">Inria Centre Rennes-Bretagne Atlantique</orgName>
+								<address>
+									<postCode>F-35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">UMR144</orgName>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">CNRS Institut Curie</orgName>
+								<orgName type="institution" key="instit2">PSL Research University</orgName>
+								<address>
+									<postCode>F-75005</postCode>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Cesar</forename><forename type="middle">Augusto</forename><surname>Valades-Cruz</surname></persName>
+							<email>augusto.valades-cruz@curie.fr</email>
+							<idno type="ORCID">0000-0002-1786-8207</idno>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">Inria Centre Rennes-Bretagne Atlantique</orgName>
+								<address>
+									<postCode>F-35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">UMR144</orgName>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">CNRS Institut Curie</orgName>
+								<orgName type="institution" key="instit2">PSL Research University</orgName>
+								<address>
+									<postCode>F-75005</postCode>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Ludovic</forename><surname>Leconte</surname></persName>
+							<idno type="ORCID">0000-0002-1786-8207</idno>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">Inria Centre Rennes-Bretagne Atlantique</orgName>
+								<address>
+									<postCode>F-35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">UMR144</orgName>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">CNRS Institut Curie</orgName>
+								<orgName type="institution" key="instit2">PSL Research University</orgName>
+								<address>
+									<postCode>F-75005</postCode>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Jean</forename><surname>Salamero</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">Inria Centre Rennes-Bretagne Atlantique</orgName>
+								<address>
+									<postCode>F-35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">UMR144</orgName>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">CNRS Institut Curie</orgName>
+								<orgName type="institution" key="instit2">PSL Research University</orgName>
+								<address>
+									<postCode>F-75005</postCode>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Charles</forename><surname>Kervrann</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">Inria Centre Rennes-Bretagne Atlantique</orgName>
+								<address>
+									<postCode>F-35042</postCode>
+									<settlement>Rennes</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="laboratory">SERPICO Project Team</orgName>
+								<orgName type="institution">UMR144</orgName>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution" key="instit1">CNRS Institut Curie</orgName>
+								<orgName type="institution" key="instit2">PSL Research University</orgName>
+								<address>
+									<postCode>F-75005</postCode>
+									<settlement>Paris</settlement>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">STracking: a free and open-source Python library for particle tracking and analysis</title>
 					</analytic>
 					<monogr>
 						<imprint>
@@ -28,35 +165,605 @@ xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.co
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
-				<application version="0.8.0" ident="GROBID" when="2024-03-21T10:24+0000">
+				<application version="0.8.0" ident="GROBID" when="2024-03-20T15:52+0000">
 					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
 					<ref target="https://github.com/kermitt2/grobid"/>
 				</application>
 			</appInfo>
 		</encodingDesc>
 		<profileDesc>
-			<abstract/>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Analysis of intra-and extracellular dynamic like vesicles transport involves particle tracking algorithms. The design of a particle tracking pipeline is a routine but tedious task. Therefore, particle dynamics analysis is often performed by combining several pieces of software (filtering, detection, tracking, etc.) requiring many manual operations, and thus leading to poorly reproducible results. Given the new segmentation tools based on deep learning, modularity and interoperability between software have become essential in particle tracking algorithms. A good synergy between a particle detector and a tracker is of paramount importance. In addition, a user-friendly interface to control the quality of estimated trajectories is necessary. To address these issues, we developed STracking, a P ython library that allows combining algorithms into standardized particle tracking pipelines.</p></div>
+			</abstract>
 		</profileDesc>
 	</teiHeader>
 	<text xml:lang="en">
 		<body>
-<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The study of cell biology dynamics, such as intracellular membrane transport inward (i.e. endocytosis) and outward (i.e. exocytosis/ recycling), has been difficult or at least incomplete until recently, due to the heterogeneity of the motion behavior of the analyzed structures. Different tracking software have been published <ref type="bibr">[e.g. utrack (Jaqaman et al., 2008</ref><ref type="bibr">), TrackMate (Tinevez et al., 2017)</ref>, <ref type="bibr">MTT (Serge et al., 2008)</ref>, <ref type="bibr">MSSEF-TSAKF (Jaiswal et al., 2015)</ref>, maptrack <ref type="bibr">(Feng et al., 2011</ref><ref type="bibr">), Cell Tracking Profiler (Mitchell et al., 2020)</ref>, btrack <ref type="bibr">(Ulicna et al., 2021)</ref>] to track individual biomolecules or extended objects with a shape, such as cells <ref type="bibr">[e.g. TrackMate (Ershov et al., 2021)</ref> and <ref type="bibr">CellProfiler (Stirling et al., 2021)</ref>], to obtain spatial information and to quantify their kinetics. Most of them focus on the accuracy and reproducibility of the analysis but the user interfaces remain complex or even limited to a two-dimensional representation. The development of a user-friendly graphical user interface (GUI) therefore appears necessary to facilitate the selection of parameters, the analysis and the visualization of 3D þ time trajectories estimated from complex 3D videos. The use of Python, a versatile and free programming language is growing rapidly within the bioimaging user community <ref type="bibr">(Fernandez-Gonzalez et al., 2022)</ref>. Python tools for visualization <ref type="bibr">[e.g. napari (Sofroniew et al., 2021)</ref>, ipyvolume <ref type="bibr">(Breddels et al., 2018</ref><ref type="bibr">), SeeVis (Hattab &amp; Nattkemper, 2019)</ref>] and analysis <ref type="bibr">[ZeroCostDL4Mic (von Chamier et al., 2021)</ref>, <ref type="bibr">BioImageIT (Prigent et al., 2021</ref><ref type="bibr">), Cellpose (Stringer et al., 2021)</ref>] are widely applied to microscopy images.</p><p>On the other hand, a lot of particle tracking approaches have been developed over the last decades. Interestingly, although a number of studies aimed at comparing particle tracking performance have been published <ref type="bibr">(Carter et al., 2005;</ref><ref type="bibr">Cheezum et al., 2001;</ref><ref type="bibr">Chenouard et al., 2014;</ref><ref type="bibr">Ruusuvuori et al., 2010;</ref><ref type="bibr">Smal &amp; Meijering, 2015;</ref><ref type="bibr">Smal et al., 2010)</ref>, none of the tested methods seems to perform in a generic way, regardless of the type of image data. As a consequence, it is critical for users to have the possibility to test different detectors and/or trackers in order to identify the best solution for their application. In addition, efforts in the Python community includes particle tracking packages such as TrackPy <ref type="bibr">(Allan et al., 2021)</ref>. TrackPy is a complete particle tracking toolkit, but the code can be a barrier for non-expert user.</p><p>Here, we present STracking, an open-source Python library for combining algorithms into standardized particles tracking pipelines for biological microscopy images. STracking is distributed under a BSD 3-Clause 'New' or 'Revised' License. STracking combines particle detection, tracking and analysis methods and can be used via a napari plugin. STracking contributes to the recent ecosystem of Python-based plugins for bioimage analysis.</p></div>
-<div xmlns="http://www.tei-c.org/ns/1.0"><head>Implementation and application</head><p>STracking breaks down a particle tracking pipeline into five components: (i) frame-by-frame particle detection; (ii) particle linking; (iii) analysis of particle properties; (iv) design of track features; and (v) filtering of tracks. Each component is represented as a Python object.</p><p>Each component can be implemented separately. This modular design makes it easy to update and facilitates interoperability with other plugins/algorithms. Whenever a new detection or tracker algorithm is added, compatibility is guaranteed with the particle tracking pipeline, and it is versioned within the STracking library. Several particle detectors are available in STracking: Difference of Gaussian, Determinant of Hessian and Laplacian of Gaussian from the Python library scikit-image (van der <ref type="bibr">Walt et al., 2014)</ref>. In addition, STracking includes a mask detector, called SSegDetector. This detector takes a label or binary mask as input image and returns a list of object positions (centroids of connected components).</p><p>Moreover, STracking includes a tracker <ref type="bibr">(Matov et al., 2011)</ref> that estimates the optimal tracks as follows: first, a connection graph is created with all the possible connections. Second, tracks are iteratively extracted from the graph using shortest path and graph pruning.</p><p>STracking library uses two data structures: 'SParticles' to manage the set of detected particles and 'STracks' to manage the collection of trajectories. These data structures contain SciPy (Virtanen et al., 2020) objects to store the particles and the tracks. The particles are represented with a 2D numpy array where each row is dedicated to a specific particle and columns are [T, Z, Y, X] for 3D data and [T, Y, X] for 2D data. The properties of particles are stored in a dictionary. Similarly, tracks are stored in a 2D numpy array where each row is dedicated to specific particle and columns are [trackID, T, Z, Y, X] for 3D data and [trackID, T, Y, X] for 2D data. Tracks features and split/merge events are stored using dictionaries. This data representation is the same as napari (Sofroniew et al., 2021) points and tracks layers, making STracking natively compatible with the napari viewer. We thus implemented a STracking napari plugin suite (napari-tracks-reader, naparistracking). It provides a graphical interface to create a STracking pipeline without writing Python code. STracking could be used as script in Python or napari plugin. The STracking library can be combined with other Python packages to extend STracking functionalities. The napari plugin allows one to perform a full STracking pipeline, or to load detections or tracks from another software such as <ref type="bibr">StarDist (Schmidt et al., 2018</ref><ref type="bibr">), TrackMate (Tinevez et al., 2017)</ref> or u-track <ref type="bibr">(Jaqaman et al., 2008)</ref> and continue the analysis with STracking and napari. Documentation on STracking library with examples is available at https://sylvainprigent.github.io/stracking/. STracking documentation was created using sphinx and the autodoc extension.</p><p>STracking pipeline using the napari plugin is illustrated with data obtained in Lattice Light-Sheet Structured Illumination Microscopy (Chen et al., 2014)(Fig. <ref type="figure" target="#fig_0">1</ref> and Supplementary Video S1). The STracking workflow could also be implemented using Jupyter notebook (Supplementary Note S1). Additionally, STracking library can be used for cell migration experiments (Supplementary Note S2) using label mask images produced by other software such as CellPose <ref type="bibr">(Stringer et al., 2021)</ref>  </p></div>
-<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>The STracking library simplifies the design of single particle tracking workflows through a graphical interface using napari and a comprehensive Python library of functions. Unlike previous single particle tracking tools in Python ecosystem, it provides a very flexible solution for processing and visualizing the tracks taking advantage of Napari <ref type="bibr">(Sofroniew et al., 2021)</ref> viewer for 3D þ time representation. A similar approach was introduced in TrackMate software <ref type="bibr">(Tinevez et al., 2017)</ref> for the visualization and validation of 2D tracks in Fiji (Schindelin et al., 2012) java-based environment. Thus, reproducible analysis can be performed without being an expert programmer. For this purpose, STracking library includes a pipeline class to allow executing a tracking pipeline recorded as a json file. We would point out that this plugin-implemented recording technique is not an optimal software architecture since it should be done by the host platform. To overcome this difficulty, we recommend using a powerful data management software such as the recent BioImageIT platform <ref type="bibr">(Prigent et al., 2021)</ref>.</p><p>In summary, the STracking library greatly simplifies the inspection and optimization of single particle tracking algorithms and thus allows the evaluation of new detection and tracker algorithms in this context, which are constantly being developed.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Overview of STracking library implemented in its napari plugin (a-c) and Jupyter Notebook (Kluyver et al., 2016) (d-f). Fifty-five planes 3D volumes of live RPE1 cells double stained with PKMR for Mitochondria (magenta) and with plasma membrane deep red (PMDR) for endosomal pathway (green) were acquired within 4.3 s per stack using Lattice light-sheet Structure Illumination Microscopy (LLS-SIM). STracking workflow is illustrated here with single particle tracking of endosomal pathway (PMDR). napari-stracking includes spots detection (a) and linking (b) through a GUI. 3D data and tracks are rendered using napari viewer (c). Jupyter notebook (d) allows also spots (e) and tracks (f) analysis. Additionally, they permit to get spots properties and tracks features, as well as tracks filtering. LLS-SIM data were reconstructed using MAP-SIM (K r ı zek et al., 2016) (A color version of this figure appears in the online version of this article.)</figDesc><graphic coords="3,70.81,59.47,470.61,351.04" type="bitmap" /></figure>
-<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>or StarDist (Schmidt et al., 2018) through napari-stracking plugin, Jupyter Notebook or Python scripting. These examples demonstrate the ability of STracking to analyze complex datasets acquired with most advanced microscopy technologies.</figDesc><table /></figure>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The study of cell biology dynamics, such as intracellular membrane transport inward (i.e. endocytosis) and outward (i.e. exocytosis/ recycling), has been difficult or at least incomplete until recently, due to the heterogeneity of the motion behavior of the analyzed structures. Different tracking software have been published [e.g. utrack <ref type="bibr" target="#b11">(Jaqaman et al., 2008)</ref>, TrackMate <ref type="bibr" target="#b26">(Tinevez et al., 2017)</ref>, <ref type="bibr">MTT (Serge et al., 2008)</ref>, MSSEF-TSAKF <ref type="bibr" target="#b10">(Jaiswal et al., 2015)</ref>, maptrack <ref type="bibr" target="#b7">(Feng et al., 2011)</ref>, Cell Tracking Profiler <ref type="bibr" target="#b15">(Mitchell et al., 2020)</ref>, btrack <ref type="bibr" target="#b27">(Ulicna et al., 2021)</ref>] to track individual biomolecules or extended objects with a shape, such as cells [e.g. TrackMate <ref type="bibr" target="#b6">(Ershov et al., 2021)</ref> and CellProfiler <ref type="bibr" target="#b24">(Stirling et al., 2021)</ref>], to obtain spatial information and to quantify their kinetics. Most of them focus on the accuracy and reproducibility of the analysis but the user interfaces remain complex or even limited to a two-dimensional representation. The development of a user-friendly graphical user interface (GUI) therefore appears necessary to facilitate the selection of parameters, the analysis and the visualization of 3D þ time trajectories estimated from complex 3D videos. The use of Python, a versatile and free programming language is growing rapidly within the bioimaging user community <ref type="bibr" target="#b8">(Fernandez-Gonzalez et al., 2022)</ref>. Python tools for visualization [e.g. napari <ref type="bibr" target="#b23">(Sofroniew et al., 2021)</ref>, ipyvolume <ref type="bibr" target="#b1">(Breddels et al., 2018)</ref>, SeeVis <ref type="bibr" target="#b9">(Hattab &amp; Nattkemper, 2019)</ref>] and analysis <ref type="bibr">[ZeroCostDL4Mic (von Chamier et al., 2021)</ref>, BioImageIT <ref type="bibr" target="#b16">(Prigent et al., 2021)</ref>, Cellpose <ref type="bibr" target="#b25">(Stringer et al., 2021)</ref>] are widely applied to microscopy images.</p><p>On the other hand, a lot of particle tracking approaches have been developed over the last decades. Interestingly, although a number of studies aimed at comparing particle tracking performance have been published <ref type="bibr" target="#b2">(Carter et al., 2005;</ref><ref type="bibr" target="#b3">Cheezum et al., 2001;</ref><ref type="bibr" target="#b5">Chenouard et al., 2014;</ref><ref type="bibr" target="#b17">Ruusuvuori et al., 2010;</ref><ref type="bibr" target="#b21">Smal &amp; Meijering, 2015;</ref><ref type="bibr" target="#b22">Smal et al., 2010)</ref>, none of the tested methods seems to perform in a generic way, regardless of the type of image data. As a consequence, it is critical for users to have the possibility to test different detectors and/or trackers in order to identify the best solution for their application. In addition, efforts in the Python community includes particle tracking packages such as TrackPy <ref type="bibr" target="#b0">(Allan et al., 2021)</ref>. TrackPy is a complete particle tracking toolkit, but the code can be a barrier for non-expert user.</p><p>Here, we present STracking, an open-source Python library for combining algorithms into standardized particles tracking pipelines for biological microscopy images. STracking is distributed under a BSD 3-Clause 'New' or 'Revised' License. STracking combines particle detection, tracking and analysis methods and can be used via a napari plugin. STracking contributes to the recent ecosystem of Python-based plugins for bioimage analysis.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Implementation and application</head><p>STracking breaks down a particle tracking pipeline into five components: (i) frame-by-frame particle detection; (ii) particle linking; (iii) analysis of particle properties; (iv) design of track features; and (v) filtering of tracks. Each component is represented as a Python object.</p><p>Each component can be implemented separately. This modular design makes it easy to update and facilitates interoperability with other plugins/algorithms. Whenever a new detection or tracker algorithm is added, compatibility is guaranteed with the particle tracking pipeline, and it is versioned within the STracking library. Several particle detectors are available in STracking: Difference of Gaussian, Determinant of Hessian and Laplacian of Gaussian from the Python library scikit-image (van der <ref type="bibr" target="#b28">Walt et al., 2014)</ref>. In addition, STracking includes a mask detector, called SSegDetector. This detector takes a label or binary mask as input image and returns a list of object positions (centroids of connected components).</p><p>Moreover, STracking includes a tracker <ref type="bibr" target="#b14">(Matov et al., 2011)</ref> that estimates the optimal tracks as follows: first, a connection graph is created with all the possible connections. Second, tracks are iteratively extracted from the graph using shortest path and graph pruning.</p><p>STracking library uses two data structures: 'SParticles' to manage the set of detected particles and 'STracks' to manage the collection of trajectories. These data structures contain SciPy <ref type="bibr" target="#b29">(Virtanen et al., 2020)</ref> objects to store the particles and the tracks. The particles are represented with a 2D numpy array where each row is dedicated to a specific particle and columns are [T, Z, Y, X] for 3D data and [T, Y, X] for 2D data. The properties of particles are stored in a dictionary. Similarly, tracks are stored in a 2D numpy array where each row is dedicated to specific particle and columns are [trackID, T, Z, Y, X] for 3D data and [trackID, T, Y, X] for 2D data. Tracks features and split/merge events are stored using dictionaries. This data representation is the same as napari <ref type="bibr" target="#b23">(Sofroniew et al., 2021)</ref> points and tracks layers, making STracking natively compatible with the napari viewer. We thus implemented a STracking napari plugin suite (napari-tracks-reader, naparistracking). It provides a graphical interface to create a STracking pipeline without writing Python code. STracking could be used as script in Python or napari plugin. The STracking library can be combined with other Python packages to extend STracking functionalities. The napari plugin allows one to perform a full STracking pipeline, or to load detections or tracks from another software such as StarDist <ref type="bibr" target="#b19">(Schmidt et al., 2018)</ref>, TrackMate <ref type="bibr" target="#b26">(Tinevez et al., 2017)</ref> or u-track <ref type="bibr" target="#b11">(Jaqaman et al., 2008)</ref> and continue the analysis with STracking and napari. Documentation on STracking library with examples is available at https://sylvainprigent.github.io/stracking/. STracking documentation was created using sphinx and the autodoc extension.</p><p>STracking pipeline using the napari plugin is illustrated with data obtained in Lattice Light-Sheet Structured Illumination Microscopy <ref type="bibr" target="#b4">(Chen et al., 2014)</ref>(Fig. <ref type="figure" target="#fig_0">1</ref> and Supplementary Video S1). The STracking workflow could also be implemented using Jupyter notebook (Supplementary Note S1). Additionally, STracking library can be used for cell migration experiments (Supplementary Note S2) using label mask images produced by other software such as CellPose <ref type="bibr" target="#b25">(Stringer et al., 2021)</ref> or StarDist <ref type="bibr" target="#b19">(Schmidt et al., 2018)</ref>  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>The STracking library simplifies the design of single particle tracking workflows through a graphical interface using napari and a comprehensive Python library of functions. Unlike previous single particle tracking tools in Python ecosystem, it provides a very flexible solution for processing and visualizing the tracks taking advantage of Napari <ref type="bibr" target="#b23">(Sofroniew et al., 2021)</ref> viewer for 3D þ time representation. A similar approach was introduced in TrackMate software <ref type="bibr" target="#b26">(Tinevez et al., 2017)</ref> for the visualization and validation of 2D tracks in Fiji <ref type="bibr" target="#b18">(Schindelin et al., 2012)</ref> java-based environment. Thus, reproducible analysis can be performed without being an expert programmer. For this purpose, STracking library includes a pipeline class to allow executing a tracking pipeline recorded as a json file. We would point out that this plugin-implemented recording technique is not an optimal software architecture since it should be done by the host platform. To overcome this difficulty, we recommend using a powerful data management software such as the recent BioImageIT platform <ref type="bibr" target="#b16">(Prigent et al., 2021)</ref>.</p><p>In summary, the STracking library greatly simplifies the inspection and optimization of single particle tracking algorithms and thus allows the evaluation of new detection and tracker algorithms in this context, which are constantly being developed.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Overview of STracking library implemented in its napari plugin (a-c) and Jupyter Notebook (Kluyver et al., 2016) (d-f). Fifty-five planes 3D volumes of live RPE1 cells double stained with PKMR for Mitochondria (magenta) and with plasma membrane deep red (PMDR) for endosomal pathway (green) were acquired within 4.3 s per stack using Lattice light-sheet Structure Illumination Microscopy (LLS-SIM). STracking workflow is illustrated here with single particle tracking of endosomal pathway (PMDR). napari-stracking includes spots detection (a) and linking (b) through a GUI. 3D data and tracks are rendered using napari viewer (c). Jupyter notebook (d) allows also spots (e) and tracks (f) analysis. Additionally, they permit to get spots properties and tracks features, as well as tracks filtering. LLS-SIM data were reconstructed using MAP-SIM (K r ı zek et al., 2016) (A color version of this figure appears in the online version of this article.)</figDesc><graphic coords="3,70.81,59.47,470.61,351.04" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head></head><label></label><figDesc>through napari-stracking plugin, Jupyter Notebook or Python scripting. These examples demonstrate the ability of STracking to analyze complex datasets acquired with most advanced microscopy technologies.</figDesc><table /></figure>
 		</body>
 		<back>
 
 			<div type="funding">
-<div><head>Funding</head><p>This work was supported by the French National Research Agency (France-BioImaging Infrastructure [ANR-10-INBS-04-07] and LabEx Cell(n)Scale [ANR-11-LABX-0038] as part of the IDEX PSL [ANR-10-IDEX-0001-02]).</p></div>
+<div><head>Funding</head><p>This work was supported by the <rs type="funder">French National Research Agency (France</rs><rs type="projectName">-BioImaging Infrastructure</rs> [<rs type="grantNumber">ANR-10-INBS-04-07</rs>] and <rs type="projectName">LabEx Cell</rs>(n)<rs type="projectName">Scale</rs> [<rs type="grantNumber">ANR-11-LABX-0038</rs>] as part of the <rs type="projectName">IDEX PSL</rs> [<rs type="grantNumber">ANR-10-IDEX-0001-02</rs>]).</p></div>
 			</div>
+			<listOrg type="funding">
+				<org type="funded-project" xml:id="_m2zFbaC">
+					<idno type="grant-number">ANR-10-INBS-04-07</idno>
+					<orgName type="project" subtype="full">-BioImaging Infrastructure</orgName>
+				</org>
+				<org type="funded-project" xml:id="_r7PQrRC">
+					<orgName type="project" subtype="full">LabEx Cell</orgName>
+				</org>
+				<org type="funded-project" xml:id="_StcKJg8">
+					<idno type="grant-number">ANR-11-LABX-0038</idno>
+					<orgName type="project" subtype="full">Scale</orgName>
+				</org>
+				<org type="funded-project" xml:id="_cQXtMVF">
+					<idno type="grant-number">ANR-10-IDEX-0001-02</idno>
+					<orgName type="project" subtype="full">IDEX PSL</orgName>
+				</org>
+			</listOrg>
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>STracking is available as a Python library using 'pip install' and the source code is publicly available on GitHub (https://github.com/sylvainprigent/stracking). A graphical interface is available using two napari plugins: napari-stracking and napari-tracks-reader. These napari plugins can be installed via the napari plugins menu or The napari plugin source codes are available on GitHub (https://github.com/syl vainprigent/napari-tracks-reader, https://github.com/sylvainprigent/napari-stracking</p></div>
+			</div>
+
+
 			<div type="availability">
 <div xmlns="http://www.tei-c.org/ns/1.0"><head>Data availability</head><p>The data underlying this article are available in FigShare, at https:// doi.org/10.6084/m9.figshare.19322171.</p></div>
 			</div>
 
 			<div type="references">
 
-				<listBibl/>
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title/>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">B</forename><surname>Allan</surname></persName>
+		</author>
+		<idno type="DOI">10.5281/ZENODO.4682814</idno>
+		<ptr target="https://doi.org/10.5281/ZENODO.4682814" />
+	</analytic>
+	<monogr>
+		<title level="j">Trackpy v</title>
+		<imprint>
+			<biblScope unit="volume">0</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<date type="published" when="2021-03-11">2021. 11 March 2022, date last accessed</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">M</forename><surname>Breddels</surname></persName>
+		</author>
+		<idno type="DOI">10.5281/ZENODO.1286976</idno>
+		<ptr target="https://doi.org/10.5281/ZENODO.1286976" />
+		<imprint>
+			<date type="published" when="2018-03-11">2018. 11 March 2022, date last accessed</date>
+			<biblScope unit="volume">0</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Tracking single particles: a user-friendly quantitative evaluation</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">C</forename><surname>Carter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Phys. Biol</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="60" to="72" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Quantitative comparison of algorithms for tracking single fluorescent particles</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">K</forename><surname>Cheezum</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Biophys. J</title>
+		<imprint>
+			<biblScope unit="volume">81</biblScope>
+			<biblScope unit="page" from="2378" to="2388" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Lattice light-sheet microscopy: imaging molecules to embryos at high spatiotemporal resolution</title>
+		<author>
+			<persName><forename type="first">B.-C</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">346</biblScope>
+			<biblScope unit="page">1257998</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Objective comparison of particle tracking methods</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chenouard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Methods</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="page" from="281" to="289" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Bringing TrackMate into the era of machine-learning and deep-learning</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Ershov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">bioRxiv</title>
+		<imprint>
+			<biblScope unit="volume">09</biblScope>
+			<biblScope unit="issue">03</biblScope>
+			<biblScope unit="page">458852</biblScope>
+			<date type="published" when="2021">2021. 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Multiple dense particle tracking in fluorescence microscopy images based on multidimensional assignment</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Feng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Struct. Biol</title>
+		<imprint>
+			<biblScope unit="volume">173</biblScope>
+			<biblScope unit="page" from="219" to="228" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">PyJAMAS: open-source, multimodal segmentation and analysis of microscopy images</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Fernandez-Gonzalez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="page" from="594" to="596" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">SeeVis-3D space-time cube rendering for visualization of microfluidics image data</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Hattab</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">W</forename><surname>Nattkemper</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="1802" to="1804" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Tracking virus particles in fluorescence microscopy images using multi-scale detection and multi-frame association</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Jaiswal</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Image Process</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="4122" to="4136" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Robust single-particle tracking in live-cell time-lapse sequences</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Jaqaman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Methods</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="695" to="702" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Jupyter notebooks-a publishing format for reproducible computational workflows</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Kluyver</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Positioning and Power in Academic Publishing: Players, Agents and Agendas. Go ¨ttingen</title>
+		<editor>
+			<persName><forename type="first">F</forename><surname>Loizides</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">B</forename><surname>Schmidt</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Germany; Amsterdam, Netherlands</addrLine></address></meeting>
+		<imprint>
+			<publisher>IOS Press</publisher>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="page" from="87" to="90" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">SIMToolbox: a MATLAB toolbox for structured illumination fluorescence microscopy</title>
+		<author>
+			<persName><forename type="first">P</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="page" from="318" to="320" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Optimal-flow minimum-cost correspondence assignment in particle flow tracking</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Matov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Comput. Vis. Image Underst</title>
+		<imprint>
+			<biblScope unit="volume">115</biblScope>
+			<biblScope unit="page" from="531" to="540" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Cell tracking profiler-a user-driven analysis framework for evaluating 4D live-cell imaging data</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mitchell</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">J. Cell Sci</title>
+		<imprint>
+			<biblScope unit="volume">133</biblScope>
+			<biblScope unit="page">241422</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">BioImageIT: Open-source framework for integration of image data-management with analysis</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Prigent</surname></persName>
+		</author>
+		<idno>12.09.471919</idno>
+	</analytic>
+	<monogr>
+		<title level="j">bioRxiv</title>
+		<imprint>
+			<date type="published" when="2021">2021. 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Evaluation of methods for detection of fluorescence labeled subcellular objects in microscope images</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Ruusuvuori</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="page">248</biblScope>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Fiji: an open-source platform for biological-image analysis</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Schindelin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Methods</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page" from="676" to="682" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Cell detection with star-convex polygons</title>
+		<author>
+			<persName><forename type="first">U</forename><surname>Schmidt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Medical Image Computing and Computer Assisted Intervention-MICCAI 2018</title>
+		<editor>
+			<persName><forename type="first">A</forename><forename type="middle">F</forename><surname>Frangi</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Granada, Spain; Cham, Switzerland</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2018">2018</date>
+			<biblScope unit="page" from="265" to="273" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Dynamic multiple-target tracing to probe spatiotemporal cartography of cell membranes</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Serg E</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Methods</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="687" to="694" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Quantitative comparison of multiframe data association techniques for particle tracking in time-lapse fluorescence microscopy</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Smal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Meijering</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Med. Image Anal</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="163" to="189" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Quantitative comparison of spot detection methods in fluorescence microscopy</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Smal</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Trans. Med. Imaging</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="page" from="282" to="301" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sofroniew</surname></persName>
+		</author>
+		<idno type="DOI">10.5281/ZENODO.5587893(11</idno>
+		<ptr target="https://doi.org/10.5281/ZENODO.5587893(11" />
+		<imprint>
+			<date type="published" when="2021-03">2021. March 2022</date>
+			<biblScope unit="volume">0</biblScope>
+		</imprint>
+	</monogr>
+	<note>date last accessed</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">CellProfiler 4: improvements in speed, utility and usability</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Stirling</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Bioinformatics</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="page">433</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Cellpose: a generalist algorithm for cellular segmentation</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Stringer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Methods</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="100" to="106" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">TrackMate: an open and extensible platform for single-particle tracking</title>
+		<author>
+			<persName><forename type="first">J.-Y</forename><surname>Tinevez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Methods</title>
+		<imprint>
+			<biblScope unit="volume">115</biblScope>
+			<biblScope unit="page" from="80" to="90" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Automated deep lineage tree analysis using a Bayesian single cell tracking approach</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Ulicna</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Front. Comput. Sci</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page">734559</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Scikit-image: image processing in Python</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Van Der Walt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">PeerJ</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page">453</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">SciPy 1.0: fundamental algorithms for scientific computing in Python</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Virtanen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Methods</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="261" to="272" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Democratising deep learning for microscopy with ZeroCostDL4Mic</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Von Chamier</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Commun</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page">2276</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
 			</div>
 		</back>
 	</text>

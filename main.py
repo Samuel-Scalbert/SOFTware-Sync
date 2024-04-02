@@ -43,9 +43,12 @@ if __name__ == "__main__":
             print(message)
 
         if sys.argv[1] == "--enhance-dir":
-            if sys.argv[4] == "--project":
-                super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
-            else:
+            try:
+                if sys.argv[4] == "--project":
+                    super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
+                else:
+                    super_logger = setup_logger_main('super_logger', f'main_log.log')
+            except IndexError:
                 super_logger = setup_logger_main('super_logger', f'main_log.log')
             super_logger.info(f"------------------------------")
             super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")
@@ -67,9 +70,12 @@ if __name__ == "__main__":
                 json_enhance_xml(xml_path, json_path,super_logger)
 
         if sys.argv[1] == "--enhance-file":
-            if sys.argv[4] == "--project":
-                super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
-            else:
+            try:
+                if sys.argv[4] == "--project":
+                    super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
+                else:
+                    super_logger = setup_logger_main('super_logger', f'main_log.log')
+            except IndexError:
                 super_logger = setup_logger_main('super_logger', f'main_log.log')
             super_logger.info(f"------------------------------")
             super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")

@@ -1,2 +1,3 @@
 hal-03659476.grobid.tei.xml : line 146 <ref type="figure"></ref> 6 illustrates
-INFO : hal-03811257.grobid.tei.xml : line 228 <p><p><p>
+hal-03811257.grobid.tei.xml : line 228 <p><p><p>
+hal-03920592.pdf duplicate <p>

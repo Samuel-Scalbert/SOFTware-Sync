@@ -4,6 +4,46 @@ import os
 import logging
 import json
 
+
+def dict_to_hashable(d):
+    return tuple(sorted(d.items()))
+
+
+def duplicates_JSON(lst):
+    seen = set()
+    duplicates = []
+
+    for item in lst:
+        item_hashable = str(item)
+        if item_hashable in seen:
+            duplicates.append(item)
+        else:
+            seen.add(item_hashable)
+
+    return duplicates
+
+def find_differences_software(list1, list2):
+    dict1 = {}
+    dict2 = {}
+    for software in list1:
+        if software in dict1:
+            dict1[software] += 1
+        else:
+            dict1[software] = 1
+    for software in list2:
+        if software in dict2:
+            dict2[software] += 1
+        else:
+            dict2[software] = 1
+    for key in list(dict1.keys()):
+        if key in dict2:
+            dict1[key] -= dict2[key]
+            if dict1[key] == 0:
+                del dict1[key]
+        else:
+            dict1[key] = dict1[key]
+    return dict1
+
 def mention_checker(json_path):
     list_json = os.listdir(json_path)
     list_empty_json = []
