@@ -77,8 +77,6 @@ def wizzard_xml_json2(p, software_mentions, logger):
             else:
                 logger.critical(
                     f'error index (normal) software we found "{p_string[offsetStart_full_str: offsetStart_full_str + len(software)]}"')
-                error_msg.append(
-                    f'error index (normal) software we found "{p_string[offsetStart_full_str: offsetStart_full_str + len(software)]}"')
         #CLEANED
         characters = ['-\n','\n']
         for special_character in characters:
@@ -99,7 +97,6 @@ def wizzard_xml_json2(p, software_mentions, logger):
                         mention_found.append(software_mention)
                 else:
                     logger.critical(f'error index (cleaned) software for: {context}')
-                    error_msg.append(f'error index (cleaned) software for: {context}')
         #FUZZY
         if fuzz.partial_ratio(p_string, context) >= 95 and normal_found == -1 and cleaned_found == -1 and len(p_string) >= len(context):
             index_context_from_fuzzy = longest_common_substrings(p_string, context)
@@ -118,13 +115,10 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             mention_found.append(software_mention)
                     else:
                         logger.critical(f'error index (fuzzy) software for: {context}')
-                        error_msg.append(f'error index (fuzzy) software for: {context}')
                 else:
                     logger.critical(f'critical occurences, {software} {context}')
-                    error_msg.append(f'critical occurences, {software} {context}')
     if not full_list_software:
         return False
-    list_len = len(full_list_software) + len(original_sub_tags_list)
     full_list_software = sorted(full_list_software, key=lambda x: x[3])
     if len(original_sub_tags_list) == 0:
         tag_name, software, tail, index, type, attr, tech_found = full_list_software[0]
@@ -173,7 +167,6 @@ def wizzard_xml_json2(p, software_mentions, logger):
                     if str_alt_index == original_sub_tags_list[nb][3]:
                         break
                     logger.critical(f'{software} (start)')
-                    error_msg.append(f'{software} (start)')
                     break
         #MIDDLE
             try:
@@ -194,8 +187,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                             break
                         else:
-                            logger.critical(f'{software} (middle \ sub-ref error) ')
-                            error_msg.append(f'{software} (middle \ sub-ref error) ')
+                            logger.critical(f'{software} (middle)')
                             break
                     if len(original_sub_tags_list[nb]) == 6:
                         if new_tail_prior_tag + software + tail_software == old_string:
@@ -208,8 +200,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                             break
                         else:
-                            logger.critical(f'{software} (middle) "{new_tail_prior_tag + software + tail_software}" ')
-                            error_msg.append(f'{software} (middle) "{new_tail_prior_tag + software + tail_software}" ')
+                            logger.critical(f'{software} (middle)')
                             break
             #END
             except IndexError:
@@ -231,12 +222,12 @@ def wizzard_xml_json2(p, software_mentions, logger):
                         #DUP SOFTWARE
                         if str_alt_index == original_sub_tags_list[max_index][3]:
                             break
-                        logger.critical(f'{software} (end) ')
-                        error_msg.append(f'{software} (end) ')
+                        logger.critical(f'{software} (end)')
                         break
 
             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
             nb += 1
+
     for unfounded_tag in full_list_software:
         if unfounded_tag not in founded_tags_software:
             for nb, tags in enumerate(original_sub_tags_list):
@@ -244,7 +235,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
                 software = unfounded_tag[1]
                 #SOFTWARE-SUB-CHILD
                 if unfounded_tag[3] >= tags[3] and unfounded_tag[3] <= tags[3] + len(tags[1]):
-                    if unfounded_tag[3] == tags[3] and unfounded_tag[1] == tags[1]:
+                    if unfounded_tag[3] == tags[3] and unfounded_tag[1] == tags[1] and unfounded_tag[0] == tags[0]:
                         break
                     else:
                         new_text_tag = p_string[original_sub_tags_list[nb][3]:str_alt_index]
@@ -257,16 +248,19 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
                             break
                         else:
-                            logger.critical(f'{software}(middle \ inside) ')
-                            error_msg.append(f'{software}(middle \ inside) ')
+                            logger.critical(f'{software}(inside software)')
                             break
                 #TAG-SUB-CHILD
-                if unfounded_tag[3] < tags[3] and unfounded_tag[3] + len(unfounded_tag[1]) > tags[3] + len(tags[1]):
-                    new_sub_tail = p_string[tags[3] + len(tags[1]):tags[3]+ len(tags[1]) +len(tags[2])]
+                if unfounded_tag[3] < tags[3] and (unfounded_tag[3] + len(unfounded_tag[1])) > (tags[3] + len(tags[1])):
+                    new_software_tail = p_string[str_alt_index+len(software):tags[3]+ len(tags[1]) +len(tags[2])]
                     new_software_text = p_string[str_alt_index:tags[3]]
-                    new_child = [tags[0], tags[1], '', 'child_sub', tags[5]]
-                    tags = ['software', new_software_text, new_sub_tail, str_alt_index,'software',unfounded_tag[5],new_child]
-                    original_sub_tags_list[nb] = tags
+                    new_sub_tail = p_string[tags[3]+len(tags[1]):str_alt_index+len(software)]
+                    if p_string[str_alt_index:tags[3]+len(tags[1])+len(tags[2])] == new_software_text + tags[1] + new_sub_tail + new_software_tail:
+                        new_child = [tags[0], tags[1], new_sub_tail, 'child_sub', tags[5]]
+                        tags = ['software', new_software_text, new_software_tail, str_alt_index,'software',unfounded_tag[5],new_child]
+                        original_sub_tags_list[nb] = tags
+                    else:
+                        logger.critical(f'{software}(inside ref)')
 
     original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
     for elm in original_sub_tags_list:
@@ -301,4 +295,4 @@ def wizzard_xml_json2(p, software_mentions, logger):
                     software_child.set(keys, values)
             tag.insert(0, software_child)
         p.append(tag)
-    return [p,context_list_found,mention_found, error_msg, dup]
+    return [p,context_list_found,mention_found, dup]
