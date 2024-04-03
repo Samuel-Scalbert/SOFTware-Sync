@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import json
 from .wizzard import wizzard_xml_json2
 import os
-from package_perso.utils import setup_logger, find_differences_software,duplicates_JSON
+from package_perso.utils import setup_logger, find_differences_software,duplicates_JSON, replace_characters
 import shutil
 def json_enhance_xml(xml_path, json_path,super_logger):
 
@@ -34,6 +34,35 @@ def json_enhance_xml(xml_path, json_path,super_logger):
             software = mention["software-name"]["normalizedForm"]
             try:
                 mentions = mention["context"]
+                software_raw = mention["software-name"]["rawForm"]
+                offstart = mention["software-name"]['offsetStart']
+                if mentions[offstart:offstart+len(software_raw)] != software_raw:
+                    empty_space_software = []
+                    for i, char in enumerate(software_raw):
+                        if char == ' ':
+                            empty_space_software.append(i)
+                    if empty_space_software:
+                        software_from_string = mentions[offstart:offstart + len(software_raw)]
+                        software_from_string = replace_characters(software_from_string,empty_space_software,' ')
+                        if software_raw != software_from_string:
+                            print(f'"{software_raw}"')
+                            print(f'"{software_from_string}"')
+                            print(f'"{mentions}"\n')
+                            data_json_get_mentions.remove(mention)
+                    else:
+                        new_off = offstart
+                        if mentions[offstart:offstart + len(software)] != software:
+                            for i, char in enumerate(mentions):
+                                if ord(char) > 127 and i < offstart:
+                                    new_off -= 1
+                            if mentions[new_off:new_off + len(software)] == software:
+                                pass
+                            else:
+                                print(f'NEW')
+                                print(f'"{software_raw}"')
+                                print(f'"{mentions[offstart:offstart+len(software_raw)]}"')
+                                print(f'"{mentions}"\n')
+                                data_json_get_mentions.remove(mention)
             except KeyError:
                 data_json_get_mentions.remove(mention)
             list_mentions.append(mentions)

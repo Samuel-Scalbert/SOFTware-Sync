@@ -5,6 +5,16 @@ import logging
 import json
 
 
+def replace_characters(string, positions, new_char):
+    string_list = list(string)
+
+    for pos in positions:
+        if pos < len(string_list):
+            string_list[pos] = new_char
+
+    new_string = ''.join(string_list)
+    return new_string
+
 def dict_to_hashable(d):
     return tuple(sorted(d.items()))
 

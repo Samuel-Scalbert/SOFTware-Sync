@@ -52,6 +52,13 @@ def wizzard_xml_json2(p, software_mentions, logger):
             print(software)
         else:
             offsetStart = software_mention["software-name"]["offsetStart"]
+        new_off = offsetStart
+        if context[offsetStart:offsetStart + len(software)] != software:
+            for i, char in enumerate(context):
+                if ord(char) > 127 and i < offsetStart:
+                    new_off -= 1
+            if context[new_off:new_off + len(software)] == software:
+                offsetStart = new_off
         index_context = p_string.find(context)
         normal_found = -1
         cleaned_found = -1
@@ -68,8 +75,10 @@ def wizzard_xml_json2(p, software_mentions, logger):
                     context_list_found.append([context, software_list[6]])
                     mention_found.append(software_mention)
             else:
-                logger.critical(f'error index (normal) software we found "{p_string[offsetStart_full_str: offsetStart_full_str+len(software)]}"')
-                error_msg.append(f'error index (normal) software we found "{p_string[offsetStart_full_str: offsetStart_full_str+len(software)]}"')
+                logger.critical(
+                    f'error index (normal) software we found "{p_string[offsetStart_full_str: offsetStart_full_str + len(software)]}"')
+                error_msg.append(
+                    f'error index (normal) software we found "{p_string[offsetStart_full_str: offsetStart_full_str + len(software)]}"')
         #CLEANED
         characters = ['-\n','\n']
         for special_character in characters:
@@ -233,6 +242,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
             for nb, tags in enumerate(original_sub_tags_list):
                 str_alt_index = unfounded_tag[3]
                 software = unfounded_tag[1]
+                #SOFTWARE-SUB-CHILD
                 if unfounded_tag[3] >= tags[3] and unfounded_tag[3] <= tags[3] + len(tags[1]):
                     if unfounded_tag[3] == tags[3] and unfounded_tag[1] == tags[1]:
                         break
@@ -250,7 +260,13 @@ def wizzard_xml_json2(p, software_mentions, logger):
                             logger.critical(f'{software}(middle \ inside) ')
                             error_msg.append(f'{software}(middle \ inside) ')
                             break
-
+                #TAG-SUB-CHILD
+                if unfounded_tag[3] < tags[3] and unfounded_tag[3] + len(unfounded_tag[1]) > tags[3] + len(tags[1]):
+                    new_sub_tail = p_string[tags[3] + len(tags[1]):tags[3]+ len(tags[1]) +len(tags[2])]
+                    new_software_text = p_string[str_alt_index:tags[3]]
+                    new_child = [tags[0], tags[1], '', 'child_sub', tags[5]]
+                    tags = ['software', new_software_text, new_sub_tail, str_alt_index,'software',unfounded_tag[5],new_child]
+                    original_sub_tags_list[nb] = tags
 
     original_sub_tags_list = sorted(original_sub_tags_list, key=lambda x: x[3])
     for elm in original_sub_tags_list:

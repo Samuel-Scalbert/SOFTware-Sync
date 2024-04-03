@@ -1,3 +1,12 @@
 hal-03659476.grobid.tei.xml : line 146 <ref type="figure"></ref> 6 illustrates
 hal-03811257.grobid.tei.xml : line 228 <p><p><p>
 hal-03920592.pdf duplicate <p>
+
+hal-03882318.grobid.tei.xml
+"software-name": {
+                "rawForm": "nnU-Net",
+                "normalizedForm": "nnU-Net",
+                "offsetStart": 49,
+                "offsetEnd": 56
+            },
+            "context": "best network configuration. In the end, the model (or ensemble) which got the best pe",
