@@ -4,6 +4,32 @@ import os
 import logging
 import json
 
+def create_directory_structure(root_dir, project):
+    # Create root directory if it doesn't exist
+    if not os.path.exists(root_dir):
+        os.makedirs(root_dir)
+
+    # Create data directory
+    if project != None:
+        data_dir = os.path.join(root_dir, f'data_{project}')
+    else:
+        data_dir = os.path.join(root_dir, 'data')
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+
+    # Create subdirectories
+    subdirectories = [
+        'json_files/from_pdf',
+        'json_files/from_xml',
+        'xml_files/log_xml',
+        'xml_grobid',
+        'xml_meta'
+    ]
+
+    for subdir in subdirectories:
+        subdir_path = os.path.join(data_dir, subdir)
+        if not os.path.exists(subdir_path):
+            os.makedirs(subdir_path)
 
 def replace_characters(string, positions, new_char):
     string_list = list(string)

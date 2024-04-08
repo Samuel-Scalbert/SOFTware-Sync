@@ -1,6 +1,7 @@
 import sys
 from json_xml.json_xml import json_enhance_xml
-from package_perso.utils import common_file_xml_json, setup_logger_main, common_file_xmlgrobid_xmlmeta, mention_checker
+from json_xml.software_tags_count import software_counts
+from package_perso.utils import common_file_xml_json, setup_logger_main, common_file_xmlgrobid_xmlmeta, mention_checker, create_directory_structure
 from meta_grobid_xml.xml_builder import xml_builder
 from meta_grobid_xml.scrapper import downloader_halid
 import os
@@ -12,39 +13,51 @@ if __name__ == "__main__":
 
     message = """Available options for SOFTware-Sync:
 
-1. --enhance-dir : Enhance multiple XML files in a directory by associating them with corresponding JSON files.
-   Usage: python main.py --enhance-dir <dir_xml_path> <dir_json_path>
+    1. --enhance-dir : Enhance multiple XML files in a directory by associating them with corresponding JSON files.
+       Usage: python main.py --enhance-dir <dir_xml_path> <dir_json_path>
 
-2. --enhance-file : Enhance a single XML file by associating it with a JSON file.
-   Usage: python main.py --enhance-file <xml_path> <json_path>
+    2. --enhance-file : Enhance a single XML file by associating it with a JSON file.
+       Usage: python main.py --enhance-file <xml_path> <json_path>
+       
+       options available : "--project" / "--only-mention" 
 
-3. --builder : Build XML files by combining Grobid TEI XML and metadata XML files.
-   Usage: python main.py --builder <xml_path_grobid> <xml_path_meta>
+    3. --builder : Build XML files by combining Grobid TEI XML and metadata XML files.
+       Usage: python main.py --builder <xml_path_grobid> <xml_path_meta>
 
-5. --help, -h : Display this message.
-   Usage: python main.py --help
+    4. --check-XML-META : Check the number of XML files available against the number of metadata XML files.
+       Usage: python main.py --check-XML-META <xml_path_grobid> <xml_path_meta>
 
-6. --check-XML-META : Check the number of XML files available against the number of metadata XML files.
-   Usage: python main.py --check-XML-META <xml_path_grobid> <xml_path_meta>
+    5. --check-XML-JSON : Check the number of XML files available against the number of JSON files.
+       Usage: python main.py --check-XML-JSON <xml_path> <json_path>
 
-7. --check-XML-JSON : Check the number of XML files available against the number of JSON files.
-   Usage: python main.py --check-XML-JSON <xml_path> <json_path>
-   
-8. --csv-creator : Create a csv to display the number of mentions and its occurrences of a software.
-    Usage: python main.py --csv-creator <json_path>
+    6. --csv-creator : Create a csv to display the number of mentions and its occurrences of a software.
+       Usage: python main.py --csv-creator <json_path>
 
-9. --mentions-checker : Check for empty JSON mentions files.
-    Usage: python main.py --mentions-checker <json_path>
-            """
+    7. --mentions-checker : Check for empty JSON mentions files.
+       Usage: python main.py --mentions-checker <json_path>
 
-    if sys.argv[1] in ["--download-halid","--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
+    8. --download-halid : Download files from Hal ID.
+       Usage: python main.py --download-halid <csv_path>
+
+    9. --help, -h : Display this message.
+       Usage: python main.py --help
+    """
+
+    if sys.argv[1] in ["--data-dir", "--software-tags", "--download-halid","--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
 
         if sys.argv[1] in ["--help","-h"]:
             print(message)
 
+        if sys.argv[1] == "--data-dir":
+            if len(sys.argv) == 3:
+                create_directory_structure('./', sys.argv[2])
+            else:
+                project = None
+                create_directory_structure('./', project)
+
         if sys.argv[1] == "--enhance-dir":
             try:
-                if sys.argv[4] == "--project":
+                if sys.argv[4] == "--project" or sys.argv[6] == "--project":
                     super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
                 else:
                     super_logger = setup_logger_main('super_logger', f'main_log.log')
@@ -83,6 +96,15 @@ if __name__ == "__main__":
             json_path = sys.argv[3]
             print(xml_path)
             json_enhance_xml(xml_path, json_path,super_logger)
+
+        if sys.argv[1] == "--software-tags":
+            xml_path = sys.argv[2]
+            xml_path_file = os.listdir(xml_path)
+            nb_tags = 0
+            print(len(xml_path_file))
+            for file in tqdm(xml_path_file, colour = 'blue'):
+                nb_tags += software_counts(f'{xml_path}{file}')
+            print(nb_tags)
 
         if sys.argv[1] == "--builder":
             xml_path_grobid = sys.argv[2]

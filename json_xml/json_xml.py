@@ -16,7 +16,6 @@ def json_enhance_xml(xml_path, json_path,super_logger):
     with open(json_path, 'r') as json_file:
         data_json = json.load(json_file)
         data_json_get_mentions = data_json.get("mentions")
-        print(len(data_json_get_mentions))
         for elm in duplicates_JSON(data_json_get_mentions):
             data_json_get_mentions.remove(elm)
         software_types = {}
@@ -117,8 +116,8 @@ def json_enhance_xml(xml_path, json_path,super_logger):
             found_type[context[1]] = 1
     super_logger.info(found_type)
     list_tag_software = root.findall(".//software", ns)
-    print(len(software_list_json),len(nb_all_duplicates))
-    if (len(list_tag_software) <= len(software_list_json) - len(nb_all_duplicates)) or (mentions_count - len(data_json_get_mentions) != mentions_count):
+    if (len(list_tag_software) < (len(software_list_json) - len(nb_all_duplicates))) or (mentions_count - len(data_json_get_mentions) != mentions_count):
+        print(len(list_tag_software), len(software_list_json), len(nb_all_duplicates))
         context_list_found = [elm[0] for elm in context_list_found]
         super_logger.critical(f'{mentions_count - len(data_json_get_mentions)}/{mentions_count} mentions found in xml')
         super_logger.critical(f'{len(list_tag_software)}/{len(software_list_json) - len(nb_all_duplicates)} software tags added')

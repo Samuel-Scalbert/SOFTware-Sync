@@ -25,16 +25,15 @@ def json_parser_csv(data_path):
     for json_file in list_json_files:
         data = solo_json_reader(json_file, data_path)
         for software_mention in data.get("mentions"):
-            if software_mention["software-type"] == "software":
-                software_name = software_mention["software-name"]["normalizedForm"]
-                if software_name in mentions_count:
-                    mentions_count[software_name][0] += 1
-                else:
-                    mentions_count[software_name] = [1, 1]
+            software_name = software_mention["software-name"]["normalizedForm"]
+            if software_name in mentions_count:
+                mentions_count[software_name][0] += 1
+            else:
+                mentions_count[software_name] = [1, 1]
 
-                if json_file != json_file_old:
-                    mentions_count[software_name][1] += 1
-                    json_file_old = json_file
+            if json_file != json_file_old:
+                mentions_count[software_name][1] += 1
+                json_file_old = json_file
 
     counts = []
     documents = []
@@ -43,17 +42,19 @@ def json_parser_csv(data_path):
     for count_doc, doc in list(mentions_count.values()):
         counts.append(count_doc)
         documents.append(doc)
-
+    nb_counts = 0
+    for elm in counts:
+        nb_counts += elm
     data = {}
     data['software'] = software_names
-    data['counts'] = counts
+    data[f'counts'] = counts
     data['document'] = documents
 
     df = pd.DataFrame(data)
 
     df_sorted = df.sort_values(by='counts', ascending=False)
 
-    df_sorted.to_csv(f'./result/CSV_software/mentions_{len(counts)}_sorted.csv', index=False)
+    df_sorted.to_csv(f'./result/CSV_software/mentions_{nb_counts}_sorted.csv', index=False)
 
-    print(f"'mentions_{len(counts)}_sorted.csv' was created")
+    print(f"mentions_{nb_counts}_sorted.csv was created")
 

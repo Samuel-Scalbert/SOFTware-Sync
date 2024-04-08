@@ -26,7 +26,7 @@ def wizzard_xml_json2(p, software_mentions, logger):
             index = original_sub_tags_list[-1][3] + len(original_sub_tags_list[-1][1]) + len(
                 original_sub_tags_list[-1][2])
         if p_string[index:index + len(elm.text)] != elm.text:
-            print('error')
+            continue
         else:
             new_tag = [elm.tag, elm.text, elm.tail, index, "sub-element", attributes_dict]
         original_sub_tags_list.append(new_tag)
