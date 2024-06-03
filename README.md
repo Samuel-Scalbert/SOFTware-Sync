@@ -14,6 +14,9 @@
 	<!-- default option, no dependency badges. -->
 </p>
 
+![Capture d’écran du 2024-06-03 16-39-41](https://github.com/Samuel-Scalbert/SOFTware-Sync/assets/32683708/5245f80a-d945-4921-ba38-75b996a24d8a)
+
+
 ##  Overview
 
 ### Purpose:
