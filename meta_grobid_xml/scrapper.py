@@ -115,7 +115,10 @@ def download_by_id(uris_list,type):
     for uris_id in tqdm(uris_list):
         time.sleep(0.1)
         # Construct the full URL using the provided ID
-        url = f'https://inria.hal.science/{uris_id}/document'
+        if type == "pdf":
+            url = f'https://inria.hal.science/{uris_id}/document'
+        else:
+            url = f'https://inria.hal.science/{uris_id}/tei'
 
         # Send an HTTP GET request to the PDF URL
         try:
@@ -159,10 +162,18 @@ def download_by_id(uris_list,type):
                 print(f"Error for {url}: {e}")
     print(error)
 
-def downloader_halid(csv_path):
+def downloader_halid_pdf(csv_path):
     with open(csv_path, 'r') as read_obj:
         csv_reader = csv.reader(read_obj)
         list_of_csv = []
         for uris in list(csv_reader):
             list_of_csv.append(uris[0])
         download_by_id(list_of_csv, 'pdf')
+
+def downloader_halid_meta(csv_path):
+    with open(csv_path, 'r') as read_obj:
+        csv_reader = csv.reader(read_obj)
+        list_of_csv = []
+        for uris in list(csv_reader):
+            list_of_csv.append(uris[0])
+        download_by_id(list_of_csv, 'xml')

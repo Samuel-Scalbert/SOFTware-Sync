@@ -3,7 +3,7 @@ from json_xml.json_xml import json_enhance_xml
 from json_xml.software_tags_count import software_counts
 from package_perso.utils import common_file_xml_json, setup_logger_main, common_file_xmlgrobid_xmlmeta, mention_checker, create_directory_structure
 from meta_grobid_xml.xml_builder import xml_builder
-from meta_grobid_xml.scrapper import downloader_halid
+from meta_grobid_xml.scrapper import downloader_halid_pdf, downloader_halid_meta
 import os
 from tqdm import tqdm
 from json_software_displayer.software_displayer import json_parser_csv
@@ -36,14 +36,16 @@ if __name__ == "__main__":
     7. --mentions-checker : Check for empty JSON mentions files.
        Usage: python main.py --mentions-checker <json_path>
 
-    8. --download-halid : Download files from Hal ID.
+    8. --download-halid-pdf : Download files from Hal ID.
        Usage: python main.py --download-halid <csv_path>
+       
+    9. --download-halid-meta : Download files from Hal ID.
+       Usage: python main.py --download-halid <csv_path>   
 
-    9. --help, -h : Display this message.
+    10. --help, -h : Display this message.
        Usage: python main.py --help
     """
-
-    if sys.argv[1] in ["--data-dir", "--software-tags", "--download-halid","--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
+    if sys.argv[1] in ["--download-halid-meta", "--data-dir", "--software-tags", "--download-halid-pdf","--mentions-checker","--enhance-dir","--enhance-file","--builder","--checker-files","--help", "-h","--check-XML-META", "--check-XML-JSON", "--csv-creator"]:
 
         if sys.argv[1] in ["--help","-h"]:
             print(message)
@@ -137,9 +139,13 @@ if __name__ == "__main__":
             path_json = sys.argv[2]
             print(f'{len(mention_checker(path_json))} JSON files without mentions')
 
-        if sys.argv[1] == "--download-halid":
+        if sys.argv[1] == "--download-halid-pdf":
             csv_path = sys.argv[2]
-            downloader_halid(csv_path)
+            downloader_halid_pdf(csv_path)
+
+        if sys.argv[1] == "--download-halid-meta":
+            csv_path = sys.argv[2]
+            downloader_halid_meta(csv_path)
 
     else:
         print(message)
