@@ -59,30 +59,43 @@ if __name__ == "__main__":
 
         if sys.argv[1] == "--enhance-dir":
             try:
-                if sys.argv[4] == "--project" or sys.argv[6] == "--project":
-                    super_logger = setup_logger_main('super_logger', f'{sys.argv[5]}.log')
+                # Handle --project argument if it exists
+                if "--project" in sys.argv:
+                    project_index = sys.argv.index("--project") + 1
+                    if project_index < len(sys.argv):
+                        super_logger = setup_logger_main('super_logger', f'{sys.argv[project_index]}.log')
+                    else:
+                        super_logger = setup_logger_main('super_logger', f'main_log.log')
                 else:
                     super_logger = setup_logger_main('super_logger', f'main_log.log')
+
             except IndexError:
                 super_logger = setup_logger_main('super_logger', f'main_log.log')
+
+            # Logging execution information
             super_logger.info(f"------------------------------")
             super_logger.info(f"{datetime.now()} / {' '.join(sys.argv)} \n")
+
+            # Paths from arguments
             dir_xml_path = sys.argv[2]
             dir_json_path = sys.argv[3]
-            list_common_file = common_file_xml_json(dir_xml_path,dir_json_path)
-            if sys.argv[4] == "--only-mention" or sys.argv[6] == "--only-mention":
+            list_common_file = common_file_xml_json(dir_xml_path, dir_json_path)
+
+            # Handle --only-mention argument if it exists
+            if "--only-mention" in sys.argv:
                 nb_file = len(list_common_file)
                 list_json_mention = mention_checker(dir_json_path)
                 for empty_file in list_json_mention:
-                    empty_file = empty_file.replace('.software.json','')
+                    empty_file = empty_file.replace('.software.json', '')
                     if empty_file in list_common_file:
                         list_common_file.remove(empty_file)
                 print(f'{len(list_common_file)}/{nb_file} JSON files with mentions')
 
-            for file in tqdm(list_common_file, colour = 'red'):
+            # Iterate through the common files
+            for file in tqdm(list_common_file, colour='red'):
                 xml_path = dir_xml_path + file + '.grobid.tei.xml'
                 json_path = dir_json_path + file + '.software.json'
-                json_enhance_xml(xml_path, json_path,super_logger)
+                json_enhance_xml(xml_path, json_path, super_logger)
 
         if sys.argv[1] == "--enhance-file":
             try:
