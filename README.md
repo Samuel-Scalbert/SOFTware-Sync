@@ -1,6 +1,11 @@
 <p align="center">
     <h1 align="center">SOFTWARE-SYNC</h1>
 </p>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/718747cf-a7c2-4770-84f9-ad547edc623d" alt="logo_full_HUB" width="250" />
+</div>
+
 <p align="center">
     <em>Efficient Python Tools for Enhanced Software Sync</em>
 </p>
