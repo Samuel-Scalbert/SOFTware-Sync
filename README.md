@@ -38,6 +38,26 @@ SOFTCITE Outputs: JSON files containing results of software citation detection.
 Enhanced XML Files: XML files augmented with details of every software mentioned in the input documents.
 CSV Summary Files: CSV files listing every software mention detected across the input documents, along with relevant metadata.---
 
+##  Installation
+
+<h4>From <code>source</code></h4>
+
+> 1. Clone the SOFTware-Sync repository:
+>
+> ```console
+> git clone https://github.com/Samuel-Scalbert/SOFTware-Sync
+> ```
+>
+> 2. Change to the project directory:
+> ```console
+> cd SOFTware-Sync
+> ```
+>
+> 3. Install the dependencies:
+> ```console
+> pip install -r requirements.txt
+> ```
+
 ##  Features
 
 ```
@@ -75,75 +95,18 @@ Available options for SOFTware-Sync:
 
 ---
 
-##  Repository Structure
-
-```sh
-└── SOFTware-Sync/
-    ├── README.md
-    ├── dif_checker
-    │   ├── __init__.py
-    │   └── checker.py
-    ├── error_grobid.txt
-    ├── json_software_displayer
-    │   ├── __init__.py
-    │   └── software_displayer.py
-    ├── json_xml
-    │   ├── __init__.py
-    │   ├── json_xml.py
-    │   ├── software_tags_count.py
-    │   └── wizzard.py
-    ├── main.py
-    ├── meta_grobid_xml
-    │   ├── __init__.py
-    │   ├── scrapper.py
-    │   └── xml_builder.py
-    ├── package_perso
-    │   ├── __init__.py
-    │   └── utils.py
-    ├── requirements.txt
-    ├── result
-    │   ├── XML_meta_software
-    │   └── XML_software
-    └── venv
-        ├── .gitignore
-        ├── bin
-        └── pyvenv.cfg
-```
----
-
-##  Getting Started
-
-**System Requirements:**
-
-* **Python**: `version x.y.z`
-
-###  Installation
-
-<h4>From <code>source</code></h4>
-
-> 1. Clone the SOFTware-Sync repository:
->
-> ```console
-> $ git clone https://github.com/Samuel-Scalbert/SOFTware-Sync
-> ```
->
-> 2. Change to the project directory:
-> ```console
-> $ cd SOFTware-Sync
-> ```
->
-> 3. Install the dependencies:
-> ```console
-> $ pip install -r requirements.txt
-> ```
-
-###  Usage
+##  Usage
 
 <h4>From <code>source</code></h4>
 
 > Run SOFTware-Sync using the command below:
 > ```console
-> $ python main.py
+> python main.py
+> ```
+>
+> Run SOFTware-Sync to enhance multiple XML files in a directory by associating them with corresponding JSON files:
+> ```console
+> python main.py --enhance-dir ../data/XML/ ../data/JSON/
 > ```
 
 ---
